@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';  // Import the CSS file
+import './Navbar.css';  
 
 function Navbar() {
   return (
@@ -8,9 +8,9 @@ function Navbar() {
       <div className="logo">
         
         <img 
-            src="/logo.png"  // Use the path to the logo image in the public folder
-            alt="Your Logo"  // Alt text for accessibility
-            style={{ width: '100px', height: 'auto' }}  // Adjust the size as needed
+            src="/logo.png"  
+            alt="Your Logo"  
+            style={{ width: '100px', height: 'auto' }}  
           />
       </div>
       <ul>

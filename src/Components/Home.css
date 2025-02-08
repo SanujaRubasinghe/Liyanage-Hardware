@@ -10,7 +10,8 @@
   /* Carousel holding the images, set to display flex for horizontal sliding */
   .carousel {
     display: flex;
-    transition: transform 3s ease-in-out; /* Smooth transition for sliding the images */
+    /* transition: transform 3s ease-in-out;  */
+    /* Smooth transition for sliding the images */
   }
   
   /* Style for each image */

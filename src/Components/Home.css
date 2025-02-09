@@ -1,55 +1,54 @@
 /* Container for the entire carousel */
 .carousel-container {
-    position: relative;
-    width: 100%;
-     /* Limit the width of the carousel */
-    margin: auto; /* Center the carousel */
-    /* Hide overflow to ensure only one image is visible at a time */
-  }
-  
-  /* Carousel holding the images, set to display flex for horizontal sliding */
-  .carousel {
-    display: flex;
-    /* transition: transform 3s ease-in-out;  */
-    /* Smooth transition for sliding the images */
-  }
-  
-  /* Style for each image */
-  .carousel-image {
-    width: 100%; /* Each image will take full width of the carousel container */
-    height: 400px; /* Set the height of the carousel */
-  }
-  
-  .carousel-image img {
-    width: 100%; /* Make the image take full width */
-    height: 100%; /* Make the image take full height */
-    object-fit: cover; /* Ensure the image covers the full container without distortion */
-  }
-  
-  /* Button styling */
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 30px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 10; /* Make sure buttons are on top of images */
-  }
-  
-  .prev {
-    left: 10px; /* Position the left button on the left side */
-  }
-  
-  .next {
-    right: 10px; /* Position the right button on the right side */
-  }
-  
-  /* Button hover effect */
-  .carousel-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
+  position: relative;
+  width: 100%;
+   /* Limit the width of the carousel */
+  margin: auto; /* Center the carousel */
+  /* Hide overflow to ensure only one image is visible at a time */
+}
+
+/* Carousel holding the images, set to display flex for horizontal sliding */
+.carousel {
+  display: flex;
+  /* transition: transform 3s ease-in-out;  */
+  /* Smooth transition for sliding the images */
+}
+
+/* Style for each image */
+.carousel-image {
+  width: 100%; /* Each image will take full width of the carousel container */
+  height: 400px; /* Set the height of the carousel */
+}
+
+.carousel-image img {
+  width: 100%; /* Make the image take full width */
+  height: 100%; /* Make the image take full height */
+  object-fit: cover; /* Ensure the image covers the full container without distortion */
+}
+
+/* Button styling */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10; /* Make sure buttons are on top of images */
+}
+
+.prev {
+  left: 10px; /* Position the left button on the left side */
+}
+
+.next {
+  right: 10px; /* Position the right button on the right side */
+}
+
+/* Button hover effect */
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}

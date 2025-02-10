@@ -8,9 +8,9 @@ function Product({ name, price, image, onBuyClick }) {
       <h3>{name}</h3>
       <p className="product-price">{price}</p>
       {/* Button to handle buy action */}
-      <button className="buy-button" onClick={onBuyClick}>
+      {/* <button className="buy-button" onClick={onBuyClick}>
         Buy Now
-      </button>
+      </button> */}
     </div>
   );
 }

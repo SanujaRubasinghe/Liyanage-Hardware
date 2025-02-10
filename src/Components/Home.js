@@ -5,30 +5,8 @@ import Product from './Product';
 
 
 function Home() {
-    const images = [
-        '/images/img1.jpg', 
-        '/images/img2.jpg',
-        '/images/img3.jpg',
-    ];
-
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    // Automatically change image every 1.7 seconds
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prevIndex) =>
-                prevIndex === images.length - 1 ? 0 : prevIndex + 1
-            );
-        }, 1700); // Change image every 1.7 seconds
-
-        return () => clearInterval(interval); // Cleanup the interval on component unmount
-    }, [images.length]);
-
-    // Handle Buy Now button click
-    const handleBuyClick = (productName) => {
-        alert(`You clicked "Buy Now" for ${productName}`);
-    };
-
+    const handleBuyClick = (productName) => {}
+    
     const products = [
         { name: 'Product 1', price: '$10', image: '/images/product1.jpg' },
         { name: 'Product 2', price: '$15', image: '/images/product2.jpg' },
@@ -39,19 +17,6 @@ function Home() {
 
     return (
         <div>
-            <div className="carousel-container">
-                <div className="carousel" style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}>
-                    {images.map((image, index) => (
-                        <div key={index} className="carousel-image">
-                            <img src={image} alt={`Slide ${index}`} />
-                        </div>
-                    ))}
-                </div>
-                
-                <button className="carousel-button prev" onClick={() => setCurrentImageIndex((prevIndex) => prevIndex === 0 ? images.length - 1 : prevIndex - 1)}>&#8592;</button>
-                <button className="carousel-button next" onClick={() => setCurrentImageIndex((prevIndex) => prevIndex === images.length - 1 ? 0 : prevIndex + 1)}>&#8594;</button>
-            </div>
-
             
             <div className="product-grid">
                 {products.map((product, index) => (

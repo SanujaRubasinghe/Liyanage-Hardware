@@ -6,13 +6,18 @@ import JobSeekers from './Components/JobSeekers';
 import AboutUs from './Components/AboutUs';
 import ContactUs from './Components/ContactUs';
 import Testh from './Components/Testh';
+import Slideshow from './Components/Slideshow';
 
 
 
 function App() {
   return (
+    <div>
+
     <Router>
       <Navbar />
+      
+      <Slideshow />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/job-seekers" element={<JobSeekers />} />
@@ -21,6 +26,8 @@ function App() {
         <Route path="/Testh" element={<Testh />} />
       </Routes>
     </Router>
+
+    </div>
   );
 }
 

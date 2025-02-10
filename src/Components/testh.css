@@ -1,0 +1,71 @@
+/* Container for the entire carousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden; /* Hide overflowing images */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Carousel holding the images, set to display flex for horizontal sliding */
+  .carousel {
+    display: flex;
+    width: 300%; /* Adjust based on the number of images */
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  /* Style for each image */
+  .carousel-image {
+    width: 100%; /* Each image takes the full width of the carousel container */
+    height: 400px; /* Set the height of the carousel */
+  }
+  
+  .carousel-image img {
+    width: 100%; /* Make the image take full width */
+    height: 100%; /* Make the image take full height */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    border-radius: 10px;
+  }
+  
+  /* Button styling */
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10; /* Ensure buttons are on top of images */
+    border-radius: 50%;
+  }
+  
+  .prev {
+    left: 10px; /* Position the left button on the left side */
+  }
+  
+  .next {
+    right: 10px; /* Position the right button on the right side */
+  }
+  
+  /* Button hover effect */
+  .carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Product grid styling */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  

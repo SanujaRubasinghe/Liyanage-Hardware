@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'; 
 import './Product.css'; 
-import Product from './Product'; 
+import Product from './Product';
+
 
 function Home() {
     const images = [

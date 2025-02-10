@@ -12,7 +12,12 @@ function Home() {
         { name: 'Product 2', price: '$15', image: '/images/8.jpg' },
         { name: 'Product 3', price: '$20', image: '/images/9.jpg' },
         { name: 'Product 4', price: '$25', image: '/images/12.jpg' },
+        { name: 'Product 5', price: '$30', image: '/images/10.jpg' },
+        { name: 'Product 5', price: '$30', image: '/images/9.jpg' },
+        { name: 'Product 5', price: '$30', image: '/images/8.jpg' },
+        { name: 'Product 5', price: '$30', image: '/images/12.jpg' },
         { name: 'Product 5', price: '$30', image: '/images/13.jpg' },
+        { name: 'Product 5', price: '$30', image: '/images/14.jpg' },
     ];
 
     return (

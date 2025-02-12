@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
+
   }
   
   .search-form {
@@ -11,7 +12,7 @@
     border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px 16px;
-    width: 400px;
+    width: 1000px;
   }
   
   .search-input {
@@ -19,7 +20,7 @@
     outline: none;
     padding: 8px;
     font-size: 16px;
-    width: 80%;
+    width: 100%;
     border-radius: 30px;
     background-color: #f2f2f2;
     margin-right: 8px;

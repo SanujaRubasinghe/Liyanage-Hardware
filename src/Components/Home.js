@@ -8,11 +8,14 @@ function Home() {
     const handleBuyClick = (productName) => {}
     
     const products = [
-        { name: '', price: '', image: '/images/10.jpg' },
-        { name: '', price: '', image: '/images/8.jpg' },
-        { name: '', price: '', image: '/images/9.jpg' },
-        { name: '', price: '', image: '/images/12.jpg' },
-        { name: '', price: '', image: '/images/10.jpg' },
+        { name: '', price: '', image: '/images/c17.jpg' },
+        { name: '', price: '', image: '/images/c18.jpg' },
+        { name: '', price: '', image: '/images/c7.jpg' },
+        { name: '', price: '', image: '/images/c1.jpg' },
+        { name: '', price: '', image: '/images/c15.jpg' },
+        { name: '', price: '', image: '/images/c11.jpg' },
+        { name: '', price: '', image: '/images/c13.jpg' },
+        { name: '', price: '', image: '/images/c19.jpg' },
       
     ];
 

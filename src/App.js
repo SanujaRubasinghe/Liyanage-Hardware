@@ -5,8 +5,11 @@ import Home from './Components/Home';
 import JobSeekers from './Components/JobSeekers';
 import AboutUs from './Components/AboutUs';
 import ContactUs from './Components/ContactUs';
-import Testh from './Components/Testh';
+import Testh from './Components/Testh'; // Ensure the case matches
+import ImageDeliver from './Components/ImageDeliver';
+
 import Slideshow from './Components/Slideshow';
+import SearchBar from './Components/SearchBar';
 
 
 
@@ -18,6 +21,8 @@ function App() {
       <Navbar />
       
       <Slideshow />
+      <ImageDeliver/>
+      <SearchBar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/job-seekers" element={<JobSeekers />} />

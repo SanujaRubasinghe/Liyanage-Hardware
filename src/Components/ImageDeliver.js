@@ -4,7 +4,7 @@ import './ImageComponent.css';
 function ImageComponent(){
   return (
     <div className="image-container">
-      <img src="/images/DeliverImage.jpg" alt="Description of Image" />
+      <img src="/images/DeliverImage.jpg" alt="Description of devilar" />
     </div>
   );
 };

@@ -8,10 +8,8 @@ const slides = [
 ];
 
 function Slideshow() {
-  // Use 0-based indexing for the slides array
   const [slideIndex, setSlideIndex] = useState(0);
 
-  // Navigate to the next or previous slide
   const changeSlide = (n) => {
     let newIndex = slideIndex + n;
     if (newIndex >= slides.length) {
@@ -22,7 +20,6 @@ function Slideshow() {
     setSlideIndex(newIndex);
   };
 
-  // Directly set a slide based on the dot clicked
   const goToSlide = (index) => {
     setSlideIndex(index);
   };
@@ -36,13 +33,20 @@ function Slideshow() {
             key={index}
             style={{ display: index === slideIndex ? 'block' : 'none' }}
           >
-            <div className="numbertext">{index + 1} / {slides.length}</div>
+            <div className="numbertext">
+              {index + 1} / {slides.length}
+            </div>
             <img src={slide.src} alt={`Slide ${index + 1}`} style={{ width: '100%' }} />
             <div className="text">{slide.caption}</div>
           </div>
         ))}
-        <a className="prev" onClick={() => changeSlide(-1)}>❮</a>
-        <a className="next" onClick={() => changeSlide(1)}>❯</a>
+        {/* Replace anchor tags with buttons for accessibility */}
+        <button className="prev" onClick={() => changeSlide(-1)}>
+          ❮
+        </button>
+        <button className="next" onClick={() => changeSlide(1)}>
+          ❯
+        </button>
       </div>
       <br />
       <div style={{ textAlign: 'center' }}>

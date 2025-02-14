@@ -1,13 +1,14 @@
 .image-container {
   width: 100%; /* Container takes full width */
   display: flex;
-  height: auto; /* Adjusted height to be flexible */
   justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  overflow: hidden; /* Ensure the image doesn't overflow the container */
 }
 
 .image-container img {
-  width: 95%; /* Keep the image taking most of the container's width */
-  height: auto; /* Let the height adjust automatically based on aspect ratio */
-  max-width: 100%; /* Ensure the image does not overflow */
-  object-fit: contain; /* Or 'cover' depending on your preference */
+  width: 100%; /* Stretch the image to fill the container's width */
+  height: 400px; /* Set a fixed height for the image (adjust as needed) */
+  object-fit: fit
+  ; /* Cover the area, cropping if necessary */
 }

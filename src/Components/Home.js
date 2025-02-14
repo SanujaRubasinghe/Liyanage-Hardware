@@ -25,11 +25,11 @@ function Home() {
             <div className="product-grid">
                 {products.map((product, index) => (
                     <Product 
-                        key={index}
-                        name={product.name}
-                        price={product.price}
+                        // key={index}
+                        // name={product.name}
+                        // price={product.price}
                         image={product.image}
-                        onBuyClick={() => handleBuyClick(product.name)} // Pass handleBuyClick as a prop
+                        // onBuyClick={() => handleBuyClick(product.name)} 
                     />
                 ))}
             </div>

@@ -8,7 +8,7 @@
 
 .image-container img {
   width: 100%; /* Stretch the image to fill the container's width */
-  height: 400px; /* Set a fixed height for the image (adjust as needed) */
+  height: 200px; /* Set a fixed height for the image (adjust as needed) */
   object-fit: fit
   ; /* Cover the area, cropping if necessary */
 }

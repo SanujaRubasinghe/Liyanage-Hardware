@@ -37,7 +37,7 @@ function Slideshow() {
               {index + 1} / {slides.length}
             </div>
             <img src={slide.src} alt={`Slide ${index + 1}`} style={{ width: '100%' }} />
-            <div className="text">{slide.caption}</div>
+            
           </div>
         ))}
         {/* Replace anchor tags with buttons for accessibility */}

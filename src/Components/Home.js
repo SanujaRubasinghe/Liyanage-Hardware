@@ -7,7 +7,7 @@ function Home() {
   const headerTitle = "Categories";
 
   const products = [
-    { id: 1, image: '/images/c17.jpg' },
+    { id: 1, image: '/images/c21.jpg' },
     { id: 2, image: '/images/c18.jpg' },
     { id: 3, image: '/images/c7.jpg' },
     { id: 4, image: '/images/c1.jpg' },

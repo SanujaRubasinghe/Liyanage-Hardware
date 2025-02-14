@@ -1,17 +1,13 @@
 .image-container {
-    width: 100%; /* Container takes full width */
-    display: flex;
-    height: 60%;
-   
-    justify-content: center; /* Center the image horizontally */
-  }
-  
-  .image-container img {
-    width: 95%;
-    height: 20%;
-    max-width: 100%;  /* Ensure the image does not overflow */
-    max-height: 60%; /* Ensure the image does not exceed the container height */
-    object-fit: contain; /* Or 'cover' depending on your preference */
-  
-  }
-  
+  width: 100%; /* Container takes full width */
+  display: flex;
+  height: auto; /* Adjusted height to be flexible */
+  justify-content: center; /* Center the image horizontally */
+}
+
+.image-container img {
+  width: 95%; /* Keep the image taking most of the container's width */
+  height: auto; /* Let the height adjust automatically based on aspect ratio */
+  max-width: 100%; /* Ensure the image does not overflow */
+  object-fit: contain; /* Or 'cover' depending on your preference */
+}

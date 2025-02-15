@@ -1,11 +1,12 @@
 :root {
-    --num-logo: 2;
+    --num-logo: 10;
 }
 
 .brand-container {
     height: 100px;
     width: 100%;
-    max-width: 1536px;
+    /* max-width: 1536px; */
+    max-width: 100vw;
     margin-inline: auto;
     position: relative;
     margin-top: 5rem;
@@ -25,7 +26,7 @@
     height: 100px;
     border-radius: 10px;
     position: absolute;
-    left: calc(200px * var(--num-logo));
+    left: calc(300px * var(--num-logo));
     animation-name: scrollLeft;
     animation-duration: 30s;
     animation-timing-function: linear;
@@ -43,4 +44,28 @@
 }
 .item-2 {
     animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 2) * -1);
+}
+.item-3 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 3) * -1);
+}
+.item-4 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 4) * -1);
+}
+.item-5 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 5) * -1);
+}
+.item-6 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 6) * -1);
+}
+.item-7 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 7) * -1);
+}
+.item-8 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 8) * -1);
+}
+.item-9 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 9) * -1);
+}
+.item-10 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 10) * -1);
 }

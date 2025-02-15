@@ -27,7 +27,7 @@ function Navbar() {
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
       <div className="logo">
         <img 
-          src="/hardware-logo.png"
+          src="/images/l1.png"
           alt="Hardware Logo"  
           // The inline style is our default size.
           style={{ width: '120px', height: 'auto' }}  
@@ -36,7 +36,7 @@ function Navbar() {
 
       <div className="left">
         <div className='tele'>
-          <h4 className='tele-h'>tele: 072211324 / 0754232212</h4>
+          <h4 className='tele-h'>Tele: 072211324 / 0754232212</h4>
         </div>
 
         <div className="social-icons">

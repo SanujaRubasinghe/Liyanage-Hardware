@@ -2,8 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
-  padding: 1.5rem 3%;
+  height: 90px;
+  padding-left: 20px;
+  padding-right: 30px;
+  /* padding: 1.5rem 3%; */
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -65,7 +67,7 @@
 }
 
 .nav-links li a:hover {
-  color: #E53935;
+  color: #cc0000;
 }
 
 .nav-links li a::after {
@@ -75,7 +77,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #E53935;
+  background-color: #cc0000;
   transition: width 0.3s ease;
 }
 
@@ -104,7 +106,7 @@
 }
 
 .social-icons .icon:hover {
-  color: #E53935;
+  color: #cc0000;
   background-color: #ffeeee;
   transform: translateY(-2px);
 }

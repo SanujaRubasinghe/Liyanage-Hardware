@@ -2,7 +2,8 @@ import './BrandContainer.css'
 
 function BrandContainer() {
     const brandLogos = [
-        {id: 1, image: '/images/messi.webp', alt: 'messi'}
+        {id: 1, image: '/images/b1.png', alt: 'messi'},
+        {id: 2, image: '/images/b2.png', alt: 'messi'}
     ]
     return(
         <div className="brand-container">

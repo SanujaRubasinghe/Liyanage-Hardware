@@ -1,5 +1,5 @@
 :root {
-    --num-logo: 1;
+    --num-logo: 2;
 }
 
 .brand-container {
@@ -40,4 +40,7 @@
 
 .item-1 {
     animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 1) * -1);
+}
+.item-2 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 2) * -1);
 }

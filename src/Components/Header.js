@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="header-container">
       <img 
-        src="/images/1.jpg"  // Update this path to your image
+        src="/images/n2.png"  // Update this path to your image
         alt="Website Header"
         className="header-image"
       />

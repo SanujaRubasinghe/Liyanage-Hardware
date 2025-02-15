@@ -8,14 +8,24 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: padding 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
-/* Shrunk state for when scrolling down */
 .navbar.shrunk {
-  padding: 0.2rem 5%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 3%;
+  transform: translateY(-0.5rem);
 }
+
+
+
+.navbar.shrunk .logo img {
+  transform: scale(0.85);
+}
+
+
 
 .logo img {
   transition: transform 0.3s ease, width 0.3s ease;

@@ -9,6 +9,7 @@ function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      const scrollThreshold = 100;
       // If scrolling down, shrink the navbar.
       if (currentScrollY > lastScrollY.current) {
         setIsShrunk(true);

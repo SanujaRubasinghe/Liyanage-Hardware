@@ -14,8 +14,11 @@ body {
   width: 100%;
   position: relative;
   margin: auto;
-  padding: 0 20px; /* Add padding on both sides */
+  padding: 30px 20px; /* Add padding on both sides */
   box-sizing: border-box;
+  border-radius: 10px;
+  overflow: hidden;
+
 }
 
 /* Hide all slides by default */
@@ -23,10 +26,11 @@ body {
   display: none;
 }
 
-img {
+.slideshow-container img {
   vertical-align: middle;
   width: 100%; /* Ensure the image takes up the full width of the container */
   height: auto; /* Maintain aspect ratio */
+  border-radius: 40px;
 }
 
 /* Next & previous buttons */

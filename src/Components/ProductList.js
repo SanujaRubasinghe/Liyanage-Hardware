@@ -36,6 +36,12 @@ const products = [
 const ProductList = () => {
   return (
     <div className="Pcontainer">
+
+      <h2>
+        <span className="blue-text">Our</span>{' '}
+        <span className="red-text">Products</span>
+      </h2>
+
       {/* Left side image */}
       <div className="Pleft-image">
         <img src="/images/10.jpg" alt="Side visual" />

@@ -107,3 +107,14 @@
   background-color: #ffeeee;
   transform: translateY(-2px);
 }
+
+.tele{
+  background-color: #cc0000;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+}
+
+.tele-h{
+  color: #ffffff;
+}

@@ -35,8 +35,8 @@ function Navbar() {
       </div>
 
       <div className="left">
-        <div>
-          <h4>tele: 072211324 / 0754232212</h4>
+        <div className='tele'>
+          <h4 className='tele-h'>tele: 072211324 / 0754232212</h4>
         </div>
 
         <div className="social-icons">

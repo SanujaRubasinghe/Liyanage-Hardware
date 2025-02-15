@@ -16,17 +16,18 @@
   
   /* Styles for the left image */
 
-  .Pleft-image{
-    margin-bottom: 4px;
+  .Pleft-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
   }
   .Pleft-image img {
-    margin-top: 16px;
-    margin-bottom: 5px;
-    padding-bottom: 2px;
     width: 100%;
-    height: 90%;
-    object-fit: cover;
-  
+    height: 100%;
+    object-fit: cover; /* Change to 'contain' to see the full image */
   }
   
   /* Product grid styling as a 2x2 grid */

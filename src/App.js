@@ -8,6 +8,8 @@ import ContactUs from './Components/ContactUs';
 import Testh from './Components/Testh'; // Ensure the case matches
 import ImageDeliver from './Components/ImageDeliver';
 
+import Header from './Components/Header';
+
 import Slideshow from './Components/Slideshow';
 import SearchBar from './Components/SearchBar';
 import Product from './Components/Product';
@@ -23,6 +25,7 @@ function App() {
     <Router>
       <Navbar />
       
+      <Header />
       <Slideshow />
       <ImageDeliver/>
       <SearchBar/>

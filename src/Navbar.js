@@ -37,6 +37,13 @@ function Navbar() {
         <div>
           <h4>tele: 072211324 / 0754232212</h4>
         </div>
+
+        <div className="social-icons">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon">
+        <i className="fas fa-compass"></i>
+        </a>
+        </div>
+
         <div className="social-icons">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon">
             <i className="fab fa-facebook-f"></i>

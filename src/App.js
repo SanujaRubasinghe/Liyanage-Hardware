@@ -10,6 +10,8 @@ import ImageDeliver from './Components/ImageDeliver';
 
 import Slideshow from './Components/Slideshow';
 import SearchBar from './Components/SearchBar';
+import Product from './Components/Product';
+import ProductList from './Components/ProductList';
 
 
 
@@ -30,7 +32,9 @@ function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/Testh" element={<Testh />} />
       </Routes>
+      <ProductList/>
     </Router>
+
 
     </div>
   );

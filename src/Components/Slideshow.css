@@ -11,7 +11,8 @@ body {
 /* Slideshow container */
 .slideshow-container {
   max-width: calc(100vw - 40px); /* Full viewport width minus padding */
-  width: 100%;
+  width: 85%;
+  
   position: relative;
   margin: auto;
   padding: 30px 20px; /* Add padding on both sides */
@@ -29,7 +30,7 @@ body {
 .slideshow-container img {
   vertical-align: middle;
   width: 100%; /* Ensure the image takes up the full width of the container */
-  height: auto; /* Maintain aspect ratio */
+  height: 400px; /* Maintain aspect ratio */
   border-radius: 40px;
 }
 

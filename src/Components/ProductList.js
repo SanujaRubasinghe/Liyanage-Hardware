@@ -44,7 +44,7 @@ const ProductList = () => {
 
       {/* Left side image */}
       <div className="Pleft-image">
-        <img src="/images/10.jpg" alt="Side visual" />
+        <img src="/images/o1.jpg" alt="Side visual" />
       </div>
       {/* Right side products grid */}
       <div className="Pproduct-grid">

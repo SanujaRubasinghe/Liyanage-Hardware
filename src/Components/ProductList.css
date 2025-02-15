@@ -15,10 +15,18 @@
 }
   
   /* Styles for the left image */
+
+  .Pleft-image{
+    margin-bottom: 4px;
+  }
   .Pleft-image img {
+    margin-top: 16px;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
     width: 100%;
-    height: auto;
+    height: 90%;
     object-fit: cover;
+  
   }
   
   /* Product grid styling as a 2x2 grid */
@@ -30,7 +38,7 @@
   }
   
   .blue-text {
-    color: blue;
+    color: rgb(0, 0, 0);
   }
   
   .red-text {

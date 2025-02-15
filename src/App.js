@@ -12,6 +12,7 @@ import Slideshow from './Components/Slideshow';
 import SearchBar from './Components/SearchBar';
 import Product from './Components/Product';
 import ProductList from './Components/ProductList';
+import Footer from './Components/Footer';
 
 
 
@@ -33,6 +34,8 @@ function App() {
         <Route path="/Testh" element={<Testh />} />
       </Routes>
       <ProductList/>
+
+      <Footer/>
     </Router>
 
 

@@ -4,8 +4,6 @@ import './Product.css';
 import Product from './Product';
 
 function Home() {
-  const headerTitle = "Categories";
-
   const products = [
     { id: 1, image: '/images/c21.jpg' },
     { id: 2, image: '/images/c18.jpg' },
@@ -19,7 +17,10 @@ function Home() {
 
   return (
     <div className="product-container">
-      <h2>{headerTitle}</h2>
+      <h2>
+        <span className="blue-text">Our</span>{' '}
+        <span className="red-text">Categories</span>
+      </h2>
       <div className="product-grid">
         {products.map(product => (
           <Product 

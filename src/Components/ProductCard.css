@@ -9,10 +9,11 @@
 }
 
 .product-image {
-  width: 100px;
+  width: 170px;
   height: auto;
   object-fit: cover;
-  margin-right: 15px;
+  margin-right: 80px;
+  margin-left: -5px;
 }
 
 .product-details {
@@ -68,6 +69,10 @@
 .add-to-cart:hover {
   background-color: #e66900;
 }
+
+/* .product-card:hover{
+    background-color: #666;
+} */
 
 .product-list {
   display: flex;

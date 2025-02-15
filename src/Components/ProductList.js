@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "./ProductCard";
+import "./ProductList.css"; 
 
 const products = [
   {
@@ -34,10 +35,23 @@ const products = [
 
 const ProductList = () => {
   return (
-    <div className="product-list">
-      {products.map((product, index) => (
-        <ProductCard key={index} {...product} />
-      ))}
+    <div className="Pcontainer">
+
+      <h2>
+        <span className="blue-text">Our</span>{' '}
+        <span className="red-text">Products</span>
+      </h2>
+
+      {/* Left side image */}
+      <div className="Pleft-image">
+        <img src="/images/o1.jpg" alt="Side visual" />
+      </div>
+      {/* Right side products grid */}
+      <div className="Pproduct-grid">
+        {products.map((product, index) => (
+          <ProductCard key={index} {...product} />
+        ))}
+      </div>
     </div>
   );
 };

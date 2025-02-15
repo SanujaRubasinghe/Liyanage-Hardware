@@ -17,6 +17,8 @@ import Product from './Components/Product';
 import ProductList from './Components/ProductList';
 import Footer from './Components/Footer';
 
+import ConstructionSupplies from './Components/ConstructionSupplies';
+
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
       </Routes>
       <ProductList/>
       <BrandContainer />
+      <ConstructionSupplies />
       <Footer/>
     </Router>
 

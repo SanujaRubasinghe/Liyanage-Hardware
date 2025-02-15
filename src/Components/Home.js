@@ -5,14 +5,14 @@ import Product from './Product';
 
 function Home() {
   const products = [
-    { id: 1, image: '/images/c21.jpg' },
-    { id: 2, image: '/images/c18.jpg' },
-    { id: 3, image: '/images/c7.jpg' },
-    { id: 4, image: '/images/c1.jpg' },
-    { id: 5, image: '/images/c15.jpg' },
-    { id: 6, image: '/images/c11.jpg' },
-    { id: 7, image: '/images/c13.jpg' },
-    { id: 8, image: '/images/c19.jpg' },
+    { id: 1, image: '/images/c21.jpg' ,name: 'Laptops' },
+    { id: 2, image: '/images/c18.jpg' ,name: 'Laptops' },
+    { id: 3, image: '/images/c7.jpg' ,name: 'Laptops'},
+    { id: 4, image: '/images/c1.jpg' ,name: 'Laptops'},
+    { id: 5, image: '/images/c15.jpg' ,name: 'Laptops'},
+    { id: 6, image: '/images/c11.jpg' ,name: 'Laptops'},
+    { id: 7, image: '/images/c13.jpg' ,name: 'Laptops'},
+    { id: 8, image: '/images/c19.jpg' ,name: 'Laptops'},
   ];
 
   return (
@@ -26,6 +26,7 @@ function Home() {
           <Product 
             key={product.id} 
             image={product.image} 
+            name={product.name}
           />
         ))}
       </div>

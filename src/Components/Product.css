@@ -41,6 +41,14 @@
   object-fit: cover;
 }
 
+.product-name {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .product-grid {

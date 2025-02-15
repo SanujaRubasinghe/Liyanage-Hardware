@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './Testh.css';
 
-function Home() {
+function Testh() {
   // Carousel images (ensure these images exist or adjust the URLs)
   const images = [
     '/images/img1.jpg',
@@ -88,4 +88,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Testh;

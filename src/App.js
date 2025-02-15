@@ -7,6 +7,7 @@ import AboutUs from './Components/AboutUs';
 import ContactUs from './Components/ContactUs';
 import Testh from './Components/Testh'; // Ensure the case matches
 import ImageDeliver from './Components/ImageDeliver';
+import BrandContainer from './Components/BrandContainer';
 
 import Slideshow from './Components/Slideshow';
 import SearchBar from './Components/SearchBar';
@@ -34,7 +35,7 @@ function App() {
         <Route path="/Testh" element={<Testh />} />
       </Routes>
       <ProductList/>
-
+      <BrandContainer />
       <Footer/>
     </Router>
 

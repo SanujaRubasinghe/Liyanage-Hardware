@@ -1,0 +1,43 @@
+:root {
+    --num-logo: 1;
+}
+
+.brand-container {
+    height: 100px;
+    width: 100%;
+    max-width: 1536px;
+    margin-inline: auto;
+    position: relative;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+}
+
+@keyframes scrollLeft {
+    to {
+        left: -200px;
+    }
+}
+
+.item {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    position: absolute;
+    left: calc(200px * var(--num-logo));
+    animation-name: scrollLeft;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.item img {
+    object-fit: contain;
+    width: 300px;
+    height: 100px;
+}
+
+.item-1 {
+    animation-delay: calc(30s / var(--num-logo) * (var(--num-logo) - 1) * -1);
+}

@@ -3,7 +3,16 @@ import "./ConstructionSupplies.css";
 
 const ConstructionSupplies = () => {
   return (
+
+    <div className="construction-supplies-header">
+
+      <h2>
+        <span className="blue-text">About</span>{' '}
+        <span className="red-text">Us</span>
+      </h2>
+      
     <div className="construction-supplies">
+      
       <div className="image-container">
         <img src="/images/n2.png" alt="Door Handle" />
       </div>
@@ -36,6 +45,7 @@ const ConstructionSupplies = () => {
           visit us in-store today.
         </p>
       </div>
+    </div>
     </div>
   );
 };

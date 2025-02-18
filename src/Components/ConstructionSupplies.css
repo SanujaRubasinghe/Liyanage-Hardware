@@ -64,6 +64,19 @@
   text-decoration: underline;
 }
 
+.construction-supplies-header h2{
+  font-size: 2.5rem;
+  text-align: center;
+}
+.blue-text {
+  color: black;
+}
+
+.red-text {
+  color: red;
+}
+
+
 @media (max-width: 768px) {
   .construction-supplies {
     flex-direction: column;

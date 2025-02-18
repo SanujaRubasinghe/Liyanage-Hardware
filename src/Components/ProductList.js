@@ -37,7 +37,7 @@ const ProductList = () => {
   return (
     <div className="Pcontainer">
 
-      <h2>
+      <h2 className="highlight-gray">
         <span className="blue-text">Our</span>{' '}
         <span className="red-text">Products</span>
       </h2>

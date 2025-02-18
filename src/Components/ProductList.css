@@ -9,6 +9,13 @@
   text-align: center;
 }
 
+.highlight-gray{
+  background-color: rgba(128, 128, 128, 0.181);
+  margin-left: 550px;
+  margin-right: 550px;
+  
+}
+
 /* Make header span all columns */
 .Pcontainer > h2 {
   grid-column: 1 / -1;

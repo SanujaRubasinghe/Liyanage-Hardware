@@ -57,8 +57,8 @@
   border-radius: 5px;
 }
 
-.add-to-cart {
-  background-color: #ff7a00;
+.add-to-cart1 {
+  background-color: #eb7404;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -66,7 +66,21 @@
   cursor: pointer;
 }
 
-.add-to-cart:hover {
+.buy-to-cart{
+  background-color: #eb7404;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 3px;
+}
+
+.buy-to-cart:hover{
+  background-color: #cc0000;
+}
+
+.add-to-cart1:hover {
   background-color: #cc0000;
 }
 

@@ -15,6 +15,7 @@ import Footer from './Components/Footer';
 import ConstructionSupplies from './Components/ConstructionSupplies';
 import CategorySection from './Components/CategorySection';
 import Subcategories from './Components/SubCategories';
+import ProductDisplay from './Components/ProductDisplay';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
                 <ProductList />
                 <BrandContainer />
                 <ConstructionSupplies />
-                
+                <ProductDisplay/>
                 <Footer />
               </>
             }
@@ -87,6 +88,8 @@ function App() {
               </>
             }
           />
+            <Route path="/product-display" element={<ProductDisplay />} />
+
         </Routes>
       </Router>
     </div>

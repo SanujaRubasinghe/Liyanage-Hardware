@@ -1,39 +1,44 @@
+/* Container uses grid layout with exactly 5 columns */
 .subcategory-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  .subcategory-card {
-    width: 200px;
-    height: 300px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .subcategory-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .subcategory-image {
-    width: 100%;
-    height: 70%;
-    object-fit: cover;
-  }
-  
-  .subcategory-tag {
-    text-align: center;
-    padding: 10px;
-    font-weight: bold;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Card: no fixed height, so it adapts to the image height.
+   Relative positioning is needed for the overlay tag */
+.subcategory-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for a subtle scale and shadow update */
+.subcategory-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Image takes full width; height is auto so the card height is determined by the image */
+.subcategory-image {
+  width: 100%;
+  display: block;
+}
+
+/* Overlay tag positioned at the bottom with a semi-transparent background */
+.subcategory-tag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}

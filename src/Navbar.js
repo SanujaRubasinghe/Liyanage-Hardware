@@ -59,6 +59,10 @@ function Navbar() {
           <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="icon">
             <i className="fab fa-tiktok"></i>
           </a>
+
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="icon">
+            <i className="fab fa-youtube"></i>
+          </a>
         </div>
 
         <ul className="nav-links">

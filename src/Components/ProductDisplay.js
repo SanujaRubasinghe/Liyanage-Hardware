@@ -7,10 +7,10 @@ const ProductDisplay = () => {
     sku: "MCO/PP/RW/P444",
     price: "Rs 4,100.02 LKR",
     images: [
-      "/images/product1.jpg",
-      "/images/product2.jpg",
-      "/images/product3.jpg",
-      "/images/product4.jpg",
+      "/images/messi2.jpg",
+      "/images/messi.webp",
+      "/images/messi2.jpg",
+      "/images/messi.webp",
     ],
     sizes: ["155mm", "220mm", "340mm"],
     colors: ["White", "Black", "Gray"],
@@ -19,28 +19,32 @@ const ProductDisplay = () => {
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   return (
     <div className="product-container-pd">
-      
       <div className="image-gallery">
         {product.images.map((image, index) => (
           <img
             key={index}
             src={image}
-            alt={`Product ${index + 1}`}
+            alt={`Thumbnail ${index + 1}`}
             className="gallery-thumbnail-pd"
+            onClick={() => setSelectedImage(image)}
           />
         ))}
       </div>
 
-      
+      {/* Main image container inserted between the gallery and details */}
+      <div className="main-image-container">
+        <img src={selectedImage} alt="Selected Product" className="main-image" />
+      </div>
+
       <div className="product-details-pd">
         <h2>{product.name}</h2>
         <span className="sku-pd">SKU: {product.sku}</span>
         <span className="price-pd">{product.price}</span>
 
-       
         <div className="size-selection-pd">
           <h4>Size</h4>
           {product.sizes.map((size) => (
@@ -73,7 +77,6 @@ const ProductDisplay = () => {
           <button onClick={() => setQuantity(quantity + 1)}>+</button>
         </div>
 
-        
         <div className="actions">
           <button className="add-to-cart-pd">Add to Cart</button>
           <button className="buy-now-pd">Buy it Now</button>

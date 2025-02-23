@@ -1,6 +1,6 @@
 .product-container-pd {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 40px;
   padding: 40px;
   background: #ffffff;

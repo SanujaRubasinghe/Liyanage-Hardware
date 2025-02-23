@@ -17,6 +17,7 @@ import CategorySection from './Components/CategorySection';
 import Subcategories from './Components/SubCategories';
 import ProductDisplay from './Components/ProductDisplay';
 import FeatureSection from './Components/FeatureSection';
+import NewArrivals from './Components/NewArrivals';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
                 <ProductList />
                 <BrandContainer />
                 <ConstructionSupplies />
-
+                <NewArrivals />
                 <FeatureSection/>
                 <Footer />
               </>

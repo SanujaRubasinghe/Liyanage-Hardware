@@ -37,7 +37,7 @@ function App() {
                 <ProductList />
                 <BrandContainer />
                 <ConstructionSupplies />
-                <ProductDisplay/>
+             
                 <Footer />
               </>
             }
@@ -49,7 +49,7 @@ function App() {
             element={
               <>
               <ProductList />
-                <JobSeekers />
+               
                 <Footer />
               </>
             }

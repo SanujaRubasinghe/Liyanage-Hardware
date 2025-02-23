@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ProductDisplay.css";
+import NewArrivals from './NewArrivals'
 
 const ProductDisplay = () => {
   const product = {
@@ -81,8 +82,14 @@ const ProductDisplay = () => {
           <button className="add-to-cart-pd">Add to Cart</button>
           <button className="buy-now-pd">Buy it Now</button>
         </div>
+        
+      </div>
+      
+      <div className="new-arrivals-wrapper">
+        <NewArrivals />
       </div>
     </div>
+    
   );
 };
 

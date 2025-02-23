@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
+import Footer from "./Footer"
 
 const ProductDisplay = () => {
   const product = {
@@ -9,10 +10,10 @@ const ProductDisplay = () => {
     sku: "MCO/PP/RW/P444",
     price: "Rs 4,100.02 LKR",
     images: [
-      "/images/messi2.jpg",
-      "/images/messi.webp",
-      "/images/messi2.jpg",
-      "/images/messi.webp",
+      "/images/P1.jpg",
+      "/images/P1.jpg",
+      "/images/P1.jpg",
+      "/images/P1.jpg",
     ],
     sizes: ["155mm", "220mm", "340mm"],
     colors: ["White", "Black", "Gray"],
@@ -92,7 +93,8 @@ const ProductDisplay = () => {
         <NewArrivals />
       </div>
       <FeatureSection />
-      {/* End of New Arrivals and Feature Section */}
+      <Footer/>
+      
     </>
   );
 };

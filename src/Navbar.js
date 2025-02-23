@@ -72,7 +72,13 @@ function Navbar() {
           <li><Link to="/contact-us">Contact</Link></li>
           <li><Link to="/category">Categories</Link></li>
         </ul>
-        <Link to="/login" className="login-button">Login</Link>
+        <div className="auth-section">
+          <Link to="/cart" className="cart-icon">
+            <i className="fas fa-shopping-cart"></i>
+            <span className="cart-count">0</span>
+          </Link>
+          <Link to="/login" className="login-button">Login</Link>
+        </div>
       </div>
     </nav>
   );

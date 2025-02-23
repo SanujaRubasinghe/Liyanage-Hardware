@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './SearchBar.css'; 
+import './SearchBar.css';
 
-function SearchBar(){
+function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchChange = (event) => {
@@ -14,19 +14,18 @@ function SearchBar(){
   };
 
   return (
-    <div className="search-container">
-      <form onSubmit={handleSearchSubmit} className="search-form">
+    <div className="banana-stand"> {/* Changed to funny class name */}
+      <form onSubmit={handleSearchSubmit} className="search-dance-party">
         <input
           type="text"
-          className="search-input"
-          placeholder="Search..."
+          className="search-boogie"
+          placeholder="Search Products..."
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <button type="submit" className="search-button">🔍</button>
+        <button type="submit" className="search-disco">🔎</button>
       </form>
-      <i className="fa-solid fa-cart-shopping cart-icon"></i>
-
+      <i className="fa-solid fa-cart-shopping cart-zumba"></i>
     </div>
   );
 }

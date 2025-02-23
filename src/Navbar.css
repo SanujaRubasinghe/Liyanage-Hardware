@@ -121,7 +121,8 @@
 
 /* Vivid Login Button Styling */
 .login-button {
-  background: linear-gradient(45deg, #787675, #c91313);
+  background: #c91313;
+  border-radius: 15px;
   color: #fff;
   padding: 0.7rem 0.5rem;
   font-size: 1.1rem;

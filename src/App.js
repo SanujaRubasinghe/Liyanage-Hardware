@@ -18,6 +18,7 @@ import Subcategories from './Components/SubCategories';
 import ProductDisplay from './Components/ProductDisplay';
 import FeatureSection from './Components/FeatureSection';
 import NewArrivals from './Components/NewArrivals';
+import SearchBarNew from './Components/SearchBarNew';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 <Slideshow />
                 <ImageDeliver />
                 <SearchBar />
+                <SearchBarNew/>
                 <Home />
                 <ProductList />
                 <BrandContainer />

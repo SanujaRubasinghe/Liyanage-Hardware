@@ -26,6 +26,7 @@ function SearchBar(){
         />
         <button type="submit" className="search-button">🔍</button>
       </form>
+      <i class="fa-solid fa-cart-shopping"></i>
     </div>
   );
 };

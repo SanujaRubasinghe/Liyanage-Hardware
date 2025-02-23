@@ -35,6 +35,7 @@ const Subcategories = () => {
     <div>
       <Footer/>
     </div>
+    
     </div>
   );
 };

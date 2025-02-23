@@ -5,9 +5,10 @@
   align-items: center;
   margin-top: 50px;
   position: relative;
-  background:#cc0000;
+  
+  background: linear-gradient( 90deg, #ffffff, #ea9595, #ffffff);
   padding: 20px;
-  box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .search-dance-party {
@@ -15,7 +16,7 @@
   align-items: center;
   background: #fff3f3;
   border: 3px solid #ff4747;
-  border-radius: 50px;
+  border-radius: 5px;
   padding: 10px 20px;
   width: 800px;
   transition: all 0.3s ease;
@@ -34,8 +35,8 @@
   padding: 12px;
   font-size: 18px;
   width: 100%;
-  border-radius: 30px;
-  background: #ffecec;
+  border-radius: 5px;
+  background: #f1eaea;
   margin-right: 10px;
   font-family: 'Comic Neue', cursive;
   transition: all 0.3s ease;
@@ -44,17 +45,18 @@
 .search-boogie::placeholder {
   color: #cc0000;
   font-style: italic;
+
 }
 
 .search-boogie:focus {
-  background: #ffdfdf;
+  background: #ffffff;
   transform: scale(1.02);
 }
 
 .search-disco {
   background: #ff4747;
   border: none;
-  border-radius: 50%;
+  border-radius: 5%;
   padding: 12px;
   font-size: 24px;
   cursor: pointer;

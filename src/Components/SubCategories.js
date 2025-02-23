@@ -8,7 +8,7 @@ const Subcategories = () => {
     { name: "BALL", image: "/images/sample.jpg" },
     { name: "DIGITAL", image: "/images/sample.jpg" },
     { name: "DOOR", image: "/images/sample.jpg" },
-    { name: "LOCKS", image: "/images/ball_lock.webp" },
+    { name: "", image: "/images/ball_lock.webp" },
     { name: "ACCESSORIES", image: "/images/sample.jpg" },
     { name: "CLOSERS", image: "/images/sample.jpg" },
     { name: "CYLINDERS", image: "/images/sample.jpg" },

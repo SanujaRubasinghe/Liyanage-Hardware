@@ -90,6 +90,7 @@ function App() {
             element={
               <>
                 <CategorySection />
+                
                 <Footer />
               </>
             }

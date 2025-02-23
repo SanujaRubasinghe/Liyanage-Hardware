@@ -4,16 +4,16 @@ import "./Subcategories.css";
 const Subcategories = () => {
   
   const subcategories = [
-    { name: "BALL", image: "/images/sample.jpg" },
-    { name: "DIGITAL", image: "/images/sample.jpg" },
-    { name: "DOOR", image: "/images/sample.jpg" },
-    { name: "LOCKS", image: "/images/sample.jpg" },
-    { name: "ACCESSORIES", image: "/images/sample.jpg" },
-    { name: "CLOSERS", image: "/images/sample.jpg" },
-    { name: "CYLINDERS", image: "/images/sample.jpg" },
-    { name: "HINGES", image: "/images/sample.jpg" },
-    { name: "KNOBS", image: "/images/sample.jpg" },
-    { name: "DOOR SEALS", image: "/images/sample.jpg" },
+    { name: "Item 1", image: "/images/sample.jpg" },
+    { name: "Item 2", image: "/images/sample.jpg" },
+    { name: "Item 3", image: "/images/sample.jpg" },
+    { name: "Item 4", image: "/images/sample.jpg" },
+    { name: "Item 5", image: "/images/sample.jpg" },
+    { name: "Item 6", image: "/images/sample.jpg" },
+    { name: "Item 7", image: "/images/sample.jpg" },
+    { name: "Item 8", image: "/images/sample.jpg" },
+    { name: "Item 9", image: "/images/sample.jpg" },
+    { name: "Item 10", image: "/images/sample.jpg" },
   ];
 
   return (

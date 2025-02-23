@@ -10,7 +10,6 @@ function SearchBar(){
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-   
     console.log('Searching for:', searchQuery);
   };
 
@@ -26,9 +25,10 @@ function SearchBar(){
         />
         <button type="submit" className="search-button">🔍</button>
       </form>
-      <i class="fa-solid fa-cart-shopping"></i>
+      <i className="fa-solid fa-cart-shopping cart-icon"></i>
+
     </div>
   );
-};
+}
 
 export default SearchBar;

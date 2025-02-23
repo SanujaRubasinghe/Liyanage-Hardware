@@ -1,44 +1,66 @@
 .search-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
 
-  }
-  
-  .search-form {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 8px 16px;
-    width: 1000px;
-  }
-  
-  .search-input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    font-size: 16px;
-    width: 100%;
-    border-radius: 30px;
-    background-color: #f2f2f2;
-    margin-right: 8px;
-  }
-  
-  .search-input::placeholder {
-    color: #888;
-  }
-  
-  .search-button {
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #666;
-  }
-  
-  .search-button:hover {
-    color: #000;
-  }
-  
+.search-form {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #E53935;  /* Professional red border */
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px 16px;
+  width: 1000px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 30px;
+  background-color: #f9f9f9;
+  margin-right: 8px;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-button {
+  background-color: #E53935;  /* Professional red button */
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #d32f2f;
+}
+
+.cart-icon {
+  font-size: 24px;
+  color: #ffffff;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: inline-block;      /* Allows padding and background to take effect */
+  padding: 10px 15px;         /* Creates space around the icon */
+  background-color: #dc0f0f;  /* Rectangle background color */
+  border: 6px solid #dc0f0f;     /* Optional: adds a border to the rectangle */
+  border-radius: 4px;         /* Rounded corners; set to 0 for sharp edges */
+}
+
+.cart-icon:hover {
+  color: #a70404;
+  background-color: #ffffff;  /* Optional: change background on hover */
+}
+

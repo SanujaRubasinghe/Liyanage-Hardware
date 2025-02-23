@@ -66,10 +66,9 @@ const Footer = () => {
         <div className="social-icons">
           <i className="fab fa-facebook"></i>
           <i className="fab fa-instagram"></i>
-          <i className="fab fa-x-twitter"></i>
+          <i className="fab fa-twitter"></i>
           <i className="fab fa-google"></i>
-        </div>
-        <p className="footer-design">OUR PAGE</p>
+          </div>
       </div>
     </footer>
   );

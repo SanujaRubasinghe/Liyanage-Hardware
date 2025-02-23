@@ -49,13 +49,17 @@
   
   .social-icons {
     margin: 10px 0;
+    align-items: center;
+    justify-content: center;
   }
   
-  .social-icons i {
+  .footer-bottom .social-icons i {
     font-size: 20px;
     margin: 0 10px;
     cursor: pointer;
     transition: color 0.3s ease;
+    padding-top: 1.5rem;
+   
   }
   
   .social-icons i:hover {

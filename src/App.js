@@ -71,7 +71,7 @@ function App() {
             path="/contact-us"
             element={
               <>
-                <Subcategories/>
+              
                 <ContactUs />
                 <Footer />
               </>
@@ -89,6 +89,7 @@ function App() {
             }
           />
             <Route path="/product-display" element={<ProductDisplay />} />
+            <Route path="/sub-category" element={<Subcategories/>} /> 
 
         </Routes>
       </Router>

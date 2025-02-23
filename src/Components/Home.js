@@ -5,14 +5,14 @@ import Product from './Product';
 
 function Home() {
   const products = [
-    { id: 1, image: '/images/c21.jpg' ,name: 'Laptops' },
-    { id: 2, image: '/images/c18.jpg' ,name: 'Laptops' },
-    { id: 3, image: '/images/c7.jpg' ,name: 'Laptops'},
-    { id: 4, image: '/images/c1.jpg' ,name: 'Laptops'},
-    { id: 5, image: '/images/c15.jpg' ,name: 'Laptops'},
-    { id: 6, image: '/images/c11.jpg' ,name: 'Laptops'},
-    { id: 7, image: '/images/c13.jpg' ,name: 'Laptops'},
-    { id: 8, image: '/images/c19.jpg' ,name: 'Laptops'},
+    { id: 1, image: '/images/c21.jpg' ,name: 'Category 1' },
+    { id: 2, image: '/images/c18.jpg' ,name: 'Category 2' },
+    { id: 3, image: '/images/c7.jpg' ,name: 'Category 3'},
+    { id: 4, image: '/images/c1.jpg' ,name: 'Category 4'},
+    { id: 5, image: '/images/c15.jpg' ,name: 'Category 5'},
+    { id: 6, image: '/images/c11.jpg' ,name: 'Category 6'},
+    { id: 7, image: '/images/c13.jpg' ,name: 'Category 7'},
+    { id: 8, image: '/images/c19.jpg' ,name: 'Category 8'},
   ];
 
   return (

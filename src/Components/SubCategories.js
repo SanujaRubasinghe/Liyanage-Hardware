@@ -1,5 +1,6 @@
 import React from "react";
 import "./Subcategories.css"; 
+import Footer from "./Footer"
 
 const Subcategories = () => {
   
@@ -17,7 +18,8 @@ const Subcategories = () => {
   ];
 
   return (
-    <div className="subcategory-container">
+    <div>
+      <div className="subcategory-container">
       {subcategories.map((subcategory, index) => (
         <div key={index} className="subcategory-card">
           <img
@@ -28,6 +30,11 @@ const Subcategories = () => {
           <div className="subcategory-tag">{subcategory.name}</div>
         </div>
       ))}
+    </div>
+
+    <div>
+      <Footer/>
+    </div>
     </div>
   );
 };

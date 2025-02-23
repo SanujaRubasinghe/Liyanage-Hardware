@@ -5,7 +5,6 @@
   height: 90px;
   padding-left: 20px;
   padding-right: 30px;
-  /* padding: 1.5rem 3%; */
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -17,28 +16,12 @@
   will-change: transform;
 }
 
-.navbar.shrunk {
-  padding: 0.5rem 3%;
-  transform: translateY(-0.5rem);
-}
-
-
-
-.navbar.shrunk .logo img {
-  transform: scale(0.85);
-}
-
 
 
 .logo img {
   transition: transform 0.3s ease, width 0.3s ease;
   margin-right: 2rem;
   width: 120px;
-}
-
-/* Optionally shrink the logo as well */
-.navbar.shrunk .logo img {
-  width: 100px;
 }
 
 .left {
@@ -51,7 +34,7 @@
 
 .nav-links {
   display: flex;
-  gap: 1.7rem;
+  gap: 1.3rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -112,13 +95,32 @@
   transform: translateY(-2px);
 }
 
-.tele{
+.tele {
   background-color: #cc0000;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 20px;
 }
 
-.tele-h{
+.tele-h {
   color: #ffffff;
+}
+
+/* Vivid Login Button Styling */
+.login-button {
+  background: linear-gradient(45deg, #787675, #c91313);
+  color: #fff;
+  padding: 0.7rem 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }

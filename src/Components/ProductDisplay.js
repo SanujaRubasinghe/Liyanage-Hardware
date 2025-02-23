@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ProductDisplay.css";
 import NewArrivals from './NewArrivals'
+import FeatureSection from "./FeatureSection";
 
 const ProductDisplay = () => {
   const product = {
@@ -87,7 +88,9 @@ const ProductDisplay = () => {
       
       <div className="new-arrivals-wrapper">
         <NewArrivals />
+        
       </div>
+      <FeatureSection />
     </div>
     
   );

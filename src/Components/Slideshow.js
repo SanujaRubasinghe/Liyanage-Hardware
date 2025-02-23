@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './Slideshow.css';
 
 const slides = [
-  { src: '/images/img4.jpg', caption: 'Caption Text' },
-  { src: '/images/img1.jpg', caption: 'Caption Two' },
-  { src: '/images/img1.jpg', caption: 'Caption Three' },
+  { src: '/images/slide2.png', caption: 'Caption Text' },
+  { src: '/images/slider1.png', caption: 'Caption Two' },
+  { src: '/images/img4.jpg', caption: 'Caption Three' },
 ];
 
 function Slideshow() {

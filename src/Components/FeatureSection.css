@@ -1,0 +1,32 @@
+.feature-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cc0000; /* Red background */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .feature {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .feature h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .feature p {
+    font-size: 14px;
+  }
+  
+  .divider {
+    width: 1px;
+    height: 60px;
+    background-color: white;
+  }
+  

@@ -16,6 +16,7 @@ import ConstructionSupplies from './Components/ConstructionSupplies';
 import CategorySection from './Components/CategorySection';
 import Subcategories from './Components/SubCategories';
 import ProductDisplay from './Components/ProductDisplay';
+import FeatureSection from './Components/FeatureSection';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
                 <ProductList />
                 <BrandContainer />
                 <ConstructionSupplies />
-             
+
+                <FeatureSection/>
                 <Footer />
               </>
             }
@@ -48,8 +50,9 @@ function App() {
             path="/products"
             element={
               <>
+              
               <ProductList />
-               
+              <FeatureSection/>
                 <Footer />
               </>
             }

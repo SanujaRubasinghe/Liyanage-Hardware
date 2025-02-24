@@ -8,7 +8,7 @@ const ProductDisplay = () => {
   const product = {
     name: "Mcoco Plastic Plant for Indoor and Outdoor Rice White Color",
     sku: "MCO/PP/RW/P444",
-    price: "Rs 4,100.02 LKR",
+    price: "Rs.4,100.00",
     images: [
       "/images/P1.jpg",
       "/images/P1.jpg",

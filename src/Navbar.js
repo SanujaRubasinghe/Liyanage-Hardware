@@ -4,6 +4,7 @@ import './Navbar.css';
 
 function Navbar() {
   const [isShrunk, setIsShrunk] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -23,6 +24,19 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+   // check if the user is logged in
+   useEffect(() => {
+    const token = localStorage.getItem('token')
+    setIsLoggedIn(!!token)
+  }, [])
+
+  // handle logout
+  const handleLogOut = () => {
+    localStorage.removeItem('token')
+    setIsLoggedIn(false)
+    alert('Logged out successfully')
+  }
+
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
       <div className="logo">
@@ -38,8 +52,6 @@ function Navbar() {
         <div className='tele'>
           <h4 className='tele-h'>Tele: 072211324 / 0754232212</h4>
         </div>
-
-     
 
         <div className="social-icons">
 
@@ -77,7 +89,12 @@ function Navbar() {
             <i className="fas fa-shopping-cart"></i>
             <span className="cart-count">0</span>
           </Link>
-          <Link to="/login" className="login-button">Login</Link>
+          {isLoggedIn ? (
+            <Link to="/logout" className='login-button'>Log out</Link>
+          ) : (
+            <Link to="/login" className="login-button">Login</Link>
+          )}
+          
         </div>
       </div>
     </nav>

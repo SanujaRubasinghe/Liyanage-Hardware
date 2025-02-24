@@ -19,6 +19,7 @@ import ProductDisplay from './Components/ProductDisplay';
 import FeatureSection from './Components/FeatureSection';
 import NewArrivals from './Components/NewArrivals';
 import SearchBarNew from './Components/SearchBarNew';
+import LogInPage from './Components/LogInPage';
 
 function App() {
   return (
@@ -97,9 +98,10 @@ function App() {
           />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/sub-category" element={<Subcategories/>} /> 
+            <Route path='/login' element={<LogInPage/>} />
 
         </Routes>
-      </Router>
+      </Router> 
     </div>
   );
 }

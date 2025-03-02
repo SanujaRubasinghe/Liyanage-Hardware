@@ -1,20 +1,21 @@
 import React, { useState } from "react";
+import { useCart } from "./CartContext"; // Import useCart hook
+import { useNavigate } from "react-router-dom";
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
-import Footer from "./Footer"
+import Footer from "./Footer";
 
 const ProductDisplay = () => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart(); // Destructure addToCart from useCart
+
   const product = {
+    id: 1, // Ensure each product has a unique id
     name: "Mcoco Plastic Plant for Indoor and Outdoor Rice White Color",
     sku: "MCO/PP/RW/P444",
-    price: "Rs.4,100.00",
-    images: [
-      "/images/P1.jpg",
-      "/images/P1.jpg",
-      "/images/P1.jpg",
-      "/images/P1.jpg",
-    ],
+    price: 4100,
+    images: ["/images/P1.jpg", "/images/P1.jpg", "/images/P1.jpg"],
     sizes: ["155mm", "220mm", "340mm"],
     colors: ["White", "Black", "Gray"],
   };
@@ -23,6 +24,28 @@ const ProductDisplay = () => {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
+
+  const handleAddToCart = () => {
+    addToCart({
+      ...product,
+      selectedSize,
+      selectedColor,
+      quantity,
+    });
+  };
+
+  const handleBuyNow = () => {
+    navigate("/buying", {
+      state: {
+        productName: product.name,
+        productSku: product.sku,
+        productPrice: product.price,
+        selectedSize,
+        selectedColor,
+        quantity,
+      },
+    });
+  };
 
   return (
     <>
@@ -39,7 +62,6 @@ const ProductDisplay = () => {
           ))}
         </div>
 
-        {/* Main image container inserted between the gallery and details */}
         <div className="main-image-container">
           <img src={selectedImage} alt="Selected Product" className="main-image" />
         </div>
@@ -47,7 +69,7 @@ const ProductDisplay = () => {
         <div className="product-details-pd">
           <h2>{product.name}</h2>
           <span className="sku-pd">SKU: {product.sku}</span>
-          <span className="price-pd">{product.price}</span>
+          <span className="price-pd">Rs. {product.price.toLocaleString()}</span>
 
           <div className="size-selection-pd">
             <h4>Size</h4>
@@ -82,19 +104,21 @@ const ProductDisplay = () => {
           </div>
 
           <div className="actions">
-            <button className="add-to-cart-pd">Add to Cart</button>
-            <button className="buy-now-pd">Buy it Now</button>
+            <button className="add-to-cart-pd" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+            <button className="buy-now-pd" onClick={handleBuyNow}>
+              Buy it Now
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Start of New Arrivals and Feature Section */}
       <div className="new-arrivals-wrapper">
         <NewArrivals />
       </div>
       <FeatureSection />
-      <Footer/>
-      
+      <Footer />
     </>
   );
 };

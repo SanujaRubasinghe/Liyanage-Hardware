@@ -5,16 +5,16 @@ import Footer from "./Footer"
 const Subcategories = () => {
   
   const subcategories = [
-    { name: "BALL", image: "/images/sample.jpg" },
-    { name: "DIGITAL", image: "/images/sample.jpg" },
-    { name: "DOOR", image: "/images/sample.jpg" },
-    { name: "", image: "/images/ball_lock.webp" },
-    { name: "ACCESSORIES", image: "/images/sample.jpg" },
-    { name: "CLOSERS", image: "/images/sample.jpg" },
-    { name: "CYLINDERS", image: "/images/sample.jpg" },
-    { name: "HINGES", image: "/images/sample.jpg" },
-    { name: "KNOBS", image: "/images/sample.jpg" },
-    { name: "DOOR SEALS", image: "/images/sample.jpg" },
+    { name: "Category 1", image: "/images/sample.jpg" },
+    { name: "Category 2", image: "/images/sample.jpg" },
+    { name: "Category 3", image: "/images/sample.jpg" },
+    { name: "Category 4", image: "/images/ball_lock.webp" },
+    { name: "Category 5", image: "/images/sample.jpg" },
+    { name: "Category 6", image: "/images/sample.jpg" },
+    { name: "Category 7", image: "/images/sample.jpg" },
+    { name: "Category 8", image: "/images/sample.jpg" },
+    { name: "Category 9", image: "/images/sample.jpg" },
+    { name: "Category 10", image: "/images/sample.jpg" },
   ];
 
   return (

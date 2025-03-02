@@ -1,0 +1,132 @@
+.shopping-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* Product List */
+  .product-list {
+    width: 60%;
+  }
+  
+  .product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  .product-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  button {
+    background: #5c2d91;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background: #4a2373;
+  }
+  
+  /* Shopping Cart Sidebar */
+  .cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .cart-sidebar.open {
+    right: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+  }
+  
+  .cart-items {
+    margin-top: 20px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .cart-item-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .cart-item-info {
+    flex-grow: 1;
+  }
+  
+  .cart-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-controls button {
+    background: #5c2d91;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .cart-controls span {
+    margin: 0 10px;
+  }
+  
+  .remove-btn {
+    background: red !important;
+    margin-left: 10px;
+  }
+  
+  .cart-total {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    background: #5c2d91;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .checkout-btn:hover {
+    background: #4a2373;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+  }
+  

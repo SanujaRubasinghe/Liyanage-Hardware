@@ -8,27 +8,17 @@ function LogInPage() {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    const handleRegister = async (e) => {
-        e.preventDefault()
-        try {
-            await axios.post("http://localhost:5000/register", formData)
-            alert("User registered succesfully")
-        } catch (error) {
-            alert(error.respones?.data?.error || "Error registering user")
-        }
-    }
-
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
             const res = await axios.post('http://localhost:5000/login', formData)
-            alert('Login successful! Token: ' + res.data.token)
             localStorage.setItem("token", res.data.token)
             window.location.href = '/'
         } catch(error) {
-            alert(error.response?.data?.error || 'Error loggin in')
+            alert(error.response?.data?.error || 'Error logging in')
         }
     }
+
     return(
         <div>
             <h1>Login Page</h1>

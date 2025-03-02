@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql2')
@@ -8,38 +9,34 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'user_db'
-})
+const users = [{username: "admin", password: 1234}]
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 
-db.connect((err) => {
-    if(err) {
-        console.error("Database connection failed: ", err.message)
-    } else {
-        console.log('Connected to MySQL Database')
-    }
-})
+const verifytoken = (req, res, next) => {
+    const token = req.headers['authorization']
+    if(!token) return res.status(403).json({message: "Token required"})
 
-app.post('/login', (req, res) => {
-    const {username, password} = req.body
-
-    db.query("select * from users where user_name= ?", [username], async (err, result) => {
-        if (err) return res.status(500).json({error: 'Database error'})
-        if (result.length === 0) return res.status(401).json({error: 'User not found'})
-
-        const user = result[0]
-        const passwordMatch = password == user.user_password ? true : false
-
-        if (!passwordMatch) return res.status(401).json({error: "Incorrect Password"})
-
-        const token = jwt.sign({id: user.user_id}, 'secretkey', {expiresIn: '1h'})
-        res.json({message: 'Login successful', token})
+    jwt.verify(token.split(" ")[1], SECRET_KEY, (err, user) => {
+        if (err) return res.status(403).json({message: "Invalid token"})
+        req.user = user
+        next()
     })
+}
+
+app.post("/login", (req, res) => {
+    const {username, password} = req.body
+    const user = users.find((u) => u.username === username)
+    console.log(`user-name: ${username} | password: ${password}`)
+
+    if (!user || (user.password !== password)) {
+        return res.status(401).json({message: "Invalid credentials"})
+    }
+
+    const token = jwt.sign({username: user.username}, SECRET_KEY, {expiresIn: "1h"})
+
+    res.json({token})
 })
 
 app.listen(5000, () => {
-    console.log('Server listening on port 5000')
+    console.log("Server started at port 5000")
 })

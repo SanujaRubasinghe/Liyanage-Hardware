@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './Navbar.css';
 
 function Navbar() {
@@ -29,13 +30,6 @@ function Navbar() {
     const token = localStorage.getItem('token')
     setIsLoggedIn(!!token)
   }, [])
-
-  // handle logout
-  const handleLogOut = () => {
-    localStorage.removeItem('token')
-    setIsLoggedIn(false)
-    alert('Logged out successfully')
-  }
 
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
@@ -89,12 +83,7 @@ function Navbar() {
             <i className="fas fa-shopping-cart"></i>
             <span className="cart-count">0</span>
           </Link>
-          {isLoggedIn ? (
-            <Link to="/logout" className='login-button'>Log out</Link>
-          ) : (
-            <Link to="/login" className="login-button">Login</Link>
-          )}
-          
+          <Link to="/login" className='login-button'>Log in</Link>       
         </div>
       </div>
     </nav>

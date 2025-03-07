@@ -1,31 +1,30 @@
-import {useState, createContext} from 'react'
-import axios from 'axios'
+import {useContext, useState} from "react"
+import API from "../api"
+import { AuthContext } from "../context/AuthContext"
 
 function LogInPage() {
-    const [formData, setFormData] = useState({username:"", password:""})
+    const [user, setUser] = useState({username: "", password: ""})
+    const {login} = useContext(AuthContext)
+    
+    const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
 
-    const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value})
-    }
-
-    const handleLogin = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post('http://localhost:5000/login', formData)
-            localStorage.setItem("token", res.data.token)
+            await login(user)
             window.location.href = '/'
-        } catch(error) {
-            alert(error.response?.data?.error || 'Error logging in')
+        } catch (err) {
+            alert(err.response.data.error)
         }
     }
 
-    return(
+    return (
         <div>
-            <h1>Login Page</h1>
-            <form>
-                <input type='text' name='username' placeholder='Username' onChange={handleChange} /> <br/>
-                <input type='password' name='password' placeholder='Password' onChange={handleChange} /> <br/>
-                <button onClick={handleLogin}>Login</button>
+            <h1>Welcome back!</h1>
+            <form onSubmit={handleSubmit}>
+                <input name="username" onChange={handleChange} placeholder="Username" required />
+                <input name="password" type="password" onChange={handleChange} placeholder="Password" required />
+                <button type="submit">Login</button>
             </form>
         </div>
     )

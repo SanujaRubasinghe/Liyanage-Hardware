@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { AuthContext } from './context/AuthContext';
+import API from "./api"
 import './Navbar.css';
 
 function Navbar() {
   const [isShrunk, setIsShrunk] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const lastScrollY = useRef(0);
+
+  const {user, logout} = useContext(AuthContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +27,14 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-   // check if the user is logged in
-   useEffect(() => {
-    const token = localStorage.getItem('token')
-    setIsLoggedIn(!!token)
-  }, [])
+  const getProfile = async () => {
+    try {
+      const res = await API.get("/profile")
+      alert(res.data.username)
+    } catch(error) {
+      console.error(error.response)
+    }
+  }
 
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
@@ -83,7 +88,15 @@ function Navbar() {
             <i className="fas fa-shopping-cart"></i>
             <span className="cart-count">0</span>
           </Link>
-          <Link to="/login" className='login-button'>Log in</Link>       
+          {/* {user ? (
+            <Link to="/login" className='login-button'>Log in</Link> 
+          ) : (<>
+            <button className='login-button' onClick={getProfile}>Profile</button>
+            <button className='login-button' onClick={logout}>Log out</button>  
+          </>)} */}
+          <Link to="/login" className='login-button'>Log in</Link> 
+          <button className='login-button' onClick={getProfile}>Profile</button>
+          <button className='login-button' onClick={logout}>Log out</button>  
         </div>
       </div>
     </nav>

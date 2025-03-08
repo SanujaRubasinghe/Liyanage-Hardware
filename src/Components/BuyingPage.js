@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import API from "../api"
 import "./BuyingPage.css";
 
 const BuyingPage = () => {
@@ -30,13 +31,22 @@ const BuyingPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.agreeTerms) {
       alert("You must agree to the terms and conditions.");
       return;
+    } else {
+      try {
+        const res = await API.post("/products/purchase", formData)
+        alert(res.data.message)
+        window.location.href = '/products'
+      } catch(err) {
+        console.error(err)
+      }
     }
-    console.log("Order placed:", formData);
+    
   };
 
   const subtotal = product.productPrice * product.quantity;
@@ -91,7 +101,7 @@ const BuyingPage = () => {
           I have read and agree to the website Terms and Conditions *
         </label>
         
-        <button type="submit">Place Order</button>
+        <button type="submit" onClick={handleSubmit}>Place Order</button>
       </form>
     </div>
   );

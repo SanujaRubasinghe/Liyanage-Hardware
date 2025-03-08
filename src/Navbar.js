@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
+
 import API from "./api"
 import './Navbar.css';
 
@@ -26,15 +27,6 @@ function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const getProfile = async () => {
-    try {
-      const res = await API.get("/profile")
-      alert(res.data.username)
-    } catch(error) {
-      console.error(error.response)
-    }
-  }
 
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
@@ -94,9 +86,8 @@ function Navbar() {
             <button className='login-button' onClick={getProfile}>Profile</button>
             <button className='login-button' onClick={logout}>Log out</button>  
           </>)} */}
-          <Link to="/login" className='login-button'>Log in</Link> 
-          <button className='login-button' onClick={getProfile}>Profile</button>
-          <button className='login-button' onClick={logout}>Log out</button>  
+          <Link to="/profile" className='login-button'>Profile</Link>
+            
         </div>
       </div>
     </nav>

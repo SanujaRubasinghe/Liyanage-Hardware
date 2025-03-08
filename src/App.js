@@ -24,6 +24,8 @@ import ShoppingCart from './Components/ShoppingCart';
 import BuyingPage from './Components/BuyingPage';
 import MiniCategory from './Components/MiniCategory';
 import LogInPage from './Components/LogInPage';
+import PrivateRoute from './Components/PrivateRoutes';
+import UserProfile from './Components/UserProfile';
 
 function App() {
   return (
@@ -97,6 +99,9 @@ function App() {
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/sub-category" element={<Subcategories />} />
             <Route path='/login' element={<LogInPage/>} />
+            <Route element={<PrivateRoute/>}>
+              <Route path="/profile" element={<UserProfile />} />
+            </Route>
           </Routes>
         </CartProvider>
       </Router>

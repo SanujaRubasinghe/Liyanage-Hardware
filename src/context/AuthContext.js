@@ -7,14 +7,14 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
 
     useEffect(() => {
-        API.get("/profile")
+        API.get("/auth/profile")
             .then((res) => setUser(res.data))
             .catch(() => setUser(null))
     }, [])
 
     const login = async (credentials) => {
         try {
-            await API.post("/login", credentials)
+            await API.post("/auth/login", credentials)
             const res = await API.get("/profile")
             setUser(res.data)
             console.log(res.data)
@@ -25,7 +25,7 @@ export const AuthProvider = ({children}) => {
 
     const logout = async () => {
         try {
-            const res = await API.post("/logout")
+            const res = await API.post("/auth/logout")
             alert(res.data.message)
             setUser(null)
         } catch (err) {

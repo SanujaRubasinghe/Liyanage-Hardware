@@ -1,29 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "./CartContext"; // Import useCart hook
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import API from "../api"
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
 
 const ProductDisplay = () => {
+  
   const navigate = useNavigate();
+  const location = useLocation()
+  const {id} = location.state || {}
   const { addToCart } = useCart(); // Destructure addToCart from useCart
 
-  const product = {
-    id: 1, // Ensure each product has a unique id
-    name: "Mcoco Plastic Plant for Indoor and Outdoor Rice White Color",
-    sku: "MCO/PP/RW/P444",
-    price: 4100,
-    images: ["/images/P1.jpg", "/images/P1.jpg", "/images/P1.jpg"],
-    sizes: ["155mm", "220mm", "340mm"],
-    colors: ["White", "Black", "Gray"],
-  };
-
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [product, setProduct] = useState(null)
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (id) {
+        try {
+          const response = await API.get(`/products/${id}`)
+          setProduct(response.data)
+        } catch(err) {
+          console.error("Error fetching product details: ", err)
+        }
+      }
+    }
+    fetchProduct()
+  }, [id])
+
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes[0] || "")
+      setSelectedColor(product.colors[0] || "")
+      setSelectedImage(product.images[0] || "")
+    }
+  }, [product])
+
+  if (!product) {
+    return <p>Loading Product details...</p>
+  }
 
   const handleAddToCart = () => {
     addToCart({

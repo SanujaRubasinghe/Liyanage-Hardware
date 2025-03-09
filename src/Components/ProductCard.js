@@ -2,23 +2,23 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProductCard.css";
 
-const ProductCard = ({ image, title, partNumber, price, unit }) => {
+const ProductCard = ({id, name, price, images, part_number, unit}) => {
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
     // Navigate to the ProductDisplay page with product details
     navigate("/product-display", {
-      state: { image, title, partNumber, price, unit }
+      state: { id }
     });
   };
 
   return (
     <div className="product-card">
-      <img src={image} alt={title} className="product-image" />
+      <img src={images?.[0] || "/placeholder.jpg"} alt={name || "Product"} className="product-image" />
       <div className="product-details">
-        <h3 className="product-title">{title}</h3>
-        <p className="product-part">Part Number: {partNumber}</p>
-        <p className="product-price">{price} <span>inc VAT</span></p>
+        <h3 className="product-title">{name}</h3>
+        <p className="product-part">Part Number: {part_number}</p>
+        <p className="product-price">Rs.{price} <span>inc VAT</span></p>
         <p className="product-unit">{unit}</p>
         <div className="product-actions">
       

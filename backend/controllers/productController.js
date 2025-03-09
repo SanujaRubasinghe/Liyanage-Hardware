@@ -6,8 +6,6 @@ exports.purchaseProducts = async (req, res) => {
         streetAddress, apartment, postcode, phone, email, orderNotes, paymentMethod
     } = req.body;
 
-    console.log(req.body)
-
     try {
         const query = `
             INSERT INTO orders (
@@ -17,7 +15,7 @@ exports.purchaseProducts = async (req, res) => {
         `
 
         const values = [
-            1, firstName, lastName, companyName, country, city,
+            req.user.id, firstName, lastName, companyName, country, city,
             streetAddress, apartment, postcode, phone, email, orderNotes, paymentMethod
         ];
 
@@ -27,5 +25,30 @@ exports.purchaseProducts = async (req, res) => {
     } catch (err) {
         res.status(500).json({err: "Internal server error"})
         console.log(err)
+    }
+}
+
+exports.getAllProducts = async (req, res) => {
+    try {
+        const {rows} = await pool.query("select * from products")
+        res.json(rows)
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).json({error: "Internal Server Error"})
+    }
+}
+
+exports.getProduct = async (req, res) => {
+    try {
+        const productId = req.params.id
+        const {rows} = await pool.query("select * from products where id=$1", [productId])
+
+        if (rows.length === 0) {
+            return res.status(404).json({error: "Product not found"})
+        }
+        res.json(rows[0])
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).json({error: "Internal Server Error"})
     }
 }

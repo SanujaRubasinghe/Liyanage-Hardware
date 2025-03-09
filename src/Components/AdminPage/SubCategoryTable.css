@@ -1,0 +1,60 @@
+.subcategory-table-container {
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.subcategory-table-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subcategory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subcategory-table th, 
+.subcategory-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.subcategory-table th {
+  background: #f4f4f4;
+  font-weight: bold;
+}
+
+.subcategory-table img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.subcategory-table button {
+  padding: 8px 12px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.subcategory-delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.subcategory-edit-btn {
+  background: #007bff;
+  color: white;
+}
+
+.subcategory-table button:hover {
+  opacity: 0.8;
+}

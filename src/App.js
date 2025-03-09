@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { CartProvider } from './Components/CartContext';  // Import CartProvider
+import { CartProvider } from './Components/CartContext';
 import Navbar from './Navbar';
 import Home from './Components/Home';
 import JobSeekers from './Components/JobSeekers';
@@ -23,16 +23,17 @@ import SearchBarNew from './Components/SearchBarNew';
 import ShoppingCart from './Components/ShoppingCart';
 import BuyingPage from './Components/BuyingPage';
 import MiniCategory from './Components/MiniCategory';
-import LogInPage from './Components/LogInPage';
+import AdminPanel from './Components/AdminPage/AdminPanel';
+import SubCategoryTable from './Components/AdminPage/SubCategoryTable';
+import AdminLayout from './Components/AdminPage/AdminLayout';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div>
       <Router>
-        {/* Wrap the entire app inside CartProvider */}
         <CartProvider>
           <Navbar />
-
           <Routes>
             <Route
               path="/"
@@ -53,50 +54,32 @@ function App() {
                 </>
               }
             />
-            <Route
-              path="/products"
-              element={
-                <>
-                  <ProductList />
-                  <FeatureSection />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/about-us"
-              element={
-                <>
-                  <AboutUs />
-                  <BuyingPage />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/contact-us"
-              element={
-                <>
-                  <ContactUs />
-                  <MiniCategory />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/category"
-              element={
-                <>
-                  <CategorySection />
-                  <Footer />
-                </>
-              }
-            />
+            <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
+
+
+            <Route path="/about-us" element={
+              <><AboutUs />
+              <AdminPanel/>
+              <Footer /></>
+              } />
+
+
+            <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
+            <Route path="/category" element={<><CategorySection /><Footer /></>} />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/sub-category" element={<Subcategories />} />
-            <Route path='/login' element={<LogInPage/>} />
+
+            {/* ✅ Fixed Admin Routing */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminPanel />} />
+              <Route path="home" element={<SubCategoryTable />} />
+              <Route path="category" element={<AdminPanel />}  />
+              <Route path="subcategory" element={<h2>Category Page</h2>}/>
+              <Route path="products" element={<h2>Products Page</h2>} />
+              <Route path="orders" element={<h2>Orders Page</h2>} />
+            </Route>
           </Routes>
         </CartProvider>
       </Router>

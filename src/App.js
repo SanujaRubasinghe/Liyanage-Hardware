@@ -10,7 +10,7 @@ import ImageDeliver from './Components/ImageDeliver';
 import BrandContainer from './Components/BrandContainer';
 import Header from './Components/Header';
 import Slideshow from './Components/Slideshow';
-import SearchBar from './Components/SearchBar';
+
 import ProductList from './Components/ProductList';
 import Footer from './Components/Footer';
 import ConstructionSupplies from './Components/ConstructionSupplies';
@@ -19,7 +19,7 @@ import Subcategories from './Components/SubCategories';
 import ProductDisplay from './Components/ProductDisplay';
 import FeatureSection from './Components/FeatureSection';
 import NewArrivals from './Components/NewArrivals';
-import SearchBarNew from './Components/SearchBarNew';
+
 import ShoppingCart from './Components/ShoppingCart';
 import BuyingPage from './Components/BuyingPage';
 import MiniCategory from './Components/MiniCategory';
@@ -29,6 +29,7 @@ import AdminLayout from './Components/AdminPage/AdminLayout';
 import { Outlet } from 'react-router-dom';
 import CustomerComplaintsForm from './Components/CustomerComplaintsForm';
 import SearchBarN from './Components/SearchBarN';
+import Feedback from './Components/Feedback';
 
 function App() {
   return (
@@ -69,7 +70,13 @@ function App() {
 
 
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
-            <Route path="/category" element={<><CategorySection /><Footer /></>} />
+            <Route path="/category" element={
+              <>
+              <Feedback/>
+              {/* <CategorySection /> */}
+              <Footer />
+              </>
+              } />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />

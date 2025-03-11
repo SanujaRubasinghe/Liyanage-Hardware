@@ -66,7 +66,7 @@ function Navbar() {
           <li><Link to="/about-us">Complaints</Link></li>
           <li><Link to="/admin">Admin</Link></li>
           <li><Link to="/contact-us">About us</Link></li>
-          <li><Link to="/category">Categories</Link></li>
+          <li><Link to="/category">Feedback</Link></li>
         </ul>
         <div className="auth-section">
           <Link to="/cart" className="cart-icon">

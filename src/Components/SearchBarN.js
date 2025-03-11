@@ -18,7 +18,7 @@ const SearchBarN = () => {
 
   return (
     <div className="navbar-N">
-      <div className="menu-item">SHOP BY BRANDS ▼</div>
+      <div className="menu-item">OFFERS</div>
 
     
       <div

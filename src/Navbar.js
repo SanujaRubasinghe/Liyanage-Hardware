@@ -63,9 +63,9 @@ function Navbar() {
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/products">Products</Link></li>
-          <li><Link to="/about-us">About Us</Link></li>
+          <li><Link to="/about-us">Complaints</Link></li>
           <li><Link to="/admin">Admin</Link></li>
-          <li><Link to="/contact-us">Contact</Link></li>
+          <li><Link to="/contact-us">About us</Link></li>
           <li><Link to="/category">Categories</Link></li>
         </ul>
         <div className="auth-section">

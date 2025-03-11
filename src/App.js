@@ -27,6 +27,8 @@ import AdminPanel from './Components/AdminPage/AdminPanel';
 import SubCategoryTable from './Components/AdminPage/SubCategoryTable';
 import AdminLayout from './Components/AdminPage/AdminLayout';
 import { Outlet } from 'react-router-dom';
+import CustomerComplaintsForm from './Components/CustomerComplaintsForm';
+import SearchBarN from './Components/SearchBarN';
 
 function App() {
   return (
@@ -40,10 +42,11 @@ function App() {
               element={
                 <>
                   <Header />
+                  <SearchBarN/>
                   <Slideshow />
                   <ImageDeliver />
-                  <SearchBar />
-                  <SearchBarNew />
+                  {/* <SearchBar /> */}
+                  {/* <SearchBarNew /> */}
                   <Home />
                   <ProductList />
                   <BrandContainer />
@@ -59,7 +62,8 @@ function App() {
 
             <Route path="/about-us" element={
               <><AboutUs />
-              <AdminPanel/>
+              <SearchBarN/>
+              <CustomerComplaintsForm/>
               <Footer /></>
               } />
 

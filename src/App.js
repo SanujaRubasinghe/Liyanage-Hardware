@@ -32,6 +32,7 @@ import SearchBarN from './Components/SearchBarN';
 import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
+import LogInPage from './Components/LogInPage';
 
 function App() {
   return (
@@ -92,6 +93,11 @@ function App() {
               <Route path="subcategory" element={<h2>Category Page</h2>}/>
               <Route path="products" element={<h2>Products Page</h2>} />
               <Route path="orders" element={<h2>Orders Page</h2>} />
+            </Route>
+
+            <Route path='/login' element={<LogInPage />}/>
+            <Route element={<PrivateRoute />}>
+              <Route path='/profile' element={<UserProfile/>}></Route>
             </Route>
           </Routes>
         </CartProvider>

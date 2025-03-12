@@ -1,6 +1,7 @@
 const pool = require("../db")
 
 exports.purchaseProducts = async (req, res) => {
+
     const {
         firstName, lastName, companyName, country, city,
         streetAddress, apartment, postcode, phone, email, orderNotes, paymentMethod
@@ -15,7 +16,7 @@ exports.purchaseProducts = async (req, res) => {
         `
 
         const values = [
-            req.user.id, firstName, lastName, companyName, country, city,
+            1, firstName, lastName, companyName, country, city,
             streetAddress, apartment, postcode, phone, email, orderNotes, paymentMethod
         ];
 
@@ -24,7 +25,7 @@ exports.purchaseProducts = async (req, res) => {
         
     } catch (err) {
         res.status(500).json({err: "Internal server error"})
-        console.log(err)
+        console.log(err.message)
     }
 }
 

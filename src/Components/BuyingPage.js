@@ -23,6 +23,18 @@ const BuyingPage = () => {
     agreeTerms: false,
   });
 
+  const sendMessage = async (number, text) => {
+    try {
+      const response = await API.post("/messages/send-message", {
+        to: number,
+        message: text
+      })
+      console.log("Message sent: ", response.data)
+    } catch (err) {
+      console.error("Failed to send message: ", err.response.data)
+    }
+  }
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -39,7 +51,13 @@ const BuyingPage = () => {
       return;
     } else {
       try {
+        const order = `Product: ${product.productName}.
+                       Product quantity: ${product.quantity}
+                       Customer Name: ${formData.firstName} ${formData.lastName}
+                       Phone number: ${formData.phone}`
+                       
         const res = await API.post("/products/purchase", formData)
+        sendMessage("+94707181470", order)
         alert(res.data.message)
         window.location.href = '/products'
       } catch(err) {

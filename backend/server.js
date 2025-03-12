@@ -3,6 +3,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const authRoutes = require("./routes/auth")
 const productRoutes = require("./routes/productRoutes")
+const messageRoutes = require("./routes/messageRoutes")
 const bodyParser = require("body-parser")
 require("dotenv").config()
 
@@ -14,6 +15,7 @@ app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
 app.use("/api/products", productRoutes)
+app.use("/api/messages", messageRoutes)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

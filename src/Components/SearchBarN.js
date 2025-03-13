@@ -18,9 +18,8 @@ const SearchBarN = () => {
 
   return (
     <div className="navbar-N">
-      <div className="menu-item">OFFERS</div>
+      <div className="offers-button">OFFERS</div>
 
-    
       <div
         className="dropdown-wrapper"
         onMouseEnter={() => setShowBrands(true)}

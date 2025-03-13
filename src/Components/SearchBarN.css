@@ -1,99 +1,135 @@
+/* Navbar Container */
 .navbar-N {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    padding: 10px;
-    color: white;
-    position: relative;
-  }
-  
-  .menu-item {
-    margin-right: 20px;
-    cursor: pointer;
-    position: relative;
-    padding: 10px;
-  }
-  
-  /* Dropdown Wrapper */
-  .dropdown-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* First Level Dropdown */
-  .dropdown {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background: white;
-    color: black;
-    width: 200px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    z-index: 100;
-  }
-  
-  .dropdown-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #f4f4f4;
-  }
-  
-  /* Second Level Dropdown */
-  .sub-dropdown {
-    position: absolute;
-    top: 0;
-    left: 210px;
-    background: white;
-    color: black;
-    width: 180px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    z-index: 200;
-  }
-  
-  .sub-dropdown-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  }
-  
-  .sub-dropdown-item:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .arrow {
-    font-size: 14px;
-    color: gray;
-  }
-  
-  /* Search Bar */
-  .search-container {
-    margin-left: auto;
-    position: relative;
-  }
-  
-  .search-container input {
-    padding: 8px;
-    border: none;
-    border-radius: 20px;
-    width: 200px;
-    padding-right: 30px;
-  }
-  
-  .search-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: gray;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  align-items: center;
+  background-color: #2b2b2b; /* Ash black background */
+  padding: 0 15px;
+  color: #fff; /* White fonts */
+  position: relative;
+  height: 42px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+}
+
+/* Menu Items */
+.menu-item {
+  margin-right: 20px;
+  cursor: pointer;
+  position: relative;
+  padding: 6px 10px;
+  font-weight: 500;
+}
+
+/* Offers Button */
+.offers-button {
+  background-color: #d62323; /* Slightly lighter than navbar */
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 3px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.offers-button:hover {
+  background-color: #ff0000;
+}
+
+/* Dropdown Wrapper */
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* First Level Dropdown */
+.dropdown {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background: #2b2b2b; /* Ash black background */
+  color: #fff;
+  width: 180px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  z-index: 100;
+  font-size: 12px;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid #444;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #3a3a3a;
+}
+
+/* Second Level Dropdown */
+.sub-dropdown {
+  position: absolute;
+  top: 0;
+  left: 190px;
+  background: #2b2b2b; /* Ash black background */
+  color: #fff;
+  width: 160px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  z-index: 200;
+  font-size: 12px;
+}
+
+.sub-dropdown-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+}
+
+.sub-dropdown-item:hover {
+  background-color: #3a3a3a;
+}
+
+.arrow {
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Search Bar */
+.search-container {
+  margin-left: auto;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-container input {
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  width: 160px;
+  font-size: 12px;
+  background-color: #121111;
+  color: #fff;
+  height: calc(100% - 8px); /* Fits nav bar height with a small margin */
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+
+.search-container input::placeholder {
+  color: #ccc;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}

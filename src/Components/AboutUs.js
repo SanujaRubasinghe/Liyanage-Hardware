@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutUs() {
   return (
-    <h2>About Us Page</h2>
+    <h2>complain page(About us route)</h2>
   );
  
 }

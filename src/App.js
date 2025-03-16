@@ -79,18 +79,9 @@ function App() {
 
             <Route path='/login' element={<LogInPage />}/>
             <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
-            </Routes>
-            {/* Login Page Route */}
-            <Route path='/login' element={<LogInPage />} />
-
-            {/* PrivateRoute wrapping authenticated pages */}
-            <Route element={<PrivateRoute />}>
-              <Route path='/profile' element={<UserProfile />} />
-            </Route>
-
+            
             {/* Public Route for MiniCategory */}
             <Route path="/mini-category/:subcategory" element={<MiniCategory />} />
-
           </Routes>
         </CartProvider>
       </Router>

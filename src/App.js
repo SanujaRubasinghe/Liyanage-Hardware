@@ -45,11 +45,9 @@ function App() {
               element={
                 <>
                   <Header />
-                  <SearchBarN/>
+                  <SearchBarN />
                   <Slideshow />
                   <ImageDeliver />
-                  {/* <SearchBar /> */}
-                  {/* <SearchBarNew /> */}
                   <Home />
                   <ProductList />
                   <BrandContainer />
@@ -61,24 +59,9 @@ function App() {
               }
             />
             <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
-
-
-            <Route path="/about-us" element={
-              <><AboutUs />
-              <SearchBarN/>
-              <CustomerComplaintsForm/>
-              <Footer /></>
-              } />
-
-
+            <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
-            <Route path="/category" element={
-              <>
-              <Feedback/>
-              {/* <CategorySection /> */}
-              <Footer />
-              </>
-              } />
+            <Route path="/category" element={<><Feedback /><Footer /></>} />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
@@ -88,8 +71,8 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminPanel />} />
               <Route path="home" element={<SubCategoryTable />} />
-              <Route path="category" element={<AdminPanel />}  />
-              <Route path="subcategory" element={<h2>Category Page</h2>}/>
+              <Route path="category" element={<AdminPanel />} />
+              <Route path="subcategory" element={<h2>Category Page</h2>} />
               <Route path="products" element={<h2>Products Page</h2>} />
               <Route path="orders" element={<h2>Orders Page</h2>} />
             </Route>
@@ -97,6 +80,18 @@ function App() {
             <Route path='/login' element={<LogInPage />}/>
             <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
             </Routes>
+            {/* Login Page Route */}
+            <Route path='/login' element={<LogInPage />} />
+
+            {/* PrivateRoute wrapping authenticated pages */}
+            <Route element={<PrivateRoute />}>
+              <Route path='/profile' element={<UserProfile />} />
+            </Route>
+
+            {/* Public Route for MiniCategory */}
+            <Route path="/mini-category/:subcategory" element={<MiniCategory />} />
+
+          </Routes>
         </CartProvider>
       </Router>
     </div>

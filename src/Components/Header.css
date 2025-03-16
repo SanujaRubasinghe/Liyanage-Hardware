@@ -2,7 +2,9 @@
     width: 100%;
     height: auto; /* Adjust height as needed */
     overflow: hidden;
-    margin-bottom: 20px;
+    position: relative;
+    border: none;
+    
   }
   
   .header-image {

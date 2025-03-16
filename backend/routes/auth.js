@@ -8,21 +8,21 @@ require("dotenv").config()
 router.post("/login", async (req, res) => {
     const {username, password} = req.body
     try {
-        const user = await pool.query("select * from users where username=$1", [username])
-        if (user.rows.length === 0) {
+        const [rows] = await pool.query("select * from usrtbl where usrname=?", [username])
+        if (rows[0].length === 0) {
             return res.status(400).json({message: "User not found"})
         }
 
         //change this to bcrypt.compare after hashing the passwords
-        const isPasswordValid = user.rows[0].password === password
+        const isPasswordValid = rows[0].usrpassword === password
         if (!isPasswordValid) {
             return res.status(400).json({message: "Invalid credentials"})
         }
 
-        const token = jwt.sign({id: user.rows[0].id}, process.env.JWT_KEY, {expiresIn: "1h"})
+        const token = jwt.sign({id: rows[0].id}, process.env.JWT_KEY, {expiresIn: "1h"})
 
         res.cookie("token", token, {httpOnly: true, secure: false, sameSite: "lax"})
-        return res.json({message: "Login Successful"})
+        return res.json({message: "Login Successful", usertoken: token })
     } catch(err) {
         return res.status(500).json({error: err.message})
     }
@@ -33,8 +33,9 @@ router.post("/logout", (req, res) => {
 })
 
 router.get("/profile", authenticateToken, async (req, res) => {
-    const user = await pool.query("select id, username, email from users where id=$1", [req.user.id])
-    res.json(user.rows[0])
+    const [rows] = await pool.query("select id, usrname, usremail from usrtbl where id=?", [req.user.id])
+    console.log(rows)
+    res.json(rows[0])
 })
 
 module.exports = router

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import API from "../api"
 import "./BuyingPage.css";
@@ -6,6 +6,9 @@ import "./BuyingPage.css";
 const BuyingPage = () => {
   const location = useLocation();
   const product = location.state || {};
+
+  const [deliveryCharge, setDeliveryCharge] = useState(0)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -22,6 +25,56 @@ const BuyingPage = () => {
     paymentMethod: "bankTransfer",
     agreeTerms: false,
   });
+
+  useEffect(() => {
+    const getDeliveryCharges = async () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords
+            
+            try {
+              const response = await API.post('/location/delivery-charges', {latitude, longitude})
+  
+              if (response.data.success) {
+                setDeliveryCharge(response.data.charge)
+                setErrorMessage('')
+              } else {
+                setDeliveryCharge(null)
+                setErrorMessage('Delivery not available to your locaion')
+              }
+            } catch (err) {
+              console.error("Error calculating delivery charges: ", err)
+              setErrorMessage("Failed to calculate delivery charges. Please try again")
+            } 
+          },
+          (error) => {
+            switch (error) {
+              case error.PERMISSION_DENIED:
+                setErrorMessage('Location access denied. Please enable location or enter your address manually.');
+                break;
+              case error.POSITION_UNAVAILABLE:
+                setErrorMessage('Location information is unavailable. Please check your device settings.');
+                break;
+              case error.TIMEOUT:
+                setErrorMessage('Location request timed out. Please try again.');
+                break;
+              default:
+                setErrorMessage('An unknown error occurred while retrieving your location.');
+                break;
+            }
+          }
+        )
+      } else {
+        setErrorMessage("Geolocation is not supported by your browser")
+      }
+      console.log(errorMessage)
+    }
+
+    getDeliveryCharges()
+  }, [])
+
+  
 
   const sendMessage = async (number, text) => {
     try {
@@ -68,7 +121,7 @@ const BuyingPage = () => {
   };
 
   const subtotal = product.productPrice * product.quantity;
-  const shippingCost = 450;
+  const shippingCost = deliveryCharge || "Calculating..."
   const total = subtotal + shippingCost;
 
   return (

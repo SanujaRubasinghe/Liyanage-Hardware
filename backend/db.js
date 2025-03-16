@@ -1,15 +1,11 @@
-const {Pool} = require('pg')
+const mysql = require('mysql2/promise')
 
-const pool = new Pool({
-    user: "postgres",
+const pool = mysql.createPool({
+    user: "admin",
     host: "localhost",
-    database: "users_db",
-    password: "postgres",
-    port: 5432
+    database: "hardwaredb",
+    password: "admin@root",
+    port: 3306
 })
-
-pool.connect()
-    .then(() => console.log("Connected to PostgreSQL"))
-    .catch(error => console.error("Connection error: ", error))
 
 module.exports = pool

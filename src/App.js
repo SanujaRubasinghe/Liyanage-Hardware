@@ -26,7 +26,6 @@ import MiniCategory from './Components/MiniCategory';
 import AdminPanel from './Components/AdminPage/AdminPanel';
 import SubCategoryTable from './Components/AdminPage/SubCategoryTable';
 import AdminLayout from './Components/AdminPage/AdminLayout';
-import { Outlet } from 'react-router-dom';
 import CustomerComplaintsForm from './Components/CustomerComplaintsForm';
 import SearchBarN from './Components/SearchBarN';
 import Feedback from './Components/Feedback';
@@ -96,10 +95,8 @@ function App() {
             </Route>
 
             <Route path='/login' element={<LogInPage />}/>
-            <Route element={<PrivateRoute />}>
-              <Route path='/profile' element={<UserProfile/>}></Route>
-            </Route>
-          </Routes>
+            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+            </Routes>
         </CartProvider>
       </Router>
     </div>

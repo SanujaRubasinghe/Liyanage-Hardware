@@ -53,3 +53,32 @@ exports.getProduct = async (req, res) => {
         res.status(500).json({error: "Internal Server Error"})
     }
 }
+
+exports.addNewProduct = async (req, res) => {
+    const {
+        productName, productId, sku, code, unit, brand, category, subcategory,
+        deliveryStatus, deliveryAllowed, stock, alertQuantity, weight, desc, price
+    } = req.body
+
+    try {
+        const addProductQuery = `
+            insert into product(prdtid, catid, scatid, delid, delalwd, wght1, delchg)
+            values(?,?,?,?,?,?,?)
+        `
+        const addProductdata = `
+            insert into product_data(name, sku, price, images, sizes, colors, unit, prtdid)
+            values(?,?,?,?,?,?,?,?)
+        `
+        const productValues = [productId, category, subcategory, deliveryStatus, deliveryAllowed, weight, 0]
+        const productDataValues = [
+            productName, sku, price, '["/images/p1.jpg", "/images/p1.jpg"]', '["size1", "size2"]',
+            '["color1", "color2"]', unit, productId
+        ]
+        await pool.query(addProductQuery, productValues)
+        await pool.query(addProductdata, productDataValues)
+        res.status(201).json({message: "Product added successfully"})
+    } catch (err) {
+        res.status(500).json({err: "Internal server error"})
+        console.log(err.message)
+    }
+}

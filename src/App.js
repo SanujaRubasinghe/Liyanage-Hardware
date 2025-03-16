@@ -68,7 +68,7 @@ function App() {
             <Route path="/sub-category" element={<Subcategories />} />
 
             {/* ✅ Fixed Admin Routing */}
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
               <Route index element={<AdminPanel />} />
               <Route path="home" element={<SubCategoryTable />} />
               <Route path="category" element={<AdminPanel />} />

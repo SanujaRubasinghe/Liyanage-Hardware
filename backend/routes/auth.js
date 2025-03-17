@@ -34,7 +34,6 @@ router.post("/logout", (req, res) => {
 
 router.get("/profile", authenticateToken, async (req, res) => {
     const [rows] = await pool.query("select id, usrname, usremail from usrtbl where id=?", [req.user.id])
-    console.log(rows)
     res.json(rows[0])
 })
 

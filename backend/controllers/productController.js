@@ -82,3 +82,35 @@ exports.addNewProduct = async (req, res) => {
         console.log(err.message)
     }
 }
+
+exports.filterProducts = async (req, res) => {
+    try {
+        const {category, minPrice, maxPrice, deliveryArea} = req.body
+        
+        let query = 'select * from product where 1=1'
+        const params = []
+
+        if (category) {
+            query += ' and catid = ?'
+            params.push(category)
+        }
+        if (minPrice) {
+            query += ' and price >= ?'
+            params.push(minPrice)
+        }
+        if (maxPrice) {
+            query += ' and price <= ?'
+            params.push(maxPrice)
+        }
+        if (deliveryArea) {
+            query += ' and delid like ?'
+            params.push(deliveryArea)
+        }
+
+        const [results] = await pool.execute(query, params)
+        res.json(results)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message: "Internal Server Error"})
+    }
+}

@@ -7,7 +7,6 @@ import "./ProductList.css";
 const ProductList = () => {
 
   const [products, setProducts] = useState([])
-  const [filters, setFilters] = useState({})
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,21 +21,21 @@ const ProductList = () => {
     fetchProducts()
   }, [])
 
-  useEffect(() => {
-    const fetchFilteredProducts = async (filters) => {
-      try {
-        const response = await API.post("/products/filter", filters)
-        setProducts(response.data)
-      } catch (error) {
-        console.error("Error fetching products: ", error)
-      }
-    }
-    fetchFilteredProducts(filters)
-  }, [filters])
+  // useEffect(() => {
+  //   const fetchFilteredProducts = async (filters) => {
+  //     try {
+  //       const response = await API.post("/products/filter", filters)
+  //       setProducts(response.data)
+  //     } catch (error) {
+  //       console.error("Error fetching products: ", error)
+  //     }
+  //   }
+  //   fetchFilteredProducts(filters)
+  // }, [filters])
 
   return (
     <div className="Pcontainer">
-      <ProductFilter onFilter={setFilters} />
+      <ProductFilter setProducts={setProducts} />
       <h2 className="highlight-gray">
         <span className="blue-text">Our</span>{' '}
         <span className="red-text">Products</span>

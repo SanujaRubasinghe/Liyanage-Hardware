@@ -1,14 +1,43 @@
 import React, { useState } from 'react';
+import API from '../api';
 import './ProductFilter.css'
 
-const ProductFilter = ({ onFilter }) => {
-    const [category, setCategory] = useState('');
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-    const [deliveryArea, setDeliveryArea] = useState('');
+const ProductFilter = ({ setProducts }) => {
+    const [filters, setFilters] = useState({
+        category: '',
+        minPrice: '',
+        maxPrice: '',
+        deliveryArea: '',
+    });
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const fetchProducts = async (filters) => {
+        try {
+            const response = await API.post('/product/filter', filters);
+            setProducts(response.data);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
 
     const handleFilter = () => {
-        onFilter({ category, minPrice, maxPrice, deliveryArea });
+        fetchProducts(filters);
+    };
+
+    const handleReset = () => {
+        const resetFilters = {
+            category: '',
+            minPrice: '',
+            maxPrice: '',
+            deliveryArea: '',
+        };
+        setFilters(resetFilters);
+        fetchProducts(resetFilters); // Fetch all products
     };
 
     return (
@@ -16,29 +45,29 @@ const ProductFilter = ({ onFilter }) => {
             <input 
                 type="text" 
                 placeholder="Delivery Area" 
-                value={deliveryArea} 
-                onChange={(e) => setDeliveryArea(e.target.value)} 
+                value={filters.deliveryArea} 
+                onChange={handleChange} 
                 className="filterInput"
             />
             <input 
                 type="text" 
                 placeholder="Category" 
-                value={category} 
-                onChange={(e) => setCategory(e.target.value)} 
+                value={filters.category} 
+                onChange={handleChange} 
                 className="filterInput"
             />
             <input 
                 type="number" 
                 placeholder="Min Price" 
-                value={minPrice} 
-                onChange={(e) => setMinPrice(e.target.value)} 
+                value={filters.minPrice} 
+                onChange={handleChange} 
                 className="filterInput"
             />
             <input 
                 type="number" 
                 placeholder="Max Price" 
-                value={maxPrice} 
-                onChange={(e) => setMaxPrice(e.target.value)} 
+                value={filters.maxPrice} 
+                onChange={handleChange} 
                 className="filterInput"
             />
             <button 
@@ -47,6 +76,7 @@ const ProductFilter = ({ onFilter }) => {
             >
                 Apply Filter
             </button>
+            <button onClick={handleReset}>Reset Filter</button>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
+import LoadingPage from "./LoadingPage";
 
 const ProductDisplay = () => {
   
@@ -44,7 +45,7 @@ const ProductDisplay = () => {
   }, [product])
 
   if (!product) {
-    return <p>Loading Product details...</p>
+    return <LoadingPage />
   }
 
   const handleAddToCart = () => {

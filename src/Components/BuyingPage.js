@@ -76,17 +76,17 @@ const BuyingPage = () => {
 
   
 
-  const sendMessage = async (number, text) => {
-    try {
-      const response = await API.post("/messages/send-message", {
-        to: number,
-        message: text
-      })
-      console.log("Message sent: ", response.data)
-    } catch (err) {
-      console.error("Failed to send message: ", err.response.data)
-    }
-  }
+  // const sendMessage = async (number, text) => {
+  //   try {
+  //     const response = await API.post("/messages/send-message", {
+  //       to: number,
+  //       message: text
+  //     })
+  //     console.log("Message sent: ", response.data)
+  //   } catch (err) {
+  //     console.error("Failed to send message: ", err.response.data)
+  //   }
+  // }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -110,7 +110,7 @@ const BuyingPage = () => {
                        Phone number: ${formData.phone}`
                        
         const res = await API.post("/products/purchase", formData)
-        sendMessage("+94707181470", order)
+        // sendMessage("+94707181470", order)
         alert(res.data.message)
         window.location.href = '/products'
       } catch(err) {
@@ -122,7 +122,7 @@ const BuyingPage = () => {
 
   const subtotal = product.productPrice * product.quantity;
   const shippingCost = deliveryCharge || "Calculating..."
-  const total = subtotal + shippingCost;
+  const total = subtotal + shippingCost
 
   return (
     <div className="buying-page">

@@ -1,5 +1,4 @@
 import {useContext, useState} from "react"
-import API from "../api"
 import { AuthContext } from "../context/AuthContext"
 
 function LogInPage() {

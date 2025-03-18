@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import LoadingPage from "../Components/LoadingPage";
 import API from "../api"; // Replace with your API instance if different
 
 export const AuthContext = createContext();
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     if (loading) {
-        return <div>Loading...</div>; // Display a loading indicator while fetching user data
+        return <LoadingPage />; 
     }
 
     return (

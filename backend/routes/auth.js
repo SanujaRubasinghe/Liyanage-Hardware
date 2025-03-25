@@ -29,7 +29,13 @@ router.post("/login", async (req, res) => {
 })
 
 router.post("/logout", (req, res) => {
-    res.clearCookie("token").json({message: "Logged out"})
+    res.cookie("token", "", {
+        httpOnly: true,
+        expires: new Date(0),
+        path: "/"
+    })
+
+    res.status(200).json({message: "Logged out successfully"})
 })
 
 router.get("/profile", authenticateToken, async (req, res) => {

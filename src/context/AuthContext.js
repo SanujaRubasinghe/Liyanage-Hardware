@@ -44,10 +44,10 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            // Logout from the server and remove token
             await API.post("/auth/logout");
-            localStorage.removeItem("authToken"); // Remove token from localStorage
-            setUser(null); // Clear user state
+            localStorage.removeItem("token"); 
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            setUser(null);
         } catch (err) {
             console.error("Logout failed", err.message);
         }

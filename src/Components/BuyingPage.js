@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import API from "../api"
 import "./BuyingPage.css";
 
+
 const BuyingPage = () => {
   const location = useLocation();
   const product = location.state || {};
@@ -74,19 +75,18 @@ const BuyingPage = () => {
     getDeliveryCharges()
   }, [])
 
-  
 
-  // const sendMessage = async (number, text) => {
-  //   try {
-  //     const response = await API.post("/messages/send-message", {
-  //       to: number,
-  //       message: text
-  //     })
-  //     console.log("Message sent: ", response.data)
-  //   } catch (err) {
-  //     console.error("Failed to send message: ", err.response.data)
-  //   }
-  // }
+  const sendMessage = async (number, text) => {
+    try {
+      const response = await API.post("/messages/send-message", {
+        to: number,
+        message: text
+      })
+      console.log("Message sent: ", response.data)
+    } catch (err) {
+      console.error("Failed to send message: ", err.response.data)
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -104,13 +104,10 @@ const BuyingPage = () => {
       return;
     } else {
       try {
-        const order = `Product: ${product.productName}.
-                       Product quantity: ${product.quantity}
-                       Customer Name: ${formData.firstName} ${formData.lastName}
-                       Phone number: ${formData.phone}`
+        const order = `Product: ${product.productName}.\nProduct quantity: ${product.quantity}\nCustomer Name: ${formData.firstName} ${formData.lastName}\nPhone number: ${formData.phone}`
                        
         const res = await API.post("/products/purchase", formData)
-        // sendMessage("+94707181470", order)
+        sendMessage('asdfsd',order)
         alert(res.data.message)
         window.location.href = '/products'
       } catch(err) {

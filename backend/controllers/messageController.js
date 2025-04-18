@@ -15,9 +15,9 @@ exports.sendWhatsAppMessage = async (req, res) => {
 
     try {
         const response = await client.messages.create({
-            body: message, 
-            from: process.send.TWILIO_PHONE_NUMBER,
-            to: `whatsapp:${to}`
+            body: message,
+            from: "whatsapp:+14155238886",
+            to: "whatsapp:+94707181470"
         })
         res.json({success: true, messageId: response.sid})
     } catch(err) {

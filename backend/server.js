@@ -5,6 +5,7 @@ const authRoutes = require("./routes/auth")
 const productRoutes = require("./routes/productRoutes")
 const messageRoutes = require("./routes/messageRoutes")
 const locationRoutes = require("./routes/userLocationRoutes")
+const customerFeedbackRoutes = require("./routes/customerFeedbackRoutes")
 const bodyParser = require("body-parser")
 require("dotenv").config()
 
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/messages", messageRoutes)
 app.use("/api/location", locationRoutes)
+app.use("/api/complaints", customerFeedbackRoutes)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

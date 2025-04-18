@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "./CustomerComplaintsForm.css";
+import API from "../api"
+import ConfirmationModal from "./ConfirmationModal";
+
+
 
 const CustomerComplaintsForm = () => {
+  
+  const [showModal, setShowModal] = useState(false)
+  const [modalMessage, setModalMessage] = useState("")
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -16,6 +24,7 @@ const CustomerComplaintsForm = () => {
   const [captchaInput, setCaptchaInput] = useState("");
   const [captchaText] = useState("A7X9B2"); // In a real implementation, this would be generated randomly
   const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [image, setImage] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,8 +32,7 @@ const CustomerComplaintsForm = () => {
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file });
+    setImage(e.target.files[0])
   };
 
   const handleCaptchaChange = (e) => {
@@ -32,14 +40,30 @@ const CustomerComplaintsForm = () => {
     setCaptchaVerified(e.target.value === captchaText);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!captchaVerified) {
       alert("Please enter the correct captcha before submitting.");
       return;
     }
-    alert("Form submitted successfully!");
-    console.log("Form Data:", formData);
+
+    const data = new FormData()
+
+    for (const key in formData) {
+      data.append(key, formData[key])
+    }
+
+    if (image) {
+      data.append("image", image)
+    }
+  
+    const res = await API.post('/complaints/create-complaint', data)
+    
+    if (res.status === 201) {
+      setShowModal(true)
+      setModalMessage(res.data.message)
+    }
+    
   };
 
   return (
@@ -139,6 +163,7 @@ const CustomerComplaintsForm = () => {
             <input 
               id="file-upload"
               type="file" 
+              name="image"
               accept="image/*" 
               onChange={handleImageUpload}
               className="hidden-input" 
@@ -175,6 +200,13 @@ const CustomerComplaintsForm = () => {
           </div>
         </form>
       </div>
+
+      <ConfirmationModal
+        isOpen={showModal}
+        message={modalMessage}
+        onClose={() => setShowModal(false)}
+      />
+
     </div>
   );
 };

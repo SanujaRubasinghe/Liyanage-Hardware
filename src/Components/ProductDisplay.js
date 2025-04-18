@@ -6,14 +6,14 @@ import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
-import LoadingPage from "./LoadingPage";
+import LoadingPage from "./LoadingPage"
 
 const ProductDisplay = () => {
   
   const navigate = useNavigate();
   const location = useLocation()
   const {prtdid} = location.state || {}
-  const { addToCart } = useCart(); // Destructure addToCart from useCart
+  const { addToCart } = useCart(); 
 
   const [product, setProduct] = useState(null)
   const [selectedSize, setSelectedSize] = useState("");

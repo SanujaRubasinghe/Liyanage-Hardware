@@ -1,43 +1,35 @@
+const { default: axios } = require("axios")
 const pool = require("../db")
+require('dotenv').config()
 
 exports.getDeliveryCharges = async (req, res) => {
-    const {latitude, longitude} = req.body
+   const {userAddress} = req.body
 
-    const haversineDistance = (lat1, lon1, lat2, lon2) => {
-        const toRad = (value) => (value * Math.PI) / 180;
-        const R = 6371; 
-        const dLat = toRad(lat2 - lat1);
-        const dLon = toRad(lon2 - lon1);
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
+   try {
+    const response = await axios.get('https://maps.googleapis.com/maps/api/distancematrix/json', {
+        params: {
+            origins: process.env.STORE_ADDRESS,
+            destinations: userAddress,
+            key: process.env.GOOGLE_MAPS_API_KEY
+        }
+    })
+
+    const element = response.data.rows[0].elements[0]
+
+    if (element.status !== "OK") {
+        return res.status(400).json({message: 'Invalid address or error calculating distance.'})
     }
 
-    if (!latitude || !longitude) {
-        return res.status(400).json({success: false, message: "Invalid location data"})
-    }
+    const distanceInmeters = element.distance.value
+    const distanceInKm = distanceInmeters / 1000
 
-    const centerLat = 6.936086128959122 
-    const centerLng = 79.9325137093315
-    const maxDistance = 20
-    const baseCharge = 300
-    let deliveryCharge;
+    const baseCost = 100
+    const costPerKm = 20
+    const shippingCost = baseCost + (distanceInKm * costPerKm)
 
-    const distance = haversineDistance(latitude, longitude, centerLat, centerLng)
-
-    if (distance <= maxDistance) {
-        deliveryCharge = baseCharge
-    } else if (distance <= maxDistance + 20) {
-        deliveryCharge = 450
-    } else if (distance <= maxDistance + 40) {
-        deliveryCharge = 500
-    } else if (distance <= maxDistance + 60) {
-        deliveryCharge = 700
-    } else {
-        deliveryCharge = 1000
-    }
-
-    return res.json({success: true, charge: deliveryCharge})
+    res.json({shippingCost: shippingCost.toFixed(2), distanceInKm: distanceInKm.toFixed(2)})
+   } catch (error) {
+    console.error('Error calculating shipping: ', error)
+    res.status(500).json({message: 'Server error calculating shipping cost.'})
+   }
 }

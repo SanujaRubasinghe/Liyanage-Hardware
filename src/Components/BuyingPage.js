@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {LoadScript, Autocomplete} from '@react-google-maps/api'
 import API from "../api"
 import "./BuyingPage.css";
 
 
+
+const libraries = ['places']
+
 const BuyingPage = () => {
+
+  const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+  const navigate = useNavigate()
+
   const location = useLocation();
   const product = location.state || {};
 
   const [deliveryCharge, setDeliveryCharge] = useState(0)
+  const [autocomplete, setAutocomplete] = useState(null)
+  const [distance, setDistance] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
 
   const [formData, setFormData] = useState({
@@ -27,52 +37,77 @@ const BuyingPage = () => {
     agreeTerms: false,
   });
 
-  useEffect(() => {
-    const getDeliveryCharges = async () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const { latitude, longitude } = position.coords
-            
-            try {
-              const response = await API.post('/location/delivery-charges', {latitude, longitude})
+  const streetAutocompleteRef = useRef(null)
+
+  function buildFullAddress(formData) {
+    let addressParts = [];
   
-              if (response.data.success) {
-                setDeliveryCharge(response.data.charge)
-                setErrorMessage('')
-              } else {
-                setDeliveryCharge(null)
-                setErrorMessage('Delivery not available to your locaion')
-              }
-            } catch (err) {
-              console.error("Error calculating delivery charges: ", err)
-              setErrorMessage("Failed to calculate delivery charges. Please try again")
-            } 
-          },
-          (error) => {
-            switch (error) {
-              case error.PERMISSION_DENIED:
-                setErrorMessage('Location access denied. Please enable location or enter your address manually.');
-                break;
-              case error.POSITION_UNAVAILABLE:
-                setErrorMessage('Location information is unavailable. Please check your device settings.');
-                break;
-              case error.TIMEOUT:
-                setErrorMessage('Location request timed out. Please try again.');
-                break;
-              default:
-                setErrorMessage('An unknown error occurred while retrieving your location.');
-                break;
-            }
-          }
-        )
-      } else {
-        setErrorMessage("Geolocation is not supported by your browser")
-      }
-      console.log(errorMessage)
+    if (formData.streetAddress) addressParts.push(formData.streetAddress);
+    if (formData.apartment) addressParts.push(formData.apartment);
+    if (formData.city) addressParts.push(formData.city);
+    if (formData.postcode) addressParts.push(formData.postcode);
+    if (formData.country) addressParts.push(formData.country);
+  
+    return addressParts.join(', ');
+  }
+
+  const handleStreetPlaceChanged = () => {
+    const place = streetAutocompleteRef.current.getPlace()
+    if (!place.address_components) return
+
+    const address = {
+      streetAddress: '',
+      city: '',
+      country: '',
+      postcode: '',
     }
 
-    getDeliveryCharges()
+    place.address_components.forEach(component => {
+      const types = component.types
+
+      if (types.includes('street_number')) {
+        address.streetAddress = component.long_name + ' ' + address.streetAddress;
+      }
+      if (types.includes('route')) {
+        address.streetAddress += component.long_name;
+      }
+      if (types.includes('locality')) {
+        address.city = component.long_name;
+      }
+      if (types.includes('postal_code')) {
+        address.postcode = component.long_name;
+      }
+      if (types.includes('country')) {
+        address.country = component.long_name;
+      }
+    })
+
+    setFormData(prev => ({
+      ...prev,
+      streetAddress: address.streetAddress,
+      city: address.city || prev.city,
+      country: address.country || prev.country,
+      postcode: address.postcode || prev.postcode,
+    }));
+  }
+
+  useEffect(() => {
+    const handleCalculate = async () => {
+      try {
+        const userAddress = buildFullAddress(formData)
+        const response = await API.post('/location/delivery-charges', {
+          userAddress: userAddress
+        })
+  
+        setDeliveryCharge(response.data.shippingCost)
+        setDistance(response.data.distanceInKm)
+        setErrorMessage('')
+      } catch (error) {
+        console.error(error)
+        setErrorMessage('Failed to calculate shipping. Please check the address.')
+      }
+    }
+    handleCalculate()
   }, [])
 
 
@@ -109,7 +144,7 @@ const BuyingPage = () => {
         const res = await API.post("/products/purchase", formData)
         sendMessage('asdfsd',order)
         alert(res.data.message)
-        window.location.href = '/products'
+        navigate('/products')
       } catch(err) {
         console.error(err)
       }
@@ -118,11 +153,12 @@ const BuyingPage = () => {
   };
 
   const subtotal = product.productPrice * product.quantity;
-  const shippingCost = deliveryCharge || "Calculating..."
-  const total = subtotal + shippingCost
+  const shippingCost = deliveryCharge
+  const total = subtotal + (shippingCost * 1)
 
   return (
     <div className="buying-page">
+    <LoadScript googleMapsApiKey='AIzaSyANZfEI3ADTKjUBTpQ_QB9ToxsV-i1J6v8' libraries={['places']}>
       <form className="billing-details" onSubmit={handleSubmit}>
         <h2>Billing Details</h2>
         <div className="form-group">
@@ -130,15 +166,26 @@ const BuyingPage = () => {
           <input type="text" name="lastName" placeholder="Last name *" required onChange={handleChange} />
         </div>
         <input type="text" name="companyName" placeholder="Company name (optional)" onChange={handleChange} />
-        <input type="text" name="country" value="Sri Lanka" readOnly />
-        <select name="city" required onChange={handleChange}>
+
+        {/* <select name="city" required onChange={handleChange}>
           <option value="">Select a city *</option>
           <option value="Colombo">Colombo</option>
           <option value="Kandy">Kandy</option>
-        </select>
-        <input type="text" name="streetAddress" placeholder="Street address *" required onChange={handleChange} />
+        </select> */}
+        <Autocomplete 
+          onLoad={(autoC) => (streetAutocompleteRef.current = autoC)}
+          onPlaceChanged={handleStreetPlaceChanged}
+          options={{
+            types: ['address'],
+            componentRestrictions: {country: 'lk'},
+          }}
+        >
+          <input type="text" name="streetAddress" placeholder="Street address *" required onChange={handleChange} />
+        </Autocomplete>
+        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
         <input type="text" name="apartment" placeholder="Apartment, suite, etc. (optional)" onChange={handleChange} />
-        <input type="text" name="postcode" placeholder="Postcode / ZIP (optional)" onChange={handleChange} />
+        <input type="text" name="postcode" placeholder="Postcode / ZIP (optional)" value={formData.postcode} onChange={handleChange} />
+        <input type="text" name="country" value="Sri Lanka" readOnly />
         <input type="tel" name="phone" placeholder="Phone *" required onChange={handleChange} />
         <input type="email" name="email" placeholder="Email address *" required onChange={handleChange} />
         <textarea name="orderNotes" placeholder="Order notes (optional)" onChange={handleChange}></textarea>
@@ -150,7 +197,7 @@ const BuyingPage = () => {
           </p>
           <p>Subtotal: Rs. {subtotal.toLocaleString()}</p>
           <p>Shipping: Rs. {shippingCost.toLocaleString()}</p>
-          <p><strong>Total: Rs. {total.toLocaleString()}</strong></p>
+          <p><strong>Total: Rs. {total}</strong></p>
         </div>
 
         <div className="payment-options">
@@ -171,6 +218,7 @@ const BuyingPage = () => {
         
         <button type="submit" onClick={handleSubmit}>Place Order</button>
       </form>
+    </LoadScript>
     </div>
   );
 };

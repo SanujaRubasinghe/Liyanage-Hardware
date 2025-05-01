@@ -1,46 +1,60 @@
 import React from 'react';
-import { useCart } from './CartContext'; // Import useCart from CartContext
+import { useCart } from './CartContext';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {
-  const { cart, removeFromCart, increaseQuantity, decreaseQuantity } = useCart(); // Get cart state and functions from context
-
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  const { cartItems, updateQuantity, removeItem } = useCart();
+  const subtotal = cartItems.reduce((sum, item) => sum + item[0].price * item.quantity, 0);
+  const total = subtotal;
 
   return (
-    <div className="shopping-container">
-      <div className="product-list">
-        {cart.map((item) => (
-          <div key={item.id} className="product">
-            <img src={item.image} alt={item.name} className="product-img" />
-            <h3>{item.name}</h3>
-            <p>Size: {item.size}</p>
-            <p>Color: {item.color}</p>
-            <p>
-              <strong>Rs. {item.price.toFixed(2)}</strong>
-            </p>
-            <div className="cart-controls">
-              <button onClick={() => decreaseQuantity(item.id)}>-</button>
-              <span>{item.quantity}</span>
-              <button onClick={() => increaseQuantity(item.id)}>+</button>
-              <button onClick={() => removeFromCart(item.id)} className="remove-btn">
-                ×
-              </button>
+    <div className='cart-fullscreen'>
+    <div className="cart-container">
+      <div className="cart-left">
+        <h2>Shopping Cart</h2>
+        <p>{cartItems.length} Items</p>
+        <div className="cart-items">
+          {cartItems.map(item => (
+            <div className="cart-item" key={item.id}>
+              <img src={item.image} alt={item.name} />
+              <div className="item-details">
+                <h4>{item.name}</h4>
+                <p>PS4</p>
+                <button onClick={() => removeItem(item.id)}>Remove</button>
+              </div>
+              <div className="item-quantity">
+                <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                <span>{item.quantity}</span>
+                <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+              </div>
+              <div className="item-price">
+                <p>Rs.{item[0].price}</p>
+                <p>Rs.{(item[0].price * item.quantity)}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <a href="/" className="continue-shopping">← Continue Shopping</a>
       </div>
 
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div className="cart-total">
-          <h3>Subtotal: Rs. {calculateTotal().toFixed(2)}</h3>
-          <button className="checkout-btn">Checkout</button>
+      <div className="cart-right">
+        <h3>Order Summary</h3>
+        <div className="summary-row">
+          <span>Items {cartItems.length}</span>
+          <span>Rs.{subtotal}</span>
         </div>
-      )}
+        <div className="promo-code">
+          <label>Promo Code</label>
+          <input type="text" placeholder="Enter your code" />
+          <button>Apply</button>
+        </div>
+        <div className="summary-total">
+          <span>Total Cost</span>
+          <span>Rs.{total}</span>
+        </div>
+        <button className="checkout-btn">Checkout</button>
+      </div>
+    </div>
     </div>
   );
 };

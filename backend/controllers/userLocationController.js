@@ -23,6 +23,8 @@ exports.getDeliveryCharges = async (req, res) => {
     const distanceInmeters = element.distance.value
     const distanceInKm = distanceInmeters / 1000
 
+    console.log(distanceInKm)
+
     const baseCost = 100
     const costPerKm = 20
     const shippingCost = baseCost + (distanceInKm * costPerKm)

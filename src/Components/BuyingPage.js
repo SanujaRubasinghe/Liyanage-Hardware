@@ -4,13 +4,11 @@ import {LoadScript, Autocomplete} from '@react-google-maps/api'
 import API from "../api"
 import "./BuyingPage.css";
 
-
-
 const libraries = ['places']
+const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
 const BuyingPage = () => {
 
-  const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   const navigate = useNavigate()
 
   const location = useLocation();
@@ -92,6 +90,7 @@ const BuyingPage = () => {
   }
 
   useEffect(() => {
+    if (!formData.streetAddress) return
     const handleCalculate = async () => {
       try {
         const userAddress = buildFullAddress(formData)
@@ -101,6 +100,7 @@ const BuyingPage = () => {
   
         setDeliveryCharge(response.data.shippingCost)
         setDistance(response.data.distanceInKm)
+        console.log(distance)
         setErrorMessage('')
       } catch (error) {
         console.error(error)
@@ -108,7 +108,7 @@ const BuyingPage = () => {
       }
     }
     handleCalculate()
-  }, [])
+  }, [formData.streetAddress])
 
 
   const sendMessage = async (number, text) => {
@@ -158,7 +158,7 @@ const BuyingPage = () => {
 
   return (
     <div className="buying-page">
-    <LoadScript googleMapsApiKey='AIzaSyANZfEI3ADTKjUBTpQ_QB9ToxsV-i1J6v8' libraries={['places']}>
+    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries}>
       <form className="billing-details" onSubmit={handleSubmit}>
         <h2>Billing Details</h2>
         <div className="form-group">
@@ -167,11 +167,6 @@ const BuyingPage = () => {
         </div>
         <input type="text" name="companyName" placeholder="Company name (optional)" onChange={handleChange} />
 
-        {/* <select name="city" required onChange={handleChange}>
-          <option value="">Select a city *</option>
-          <option value="Colombo">Colombo</option>
-          <option value="Kandy">Kandy</option>
-        </select> */}
         <Autocomplete 
           onLoad={(autoC) => (streetAutocompleteRef.current = autoC)}
           onPlaceChanged={handleStreetPlaceChanged}

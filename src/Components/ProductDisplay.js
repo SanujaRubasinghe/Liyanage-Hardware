@@ -50,10 +50,7 @@ const ProductDisplay = () => {
 
   const handleAddToCart = () => {
     addToCart({
-      ...product,
-      selectedSize,
-      selectedColor,
-      quantity,
+      ...product,product
     });
   };
 

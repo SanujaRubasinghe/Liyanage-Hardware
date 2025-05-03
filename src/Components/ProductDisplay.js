@@ -6,13 +6,14 @@ import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
+import LoadingPage from "./LoadingPage"
 
 const ProductDisplay = () => {
   
   const navigate = useNavigate();
   const location = useLocation()
-  const {id} = location.state || {}
-  const { addToCart } = useCart(); // Destructure addToCart from useCart
+  const {prtdid} = location.state || {}
+  const { addToCart } = useCart(); 
 
   const [product, setProduct] = useState(null)
   const [selectedSize, setSelectedSize] = useState("");
@@ -20,11 +21,12 @@ const ProductDisplay = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   
+  
   useEffect(() => {
     const fetchProduct = async () => {
-      if (id) {
+      if (prtdid) {
         try {
-          const response = await API.get(`/products/${id}`)
+          const response = await API.get(`/products/${prtdid}`)
           setProduct(response.data)
         } catch(err) {
           console.error("Error fetching product details: ", err)
@@ -32,35 +34,32 @@ const ProductDisplay = () => {
       }
     }
     fetchProduct()
-  }, [id])
+  }, [prtdid])
 
   useEffect(() => {
     if (product) {
-      setSelectedSize(product.sizes[0] || "")
-      setSelectedColor(product.colors[0] || "")
-      setSelectedImage(product.images[0] || "")
+      setSelectedSize(product[0].sizes[0] || "")
+      setSelectedColor(product[0].colors[0] || "")
+      setSelectedImage(product[0].images[0] || "")
     }
   }, [product])
 
   if (!product) {
-    return <p>Loading Product details...</p>
+    return <LoadingPage />
   }
 
   const handleAddToCart = () => {
     addToCart({
-      ...product,
-      selectedSize,
-      selectedColor,
-      quantity,
+      ...product,product
     });
   };
 
   const handleBuyNow = () => {
     navigate("/buying", {
       state: {
-        productName: product.name,
-        productSku: product.sku,
-        productPrice: product.price,
+        productName: product[0].name,
+        productSku: product[0].sku,
+        productPrice: product[0].price,
         selectedSize,
         selectedColor,
         quantity,
@@ -72,7 +71,7 @@ const ProductDisplay = () => {
     <>
       <div className="product-container-pd">
         <div className="image-gallery">
-          {product.images.map((image, index) => (
+          {product[0].images.map((image, index) => (
             <img
               key={index}
               src={image}
@@ -89,12 +88,12 @@ const ProductDisplay = () => {
 
         <div className="product-details-pd">
           <h2>{product.name}</h2>
-          <span className="sku-pd">SKU: {product.sku}</span>
-          <span className="price-pd">Rs. {product.price.toLocaleString()}</span>
+          <span className="sku-pd">SKU: {product[0].sku}</span>
+          <span className="price-pd">Rs. {product[0].price.toLocaleString()}</span>
 
           <div className="size-selection-pd">
             <h4>Size</h4>
-            {product.sizes.map((size) => (
+            {product[0].sizes.map((size) => (
               <button
                 key={size}
                 className={selectedSize === size ? "selected" : ""}
@@ -107,7 +106,7 @@ const ProductDisplay = () => {
 
           <div className="color-selection">
             <h4>Color</h4>
-            {product.colors.map((color) => (
+            {product[0].colors.map((color) => (
               <button
                 key={color}
                 className={selectedColor === color ? "selected" : ""}

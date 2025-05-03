@@ -1,5 +1,4 @@
 import {useContext, useState} from "react"
-import API from "../api"
 import { AuthContext } from "../context/AuthContext"
 
 function LogInPage() {
@@ -12,7 +11,7 @@ function LogInPage() {
         e.preventDefault()
         try {
             await login(user)
-            window.location.href = '/'
+            window.location.href = '/profile'
         } catch (err) {
             alert(err.response.data.error)
         }

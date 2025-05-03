@@ -1,59 +1,51 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import ProductFilter from "./ProductFilter";
+import LoadingPage from "./LoadingPage";
 import API from "../api"
 import "./ProductList.css"; 
-
-const products = [
-  {
-    image: '/images/sample.jpg',
-    title: "Product 1",
-    partNumber: "A2H322AB(3)",
-    price: "Rs.2000",
-    unit: "Pack Of 3",
-  },
-  {
-    image: '/images/sample.jpg',
-    title: "Product 2",
-    partNumber: "70256",
-    price: "Rs.2000",
-    unit: "Each",
-  },
-  {
-    image: '/images/sample.jpg',
-    title: "Product 3",
-    partNumber: "BUR35KIT82",
-    price: "Rs.2000",
-    unit: "Pair",
-  },
-  {
-    image: '/images/sample.jpg',
-    title: "Product 4",
-    partNumber: "RS2018-AT",
-    price: "Rs.2000",
-    unit: "Pair",
-  },
-];
 
 const ProductList = () => {
 
   const [products, setProducts] = useState([])
+  const [filters, setFilters] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const {data} = await API.get("/products/")
-        setProducts(data)
+        setProducts(data) 
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching products: ", error)
+        setLoading(false)
       }
     }
 
     fetchProducts()
   }, [])
 
-  return (
-    <div className="Pcontainer">
+  useEffect(() => {
+    const fetchFilteredProducts = async (filters) => {
+      try {
+        const response = await API.post("/products/filter", filters)
+        setProducts(response.data)
+        setLoading(false)
+      } catch (error) {
+        console.error("Error fetching products: ", error)
+        setLoading(false)
+      }
+    }
+    fetchFilteredProducts(filters)
+  }, [filters])
 
+  return (
+    <>
+    {loading ? (<LoadingPage />) : 
+      (
+        <div className="Pcontainer">
+      <ProductFilter onFilter={setFilters} />
       <h2 className="highlight-gray">
         <span className="blue-text">Our</span>{' '}
         <span className="red-text">Products</span>
@@ -70,6 +62,10 @@ const ProductList = () => {
         ))}
       </div>
     </div>
+      )
+    }
+    
+    </>
   );
 };
 

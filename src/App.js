@@ -26,13 +26,12 @@ import MiniCategory from './Components/MiniCategory';
 import AdminPanel from './Components/AdminPage/AdminPanel';
 import SubCategoryTable from './Components/AdminPage/SubCategoryTable';
 import AdminLayout from './Components/AdminPage/AdminLayout';
-import { Outlet } from 'react-router-dom';
 import CustomerComplaintsForm from './Components/CustomerComplaintsForm';
 import SearchBarN from './Components/SearchBarN';
 import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
-import LogInPage from './Components/LoginPage';
+import LogInPage from './Components/LogInPage';
 
 function App() {
   return (
@@ -69,7 +68,7 @@ function App() {
             <Route path="/sub-category" element={<Subcategories />} />
 
             {/* ✅ Fixed Admin Routing */}
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
               <Route index element={<AdminPanel />} />
               <Route path="home" element={<SubCategoryTable />} />
               <Route path="category" element={<AdminPanel />} />
@@ -78,17 +77,11 @@ function App() {
               <Route path="orders" element={<h2>Orders Page</h2>} />
             </Route>
 
-            {/* Login Page Route */}
-            <Route path='/login' element={<LogInPage />} />
-
-            {/* PrivateRoute wrapping authenticated pages */}
-            <Route element={<PrivateRoute />}>
-              <Route path='/profile' element={<UserProfile />} />
-            </Route>
-
+            <Route path='/login' element={<LogInPage />}/>
+            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+            
             {/* Public Route for MiniCategory */}
             <Route path="/mini-category/:subcategory" element={<MiniCategory />} />
-
           </Routes>
         </CartProvider>
       </Router>

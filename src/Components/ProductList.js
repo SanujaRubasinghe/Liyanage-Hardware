@@ -5,6 +5,8 @@ import LoadingPage from "./LoadingPage";
 import API from "../api"
 import "./ProductList.css"; 
 
+let productCache = null
+
 const ProductList = () => {
 
   const [products, setProducts] = useState([])
@@ -12,18 +14,31 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const controller = new AbortController()
     const fetchProducts = async () => {
+
+      if (productCache) {
+        setProducts(productCache);
+        setLoading(false);
+        return;
+      }
+
       try {
-        const {data} = await API.get("/products/")
+        const {data} = await API.get("/products/", {signal: controller.signal})
+        productCache = data
         setProducts(data) 
-        setLoading(false)
       } catch (error) {
-        console.error("Error fetching products: ", error)
+        if (error.name !== 'CanceledError') {
+          console.error("Error fetching products: ", error)
+        }
+      } finally {
         setLoading(false)
       }
     }
 
     fetchProducts()
+
+    return () => controller.abort()
   }, [])
 
   useEffect(() => {
@@ -57,7 +72,7 @@ const ProductList = () => {
       </div>
       {/* Right side products grid */}
       <div className="Pproduct-grid">
-        {products.map((product, index) => (
+        {(products || []).map((product, index) => (
           <ProductCard key={index} {...product} />
         ))}
       </div>

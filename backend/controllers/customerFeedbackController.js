@@ -60,7 +60,37 @@ const createComplaint = async (req, res) => {
     }
 }
 
+const createReview = async (req, res) => {
+    const {rating, profilePicture, comment, userName} = req.body
+
+    try {
+        const query = `insert into customer_feedback(rating, comment, profile_picture_url, user_name)
+                       values(?,?,?,?)`
+
+        const values = [rating, comment, profilePicture, userName]
+
+        const results = await pool.execute(query, values)
+        res.status(201).json({message: "Review recorded successfully"})
+
+    } catch (error) {
+        res.status(500).json({err: "Internal server error"})
+        console.log(error)
+    }
+}
+
+const getAllReviews = async (req, res) => {
+    try {
+        const [rows] = await pool.execute('select * from customer_feedback')
+        res.json(rows)
+    } catch (error) {
+        res.status(500).json({err: "Internal server error. Failed to fetch reviews"})
+        console.log(error)
+    }
+}
+
 module.exports = {
     uploadComplaintImage,
     createComplaint,
+    createReview,
+    getAllReviews
 }

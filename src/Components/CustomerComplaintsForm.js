@@ -57,7 +57,7 @@ const CustomerComplaintsForm = () => {
       data.append("image", image)
     }
   
-    const res = await API.post('/complaints/create-complaint', data)
+    const res = await API.post('/feedback/create-complaint', data)
     
     if (res.status === 201) {
       setShowModal(true)

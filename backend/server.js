@@ -19,7 +19,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/messages", messageRoutes)
 app.use("/api/location", locationRoutes)
-app.use("/api/complaints", customerFeedbackRoutes)
+app.use("/api/feedback", customerFeedbackRoutes)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

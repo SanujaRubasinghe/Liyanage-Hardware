@@ -20,7 +20,7 @@ function LogInPage() {
 
     return (
         <div className="login-container">
-            <h1>Welcome back to New Liyanage Hardware!</h1>
+            
             <img src="/images/l1.png" alt="Logo" className="login-logo" />
             <form onSubmit={handleSubmit} className="login-form">
                 <input

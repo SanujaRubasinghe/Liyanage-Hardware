@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { hammers } from "../data/hammers";
-import "./SearchBar.css";
+import { hammers } from "./hammers";
+import "./Searchbarr.css";
 
-export default function SearchBar() {
+export default function Searchbarr() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 

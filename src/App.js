@@ -32,6 +32,7 @@ import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
+import Searchbarr from './Components/Searchbarr';
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/sub-category" element={<Subcategories />} />
+            <Route path="/searchbarr" element={<Searchbarr />} />
 
             {/* ✅ Fixed Admin Routing */}
             <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>

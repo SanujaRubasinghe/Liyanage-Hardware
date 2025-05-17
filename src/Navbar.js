@@ -58,9 +58,11 @@ function Navbar() {
           <li><Link to="/products">Products</Link></li>
           <li><Link to="/about-us">Complaints</Link></li>
           <li><Link to="/admin">Admin</Link></li>
-          <li><Link to="/contact-us">About us</Link></li>
+          <li><Link to="/contact-us">Category</Link></li>
           <li><Link to="/category">Feedback</Link></li>
+          <li><Link to="/category">About us</Link></li>
         </ul>
+        <div className="auth-section">
         <div className="auth-section">
           <Link to="/cart" className="cart-icon">
             <i className="fas fa-shopping-cart"></i>
@@ -75,6 +77,7 @@ function Navbar() {
           <Link to="/profile" className='login-button'>Profile</Link>
             
         </div>
+      </div>
       </div>
     </nav>
   );

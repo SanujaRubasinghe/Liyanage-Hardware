@@ -33,15 +33,57 @@
   z-index: 1;
 }
 
+/* Logo container with shine effect */
+.logo-circle {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background-color: rgb(245, 245, 245);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Shine animation element */
+.logo-circle::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+background: linear-gradient(
+    to right,
+    rgba(255, 236, 126, 0) 0%,
+    rgb(255, 255, 255) 50%,
+    #ffed8400 100%
+);
+  transform: rotate(30deg);
+  animation: shine 5s infinite;
+  z-index: 2;
+}
+
 /* Logo styling */
 .login-logo {
   width: 190px;
-  height: auto;
-  margin-bottom: 1rem;
-  background-color: white;
-  border-radius: 50%;
+  height: 190px;
   object-fit: contain;
-  padding: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Shine animation */
+@keyframes shine {
+  0% {
+    transform: rotate(30deg) translateX(-200%);
+  }
+  100% {
+    transform: rotate(30deg) translateX(200%);
+  }
 }
 
 /* Form wrapper */

@@ -1,4 +1,3 @@
-// src/pages/LogInPage.js
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "./LogInPage.css";
@@ -22,8 +21,8 @@ function LogInPage() {
 
   return (
     <div className="login-container">
-        <div className="logo-circle">
-      <img src="/images/l1.png" alt="Logo" className="login-logo" />
+      <div className="logo-circle">
+        <img src="/images/l1.png" alt="Logo" className="login-logo" />
       </div>
       <form onSubmit={handleSubmit} className="login-form">
         <input

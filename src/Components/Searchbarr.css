@@ -1,6 +1,6 @@
 /* Container */
 .search-container {
-  max-width: 500px;
+  max-width: 900px;
   margin: 0 auto;
   position: relative;
 }
@@ -23,8 +23,8 @@
   border-radius: 4px;
   background: #fff;
   position: absolute;
-  width: 100%;
-  max-height: 300px;
+  width: 500%;
+  max-height: 400px;
   overflow-y: auto;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 10;
@@ -34,7 +34,7 @@
 .result-item {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 12px;
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
@@ -49,21 +49,41 @@
 
 /* Thumbnail */
 .result-img {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  margin-right: 12px;
-  border-radius: 4px;
+  margin-right: 16px;
+  border-radius: 6px;
 }
 
-/* Text info */
-.result-info h4 {
-  margin: 0 0 4px;
-  font-size: 16px;
+/* Text info: one-row flex, spaced out */
+.result-info {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;  /* push price to edge */
+  gap: 16px;
 }
 
-.result-info p {
-  margin: 2px 0;
-  font-size: 14px;
+/* Product name */
+.result-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Hammer type (secondary) */
+.result-type {
+  font-size: 15px;
   color: #555;
+  white-space: nowrap;
+}
+
+/* Price (aligned right) */
+.result-price {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
 }

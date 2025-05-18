@@ -1,72 +1,83 @@
-/* General styling for the login container */
+/* src/pages/LogInPage.css */
+
+/* 1) Base container */
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    position: relative; /* Ensure the container can have a pseudo-element */
-    overflow: hidden; /* Ensure the blurred background doesn't overflow */
-    background-image: url('/public/images/frontlook.webp'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-   /* Adjust the blur intensity as needed */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-
-
-/* Styling for the heading */
-.login-container h1 {
-    color: #9b0d0d; /* Dark red color */
-    margin-bottom: 1rem;
-    z-index: 1; /* Ensure the heading stays above the background */
+/* 2) Blurred background layer */
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-image: url('/public/images/frontlook.webp');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  transform: scale(1.1); /* Avoids edge artifacts */
+  z-index: 0;
 }
 
-/* Styling for the logo image */
-.login-logo {
-    width: 200px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 1rem;
-    z-index: 1; /* Ensure the logo stays above the background */
-}
-
-/* Styling for the login form */
+/* 3) All content sits above the blurred background */
+.login-logo, 
+.login-container h1, 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 0; /* Ensure the form stays above the background */
+  position: relative;
+  z-index: 1;
 }
 
-/* Styling for input fields */
+/* Logo styling */
+.login-logo {
+  width: 190px;
+  height: auto;
+  margin-bottom: 1rem;
+  background-color: white;
+  border-radius: 50%;
+  object-fit: contain;
+  padding: 10px;
+}
+
+/* Form wrapper */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input fields */
 .login-input {
-    margin: 0.5rem 0;
-    padding: 0.75rem;
-    width: 20rem;
-    border: 1px solid #d32f2f;
-    border-radius: 4px;
-    font-size: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  width: 20rem;
+  border: 1px solid #d32f2f;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
-/* Styling for the login button */
+/* Button styling */
 .login-button {
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #d32f2f;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Hover effect for the login button */
 .login-button:hover {
-    background-color: #b71c1c; /* Darker red on hover */
+  background-color: #b71c1c;
 }

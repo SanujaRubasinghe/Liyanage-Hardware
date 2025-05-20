@@ -59,7 +59,7 @@ function Navbar() {
           <li><Link to="/about-us">Complaints</Link></li>
           <li><Link to="/admin">Admin</Link></li>
           <li><Link to="/contact-us">Category</Link></li>
-          <li><Link to="/category">Feedback</Link></li>
+          <li><Link to="/feedback">Feedback</Link></li>
           <li><Link to="/services">AboutUsNew</Link></li>
 
 

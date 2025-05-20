@@ -63,6 +63,8 @@ function App() {
             <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
+
+             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
             <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/cart" element={<ShoppingCart />} />

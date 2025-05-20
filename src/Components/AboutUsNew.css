@@ -1,0 +1,290 @@
+.aboutus-container {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+  padding-bottom: 40px;
+}
+
+/* Hero Section */
+.hero-section {
+  /* background: url('/images/view2.jpg') center/cover no-repeat; */
+  height: 260px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0,0,0,0.45);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay h1 {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #fff;
+  margin: 40px auto 0;
+  max-width: 1100px;
+  padding: 32px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  gap: 32px;
+}
+
+.about-text {
+  flex: 2;
+}
+
+.about-text h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.about-text p {
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.supplier-partner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.supplier-partner button {
+  background: #ffc107;
+  border: none;
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #222;
+  font-size: 1rem;
+}
+
+.about-image img {
+  width: 260px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Reasons Section */
+.reasons-section {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+
+.reasons-section h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.reasons-section h2 span {
+  font-weight: normal;
+}
+
+.reasons-list {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.reasons-list > div {
+  background: #fff;
+  border-radius: 8px;
+  flex: 1 1 180px;
+  min-width: 180px;
+  padding: 18px 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  margin-bottom: 12px;
+}
+
+.reasons-list span {
+  color: #ffc107;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.reasons-list h3 {
+  font-size: 1.1rem;
+  margin: 8px 0 6px;
+  font-weight: bold;
+}
+
+.reasons-list p {
+  font-size: 0.97rem;
+  color: #444;
+}
+
+/* Features Grid */
+.features-grid {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 0 24px;
+}
+
+.features-grid > div {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 180px;
+}
+
+.features-grid h4 {
+  background: #111;
+  color: #ffc107;
+  padding: 6px 0;
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  margin: -16px -16px 12px -16px;
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+.features-grid img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.cbc-logo {
+  background: #ffc107;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 24px 0;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.features-grid button {
+  background: #ffc107;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #222;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Newsletter Signup */
+.newsletter-signup {
+  position: absolute;
+  right: 40px;
+  top: 120px;
+  background: #ffc107;
+  color: #222;
+  padding: 22px 18px;
+  border-radius: 8px;
+  width: 240px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.newsletter-signup h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.newsletter-signup p {
+  font-size: 0.97rem;
+  margin-bottom: 10px;
+}
+
+.newsletter-signup form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.newsletter-signup input,
+.newsletter-signup select {
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.newsletter-signup button {
+  background: #222;
+  color: #ffc107;
+  border: none;
+  padding: 7px 0;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .about-image img {
+    width: 100%;
+    margin-top: 18px;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .newsletter-signup {
+    position: static;
+    width: 100%;
+    margin: 30px auto 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reasons-list {
+    flex-direction: column;
+  }
+  
+  .about-section {
+    padding: 18px 6px;
+  }
+  
+  .reasons-section {
+    padding: 0 6px;
+  }
+} 

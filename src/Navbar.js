@@ -60,7 +60,10 @@ function Navbar() {
           <li><Link to="/admin">Admin</Link></li>
           <li><Link to="/contact-us">Category</Link></li>
           <li><Link to="/category">Feedback</Link></li>
-          <li><Link to="/category">About us</Link></li>
+          <li><Link to="/services">AboutUsNew</Link></li>
+
+
+
         </ul>
         <div className="auth-section">
         <div className="auth-section">

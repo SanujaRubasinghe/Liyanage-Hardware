@@ -7,16 +7,16 @@ const Subcategories = () => {
   const navigate = useNavigate();
 
   const subcategories = [
-    { name: "Category 1", image: "/images/sample.jpg", path: "category-1" },
-    { name: "Category 2", image: "/images/sample.jpg", path: "category-2" },
-    { name: "Category 3", image: "/images/sample.jpg", path: "category-3" },
-    { name: "Category 4", image: "/images/ball_lock.webp", path: "category-4" },
-    { name: "Category 5", image: "/images/sample.jpg", path: "category-5" },
-    { name: "Category 6", image: "/images/sample.jpg", path: "category-6" },
-    { name: "Category 7", image: "/images/sample.jpg", path: "category-7" },
-    { name: "Category 8", image: "/images/sample.jpg", path: "category-8" },
-    { name: "Category 9", image: "/images/sample.jpg", path: "category-9" },
-    { name: "Category 10", image: "/images/sample.jpg", path: "category-10" },
+    { name: "Category 1", image: "/images/category/bathware/5.jpg", path: "category-1" },
+    { name: "Category 2", image: "/images/category/bathware/5.jpg", path: "category-2" },
+    { name: "Category 3", image: "/images/category/bathware/5.jpg", path: "category-3" },
+    { name: "Category 4", image: "/images/category/bathware/5.jpg", path: "category-4" },
+    { name: "Category 5", image: "/images/category/bathware/5.jpg", path: "category-5" },
+    { name: "Category 6", image: "/images/category/bathware/5.jpg", path: "category-6" },
+    { name: "Category 7", image: "/images/category/bathware/5.jpg", path: "category-7" },
+    { name: "Category 8", image: "/images/category/bathware/5.jpg", path: "category-8" },
+    { name: "Category 9", image: "/images/category/bathware/5.jpg", path: "category-9" },
+    { name: "Category 10", image: "/images/category/bathware/5.jpg", path: "category-10" },
   ];
 
   const handleSubcategoryClick = (path) => {

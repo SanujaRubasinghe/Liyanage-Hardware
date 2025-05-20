@@ -7,14 +7,14 @@ const MiniCategory = () => {
   const navigate = useNavigate();
 
   const miniCategories = [
-    { name: "Ball Locks", image: "/images/sample.jpg", path: "/ball-locks" },
-    { name: "Digital Locks", image: "/images/sample.jpg", path: "/digital-locks" },
-    { name: "Door Accessories", image: "/images/sample.jpg", path: "/door-accessories" },
-    { name: "Door Closers", image: "/images/sample.jpg", path: "/door-closers" },
-    { name: "Door Cylinders", image: "/images/sample.jpg", path: "/door-cylinders" },
-    { name: "Door Hinges", image: "/images/sample.jpg", path: "/door-hinges" },
-    { name: "Door Knobs", image: "/images/sample.jpg", path: "/door-knobs" },
-    { name: "Door Seals", image: "/images/sample.jpg", path: "/door-seals" },
+    { name: "Hand Showers", image: "/images/category/bathware/1.jpg", path: "/ball-locks" },
+    { name: "Sliding Shower Doors", image: "/images/category/bathware/12.jpg", path: "/digital-locks" },
+    { name: "Plumbing Fittings", image: "/images/category/bathware/11.jpg", path: "/door-accessories" },
+    { name: "Bathtubs & Jacuzzis", image: "/images/category/bathware/4.jpg", path: "/door-closers" },
+    { name: "Bib Taps", image: "/images/category/bathware/5.jpg", path: "/door-cylinders" },
+    { name: "Overhead Showers", image: "/images/category/bathware/13.jpg", path: "/door-hinges" },
+    { name: "Jacuzzi Systems", image: "/images/category/bathware/7.jpg", path: "/door-knobs" },
+    { name: "Sanitaryware", image: "/images/category/bathware/8.jpg", path: "/door-seals" },
   ];
 
   // Safely handle subcategory for replace
@@ -24,14 +24,13 @@ const MiniCategory = () => {
     <div className="miniCategory-main">
       <div className="miniCategory-header">
         <img
-          src="/images/sample.jpg"
+          src="/images/category/bathware/16.jpg"
           alt="Architectural Hardware"
           className="miniCategory-header-image"
         />
         <h1>{formattedSubcategory}</h1> {/* Display selected category */}
         <p>
-          Find everything you need for your doors and windows, from locks (digital & traditional) and hinges to handles, stoppers, and signage. 
-          Explore sliding & folding systems, smart locks, and more.
+          Bathware includes a wide range of essential and stylish products designed for modern bathrooms — from sanitaryware and faucets to showers, bathtubs, and accessories. Whether you're upgrading your space or building new, our bathware collection combines functionality, comfort, and design.
         </p>
       </div>
 

@@ -32,7 +32,7 @@ import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
-import Searchbarr from './Components/searchbarr';
+import Searchbarr from './Components/Searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
 
 function App() {

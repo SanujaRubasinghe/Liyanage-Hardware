@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { hammers } from "./hammers";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
+import debounce from "lodash/debounce";
+import axios from "axios";
 import "./SearchBarN.css";
+import API from "../api";
+import { Link } from "react-router-dom";
 
 export default function Searchbarr() {
   const [query, setQuery] = useState("");
@@ -20,26 +23,34 @@ export default function Searchbarr() {
     "Assa Abloy": ["Type 1", "Type 2"],
   };
 
-  // debounce & filter
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (!query.trim()) {
-        setResults([]);
-      } else {
-        const lower = query.toLowerCase();
-        setResults(
-          hammers.filter(
-            (h) =>
-              h.name.toLowerCase().includes(lower) ||
-              h.type.toLowerCase().includes(lower)
-          )
-        );
-      }
-    }, 200);
-    return () => clearTimeout(handler);
-  }, [query]);
+  // Debounced search function
+  const searchProducts = async (term) => {
+    if (!term.trim()) {
+      setResults([]);
+      return;
+    }
 
-  // dynamically cap dropdown height
+    try {
+      const res = await API.get(`/products/search-products?q=${encodeURIComponent(term)}`);
+      setResults(res.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setResults([]);
+    }
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((term) => {
+      searchProducts(term);
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSearch(query);
+    return debouncedSearch.cancel;
+  }, [query, debouncedSearch]);
+
   useEffect(() => {
     if (resultsRef.current && navbarRef.current) {
       const navRect = navbarRef.current.getBoundingClientRect();
@@ -96,7 +107,7 @@ export default function Searchbarr() {
       <div className="search-container navbar-search">
         <input
           type="text"
-          placeholder="Search for a hammer"
+          placeholder="Search for a product"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="search-input"
@@ -106,14 +117,20 @@ export default function Searchbarr() {
 
       {results.length > 0 && (
         <ul className="results-list" ref={resultsRef}>
-          {results.map((h) => (
-            <li key={h.id} className="result-item">
-              <img src={h.image} alt={h.name} className="result-img" />
-              <div className="result-info">
-                <span className="result-name">{h.name}</span>
-                <span className="result-type">{h.type}</span>
-                <span className="result-price">Rs.{h.price.toFixed(2)}</span>
-              </div>
+          {results.map((p) => (
+            <li key={p.id} className="result-item">
+              <Link 
+                to="/product"
+                state={{id: p.id}} 
+                className="result-link"
+              >
+                <img src={`${process.env.REACT_APP_API_BASE_URL}/${p.image}`} alt={p.name} className="result-img" />
+                <div className="result-info">
+                  <span className="result-name">{p.name}</span>
+                  <span className="result-type">{p.brand}</span>
+                  <span className="result-price">Rs.{p.price}</span>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>

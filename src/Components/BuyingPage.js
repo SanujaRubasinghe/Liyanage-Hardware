@@ -90,25 +90,23 @@ const BuyingPage = () => {
   }
 
   useEffect(() => {
-    if (!formData.streetAddress) return
+    if (!formData.streetAddress || !formData.city) return;
+
     const handleCalculate = async () => {
       try {
-        const userAddress = buildFullAddress(formData)
-        const response = await API.post('/location/delivery-charges', {
-          userAddress: userAddress
-        })
-  
-        setDeliveryCharge(response.data.shippingCost)
-        setDistance(response.data.distanceInKm)
-        console.log(distance)
-        setErrorMessage('')
+        const userAddress = buildFullAddress(formData);
+        const response = await API.post('/location/delivery-charges', { userAddress });
+        setDeliveryCharge(response.data.shippingCost);
+        setDistance(response.data.distanceInKm);
+        setErrorMessage('');
       } catch (error) {
-        console.error(error)
-        setErrorMessage('Failed to calculate shipping. Please check the address.')
+        console.error(error);
+        setErrorMessage('Failed to calculate shipping. Please check the address.');
       }
-    }
-    handleCalculate()
-  }, [formData.streetAddress])
+    };
+
+    handleCalculate();
+  }, [formData.streetAddress, formData.city, formData.postcode]);
 
 
   const sendMessage = async (number, text) => {
@@ -132,22 +130,46 @@ const BuyingPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+     e.preventDefault();
 
     if (!formData.agreeTerms) {
       alert("You must agree to the terms and conditions.");
       return;
-    } else {
-      try {
-        const order = `Product: ${product.productName}.\nProduct quantity: ${product.quantity}\nCustomer Name: ${formData.firstName} ${formData.lastName}\nPhone number: ${formData.phone}`
-                       
-        const res = await API.post("/products/purchase", formData)
-        sendMessage('asdfsd',order)
-        alert(res.data.message)
-        navigate('/products')
-      } catch(err) {
-        console.error(err)
-      }
+    }
+
+    try {
+      const subtotal = product.productPrice * product.quantity;
+      const total = subtotal + deliveryCharge;
+
+      const orderData = {
+        user_id: 1, 
+        total_amount: total,
+        status: 'pending',
+        payment_method: formData.paymentMethod,
+        payment_status: 'pending',
+        shipping_address: buildFullAddress(formData),
+        billing_address: buildFullAddress(formData),
+        tracking_number: null,
+        notes: formData.orderNotes,
+        items: [
+          {
+            product_id: product.productId, // ensure this field exists
+            quantity: product.quantity,
+            unit_price: product.productPrice
+          }
+        ]
+      };
+
+      const res = await API.post('/products/purchase', orderData);
+
+      // // Optional: send confirmation message
+      // await sendMessage(formData.phone, `Order placed successfully. Total: Rs. ${total}. We'll contact you soon.`);
+
+      alert('Order placed successfully!');
+      navigate('/products');
+    } catch (err) {
+      console.error('Order submission failed:', err);
+      alert('Order submission failed. Please try again.');
     }
     
   };
@@ -197,11 +219,11 @@ const BuyingPage = () => {
 
         <div className="payment-options">
           <label>
-            <input type="radio" name="paymentMethod" value="bankTransfer" checked={formData.paymentMethod === "bankTransfer"} onChange={handleChange} />
+            <input type="radio" name="paymentMethod" value="bank_transfer" checked={formData.paymentMethod === "bankTransfer"} onChange={handleChange} />
             Bank Transfer / QR Code
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="cardPayment" checked={formData.paymentMethod === "cardPayment"} onChange={handleChange} />
+            <input type="radio" name="paymentMethod" value="credit_card" checked={formData.paymentMethod === "cardPayment"} onChange={handleChange} />
             Pay with Visa / MasterCard / AMEX
           </label>
         </div>

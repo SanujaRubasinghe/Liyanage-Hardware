@@ -1,56 +1,177 @@
 .buying-page {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f7f7f7, #eaeaea);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.billing-details {
+  width: 100%;
+  max-width: 700px;
+  padding: 30px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+  transition: box-shadow 0.3s;
+}
+
+.billing-details:hover {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15);
+}
+
+.billing-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.form-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #cc0000;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+  outline: none;
+}
+
+.order-summary {
+  margin-top: 25px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background: #fefefe;
+  border: 1px solid #eee;
+  transition: background 0.3s;
+}
+
+.order-summary p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.order-summary strong {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #cc0000;
+}
+
+.payment-options {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.payment-options label {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.payment-options input[type="radio"] {
+  accent-color: #cc0000;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.payment-options label:hover {
+  color: #cc0000;
+}
+
+.terms {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #555;
+  background: #fff8f8;
+  padding: 10px 14px;
+  border: 1px solid #ffdada;
+  border-radius: 8px;
+}
+
+.terms input[type="checkbox"] {
+  accent-color: #cc0000;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  background: #cc0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: #a80000;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .billing-details {
-    width: 50%;
-    max-width: 600px;
+    width: 90%;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: #fff;
   }
-  
+
   .form-group {
-    display: flex;
-    gap: 10px;
+    flex-direction: column;
   }
-  
-  input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .order-summary, .payment-options {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
-  }
-  
-  .terms {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px 0;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background: #cc0000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background: darkpurple;
-  }
+}

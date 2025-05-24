@@ -41,19 +41,19 @@ const ProductList = () => {
     return () => controller.abort()
   }, [])
 
-  useEffect(() => {
-    const fetchFilteredProducts = async (filters) => {
-      try {
-        const response = await API.post("/products/filter", filters)
-        setProducts(response.data)
-        setLoading(false)
-      } catch (error) {
-        console.error("Error fetching products: ", error)
-        setLoading(false)
-      }
-    }
-    fetchFilteredProducts(filters)
-  }, [filters])
+  // useEffect(() => {
+  //   const fetchFilteredProducts = async (filters) => {
+  //     try {
+  //       const response = await API.post("/products/filter", filters)
+  //       setProducts(response.data)
+  //       setLoading(false)
+  //     } catch (error) {
+  //       console.error("Error fetching products: ", error)
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchFilteredProducts(filters)
+  // }, [filters])
 
   return (
     <>

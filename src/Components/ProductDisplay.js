@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "./CartContext"; // Import useCart hook
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import API from "../api"
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
@@ -12,7 +12,7 @@ const ProductDisplay = () => {
   
   const navigate = useNavigate();
   const location = useLocation()
-  const {prtdid} = location.state || {}
+  const { id } = location.state || {}
   const { addToCart } = useCart(); 
 
   const [product, setProduct] = useState(null)
@@ -24,9 +24,9 @@ const ProductDisplay = () => {
   
   useEffect(() => {
     const fetchProduct = async () => {
-      if (prtdid) {
+      if (id) {
         try {
-          const response = await API.get(`/products/${prtdid}`)
+          const response = await API.get(`/products/${id}`)
           setProduct(response.data)
         } catch(err) {
           console.error("Error fetching product details: ", err)
@@ -34,13 +34,13 @@ const ProductDisplay = () => {
       }
     }
     fetchProduct()
-  }, [prtdid])
+  }, [id])
 
   useEffect(() => {
     if (product) {
-      setSelectedSize(product[0].sizes[0] || "")
-      setSelectedColor(product[0].colors[0] || "")
-      setSelectedImage(product[0].images[0] || "")
+      // setSelectedSize(product[0].sizes[0] || "")
+      // setSelectedColor(product[0].colors[0] || "")
+      setSelectedImage(product.images[0] || "")
     }
   }, [product])
 
@@ -57,11 +57,12 @@ const ProductDisplay = () => {
   const handleBuyNow = () => {
     navigate("/buying", {
       state: {
-        productName: product[0].name,
-        productSku: product[0].sku,
-        productPrice: product[0].price,
-        selectedSize,
-        selectedColor,
+        productId: product.product_id,
+        productName: product.name,
+        productSku: product.sku,
+        productPrice: product.price,
+        // selectedSize,
+        // selectedColor,
         quantity,
       },
     });
@@ -71,10 +72,10 @@ const ProductDisplay = () => {
     <>
       <div className="product-container-pd">
         <div className="image-gallery">
-          {product[0].images.map((image, index) => (
+          {product.images.map((image, index) => (
             <img
               key={index}
-              src={image}
+              src={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
               alt={`Thumbnail ${index + 1}`}
               className="gallery-thumbnail-pd"
               onClick={() => setSelectedImage(image)}
@@ -83,15 +84,15 @@ const ProductDisplay = () => {
         </div>
 
         <div className="main-image-container">
-          <img src={selectedImage} alt="Selected Product" className="main-image" />
+          <img src={`${process.env.REACT_APP_API_BASE_URL}/${selectedImage}`} alt="Selected Product" className="main-image" />
         </div>
 
         <div className="product-details-pd">
           <h2>{product.name}</h2>
-          <span className="sku-pd">SKU: {product[0].sku}</span>
-          <span className="price-pd">Rs. {product[0].price.toLocaleString()}</span>
+          <span className="sku-pd">SKU: {product.sku}</span>
+          <span className="price-pd">Rs. {product.price.toLocaleString()}</span>
 
-          <div className="size-selection-pd">
+          {/* <div className="size-selection-pd">
             <h4>Size</h4>
             {product[0].sizes.map((size) => (
               <button
@@ -102,9 +103,9 @@ const ProductDisplay = () => {
                 {size}
               </button>
             ))}
-          </div>
+          </div> */}
 
-          <div className="color-selection">
+          {/* <div className="color-selection">
             <h4>Color</h4>
             {product[0].colors.map((color) => (
               <button
@@ -115,7 +116,7 @@ const ProductDisplay = () => {
                 {color}
               </button>
             ))}
-          </div>
+          </div> */}
 
           <div className="quantity-selector">
             <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>

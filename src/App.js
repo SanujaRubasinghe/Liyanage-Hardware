@@ -32,7 +32,7 @@ import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
-import Searchbarr from './Components/Searchbarr';
+import Searchbarr from './Components/searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
 
 function App() {
@@ -61,10 +61,11 @@ function App() {
               }
             />
             <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
+            <Route path='/product' element={<ProductDisplay />} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 
-             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
+            <Route path="/feedback" element={<><Feedback /><Footer /></>} />
             <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} />
             <Route path="/product-display" element={<ProductDisplay />} />
             <Route path="/cart" element={<ShoppingCart />} />

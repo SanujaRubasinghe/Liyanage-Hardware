@@ -95,10 +95,11 @@
   padding: 8px 32px 8px 12px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  width: 300px;
+  width: 600px;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s ease;
+  margin: 0;
 }
 
 .search-input:focus {
@@ -110,7 +111,7 @@
   position: absolute;
   right: 10px;
   top: 40%;
-  transform: translateY(-50%);
+  transform: translateY(-30%);
   color: #cb1d1d;
   cursor: pointer;
   font-size: 1.2rem;
@@ -145,6 +146,12 @@
   padding: 10px 16px;
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.2s ease;
+}
+
+.result-link {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
 }
 
 .result-item:hover {

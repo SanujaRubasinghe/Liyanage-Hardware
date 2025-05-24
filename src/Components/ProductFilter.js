@@ -41,6 +41,7 @@ const ProductFilter = ({ setProducts }) => {
     };
 
     return (
+    <div className="filterWrapper">
         <div className="filterContainer">
             <input 
                 type="text" 
@@ -48,6 +49,7 @@ const ProductFilter = ({ setProducts }) => {
                 value={filters.deliveryArea} 
                 onChange={handleChange} 
                 className="filterInput"
+                name="deliveryArea"
             />
             <input 
                 type="text" 
@@ -55,6 +57,7 @@ const ProductFilter = ({ setProducts }) => {
                 value={filters.category} 
                 onChange={handleChange} 
                 className="filterInput"
+                name="category"
             />
             <input 
                 type="number" 
@@ -62,6 +65,7 @@ const ProductFilter = ({ setProducts }) => {
                 value={filters.minPrice} 
                 onChange={handleChange} 
                 className="filterInput"
+                name="minPrice"
             />
             <input 
                 type="number" 
@@ -69,16 +73,24 @@ const ProductFilter = ({ setProducts }) => {
                 value={filters.maxPrice} 
                 onChange={handleChange} 
                 className="filterInput"
+                name="maxPrice"
             />
             <button 
                 onClick={handleFilter} 
                 className="filterBtn"
             >
-                Apply Filter
+                Apply
             </button>
-            <button onClick={handleReset}>Reset Filter</button>
+            <button 
+                onClick={handleReset} 
+                className="resetBtn"
+            >
+                Reset
+            </button>
         </div>
+    </div>
     );
+
 };
 
 export default ProductFilter;

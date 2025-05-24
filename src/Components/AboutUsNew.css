@@ -84,95 +84,162 @@
   object-fit: cover;
 }
 
-/* Reasons Section */
+/* —— Reasons Section —— */
 .reasons-section {
   max-width: 1100px;
-  margin: 40px auto 0;
+  margin: 40px auto;
   padding: 0 24px;
+  text-align: center;
 }
 
 .reasons-section h2 {
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-bottom: 18px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #333;
 }
 
 .reasons-section h2 span {
-  font-weight: normal;
+  font-weight: 400;
+  color: #b22222; /* a strong red accent */
 }
 
+/* Grid of cards */
 .reasons-list {
   display: flex;
-  gap: 18px;
   flex-wrap: wrap;
+  justify-content: center;   /* ← center each wrapped row */
+  gap: 18px;
+
 }
 
 .reasons-list > div {
+  flex: 0 1 180px;           /* fixed base width, no growing */
+  /* remove any min-width or flex: 1 rules */
+}
+
+/* Individual card */
+.reason-card {
   background: #fff;
-  border-radius: 8px;
-  flex: 1 1 180px;
-  min-width: 180px;
-  padding: 18px 14px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-  margin-bottom: 12px;
+  border-radius: 12px;
+  padding: 24px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
 }
 
-.reasons-list span {
-  color: #ffc107;
-  font-size: 2rem;
-  font-weight: bold;
+/* Number badge */
+.reason-number {
+  background: #ffc107;
+  color: #222;
+  font-size: 1.8rem;
+  font-weight: 700;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  transition: background-color 0.3s ease;
 }
 
-.reasons-list h3 {
+/* Title & text */
+.reason-card h3 {
   font-size: 1.1rem;
-  margin: 8px 0 6px;
-  font-weight: bold;
-}
-
-.reasons-list p {
-  font-size: 0.97rem;
+  font-weight: 600;
+  margin: 8px 0 12px;
   color: #444;
+  transition: color 0.3s ease;
 }
 
-/* Features Grid */
+.reason-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #666;
+}
+
+/* Hover state */
+.reason-card:hover {
+  background-color: #fef0f0;        /* very light red */
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.reason-card:hover .reason-number {
+  background-color: #b22222;        /* strong red */
+  color: #fff;
+}
+
+.reason-card:hover h3 {
+  color: #b22222;
+}
+
+/* Fade-in on scroll */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reason-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+}
+
+/* Apply custom property (--i) via inline style or JS if you like */
+
+
 .features-grid {
   max-width: 1100px;
   margin: 40px auto 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 24px;
   padding: 0 24px;
 }
 
 .features-grid > div {
   background: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 180px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+}
+
+.features-grid > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .features-grid h4 {
   background: #111;
   color: #ffc107;
-  padding: 6px 0;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  text-align: center;
   width: 100%;
-  border-radius: 6px 6px 0 0;
-  margin: -16px -16px 12px -16px;
-  font-size: 1.05rem;
   font-weight: bold;
 }
 
 .features-grid img {
-  width: 100%;         
-  height: auto;        
-  object-fit: cover;   
-  border-radius: 6px;
-  margin: 10px 0;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
 }
 
 
@@ -188,7 +255,7 @@
 }
 
 .features-grid button {
-  background: #ffc107;
+  background: #b30a0a;
   border: none;
   padding: 7px 18px;
   border-radius: 20px;
@@ -248,6 +315,92 @@
   cursor: pointer;
   margin-top: 6px;
 }
+
+.flip-card {
+  background: transparent;
+  width: 100%;
+  height: 250px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-front {
+  background: #fff;
+}
+
+.flip-card-front h4 {
+  background: #111;
+  color: #ffffff;
+  width: 100%;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.flip-card-back {
+  background: #ffffff;
+  color: #111;
+  transform: rotateY(180deg);
+  padding: 20px;
+}
+
+.flip-card-back h4 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.flip-card-back p {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #444;
+}
+
+/* Responsive support (optional if not already added) */
+@media (max-width: 900px) {
+  .features-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 900px) {

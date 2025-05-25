@@ -4,6 +4,7 @@ import ProductFilter from "./ProductFilter";
 import LoadingPage from "./LoadingPage";
 import API from "../api"
 import "./ProductList.css"; 
+import PromotionalBanner from "./PromotionalBanner";
 
 let productCache = null
 
@@ -67,9 +68,10 @@ const ProductList = () => {
       </h2>
 
       {/* Left side image */}
-      <div className="Pleft-image">
+      {/* <div className="Pleft-image">
         <img src="/images/o5.png" alt="Side visual" />
-      </div>
+      </div> */}
+      <PromotionalBanner location={'home-page-our-products'} />
       {/* Right side products grid */}
       <div className="Pproduct-grid">
         {(products || []).map((product, index) => (

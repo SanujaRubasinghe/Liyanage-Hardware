@@ -1,6 +1,7 @@
 import React from "react";
 import ProductCard from "./ProductCard";
 import "./NewArrivals.css"; 
+import PromotionalBanner from "./PromotionalBanner";
 
 const products = [
   {
@@ -41,9 +42,11 @@ const ProductList = () => {
           <span className="red-text">Arrivals</span>
         </h2>
   
-        <div className="new-left-image">
+        {/* <div className="new-left-image">
           <img src="/images/o5.png" alt="Side visual" />
-        </div>
+        </div> */}
+
+        <PromotionalBanner location={'home-page-new-arrivals'} />
   
         <div className="new-product-grid">
           {products.map((product, index) => (

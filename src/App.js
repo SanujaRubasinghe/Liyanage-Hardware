@@ -34,6 +34,8 @@ import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
 import Searchbarr from './Components/searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
+import AnnouncementBar from './Components/AnnouncementBar';
+import BannerSlider from './Components/BannerSlider';
 
 function App() {
   return (
@@ -48,7 +50,9 @@ function App() {
                 <>
                   <Header />
                   <SearchBarN />
-                  <Slideshow />
+                  <AnnouncementBar />
+                  {/* <Slideshow /> */}
+                  <BannerSlider />
                   <ImageDeliver />
                   <Home />
                   <ProductList />

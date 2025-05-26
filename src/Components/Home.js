@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
 import './Product.css';
 import Product from './Product';
+import API from '../api';
 
 function Home() {
+
+  useEffect(() => {
+    const logVisit = async () => {
+      try {
+        await API.post('/traffic/log-visit', {path: '/'})
+      } catch (err) {
+        console.log('Error logging visit')
+      }
+    }
+    logVisit()
+  }, [])
+
   const products = [
     { id: 1, image: '/images/c21.jpg' ,name: 'Category 1' },
     { id: 2, image: '/images/c18.jpg' ,name: 'Category 2' },

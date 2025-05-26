@@ -139,7 +139,7 @@ const BuyingPage = () => {
 
     try {
       const subtotal = product.productPrice * product.quantity;
-      const total = subtotal + deliveryCharge;
+      const total = subtotal + (deliveryCharge * 1);
 
       const orderData = {
         user_id: 1, 

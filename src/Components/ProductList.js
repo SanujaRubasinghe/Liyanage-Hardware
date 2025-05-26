@@ -15,6 +15,17 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const logVisit = async () => {
+      try {
+        await API.post('/traffic/log-visit', {path: '/products'})
+      } catch (err) {
+        console.log('Error logging visit')
+      }
+    }
+    logVisit()
+  }, [])
+
+  useEffect(() => {
     const controller = new AbortController()
     const fetchProducts = async () => {
 

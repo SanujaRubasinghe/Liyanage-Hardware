@@ -3,19 +3,10 @@ import './Home.css';
 import './Product.css';
 import Product from './Product';
 import API from '../api';
+import useTrackPageVisit from '../hooks/useTrackPageVisit';
 
 function Home() {
-
-  useEffect(() => {
-    const logVisit = async () => {
-      try {
-        await API.post('/traffic/log-visit', {path: '/'})
-      } catch (err) {
-        console.log('Error logging visit')
-      }
-    }
-    logVisit()
-  }, [])
+  // useTrackPageVisit()
 
   const products = [
     { id: 1, image: '/images/c21.jpg' ,name: 'Category 1' },

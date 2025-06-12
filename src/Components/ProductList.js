@@ -5,25 +5,17 @@ import LoadingPage from "./LoadingPage";
 import API from "../api"
 import "./ProductList.css"; 
 import PromotionalBanner from "./PromotionalBanner";
+import useTrackPageVisit from "../hooks/useTrackPageVisit";
 
 let productCache = null
 
 const ProductList = () => {
 
+  useTrackPageVisit()
+
   const [products, setProducts] = useState([])
   const [filters, setFilters] = useState({})
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const logVisit = async () => {
-      try {
-        await API.post('/traffic/log-visit', {path: '/products'})
-      } catch (err) {
-        console.log('Error logging visit')
-      }
-    }
-    logVisit()
-  }, [])
 
   useEffect(() => {
     const controller = new AbortController()

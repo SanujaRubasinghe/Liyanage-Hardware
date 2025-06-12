@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Navbar';
 import Home from './Components/Home';
@@ -37,7 +38,18 @@ import AboutUsNew from './Components/AboutUsNew';
 import AnnouncementBar from './Components/AnnouncementBar';
 import BannerSlider from './Components/BannerSlider';
 
+import socket from './context/socketContext'
+import { v4 as uuidv4 } from 'uuid';
+import API from './api';
+
 function App() {
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('session_id')) {
+      sessionStorage.setItem('session_id', uuidv4());
+    }
+  }, []);
+  
   return (
     <div>
       <Router>

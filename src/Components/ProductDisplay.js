@@ -8,8 +8,11 @@ import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
 import LoadingPage from "./LoadingPage"
 
+import useTrackPageVisit from "../hooks/useTrackPageVisit";
+
+
 const ProductDisplay = () => {
-  
+
   const navigate = useNavigate();
   const location = useLocation()
   const { id } = location.state || {}
@@ -20,8 +23,7 @@ const ProductDisplay = () => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
-  
-  
+    
   useEffect(() => {
     const fetchProduct = async () => {
       if (id) {

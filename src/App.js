@@ -34,6 +34,7 @@ import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
 import Searchbarr from './Components/Searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
+import ProductPageN from './Components/ProductPageN';
 
 function App() {
   return (
@@ -60,7 +61,8 @@ function App() {
                 </>
               }
             />
-            <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
+            {/*<Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />*/}
+            <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 

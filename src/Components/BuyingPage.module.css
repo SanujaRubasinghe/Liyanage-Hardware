@@ -1,0 +1,60 @@
+/* BuyingPage.module.css */
+.buyingPage {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.billingDetails {
+  width: 50%;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.formGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.billingDetails input,
+.billingDetails select,
+.billingDetails textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.orderSummary,
+.paymentOptions {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.placeOrderButton {
+  width: 100%;
+  padding: 10px;
+  background: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.placeOrderButton:hover {
+  background: purple; /* or any darkened red */
+}

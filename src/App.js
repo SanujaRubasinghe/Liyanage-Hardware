@@ -35,6 +35,7 @@ import LogInPage from './Components/LogInPage';
 import Searchbarr from './Components/Searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
 import ProductPageN from './Components/ProductPageN';
+import AllProductD from './Components/AllProductD';
 
 function App() {
   return (
@@ -52,10 +53,13 @@ function App() {
                   <Slideshow />
                   <ImageDeliver />
                   <Home />
-                  <ProductList />
+                  <NewArrivals />
+                  <AllProductD/>
+                  {/* <ProductList /> */}
                   <BrandContainer />
                   <ConstructionSupplies />
-                  <NewArrivals />
+                  {/*  */}
+                  
                   <FeatureSection />
                   <Footer />
                 </>

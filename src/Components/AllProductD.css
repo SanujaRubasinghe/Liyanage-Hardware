@@ -1,0 +1,156 @@
+.product-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #e6e1f0;
+  border-radius: 20px;
+}
+
+.product-sidebar {
+  min-width: 250px;
+  background-color: #cbb5f3;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.product-sidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.product-sidebar img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.product-card {
+  background-color: #fff;
+  width: 220px;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image {
+  width: 120px;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.product-details {
+  text-align: center;
+}
+
+.product-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.product-part {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #5e35b1;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.product-price span {
+  color: #999;
+  font-size: 12px;
+}
+
+.product-unit {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.buy-to-cart,
+.add-to-cart1 {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.buy-to-cart {
+  background-color: #5e35b1;
+  color: #fff;
+}
+
+.add-to-cart1 {
+  background-color: #eee;
+  color: #5e35b1;
+}
+
+.buy-to-cart:hover {
+  background-color: #512da8;
+}
+
+.add-to-cart1:hover {
+  background-color: #d1c4e9;
+}
+
+.pagination button.active {
+  background-color: #5e35b1;
+  color: white;
+}
+
+.see-more-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.see-more-btn {
+  padding: 10px 20px;
+  background-color: #5e35b1;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.see-more-btn:hover {
+  background-color: #4527a0;
+}
+
+
+

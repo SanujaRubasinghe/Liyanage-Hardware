@@ -1,14 +1,12 @@
+// src/pages/CustomerComplaintsForm.js
 import React, { useState } from "react";
 import "./CustomerComplaintsForm.css";
-import API from "../api"
+import API from "../api";
 import ConfirmationModal from "./ConfirmationModal";
 
-
-
 const CustomerComplaintsForm = () => {
-  
-  const [showModal, setShowModal] = useState(false)
-  const [modalMessage, setModalMessage] = useState("")
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -18,13 +16,11 @@ const CustomerComplaintsForm = () => {
     contactNumber: "",
     branch: "",
     message: "",
-    image: null,
   });
-
   const [captchaInput, setCaptchaInput] = useState("");
-  const [captchaText] = useState("A7X9B2"); // In a real implementation, this would be generated randomly
+  const [captchaText] = useState("A7X9B2");
   const [captchaVerified, setCaptchaVerified] = useState(false);
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +28,7 @@ const CustomerComplaintsForm = () => {
   };
 
   const handleImageUpload = (e) => {
-    setImage(e.target.files[0])
+    setImage(e.target.files[0]);
   };
 
   const handleCaptchaChange = (e) => {
@@ -46,94 +42,86 @@ const CustomerComplaintsForm = () => {
       alert("Please enter the correct captcha before submitting.");
       return;
     }
+    const data = new FormData();
+    Object.entries(formData).forEach(([k, v]) => data.append(k, v));
+    if (image) data.append("image", image);
 
-    const data = new FormData()
-
-    for (const key in formData) {
-      data.append(key, formData[key])
-    }
-
-    if (image) {
-      data.append("image", image)
-    }
-  
-    const res = await API.post('/feedback/create-complaint', data)
-    
+    const res = await API.post("/feedback/create-complaint", data);
     if (res.status === 201) {
-      setShowModal(true)
-      setModalMessage(res.data.message)
+      setModalMessage(res.data.message);
+      setShowModal(true);
     }
-    
   };
 
   return (
-    <div className="form-container">
-      <div className="form-card">
-        <div className="form-header">
-          <h2>CUSTOMER COMPLAINTS</h2>
+    <div className="ccf-container">
+      <div className="ccf-logo-circle">
+        <img src="/images/l1.png" alt="Logo" className="ccf-logo" />
+      </div>
+
+      <div className="ccf-card">
+        <div className="ccf-header">
+          <h2 className="ccf-title">Customer Complaints</h2>
         </div>
-        
-        <form onSubmit={handleSubmit} className="form-body">
-          <div className="form-grid">
-            <div className="form-group">
+
+        <form onSubmit={handleSubmit} className="ccf-form">
+          <div className="ccf-grid">
+            <div className="ccf-group">
               <label>Full Name*</label>
-              <input 
-                type="text" 
-                name="fullName" 
-                required 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="fullName"
+                required
+                onChange={handleChange}
               />
             </div>
-            
-            <div className="form-group">
+            <div className="ccf-group">
               <label>Email Address*</label>
-              <input 
-                type="email" 
-                name="email" 
-                required 
-                onChange={handleChange} 
+              <input
+                type="email"
+                name="email"
+                required
+                onChange={handleChange}
               />
             </div>
           </div>
-          
-          <div className="form-grid">
-            <div className="form-group">
+
+          <div className="ccf-grid">
+            <div className="ccf-group">
               <label>Invoice Number*</label>
-              <input 
-                type="text" 
-                name="invoiceNumber" 
-                required 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="invoiceNumber"
+                required
+                onChange={handleChange}
               />
             </div>
-            
-            <div className="form-group">
+            <div className="ccf-group">
               <label>Rep Code</label>
-              <input 
-                type="text" 
-                name="repCode" 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="repCode"
+                onChange={handleChange}
               />
             </div>
           </div>
-          
-          <div className="form-grid">
-            <div className="form-group">
+
+          <div className="ccf-grid">
+            <div className="ccf-group">
               <label>Contact Number*</label>
-              <input 
-                type="text" 
-                name="contactNumber" 
-                required 
-                onChange={handleChange} 
+              <input
+                type="text"
+                name="contactNumber"
+                required
+                onChange={handleChange}
               />
             </div>
-            
-            <div className="form-group">
+            <div className="ccf-group">
               <label>Branch*</label>
-              <select 
-                name="branch" 
-                required 
-                onChange={handleChange} 
+              <select
+                name="branch"
+                required
+                onChange={handleChange}
               >
                 <option value="">Please Select</option>
                 <option value="Branch A">Branch A</option>
@@ -142,59 +130,54 @@ const CustomerComplaintsForm = () => {
               </select>
             </div>
           </div>
-          
-          <div className="form-group">
+
+          <div className="ccf-group">
             <label>Message*</label>
-            <textarea 
-              name="message" 
-              required 
+            <textarea
+              name="message"
+              required
               onChange={handleChange}
             ></textarea>
           </div>
-          
-          <div className="form-group">
+
+          <div className="ccf-group">
             <button
               type="button"
-              onClick={() => document.getElementById('file-upload').click()}
-              className="file-upload-btn"
+              onClick={() => document.getElementById("ccf-file").click()}
+              className="ccf-file-btn"
             >
               Upload Image
             </button>
-            <input 
-              id="file-upload"
-              type="file" 
-              name="image"
-              accept="image/*" 
+            <input
+              id="ccf-file"
+              type="file"
+              accept="image/*"
               onChange={handleImageUpload}
-              className="hidden-input" 
+              className="ccf-hidden-input"
             />
           </div>
-          
-          {/* Simple captcha implementation */}
-          <div className="captcha-container">
+
+          <div className="ccf-captcha">
             <label>Verification*</label>
-            <div className="captcha-wrapper">
-              <div className="captcha-text">
-                {captchaText}
-              </div>
+            <div className="ccf-captcha-wrap">
+              <div className="ccf-captcha-text">{captchaText}</div>
               <input
                 type="text"
-                placeholder="Enter the code"
+                placeholder="Enter code"
                 value={captchaInput}
                 onChange={handleCaptchaChange}
                 required
               />
             </div>
             {captchaInput && !captchaVerified && (
-              <p className="captcha-error">Incorrect code, please try again</p>
+              <p className="ccf-captcha-error">
+                Incorrect code, please try again
+              </p>
             )}
           </div>
-          
-          <div className="form-group">
-            <button 
-              type="submit"
-              className="submit-btn"
-            >
+
+          <div className="ccf-group">
+            <button type="submit" className="ccf-submit-btn">
               Submit
             </button>
           </div>
@@ -206,7 +189,6 @@ const CustomerComplaintsForm = () => {
         message={modalMessage}
         onClose={() => setShowModal(false)}
       />
-
     </div>
   );
 };

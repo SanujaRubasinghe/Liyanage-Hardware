@@ -1,6 +1,7 @@
+// src/pages/LogInPage.jsx
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import "./LogInPage.css";
+import styles from "./LogInPage.module.css";
 
 function LogInPage() {
   const [user, setUser] = useState({ username: "", password: "" });
@@ -20,27 +21,38 @@ function LogInPage() {
   };
 
   return (
-    <div className="login-container">
-      <div className="logo-circle">
-        <img src="/images/l1.png" alt="Logo" className="login-logo" />
+    <div className={styles.loginContainer}>
+      <div className={styles.logoCircle}>
+        <img
+          src="/images/l1.png"
+          alt="Logo"
+          className={styles.loginLogo}
+        />
       </div>
-      <form onSubmit={handleSubmit} className="login-form">
+
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <h1 className={styles.loginTitle}>User Login</h1>
+
+        <label className={styles.loginLabel}>Username</label>
         <input
           name="username"
           onChange={handleChange}
           placeholder="Username"
           required
-          className="login-input"
+          className={styles.loginInput}
         />
+
+        <label className={styles.loginLabel}>Password</label>
         <input
           name="password"
           type="password"
           onChange={handleChange}
           placeholder="Password"
           required
-          className="login-input"
+          className={styles.loginInput}
         />
-        <button type="submit" className="login-button">
+
+        <button type="submit" className={styles.loginButton}>
           Login
         </button>
       </form>

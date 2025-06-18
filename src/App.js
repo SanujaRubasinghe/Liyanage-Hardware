@@ -43,6 +43,7 @@ import { v4 as uuidv4 } from 'uuid';
 import API from './api';
 import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
+import AllProductsA from './Components/AllProductsA';
 
 function App() {
 
@@ -71,10 +72,12 @@ function App() {
                   <Home />
                   <NewArrivals />
                   <AllProductD/>
+                  <br></br>
+                  <AllProductsA/>
                   {/* <ProductList /> */}
                   <BrandContainer />
                   <ConstructionSupplies />
-                  {/*  */}
+               
                   
                   <FeatureSection />
                   <Footer />

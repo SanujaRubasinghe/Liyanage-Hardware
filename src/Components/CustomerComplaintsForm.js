@@ -1,212 +1,151 @@
-import React, { useState } from "react";
-import "./CustomerComplaintsForm.css";
-import API from "../api"
-import ConfirmationModal from "./ConfirmationModal";
-
-
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './CustomerComplaintsForm.css';
 
 const CustomerComplaintsForm = () => {
-  
-  const [showModal, setShowModal] = useState(false)
-  const [modalMessage, setModalMessage] = useState("")
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [receipt, setReceipt] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    invoiceNumber: "",
-    repCode: "",
-    contactNumber: "",
-    branch: "",
-    message: "",
-    image: null,
-  });
-
-  const [captchaInput, setCaptchaInput] = useState("");
-  const [captchaText] = useState("A7X9B2"); // In a real implementation, this would be generated randomly
-  const [captchaVerified, setCaptchaVerified] = useState(false);
-  const [image, setImage] = useState(null)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!title.trim()) newErrors.title = 'Title is required';
+    if (!content.trim()) newErrors.content = 'Description is required';
+    if (!receipt) newErrors.receipt = 'Receipt is required';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleImageUpload = (e) => {
-    setImage(e.target.files[0])
-  };
-
-  const handleCaptchaChange = (e) => {
-    setCaptchaInput(e.target.value);
-    setCaptchaVerified(e.target.value === captchaText);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size > 2 * 1024 * 1024) { // 2MB limit
+      setErrors({...errors, receipt: 'File size must be less than 2MB'});
+      return;
+    }
+    setReceipt(file);
+    setErrors({...errors, receipt: null});
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!captchaVerified) {
-      alert("Please enter the correct captcha before submitting.");
-      return;
-    }
-
-    const data = new FormData()
-
-    for (const key in formData) {
-      data.append(key, formData[key])
-    }
-
-    if (image) {
-      data.append("image", image)
-    }
-  
-    const res = await API.post('/feedback/create-complaint', data)
     
-    if (res.status === 201) {
-      setShowModal(true)
-      setModalMessage(res.data.message)
-    }
+    if (!validateForm()) return;
     
+    setIsSubmitting(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append('type', 'complaint');
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('receipt', receipt);
+      
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit complaint');
+      }
+      
+      toast.success('Complaint submitted successfully!');
+      // Reset form
+      setTitle('');
+      setContent('');
+      setReceipt(null);
+      document.getElementById('receipt-upload').value = '';
+    } catch (error) {
+      toast.error(error.message || 'Error submitting complaint');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="form-container">
-      <div className="form-card">
-        <div className="form-header">
-          <h2>CUSTOMER COMPLAINTS</h2>
+    <div className="complaint-form-container">
+      <h2 className="complaint-form-title">Submit a Complaint</h2>
+      
+      <form onSubmit={handleSubmit} className="complaint-form">
+        <div className="form-group">
+          <label htmlFor="title" className="form-label">
+            Complaint Title <span className="required-asterisk">*</span>
+          </label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={`form-input ${errors.title ? 'input-error' : ''}`}
+            placeholder="Brief description of your complaint"
+          />
+          {errors.title && <p className="error-message">{errors.title}</p>}
         </div>
         
-        <form onSubmit={handleSubmit} className="form-body">
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Full Name*</label>
-              <input 
-                type="text" 
-                name="fullName" 
-                required 
-                onChange={handleChange} 
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Email Address*</label>
-              <input 
-                type="email" 
-                name="email" 
-                required 
-                onChange={handleChange} 
-              />
-            </div>
-          </div>
-          
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Invoice Number*</label>
-              <input 
-                type="text" 
-                name="invoiceNumber" 
-                required 
-                onChange={handleChange} 
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Rep Code</label>
-              <input 
-                type="text" 
-                name="repCode" 
-                onChange={handleChange} 
-              />
-            </div>
-          </div>
-          
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Contact Number*</label>
-              <input 
-                type="text" 
-                name="contactNumber" 
-                required 
-                onChange={handleChange} 
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Branch*</label>
-              <select 
-                name="branch" 
-                required 
-                onChange={handleChange} 
-              >
-                <option value="">Please Select</option>
-                <option value="Branch A">Branch A</option>
-                <option value="Branch B">Branch B</option>
-                <option value="Branch C">Branch C</option>
-              </select>
-            </div>
-          </div>
-          
-          <div className="form-group">
-            <label>Message*</label>
-            <textarea 
-              name="message" 
-              required 
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          
-          <div className="form-group">
-            <button
-              type="button"
-              onClick={() => document.getElementById('file-upload').click()}
-              className="file-upload-btn"
-            >
-              Upload Image
-            </button>
-            <input 
-              id="file-upload"
-              type="file" 
-              name="image"
-              accept="image/*" 
-              onChange={handleImageUpload}
-              className="hidden-input" 
+        <div className="form-group">
+          <label htmlFor="content" className="form-label">
+            Detailed Description <span className="required-asterisk">*</span>
+          </label>
+          <textarea
+            id="content"
+            rows="5"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className={`form-textarea ${errors.content ? 'input-error' : ''}`}
+            placeholder="Please describe your complaint in detail..."
+          ></textarea>
+          {errors.content && <p className="error-message">{errors.content}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="receipt-upload" className="form-label">
+            Upload Receipt (PDF, JPG, PNG) <span className="required-asterisk">*</span>
+          </label>
+          <div className="file-upload-wrapper">
+            <input
+              id="receipt-upload"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              onChange={handleFileChange}
+              className={`file-input ${errors.receipt ? 'file-input-error' : ''}`}
             />
           </div>
-          
-          {/* Simple captcha implementation */}
-          <div className="captcha-container">
-            <label>Verification*</label>
-            <div className="captcha-wrapper">
-              <div className="captcha-text">
-                {captchaText}
-              </div>
-              <input
-                type="text"
-                placeholder="Enter the code"
-                value={captchaInput}
-                onChange={handleCaptchaChange}
-                required
-              />
-            </div>
-            {captchaInput && !captchaVerified && (
-              <p className="captcha-error">Incorrect code, please try again</p>
-            )}
-          </div>
-          
-          <div className="form-group">
-            <button 
-              type="submit"
-              className="submit-btn"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <ConfirmationModal
-        isOpen={showModal}
-        message={modalMessage}
-        onClose={() => setShowModal(false)}
-      />
-
+          {errors.receipt && <p className="error-message">{errors.receipt}</p>}
+          {receipt && (
+            <p className="file-selected">
+              Selected file: {receipt.name} ({(receipt.size / 1024).toFixed(2)} KB)
+            </p>
+          )}
+          <p className="file-hint">
+            Max file size: 2MB. Supported formats: PDF, JPG, PNG.
+          </p>
+        </div>
+        
+        <div className="form-actions">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+          >
+            {isSubmitting ? (
+              <>
+                <svg className="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="spinner-path" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Submitting...
+              </>
+            ) : 'Submit Complaint'}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

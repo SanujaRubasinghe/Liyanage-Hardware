@@ -41,6 +41,8 @@ import BannerSlider from './Components/BannerSlider';
 import socket from './context/socketContext'
 import { v4 as uuidv4 } from 'uuid';
 import API from './api';
+import ProductPageN from './Components/ProductPageN';
+import AllProductD from './Components/AllProductD';
 
 function App() {
 
@@ -67,17 +69,19 @@ function App() {
                   <BannerSlider />
                   <ImageDeliver />
                   <Home />
-                  <ProductList />
+                  <NewArrivals />
+                  <AllProductD/>
+                  {/* <ProductList /> */}
                   <BrandContainer />
                   <ConstructionSupplies />
-                  <NewArrivals />
+                  {/*  */}
+                  
                   <FeatureSection />
                   <Footer />
                 </>
               }
             />
             <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
-            <Route path='/product' element={<ProductDisplay />} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 

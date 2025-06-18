@@ -1,0 +1,216 @@
+:root {
+  /* Primaries */
+  --bg-page: #ffffff;
+  --accent-1: #e53935;
+  --accent-2: #fb8c00;
+
+  /* Neutrals */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-light: #888888;
+
+  /* Surfaces */
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Layout */
+.productLayout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: var(--bg-page);
+  border-radius: 20px;
+}
+
+.productSidebar {
+  min-width: 250px;
+  background-color: var(--accent-1);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+.productSidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.productSidebar img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Product grid */
+.products {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 10px;
+}
+
+@media (max-width: 1000px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Product card */
+.productCard {
+  background-color: var(--card-bg);
+  min-height: 370px;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px var(--card-shadow);
+}
+
+.productImage {
+  width: 85%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.productDetails {
+  flex: 1;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.productPart {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.productPrice {
+  font-size: 15px;
+  color: var(--accent-1);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.productUnit {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.productActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.buyToCart,
+.addToCart1 {
+  padding: 8px 14px;
+  font-size: 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.buyToCart {
+  background-color: #eb7404;
+  color: #fff;
+}
+.buyToCart:hover {
+  background-color: var(--accent-1); /* darker red */
+}
+
+.addToCart1 {
+  background-color: #f5f5f5;
+  color: var(--accent-1);
+}
+.addToCart1:hover {
+  background-color: var(--accent-2);
+  color: #fff;
+}
+
+/* See More card with wave animation */
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.seeMoreCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 370px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fffbe7, #eb7404);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  cursor: pointer;
+  color: #353434;
+  
+  font-size: 22px; /* increased size */
+  font-weight: 800; /* more bold */
+  letter-spacing: 1px; /* spacing */
+  animation: wave 2.5s ease-in-out infinite;
+  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.seeMoreCard::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 60%);
+  transform: rotate(25deg);
+  animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    transform: rotate(25deg) translate(-50%, -50%);
+  }
+  50% {
+    transform: rotate(25deg) translate(50%, 50%);
+  }
+  100% {
+    transform: rotate(25deg) translate(-50%, -50%);
+  }
+}
+
+.seeMoreCard:hover {
+  background: linear-gradient(135deg, #ff7043, #d32f2f);
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 87, 34, 0.5);
+}

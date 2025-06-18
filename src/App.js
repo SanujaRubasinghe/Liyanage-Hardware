@@ -36,6 +36,7 @@ import Searchbarr from './Components/Searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
 import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
+import AllProductsA from './Components/AllProductsA';
 
 function App() {
   return (
@@ -55,10 +56,12 @@ function App() {
                   <Home />
                   <NewArrivals />
                   <AllProductD/>
+                  <br></br>
+                  <AllProductsA/>
                   {/* <ProductList /> */}
                   <BrandContainer />
                   <ConstructionSupplies />
-                  {/*  */}
+               
                   
                   <FeatureSection />
                   <Footer />

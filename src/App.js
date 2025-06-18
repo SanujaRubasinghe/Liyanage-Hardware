@@ -81,7 +81,8 @@ function App() {
                 </>
               }
             />
-            <Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />
+            {/*<Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />*/}
+            <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 

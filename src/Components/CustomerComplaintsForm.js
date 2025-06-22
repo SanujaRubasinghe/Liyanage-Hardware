@@ -1,151 +1,194 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './CustomerComplaintsForm.css';
+// src/pages/CustomerComplaintsForm.js
+import React, { useState } from "react";
+import "./CustomerComplaintsForm.css";
+import API from "../api";
+import ConfirmationModal from "./ConfirmationModal";
 
 const CustomerComplaintsForm = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [receipt, setReceipt] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!title.trim()) newErrors.title = 'Title is required';
-    if (!content.trim()) newErrors.content = 'Description is required';
-    if (!receipt) newErrors.receipt = 'Receipt is required';
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    invoiceNumber: "",
+    repCode: "",
+    contactNumber: "",
+    branch: "",
+    message: "",
+  });
+  const [captchaInput, setCaptchaInput] = useState("");
+  const [captchaText] = useState("A7X9B2");
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [image, setImage] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.size > 2 * 1024 * 1024) { // 2MB limit
-      setErrors({...errors, receipt: 'File size must be less than 2MB'});
-      return;
-    }
-    setReceipt(file);
-    setErrors({...errors, receipt: null});
+  const handleImageUpload = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleCaptchaChange = (e) => {
+    setCaptchaInput(e.target.value);
+    setCaptchaVerified(e.target.value === captchaText);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) return;
-    
-    setIsSubmitting(true);
-    
-    try {
-      const formData = new FormData();
-      formData.append('type', 'complaint');
-      formData.append('title', title);
-      formData.append('content', content);
-      formData.append('receipt', receipt);
-      
-      const response = await fetch('/api/feedback', {
-        method: 'POST',
-        body: formData,
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to submit complaint');
-      }
-      
-      toast.success('Complaint submitted successfully!');
-      // Reset form
-      setTitle('');
-      setContent('');
-      setReceipt(null);
-      document.getElementById('receipt-upload').value = '';
-    } catch (error) {
-      toast.error(error.message || 'Error submitting complaint');
-    } finally {
-      setIsSubmitting(false);
+    if (!captchaVerified) {
+      alert("Please enter the correct captcha before submitting.");
+      return;
+    }
+    const data = new FormData();
+    Object.entries(formData).forEach(([k, v]) => data.append(k, v));
+    if (image) data.append("image", image);
+
+    const res = await API.post("/feedback/create-complaint", data);
+    if (res.status === 201) {
+      setModalMessage(res.data.message);
+      setShowModal(true);
     }
   };
 
   return (
-    <div className="complaint-form-container">
-      <h2 className="complaint-form-title">Submit a Complaint</h2>
-      
-      <form onSubmit={handleSubmit} className="complaint-form">
-        <div className="form-group">
-          <label htmlFor="title" className="form-label">
-            Complaint Title <span className="required-asterisk">*</span>
-          </label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={`form-input ${errors.title ? 'input-error' : ''}`}
-            placeholder="Brief description of your complaint"
-          />
-          {errors.title && <p className="error-message">{errors.title}</p>}
+    <div className="ccf-container">
+      <div className="ccf-logo-circle">
+        <img src="/images/l1.png" alt="Logo" className="ccf-logo" />
+      </div>
+
+      <div className="ccf-card">
+        <div className="ccf-header">
+          <h2 className="ccf-title">Customer Complaints</h2>
         </div>
-        
-        <div className="form-group">
-          <label htmlFor="content" className="form-label">
-            Detailed Description <span className="required-asterisk">*</span>
-          </label>
-          <textarea
-            id="content"
-            rows="5"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className={`form-textarea ${errors.content ? 'input-error' : ''}`}
-            placeholder="Please describe your complaint in detail..."
-          ></textarea>
-          {errors.content && <p className="error-message">{errors.content}</p>}
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="receipt-upload" className="form-label">
-            Upload Receipt (PDF, JPG, PNG) <span className="required-asterisk">*</span>
-          </label>
-          <div className="file-upload-wrapper">
+
+        <form onSubmit={handleSubmit} className="ccf-form">
+          <div className="ccf-grid">
+            <div className="ccf-group">
+              <label>Full Name*</label>
+              <input
+                type="text"
+                name="fullName"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className="ccf-group">
+              <label>Email Address*</label>
+              <input
+                type="email"
+                name="email"
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="ccf-grid">
+            <div className="ccf-group">
+              <label>Invoice Number*</label>
+              <input
+                type="text"
+                name="invoiceNumber"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className="ccf-group">
+              <label>Rep Code</label>
+              <input
+                type="text"
+                name="repCode"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="ccf-grid">
+            <div className="ccf-group">
+              <label>Contact Number*</label>
+              <input
+                type="text"
+                name="contactNumber"
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className="ccf-group">
+              <label>Branch*</label>
+              <select
+                name="branch"
+                required
+                onChange={handleChange}
+              >
+                <option value="">Please Select</option>
+                <option value="Branch A">Branch A</option>
+                <option value="Branch B">Branch B</option>
+                <option value="Branch C">Branch C</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="ccf-group">
+            <label>Message*</label>
+            <textarea
+              name="message"
+              required
+              onChange={handleChange}
+            ></textarea>
+          </div>
+
+          <div className="ccf-group">
+            <button
+              type="button"
+              onClick={() => document.getElementById("ccf-file").click()}
+              className="ccf-file-btn"
+            >
+              Upload Image
+            </button>
             <input
-              id="receipt-upload"
+              id="ccf-file"
               type="file"
-              accept=".pdf,.jpg,.jpeg,.png"
-              onChange={handleFileChange}
-              className={`file-input ${errors.receipt ? 'file-input-error' : ''}`}
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="ccf-hidden-input"
             />
           </div>
-          {errors.receipt && <p className="error-message">{errors.receipt}</p>}
-          {receipt && (
-            <p className="file-selected">
-              Selected file: {receipt.name} ({(receipt.size / 1024).toFixed(2)} KB)
-            </p>
-          )}
-          <p className="file-hint">
-            Max file size: 2MB. Supported formats: PDF, JPG, PNG.
-          </p>
-        </div>
-        
-        <div className="form-actions">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
-          >
-            {isSubmitting ? (
-              <>
-                <svg className="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="spinner-path" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Submitting...
-              </>
-            ) : 'Submit Complaint'}
-          </button>
-        </div>
-      </form>
+
+          <div className="ccf-captcha">
+            <label>Verification*</label>
+            <div className="ccf-captcha-wrap">
+              <div className="ccf-captcha-text">{captchaText}</div>
+              <input
+                type="text"
+                placeholder="Enter code"
+                value={captchaInput}
+                onChange={handleCaptchaChange}
+                required
+              />
+            </div>
+            {captchaInput && !captchaVerified && (
+              <p className="ccf-captcha-error">
+                Incorrect code, please try again
+              </p>
+            )}
+          </div>
+
+          <div className="ccf-group">
+            <button type="submit" className="ccf-submit-btn">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <ConfirmationModal
+        isOpen={showModal}
+        message={modalMessage}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

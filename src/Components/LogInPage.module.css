@@ -1,7 +1,7 @@
-/* src/pages/LogInPage.css */
+/* src/pages/LogInPage.module.css */
 
 /* 1) Base container */
-.login-container {
+.loginContainer {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 }
 
 /* 2) Blurred background layer */
-.login-container::before {
+.loginContainer::before {
   content: "";
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -21,20 +21,20 @@
   background-size: cover;
   background-position: center;
   filter: blur(8px);
-  transform: scale(1.1); /* Avoids edge artifacts */
+  transform: scale(1.1);
   z-index: 0;
 }
 
-/* 3) All content sits above the blurred background */
-.login-logo, 
-.login-container h1, 
-.login-form {
+/* 3) Content above background */
+.logoCircle,
+.loginTitle,
+.loginForm {
   position: relative;
   z-index: 1;
 }
 
-/* Logo container with shine effect */
-.logo-circle {
+/* Logo circle + shine */
+.logoCircle {
   position: relative;
   width: 210px;
   height: 210px;
@@ -42,38 +42,33 @@
   background-color: rgb(245, 245, 245);
   margin-bottom: 1rem;
   overflow: hidden;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Shine animation element */
-.logo-circle::before {
+.logoCircle::before {
   content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-background: linear-gradient(
+  background: linear-gradient(
     to right,
     rgba(255, 236, 126, 0) 0%,
     rgb(255, 255, 255) 50%,
     #ffed8400 100%
-);
+  );
   transform: rotate(30deg);
   animation: shine 5s infinite;
   z-index: 2;
 }
 
-/* Logo styling */
-.login-logo {
+.loginLogo {
   width: 190px;
   height: 190px;
   object-fit: contain;
-  position: relative;
-  z-index: 1;
 }
 
 /* Shine animation */
@@ -87,7 +82,7 @@ background: linear-gradient(
 }
 
 /* Form wrapper */
-.login-form {
+.loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,29 +92,62 @@ background: linear-gradient(
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Input fields */
-.login-input {
-  margin: 0.5rem 0;
+/* Title styling */
+.loginTitle {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #b71c1c;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.loginTitle::after {
+  content: "";
+  display: block;
+  margin: 0.5rem auto 0;
+  width: 60px;
+  height: 4px;
+  background-color: #d32f2f;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Labels */
+.loginLabel {
+  align-self: flex-start;
+  margin: 1rem 0 0.1rem;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Inputs */
+.loginInput {
+  margin: 0.1rem 0 0.5rem;
   padding: 0.75rem;
-  width: 20rem;
+  width: 30rem;
   border: 1px solid #d32f2f;
   border-radius: 4px;
   font-size: 1rem;
 }
 
-/* Button styling */
-.login-button {
- 
+/* Button */
+.loginButton {
+  margin: 2rem;
   padding: 0.75rem 1.5rem;
   background-color: #d32f2f;
   color: white;
   border: none;
+  width: 10rem;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.login-button:hover {
+.loginButton:hover {
   background-color: #b71c1c;
 }

@@ -44,6 +44,8 @@ import API from './api';
 import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
 import AllProductsA from './Components/AllProductsA';
+import URegForm from './Components/u_reg_form';  
+
 
 function App() {
 
@@ -96,6 +98,8 @@ function App() {
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/sub-category" element={<Subcategories />} />
             <Route path="/searchbarr" element={<Searchbarr />} />
+            <Route path='/register' element={<><URegForm /><Footer /></>} />
+
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 

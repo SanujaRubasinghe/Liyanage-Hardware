@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {toast} from 'react-toastify'
+import API from '../api';
 import './ProductPageN.css';
+import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 const filters = {
   range: ['1130B.', '3934', '9870', '996', 'Acoustic', 'AR1998'],
@@ -7,136 +11,56 @@ const filters = {
   fireRating: ['30', '60', '120'],
 };
 
-const allProducts = [
-  {
-    image: '/images/product1.png',
-    name: 'GEZE TS4000E',
-    sku: 'TS4000E-01',
-    price: 4500,
-    unit: 'per item',
-  },
-  {
-    image: '/images/product2.png',
-    name: 'Exidor 9870',
-    sku: '9870-02',
-    price: 5200,
-    unit: 'each',
-  },
-  {
-    image: '/images/product3.png',
-    name: 'GEZE TS4000EFS',
-    sku: 'TS4000EFS-03',
-    price: 6000,
-    unit: 'each',
-  },
-  {
-    image: '/images/product4.png',
-    name: 'Dorma TS83',
-    sku: 'TS83-04',
-    price: 4999,
-    unit: 'each',
-  },
-  {
-    image: '/images/product5.png',
-    name: 'Briton 996',
-    sku: '996-BR',
-    price: 3200,
-    unit: 'pack',
-  },
-  {
-    image: '/images/product6.png',
-    name: 'Fireco Acoustic',
-    sku: 'FIRECO-AC',
-    price: 7100,
-    unit: 'each',
-  },
+// const allProducts = [
+//   {
+//     image: '/images/product1.png',
+//     name: 'GEZE TS4000E',
+//     sku: 'TS4000E-01',
+//     price: 4500,
+//     unit: 'per item',
+//   },
 
-  {
-image: '/images/product1.png',
-name: 'SecureLock Pro',
-sku: 'SLP-001',
-price: 4500,
-unit: 'each'
-},
-{
-image: '/images/product2.png',
-name: 'EcoLight Bulb',
-sku: 'ELB-002',
-price: 1200,
-unit: 'pack'
-},
-{
-image: '/images/product3.png',
-name: 'SmartThermostat',
-sku: 'STH-003',
-price: 8900,
-unit: 'each'
-},
-{
-image: '/images/product4.png',
-name: 'UltraClean Filter',
-sku: 'UCF-004',
-price: 2800,
-unit: 'pack'
-},
-{
-image: '/images/product5.png',
-name: 'PowerSurge Protector',
-sku: 'PSP-005',
-price: 3500,
-unit: 'each'
-},
-{
-image: '/images/product6.png',
-name: 'FlexiHose 50ft',
-sku: 'FH-006',
-price: 2200,
-unit: 'each'
-},
-{
-image: '/images/product7.png',
-name: 'QuickCharge Adapter',
-sku: 'QCA-007',
-price: 1800,
-unit: 'pack'
-},
-{
-image: '/images/product8.png',
-name: 'SafeGuard Alarm',
-sku: 'SGA-008',
-price: 6700,
-unit: 'each'
-},
-{
-image: '/images/product9.png',
-name: 'CoolBreeze Fan',
-sku: 'CBF-009',
-price: 4100,
-unit: 'each'
-},
-{
-image: '/images/product10.png',
-name: 'DuraMat Set',
-sku: 'DMS-010',
-price: 1500,
-unit: 'pack'
-}
-];
+
 
 const itemsPerPage = 12;
 
 const ProductPageN = () => {
+  const navigate = useNavigate()
   const [currentPage, setCurrentPage] = useState(1);
+  const [allProducts, setAllProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await API.get('/products')
+        setAllProducts(response.data)
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
+        toast.error('Error Loading Products')
+      }
+    }
+    fetchProducts()
+  }, [])
 
   const handleAddToCart = () => {
     alert('Added to cart!');
   };
+
+  const handleDetails = (productId) => {
+    navigate(`/products/${productId}`)
+  }
 
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);
   const currentProducts = allProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  if (loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-container">
@@ -182,7 +106,7 @@ const ProductPageN = () => {
         <div className="products">
           {currentProducts.map((product, index) => (
             <div className="product-card" key={index}>
-              <img src={product.image} alt={product.name} className="product-image" />
+              <img src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} alt={product.name} className="product-image" />
               <div className="product-details">
                 <h3 className="product-title">{product.name}</h3>
                 <p className="product-part">Part Number: {product.sku}</p>
@@ -190,7 +114,7 @@ const ProductPageN = () => {
                 <p className="product-unit">{product.unit}</p>
                 <div className="product-actions">
                   <button className="buy-to-cart" onClick={handleAddToCart}>Buy now</button>
-                  <button className="add-to-cart1" onClick={handleAddToCart}>Details</button>
+                  <button className="add-to-cart1" onClick={() => handleDetails(product.product_id)}>Details</button>
                 </div>
               </div>
             </div>

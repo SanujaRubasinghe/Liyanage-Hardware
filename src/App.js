@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Navbar';
@@ -58,6 +59,7 @@ function App() {
   return (
     <div>
       <Router>
+        <ToastContainer position="top-right" autoClose={3000} />
         <CartProvider>
           <Navbar />
           <Routes>
@@ -88,12 +90,13 @@ function App() {
             />
             {/*<Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />*/}
             <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
+            <Route path="/products/:id" element={<ProductDisplay />} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 
             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
             <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} />
-            <Route path="/product-display" element={<ProductDisplay />} />
+            {/* <Route path="/product-display" element={<ProductDisplay />} /> */}
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/sub-category" element={<Subcategories />} />
@@ -103,7 +106,7 @@ function App() {
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 
-            {/* ✅ Fixed Admin Routing */}
+            {/* ✅ Fixed Admin Routing
             <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
               <Route index element={<AdminPanel />} />
               <Route path="home" element={<SubCategoryTable />} />
@@ -111,7 +114,7 @@ function App() {
               <Route path="subcategory" element={<h2>Category Page</h2>} />
               <Route path="products" element={<h2>Products Page</h2>} />
               <Route path="orders" element={<h2>Orders Page</h2>} />
-            </Route>
+            </Route> */}
 
             <Route path='/login' element={<LogInPage />}/>
             <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />

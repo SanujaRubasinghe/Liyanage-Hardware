@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "./CartContext"; // Import useCart hook
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../api"
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
@@ -12,10 +12,8 @@ import useTrackPageVisit from "../hooks/useTrackPageVisit";
 
 
 const ProductDisplay = () => {
-
-  const navigate = useNavigate();
-  const location = useLocation()
-  const { id } = location.state || {}
+  const navigate = useNavigate()
+  const { id } = useParams()
   const { addToCart } = useCart(); 
 
   const [product, setProduct] = useState(null)

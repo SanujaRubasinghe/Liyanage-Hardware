@@ -159,7 +159,7 @@ const BuyingPage = () => {
   };
 
   const subtotal = product.productPrice * product.quantity;
-  const total = subtotal + deliveryCharge;
+  const total = subtotal + (deliveryCharge * 1);
 
   return (
     <div className={styles.buyingPage}>

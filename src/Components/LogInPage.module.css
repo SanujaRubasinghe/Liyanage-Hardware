@@ -151,3 +151,67 @@
 .loginButton:hover {
   background-color: #b71c1c;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loginInput {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .loginForm {
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .loginTitle {
+    font-size: 1.5rem;
+  }
+
+  .logoCircle {
+    width: 160px;
+    height: 160px;
+  }
+
+  .loginLogo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .loginButton {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginInput {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .loginForm {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .loginTitle {
+    font-size: 1.3rem;
+  }
+
+  .logoCircle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .loginLogo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .loginButton {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}

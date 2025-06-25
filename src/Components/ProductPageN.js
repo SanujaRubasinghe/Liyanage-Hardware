@@ -9,106 +9,106 @@ const filters = {
 
 const allProducts = [
   {
-    image: '/images/product1.png',
-    name: 'GEZE TS4000E',
-    sku: 'TS4000E-01',
-    price: 4500,
-    unit: 'per item',
-  },
+   
+  image: '/images/p11.jpg',
+  name: 'GEZE TS4000E',
+  sku: 'TS4000E-01',
+  price: 4500,
+  unit: 'per item',
+},
+{
+  image: '/images/p11.jpg',
+  name: 'Exidor 9870',
+  sku: '9870-02',
+  price: 5200,
+  unit: 'each',
+},
+{
+  image: '/images/p11.jpg',
+  name: 'GEZE TS4000EFS',
+  sku: 'TS4000EFS-03',
+  price: 6000,
+  unit: 'each',
+},
+{
+  image: '/images/p11.jpg',
+  name: 'Dorma TS83',
+  sku: 'TS83-04',
+  price: 4999,
+  unit: 'each',
+},
+{
+  image: '/images/p11.jpg',
+  name: 'Briton 996',
+  sku: '996-BR',
+  price: 3200,
+  unit: 'pack',
+},
+{
+  image: '/images/p11.jpg',
+  name: 'Fireco Acoustic',
+  sku: 'FIRECO-AC',
+  price: 7100,
+  unit: 'each',
+},
   {
-    image: '/images/product2.png',
-    name: 'Exidor 9870',
-    sku: '9870-02',
-    price: 5200,
-    unit: 'each',
-  },
-  {
-    image: '/images/product3.png',
-    name: 'GEZE TS4000EFS',
-    sku: 'TS4000EFS-03',
-    price: 6000,
-    unit: 'each',
-  },
-  {
-    image: '/images/product4.png',
-    name: 'Dorma TS83',
-    sku: 'TS83-04',
-    price: 4999,
-    unit: 'each',
-  },
-  {
-    image: '/images/product5.png',
-    name: 'Briton 996',
-    sku: '996-BR',
-    price: 3200,
-    unit: 'pack',
-  },
-  {
-    image: '/images/product6.png',
-    name: 'Fireco Acoustic',
-    sku: 'FIRECO-AC',
-    price: 7100,
-    unit: 'each',
-  },
-
-  {
-image: '/images/product1.png',
+image: '/images/p11.jpg',
 name: 'SecureLock Pro',
 sku: 'SLP-001',
 price: 4500,
 unit: 'each'
 },
 {
-image: '/images/product2.png',
+image: '/images/p11.jpg',
 name: 'EcoLight Bulb',
 sku: 'ELB-002',
 price: 1200,
 unit: 'pack'
 },
 {
-image: '/images/product3.png',
+image: '/images/p11.jpg',
 name: 'SmartThermostat',
 sku: 'STH-003',
 price: 8900,
 unit: 'each'
 },
 {
-image: '/images/product4.png',
+image: '/images/p11.jpg',
 name: 'UltraClean Filter',
 sku: 'UCF-004',
 price: 2800,
 unit: 'pack'
 },
 {
-image: '/images/product5.png',
+image: '/images/p11.jpg',
 name: 'PowerSurge Protector',
 sku: 'PSP-005',
 price: 3500,
 unit: 'each'
 },
 {
-image: '/images/product6.png',
+image: '/images/p11.jpg',
 name: 'FlexiHose 50ft',
 sku: 'FH-006',
 price: 2200,
 unit: 'each'
 },
 {
-image: '/images/product7.png',
+image: '/images/p11.jpg',
 name: 'QuickCharge Adapter',
 sku: 'QCA-007',
 price: 1800,
 unit: 'pack'
 },
 {
-image: '/images/product8.png',
+image: '/images/p11.jpg',
 name: 'SafeGuard Alarm',
 sku: 'SGA-008',
 price: 6700,
 unit: 'each'
 },
 {
-image: '/images/product9.png',
+image: '/images/p11.jpg',
 name: 'CoolBreeze Fan',
 sku: 'CBF-009',
 price: 4100,
@@ -176,7 +176,7 @@ const ProductPageN = () => {
 
       <main className="product-list">
         <div className="banner">
-          <img src="/images/panaromaMessi.jpg" alt="Promo Banner" /> {/* daya bosa banner eka */}
+          <img src="/images/category/bathware/161.jpg" alt="Promo Banner" /> {/* daya bosa banner eka */}
         </div>
 
         <div className="products">

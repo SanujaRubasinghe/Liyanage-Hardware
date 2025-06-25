@@ -38,7 +38,10 @@ import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
 import AllProductsA from './Components/AllProductsA';
 import URegForm from './Components/u_reg_form';  
-
+import TermsAndConditions from './Components/TermsAndConditions';
+import ReturnPolicy from './Components/ReturnPolicy';
+import ShippingPolicy from './Components/ShippingPolicy';
+import Disclaimer from './Components/Disclaimer';
 
 function App() {
   return (
@@ -83,6 +86,11 @@ function App() {
             <Route path="/sub-category" element={<Subcategories />} />
             <Route path="/searchbarr" element={<Searchbarr />} />
             <Route path='/register' element={<><URegForm /><Footer /></>} />
+            <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+            <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
+            <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
+            <Route path="/Disclaimer" element={<Disclaimer />} />
+            
 
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />

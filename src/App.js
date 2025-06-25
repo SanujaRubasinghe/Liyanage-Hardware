@@ -47,6 +47,7 @@ import AllProductD from './Components/AllProductD';
 import AllProductsA from './Components/AllProductsA';
 import URegForm from './Components/u_reg_form';  
 import OrderConfirmation from './Components/OrderConfirmation';
+import MainCategoies from './Components/MainCategories';
 
 
 function App() {
@@ -93,15 +94,18 @@ function App() {
             <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/products/:id" element={<ProductDisplay />} />
             <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
-            <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
+            <Route path="/categories" element={<><MainCategoies/><Footer /></>} />
+            <Route path="/categories/:id" element={<Subcategories />} />
+            <Route path="/categories/:subcat/:id" element={<MiniCategory />} />
+            <Route path="/category/:catid/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
 
             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
-            <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} />
+            {/* <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} /> */}
             {/* <Route path="/product-display" element={<ProductDisplay />} /> */}
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
             <Route path="/order-confirmation" element={<OrderConfirmation/> } />
-            <Route path="/sub-category" element={<Subcategories />} />
+            {/* <Route path="/sub-category" element={<Subcategories />} /> */}
             <Route path="/searchbarr" element={<Searchbarr />} />
             <Route path='/register' element={<><URegForm /><Footer /></>} />
 

@@ -1,24 +1,35 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../api";
 import "./MiniCategory.css";
 
 const MiniCategory = () => {
-  const { subcategory } = useParams(); // Get subcategory from URL
+  const location = useLocation()
   const navigate = useNavigate();
 
-  const miniCategories = [
-    { name: "Hand Showers", image: "/images/category/bathware/1.jpg", path: "/ball-locks" },
-    { name: "Sliding Shower Doors", image: "/images/category/bathware/12.jpg", path: "/digital-locks" },
-    { name: "Plumbing Fittings", image: "/images/category/bathware/11.jpg", path: "/door-accessories" },
-    { name: "Bathtubs & Jacuzzis", image: "/images/category/bathware/4.jpg", path: "/door-closers" },
-    { name: "Bib Taps", image: "/images/category/bathware/5.jpg", path: "/door-cylinders" },
-    { name: "Overhead Showers", image: "/images/category/bathware/13.jpg", path: "/door-hinges" },
-    { name: "Jacuzzi Systems", image: "/images/category/bathware/7.jpg", path: "/door-knobs" },
-    { name: "Sanitaryware", image: "/images/category/bathware/8.jpg", path: "/door-seals" },
-  ];
+  const {secondary_cat_id, name, slug} = location.state || {}
+  const [miniCategories, setMiniCategories] = useState([])
 
-  // Safely handle subcategory for replace
-  const formattedSubcategory = subcategory ? subcategory.replace("-", " ") : "Category not found";
+  useEffect(() => {
+    const fetchTertiaryCategories = async () => {
+      try {
+        const response = await API.get(`/categories/tertiary?secondary_id=${secondary_cat_id}`)
+        if (response.data.categories.length === 0) {
+          navigate(`/category/${slug}/products`, {
+            state: {
+              cat_id: secondary_cat_id,
+              name: name
+            }
+          })
+        }
+        setMiniCategories(response.data.categories)
+      } catch (error) {
+        toast.error('Failed to fetch categories')
+      }
+    }
+    fetchTertiaryCategories()
+  }, secondary_cat_id)
 
   return (
     <div className="miniCategory-main">
@@ -28,9 +39,9 @@ const MiniCategory = () => {
           alt="Architectural Hardware"
           className="miniCategory-header-image"
         />
-        <h1>{formattedSubcategory}</h1> {/* Display selected category */}
+        <h1>{name}</h1> {/* Display selected category */}
         <p>
-          Bathware includes a wide range of essential and stylish products designed for modern bathrooms — from sanitaryware and faucets to showers, bathtubs, and accessories. Whether you're upgrading your space or building new, our bathware collection combines functionality, comfort, and design.
+          {} {/* take description from the secondary cat as a state variable */}
         </p>
       </div>
 
@@ -39,10 +50,15 @@ const MiniCategory = () => {
           <div
             key={index}
             className="miniCategory-card"
-            onClick={() => navigate(miniCategory.path)}
+            onClick={() => navigate(`/category/${miniCategory.slug}/products`, {
+              state: {
+                cat_id: miniCategory.category_id,
+                name: miniCategory.name,
+              }
+            })} /* navigate to products page */
           >
             <img
-              src={miniCategory.image}
+              src={`${process.env.REACT_APP_API_BASE_URL}${miniCategory.thumbnail}`}
               alt={miniCategory.name}
               className="miniCategory-image"
             />

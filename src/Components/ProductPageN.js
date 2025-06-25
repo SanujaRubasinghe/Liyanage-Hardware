@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {toast} from 'react-toastify'
 import API from '../api';
 import './ProductPageN.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import LoadingPage from './LoadingPage';
+
 
 const filters = {
   range: ['1130B.', '3934', '9870', '996', 'Acoustic', 'AR1998'],
@@ -11,29 +12,27 @@ const filters = {
   fireRating: ['30', '60', '120'],
 };
 
-// const allProducts = [
-//   {
-//     image: '/images/product1.png',
-//     name: 'GEZE TS4000E',
-//     sku: 'TS4000E-01',
-//     price: 4500,
-//     unit: 'per item',
-//   },
-
-
-
 const itemsPerPage = 12;
 
 const ProductPageN = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const state = location.state
+
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProducts = async () => {
+      let response
       try {
-        const response = await API.get('/products')
+        if (!state) {
+          response = await API.get('/products')
+        } else {
+          response = await API.get(`/products?categoryId=${state.cat_id}`)
+        }
         setAllProducts(response.data)
         setLoading(false)
       } catch (error) {
@@ -65,44 +64,52 @@ const ProductPageN = () => {
   return (
     <div className="page-container">
       <aside className="product-filters__panel">
-  <h3 className="product-filters__title">Filter Products</h3>
+        <h3 className="product-filters__title">Filter Products</h3>
 
-  <div className="product-filters__group">
-    <h4 className="product-filters__title">Range</h4>
-    {filters.range.map((item, i) => (
-      <label key={i} className="product-filters__option">
-        <input type="checkbox" /> {item}
-      </label>
-    ))}
-  </div>
+        <div className="product-filters__group">
+          <h4 className="product-filters__title">Range</h4>
+          {filters.range.map((item, i) => (
+            <label key={i} className="product-filters__option">
+              <input type="checkbox" /> {item}
+            </label>
+          ))}
+        </div>
 
-  <div className="product-filters__group">
-    <h4 className="product-filters__title">Brand</h4>
-    {filters.brand.map((item, i) => (
-      <label key={i} className="product-filters__option">
-        <input type="checkbox" /> {item}
-      </label>
-    ))}
-  </div>
+        <div className="product-filters__group">
+          <h4 className="product-filters__title">Brand</h4>
+          {filters.brand.map((item, i) => (
+            <label key={i} className="product-filters__option">
+              <input type="checkbox" /> {item}
+            </label>
+          ))}
+        </div>
 
-  <div className="product-filters__group">
-    <h4 className="product-filters__title">Fire Rating</h4>
-    {filters.fireRating.map((item, i) => (
-      <label key={i} className="product-filters__option">
-        <input type="radio" name="fireRating" /> {item}
-      </label>
-    ))}
-  </div>
+        <div className="product-filters__group">
+          <h4 className="product-filters__title">Fire Rating</h4>
+          {filters.fireRating.map((item, i) => (
+            <label key={i} className="product-filters__option">
+              <input type="radio" name="fireRating" /> {item}
+            </label>
+          ))}
+        </div>
 
-  <button className="product-filters__clear-button">Clear Filters</button>
-</aside>
-    
+        <button className="product-filters__clear-button">Clear Filters</button>
+      </aside>
+      
 
       <main className="product-list">
         <div className="banner">
           <img src="/images/panaromaMessi.jpg" alt="Promo Banner" /> {/* daya bosa banner eka */}
         </div>
 
+        {allProducts.length === 0 && !loading && (
+          <div className="no-products-message">
+            <h3>No products available</h3>
+            <p>We couldn't find any products in this category.</p>
+          </div>
+        )}
+        {allProducts.length > 0 && (<>
+        <h1>{state ? `Category: ${state.name}` : 'All Products'}</h1>
         <div className="products">
           {currentProducts.map((product, index) => (
             <div className="product-card" key={index}>
@@ -133,6 +140,8 @@ const ProductPageN = () => {
             </button>
           ))}
         </div>
+      </>
+        )}
       </main>
     </div>
   );

@@ -1,26 +1,47 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import React, {useState, useEffect} from "react";
+import { useNavigate, useLocation, useParams} from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../api";
 import "./Subcategories.css";
 import Footer from "./Footer";
 
 const Subcategories = () => {
   const navigate = useNavigate();
+  const location = useLocation()
 
-  const subcategories = [
-    { name: "Category 1", image: "/images/category/bathware/5.jpg", path: "category-1" },
-    { name: "Category 2", image: "/images/category/bathware/5.jpg", path: "category-2" },
-    { name: "Category 3", image: "/images/category/bathware/5.jpg", path: "category-3" },
-    { name: "Category 4", image: "/images/category/bathware/5.jpg", path: "category-4" },
-    { name: "Category 5", image: "/images/category/bathware/5.jpg", path: "category-5" },
-    { name: "Category 6", image: "/images/category/bathware/5.jpg", path: "category-6" },
-    { name: "Category 7", image: "/images/category/bathware/5.jpg", path: "category-7" },
-    { name: "Category 8", image: "/images/category/bathware/5.jpg", path: "category-8" },
-    { name: "Category 9", image: "/images/category/bathware/5.jpg", path: "category-9" },
-    { name: "Category 10", image: "/images/category/bathware/5.jpg", path: "category-10" },
-  ];
+  const { id } = useParams();
+  const {primary_cat_id, slug, name} = location.state || {}
 
-  const handleSubcategoryClick = (path) => {
-    navigate(`/mini-category/${path}`);
+  const [subcategories, setSubCategories] = useState([])
+  
+  useEffect(() => {
+    const fetchSecondaryCategories = async () => {
+      try {
+        const response = await API.get(`/categories/secondary?primary_id=${primary_cat_id}`)
+        if (response.data.categories.length === 0) {
+          navigate(`/category/${slug}/products`, {
+            state: {
+              cat_id: primary_cat_id,
+              name: name
+            }
+          })
+        }
+        setSubCategories(response.data.categories)
+      } catch (error) {
+        toast.error('Failed to get categories')
+      }
+    }
+    fetchSecondaryCategories()
+  }, [primary_cat_id])
+
+  const handleSubcategoryClick = (path, cat_id, cat_name, slug) => {
+    navigate(`${path}`, {
+      state: {
+        secondary_cat_id: cat_id,
+        name: cat_name,
+        slug: slug
+      }
+    });
   };
 
   return (
@@ -30,10 +51,15 @@ const Subcategories = () => {
           <div
             key={index}
             className="subcategory-card"
-            onClick={() => handleSubcategoryClick(subcategory.path)}
+            onClick={() => handleSubcategoryClick(
+              `/categories/${id}/${subcategory.slug}`, 
+              subcategory.category_id, 
+              subcategory.name,
+              subcategory.slug
+            )}
           >
             <img
-              src={subcategory.image}
+              src={`${process.env.REACT_APP_API_BASE_URL}${subcategory.thumbnail}`}
               alt={subcategory.name}
               className="subcategory-image"
             />

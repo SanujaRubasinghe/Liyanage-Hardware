@@ -1,78 +1,142 @@
 /* Main container */
 .miniCategory-main {
-    padding: 20px;
-    background-color: #f8f8f8;
+  padding: 32px 0;
+  background: linear-gradient(135deg, #f8f8f8 60%, #f2f5fa 100%);
+  min-height: 100vh;
 }
-  
+
 /* Header Section */
 .miniCategory-header {
-    text-align: center;
-    padding: 20px;
-    background: #cc0000;
-    color: white;
-    border-radius: 15px;
+  text-align: center;
+  padding: 32px 16px 24px;
+  background: #cc0000;
+  color: #fff;
+  border-radius: 18px;
+  margin-bottom: 40px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
 }
 
 .miniCategory-header-image {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .miniCategory-header h1 {
-    margin: 10px 0 5px;
-    font-size: 24px;
+  margin: 12px 0 6px;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .miniCategory-header p {
-    margin-top: 10px;
-    font-size: 14px;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #fff;
+  opacity: 0.92;
 }
-  
-.miniCategory-header p {
-    margin-top: 10px;
-    font-size: 14px;
-}
-  
+
 /* Grid Container */
 .miniCategory-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px;
+  padding: 20px;
 }
-  
+
 /* Category Card */
 .miniCategory-card {
-    position: relative;
-    cursor: pointer;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 260px;
+  height: 320px;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(204,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(.4,2,.6,1), box-shadow 0.22s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0 auto;
 }
-  
+
 .miniCategory-card:hover {
-    transform: scale(1.05);
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 16px 48px rgba(204,0,0,0.18), 0 4px 16px rgba(0,0,0,0.10);
 }
-  
+
 /* Category Image */
 .miniCategory-image {
-    width: 100%;
-    height: auto;
-    display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: filter 0.2s;
 }
-  
+
+.miniCategory-card:hover .miniCategory-image {
+  filter: brightness(0.92) blur(1px);
+}
+
 /* Category Label */
 .miniCategory-tag {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: rgba(255, 0, 0, 0.9);
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #cc0000 80%, #ff3333 100%);
+  color: #fff;
+  padding: 18px 0 14px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+  letter-spacing: 1px;
+  z-index: 2;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  box-shadow: 0 2px 8px rgba(204,0,0,0.08);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: background 0.2s;
+}
+
+.miniCategory-card:hover .miniCategory-tag {
+  background: linear-gradient(90deg, #b80000 80%, #ff0000 100%);
+}
+
+/* Responsive grid for smaller screens */
+@media (max-width: 1200px) {
+  .miniCategory-container {
+    gap: 24px;
+  }
+  .miniCategory-card {
+    width: 220px;
+    height: 270px;
+  }
+}
+@media (max-width: 800px) {
+  .miniCategory-container {
+    gap: 16px;
+  }
+  .miniCategory-card {
+    width: 160px;
+    height: 200px;
+  }
+}
+@media (max-width: 500px) {
+  .miniCategory-container {
+    gap: 8px;
+  }
+  .miniCategory-card {
+    width: 100vw;
+    height: 180px;
+    border-radius: 0;
+  }
 }

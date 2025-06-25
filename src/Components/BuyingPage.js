@@ -184,10 +184,11 @@ const BuyingPage = () => {
         <div className={styles.checkoutGrid}>
           {/* Customer Information Section */}
           <section className={styles.customerInfo}>
-            <h2>Contact Information</h2>
+            <h2 className={styles.h2}>Contact Information</h2>
             <div className={styles.formGroup}>
               <input
                 type="email"
+                className={styles.input}
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -198,6 +199,7 @@ const BuyingPage = () => {
             <h2>Shipping Address</h2>
             <div className={styles.formRow}>
               <input
+                className={styles.input}
                 type="text"
                 placeholder="First name"
                 value={formData.firstName}
@@ -205,6 +207,7 @@ const BuyingPage = () => {
                 required
               />
               <input
+                className={styles.input}
                 type="text"
                 placeholder="Last name"
                 value={formData.lastName}
@@ -222,6 +225,7 @@ const BuyingPage = () => {
               }}
             >
               <input
+                className={styles.input}
                 type="text"
                 name="streetAddress"
                 placeholder="Street address *"
@@ -233,12 +237,14 @@ const BuyingPage = () => {
             
             <div className={styles.formRow}>
               <input
+                className={styles.input}
                 type="text"
                 placeholder="Apartment No"
                 value={formData.apartment}
                 onChange={(e) => setFormData({...formData, apartment: e.target.value})}
               />
               <input
+                className={styles.input}
                 type="text"
                 placeholder="Postal code"
                 value={formData.postalCode}
@@ -247,6 +253,7 @@ const BuyingPage = () => {
             </div>
             
             <input
+              className={styles.input}
               type="tel"
               placeholder="Phone"
               value={formData.phone}
@@ -255,6 +262,7 @@ const BuyingPage = () => {
             />
             
             <textarea
+              className={styles.textarea}
               placeholder="Order notes (optional)"
               value={formData.notes}
               onChange={(e) => setFormData({...formData, notes: e.target.value})}
@@ -263,7 +271,7 @@ const BuyingPage = () => {
 
           {/* Order Summary Section */}
           <section className={styles.orderSummary}>
-            <h2>Your Order</h2>
+            <h2 className={styles.h2}>Your Order</h2>
             
             <div className={styles.orderItems}>
               {orderItems.map((item, index) => (
@@ -306,13 +314,13 @@ const BuyingPage = () => {
             <div className={styles.paymentMethods}>
               <div className={styles.paymentTabs}>
                 <button
-                  className={activePaymentTab === "card" ? styles.activeTab : ""}
+                  className={`${styles.button} ${activePaymentTab === "card" ? styles.activeTab : ""}`}
                   onClick={() => setActivePaymentTab("card")}
                 >
                   Credit/Debit Card
                 </button>
                 <button
-                  className={activePaymentTab === "installment" ? styles.activeTab : ""}
+                  className={`${styles.button} ${activePaymentTab === "installment" ? styles.activeTab : ""}`}
                   onClick={() => setActivePaymentTab("installment")}
                 >
                   Installments
@@ -330,6 +338,7 @@ const BuyingPage = () => {
                       <span>AMEX</span>
                     </div>
                     <button 
+                      className={styles.button}
                       onClick={handlePayHerePayment}
                       disabled={isProcessing}
                     >
@@ -355,6 +364,7 @@ const BuyingPage = () => {
                       </label>
                     </div>
                     <button 
+                      className={styles.button}
                       onClick={handleKokoPayment}
                       disabled={isProcessing}
                     >

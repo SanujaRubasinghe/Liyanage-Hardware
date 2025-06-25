@@ -64,6 +64,7 @@ const ProductDisplay = () => {
         // selectedSize,
         // selectedColor,
         quantity,
+        image: product.images[0]
       }},
     });
   };

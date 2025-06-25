@@ -1,12 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import './Product.css';
 import Product from './Product';
+import { toast } from 'react-toastify';
 import API from '../api';
 import useTrackPageVisit from '../hooks/useTrackPageVisit';
 
 function Home() {
   // useTrackPageVisit()
+  const [mainCategories, setMainCategories] = useState([])
+
+  useEffect(() => {
+    const fetchPrimaryCategories = async () => {
+        try {
+            const response = await API.get('/categories/primary')
+            setMainCategories(response.data.categories)
+        } catch (error) {
+            toast.error('Failed to get categories')
+        }
+    }
+    fetchPrimaryCategories()
+  }, [])
+
+  
 
   const products = [
     { id: 1, image: '/images/c21.jpg' ,name: 'Category 1' },
@@ -26,11 +42,12 @@ function Home() {
         <span className="red-text">Categories</span>
       </h2>
       <div className="product-grid">
-        {products.map(product => (
+        {mainCategories.map(cat => (
           <Product 
-            key={product.id} 
-            image={product.image} 
-            name={product.name}
+            key={cat.category_id} 
+            image={`${process.env.REACT_APP_API_BASE_URL}${cat.thumbnail}`} 
+            name={cat.name}
+            state={{category_id: cat.category_id, slug: cat.slug, name: cat.name}}
           />
         ))}
       </div>

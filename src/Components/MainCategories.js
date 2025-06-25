@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
 import { toast } from "react-toastify";
+import { trackClick } from "../services/categoryAnalytics";
 import styles from "./MainCategories.module.css";
+import CategoryCard from "./CategoryCard"; // Import the new component
 
 const MainCategoies = () => {
-  const { subcategory } = useParams();
-  const [mainCategories, setMainCategories] = useState([])
+  const [mainCategories, setMainCategories] = useState([]);
   const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchPrimaryCategories = async () => {
-            try {
-                const response = await API.get('/categories/primary')
-                setMainCategories(response.data.categories)
-            } catch (error) {
-                toast.error('Failed to get categories')
-            }
-        }
-        fetchPrimaryCategories()
-    }, [])
+  useEffect(() => {
+    const fetchPrimaryCategories = async () => {
+      try {
+        const response = await API.get('/categories/primary');
+        setMainCategories(response.data.categories);
+      } catch (error) {
+        toast.error('Failed to get categories');
+      }
+    };
+    fetchPrimaryCategories();
+  }, []);
+
+  const handleCategoryClick = (cat) => {
+    trackClick(cat.category_id);
+    navigate(`/categories/${cat.slug}`, {
+      state: {
+        primary_cat_id: cat.category_id,
+        slug: cat.slug,
+        name: cat.name
+      }
+    });
+  };
 
   return (
     <div className={styles.miniCategoryMain}>
@@ -31,30 +43,17 @@ const MainCategoies = () => {
         />
         <h1>{}</h1>
         <p>
-          Bathware includes a wide range of essential and stylish products designed for modern bathrooms — from sanitaryware and faucets to showers, bathtubs, and accessories. Whether you're upgrading your space or building new, our bathware collection combines functionality, comfort, and design.
+          Bathware includes a wide range of essential and stylish products designed for modern bathrooms...
         </p>
       </div>
 
       <div className={styles.miniCategoryContainer}>
         {mainCategories.map((cat, index) => (
-          <div
+          <CategoryCard
             key={index}
-            className={styles.miniCategoryCard}
-            onClick={() => navigate(`/categories/${cat.slug}`, {
-                state: {
-                    primary_cat_id: cat.category_id,
-                    slug: cat.slug,
-                    name: cat.name
-                }
-            })}
-          >
-            <img
-              src={`${process.env.REACT_APP_API_BASE_URL}${cat.thumbnail}`}
-              alt={cat.name}
-              className={styles.miniCategoryImage}
-            />
-            <div className={styles.miniCategoryTag}>{cat.name}</div>
-          </div>
+            cat={cat}
+            onClick={() => handleCategoryClick(cat)}
+          />
         ))}
       </div>
     </div>

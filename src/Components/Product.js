@@ -2,12 +2,18 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import './Product.css';
 
-function Product({ image, name }) {
+function Product({ image, name, state }) {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/sub-category");
+    navigate(`/categories/${state.slug}`, {
+      state: {
+          primary_cat_id: state.category_id,
+          slug: state.slug,
+          name: state.name
+      }
+    })
   };
 
   return (

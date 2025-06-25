@@ -62,7 +62,7 @@ const AllProductsA = () => {
         {hasMore && (
           <div
             className={styles.seeMoreCard}
-            onClick={() => navigate('/product')}
+            onClick={() => navigate('/products')}
           >
             See More
           </div>

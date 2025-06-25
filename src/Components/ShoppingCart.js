@@ -1,11 +1,32 @@
 import React from 'react';
 import { useCart } from './CartContext';
+import { useNavigate } from 'react-router-dom';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {
   const { cartItems, updateQuantity, removeItem } = useCart();
-  const subtotal = cartItems.reduce((sum, item) => sum + item[0].price * item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const total = subtotal;
+
+  console.log(cartItems)
+
+  const navigate = useNavigate()
+
+  const handleCheckout = () => {
+    navigate("/buying", {
+      state: {
+        cartItems: cartItems.map(item => ({
+          product_id: item.product_id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          // selectedSize: item.selectedSize,
+          // selectedColor: item.selectedColor,
+          image: item.images[0]
+        }))
+      },
+    });
+  };
 
   return (
     <div className='cart-fullscreen'>
@@ -15,11 +36,11 @@ const ShoppingCart = () => {
         <p>{cartItems.length} Items</p>
         <div className="cart-items">
           {cartItems.map(item => (
-            <div className="cart-item" key={item.id}>
-              <img src={item.image} alt={item.name} />
+            <div className="cart-item" key={item.product_id}>
+              <img src={`${process.env.REACT_APP_API_BASE_URL}/${item.images[0]}`} alt={item.name} />
               <div className="item-details">
                 <h4>{item.name}</h4>
-                <p>PS4</p>
+                <p>{item.sku}</p>
                 <button onClick={() => removeItem(item.id)}>Remove</button>
               </div>
               <div className="item-quantity">
@@ -28,8 +49,8 @@ const ShoppingCart = () => {
                 <button onClick={() => updateQuantity(item.id, 1)}>+</button>
               </div>
               <div className="item-price">
-                <p>Rs.{item[0].price}</p>
-                <p>Rs.{(item[0].price * item.quantity)}</p>
+                <p>Rs.{item.price}</p>
+                <p>Rs.{(item.price * item.quantity)}</p>
               </div>
             </div>
           ))}
@@ -52,7 +73,7 @@ const ShoppingCart = () => {
           <span>Total Cost</span>
           <span>Rs.{total}</span>
         </div>
-        <button className="checkout-btn">Checkout</button>
+        <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
       </div>
     </div>
     </div>

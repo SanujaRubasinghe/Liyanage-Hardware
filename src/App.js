@@ -46,6 +46,7 @@ import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
 import AllProductsA from './Components/AllProductsA';
 import URegForm from './Components/u_reg_form';  
+import OrderConfirmation from './Components/OrderConfirmation';
 
 
 function App() {
@@ -99,6 +100,7 @@ function App() {
             {/* <Route path="/product-display" element={<ProductDisplay />} /> */}
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/buying" element={<BuyingPage />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation/> } />
             <Route path="/sub-category" element={<Subcategories />} />
             <Route path="/searchbarr" element={<Searchbarr />} />
             <Route path='/register' element={<><URegForm /><Footer /></>} />

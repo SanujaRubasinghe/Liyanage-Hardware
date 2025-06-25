@@ -7,6 +7,7 @@ import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
 import LoadingPage from "./LoadingPage"
+import { toast } from "react-toastify";
 
 import useTrackPageVisit from "../hooks/useTrackPageVisit";
 
@@ -49,22 +50,21 @@ const ProductDisplay = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart({
-      ...product,product
-    });
+    addToCart(product)
+    toast.success(`${quantity} ${product.name} added to cart!`)
   };
 
   const handleBuyNow = () => {
     navigate("/buying", {
-      state: {
-        productId: product.product_id,
-        productName: product.name,
-        productSku: product.sku,
-        productPrice: product.price,
+      state: {product: {
+        product_id: product.product_id,
+        name: product.name,
+        sku: product.sku,
+        price: product.price,
         // selectedSize,
         // selectedColor,
         quantity,
-      },
+      }},
     });
   };
 

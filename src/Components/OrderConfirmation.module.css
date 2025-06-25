@@ -1,0 +1,140 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 2rem;
+}
+
+.confirmationCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+}
+
+.successIcon {
+  color: #28a745;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.orderSummary {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.summaryItem:last-child {
+  margin-bottom: 0;
+}
+
+.iconBox {
+  background: #e9ecef;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.icon {
+  color: #495057;
+  font-size: 1.2rem;
+}
+
+h3 {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #212529;
+  margin: 0;
+}
+
+.nextSteps {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.nextSteps h2 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.stepsList {
+  padding-left: 1.25rem;
+  color: #495057;
+  line-height: 1.6;
+}
+
+.stepsList li {
+  margin-bottom: 0.5rem;
+}
+
+.continueButton {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.continueButton:hover {
+  background: #0069d9;
+}
+
+@media (max-width: 576px) {
+  .confirmationCard {
+    padding: 2rem 1.5rem;
+  }
+  
+  .summaryItem {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .iconBox {
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+  }
+}

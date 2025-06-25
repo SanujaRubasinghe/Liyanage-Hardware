@@ -4,9 +4,11 @@ import { AuthContext } from './context/AuthContext';
 
 import API from "./api"
 import './Navbar.css';
+import { useCart } from './Components/CartContext';
 
 function Navbar() {
   const [isShrunk, setIsShrunk] = useState(false);
+  const {cartCount} = useCart()
   const lastScrollY = useRef(0);
 
   const {user, logout} = useContext(AuthContext)
@@ -57,7 +59,6 @@ function Navbar() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/products">Products</Link></li>
           <li><Link to="/about-us">Complaints</Link></li>
-          {/* <li><Link to="/admin">Admin</Link></li> */}
           <li><Link to="/contact-us">Category</Link></li>
           <li><Link to="/feedback">Feedback</Link></li>
           <li><Link to="/services">About Us</Link></li>
@@ -69,7 +70,7 @@ function Navbar() {
         <div className="auth-section">
           <Link to="/cart" className="cart-icon">
             <i className="fas fa-shopping-cart"></i>
-            <span className="cart-count">0</span>
+            <span className="cart-count">{cartCount}</span>
           </Link>
           {/* {user ? (
             <Link to="/login" className='login-button'>Log in</Link> 

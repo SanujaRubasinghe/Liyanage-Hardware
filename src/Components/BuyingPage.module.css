@@ -1,60 +1,196 @@
-/* BuyingPage.module.css */
-.buyingPage {
+.checkoutContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.checkoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.customerInfo, .orderSummary {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.formGroup, .formRow {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  margin-top: 1rem;
+}
+
+.orderItem {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.itemImage img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.itemDetails {
+  flex: 1;
+}
+
+.itemDetails h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.itemDetails p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.itemPrice {
+  font-weight: bold;
+}
+
+.orderTotals {
+  margin: 1.5rem 0;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.grandTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.paymentMethods {
+  margin-top: 2rem;
+}
+
+.paymentTabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1.5rem;
+}
+
+.paymentTabs button {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.paymentTabs button.activeTab {
+  border-bottom-color: #0066cc;
+  color: #0066cc;
+}
+
+.payherePlaceholder, .kokoPlaceholder {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.cardIcons {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
-.billingDetails {
-  width: 50%;
-  max-width: 600px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
+.cardIcons span {
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 4px;
+  font-weight: bold;
 }
 
-.formGroup {
-  display: flex;
-  gap: 10px;
+.installmentOptions {
+  text-align: left;
+  margin: 1rem 0;
 }
 
-.billingDetails input,
-.billingDetails select,
-.billingDetails textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.orderSummary,
-.paymentOptions {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #f9f9f9;
-}
-
-.terms {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.placeOrderButton {
-  width: 100%;
-  padding: 10px;
-  background: #cc0000;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.installmentOptions label {
+  display: block;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.placeOrderButton:hover {
-  background: purple; /* or any darkened red */
+button {
+  width: 100%;
+  padding: 1rem;
+  background: #0066cc;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #0052a3;
+  color: white;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.termsAgreement {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .checkoutGrid {
+    grid-template-columns: 1fr;
+  }
 }

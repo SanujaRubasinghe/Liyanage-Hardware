@@ -23,7 +23,7 @@ const ProductCard = (product) => {
         <div className="product-actions">
       
           <button className="buy-to-cart" onClick={handleAddToCart}>
-            Buy now
+            Buy
           </button>
           <button className="add-to-cart1" onClick={handleAddToCart}>
             Details

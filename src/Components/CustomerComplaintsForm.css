@@ -1,6 +1,10 @@
-/* src/pages/CustomerComplaintsForm.css */
+/* Fixed background setup */
+body {
+  margin: 0;
+  padding: 0;
+}
 
-/* Container & blurred background */
+/* Container with fixed background */
 .ccf-container {
   position: relative;
   min-height: 100vh;
@@ -9,16 +13,32 @@
   align-items: center;
   padding: 60px 0;
   font-family: Arial, sans-serif;
+  
+  /* Fixed background image */
+  background-image: url('/public/images/frontlook.webp');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  /* Overlay for blur effect */
   overflow: hidden;
 }
+
 .ccf-container::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  background: url('/public/images/frontlook.webp') center/cover no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/public/images/frontlook.webp');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   filter: blur(8px);
-  transform: scale(1.1);
-  z-index: 0;
+  z-index: -1;
 }
 
 /* Logo circle & shine */
@@ -42,12 +62,10 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    to right,
+  background: linear-gradient(to right,
     rgba(255, 236, 126, 0) 0%,
     rgb(255, 255, 255) 50%,
-    #ffed8400 100%
-  );
+    #ffed8400 100%);
   transform: rotate(30deg);
   animation: ccf-shine 5s infinite;
   z-index: 2;
@@ -68,10 +86,14 @@
   position: relative;
   z-index: 1;
   width: 50rem;
-  background: rgba(255, 255, 255, 0.9);
+  max-width: 95%;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Header & Title */
@@ -126,6 +148,7 @@
   border-radius: 4px;
   font-size: 1rem;
   resize: vertical;
+  background: rgba(255, 255, 255, 0.9);
 }
 .ccf-group textarea {
   min-height: 5rem;
@@ -142,6 +165,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 .ccf-file-btn:hover {
   background: #b71c1c;
@@ -153,6 +177,11 @@
 /* Captcha */
 .ccf-captcha {
   margin-bottom: 1rem;
+}
+.ccf-captcha label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  display: block;
 }
 .ccf-captcha-wrap {
   display: flex;
@@ -166,6 +195,14 @@
   font-family: monospace;
   letter-spacing: 2px;
   user-select: none;
+  border-radius: 4px;
+}
+.ccf-captcha input {
+  padding: 0.75rem;
+  border: 1px solid #d32f2f;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
 }
 .ccf-captcha-error {
   color: #d32f2f;
@@ -188,4 +225,74 @@
 }
 .ccf-submit-btn:hover {
   background: #b71c1c;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) {
+  .ccf-card {
+    width: 40rem;
+  }
+  .ccf-logo-circle {
+    width: 180px;
+    height: 180px;
+  }
+  .ccf-logo {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ccf-container {
+    padding: 40px 0;
+  }
+  .ccf-card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .ccf-grid {
+    flex-direction: column;
+  }
+  .ccf-logo-circle {
+    width: 150px;
+    height: 150px;
+  }
+  .ccf-logo {
+    width: 130px;
+    height: 130px;
+  }
+  .ccf-title {
+    font-size: 1.75rem;
+  }
+  
+  /* Fix background on mobile */
+  .ccf-container::before {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 480px) {
+  .ccf-container {
+    padding: 30px 0;
+  }
+  .ccf-card {
+    padding: 1rem;
+    margin: 0 10px;
+  }
+  .ccf-title {
+    font-size: 1.5rem;
+  }
+  .ccf-file-btn,
+  .ccf-submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+  }
+  .ccf-captcha-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .ccf-captcha-text {
+    text-align: center;
+  }
 }

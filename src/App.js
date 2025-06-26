@@ -75,7 +75,7 @@ function App() {
             />
             {/*<Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />*/}
             <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
-            <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
+            <Route path="/about-us" element={<><AboutUs /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
 
              <Route path="/feedback" element={<><Feedback /><Footer /></>} />
@@ -89,9 +89,7 @@ function App() {
             <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
             <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
             <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
-            <Route path="/Disclaimer" element={<Disclaimer />} />
-            
-
+            <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 

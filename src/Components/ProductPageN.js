@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {toast} from 'react-toastify'
 import API from '../api';
 import './ProductPageN.css';
+import ProductCard from './ProductCard';
 import { useNavigate, useLocation} from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 
@@ -110,21 +111,15 @@ const ProductPageN = () => {
         )}
         {allProducts.length > 0 && (<>
         <h1>{state ? `Category: ${state.name}` : 'All Products'}</h1>
+        
         <div className="products">
           {currentProducts.map((product, index) => (
-            <div className="product-card" key={index}>
-              <img src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} alt={product.name} className="product-image" />
-              <div className="product-details">
-                <h3 className="product-title">{product.name}</h3>
-                <p className="product-part">Part Number: {product.sku}</p>
-                <p className="product-price">Rs.{product.price} <span>inc VAT</span></p>
-                <p className="product-unit">{product.unit}</p>
-                <div className="product-actions">
-                  <button className="buy-to-cart" onClick={handleAddToCart}>Buy now</button>
-                  <button className="add-to-cart1" onClick={() => handleDetails(product.product_id)}>Details</button>
-                </div>
-              </div>
-            </div>
+            <ProductCard
+              key={index}
+              product={product}
+              handleAddToCart={handleAddToCart}
+              handleDetails={() => handleDetails(product.product_id)}
+            />
           ))}
         </div>
 

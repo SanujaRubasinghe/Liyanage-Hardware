@@ -1,27 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce";
-import axios from "axios";
-import "./SearchBarN.css";
 import API from "../api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./SearchBarN.css";
 
 export default function Searchbarr() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [showBrands, setShowBrands] = useState(false);
-  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const resultsRef = useRef(null);
   const navbarRef = useRef(null);
-
-  const brands = {
-    "Aar Kay Vox": ["Category 1", "Category 2", "Category 3"],
-    Adonai: ["Category A", "Category B"],
-    Albion: ["Option X", "Option Y", "Option Z"],
-    Allegrini: ["Sub 1", "Sub 2"],
-    Amerock: ["Group A", "Group B"],
-    "Assa Abloy": ["Type 1", "Type 2"],
-  };
+  const navigate = useNavigate();
 
   // Debounced search function
   const searchProducts = async (term) => {
@@ -31,11 +21,14 @@ export default function Searchbarr() {
     }
 
     try {
-      const res = await API.get(`/products/search-products?q=${encodeURIComponent(term)}`);
+      setIsLoading(true);
+      const res = await API.get(`/products/search-products?q=${encodeURIComponent(term)}&limit=5`);
       setResults(res.data);
+      setIsLoading(false);
     } catch (err) {
       console.error("Error fetching products:", err);
       setResults([]);
+      setIsLoading(false);
     }
   };
 
@@ -48,7 +41,7 @@ export default function Searchbarr() {
 
   useEffect(() => {
     debouncedSearch(query);
-    return debouncedSearch.cancel;
+    return () => debouncedSearch.cancel();
   }, [query, debouncedSearch]);
 
   useEffect(() => {
@@ -59,48 +52,23 @@ export default function Searchbarr() {
     }
   }, [results]);
 
+  // Extract unique categories using slugs
+  const uniqueCategories = results.reduce((acc, product) => {
+    if (product.slug && !acc.some(cat => cat.slug === product.slug)) {
+      acc.push({
+        slug: product.slug,
+        name: product.category_name,
+        category_id: product.category_id
+      });
+    }
+    return acc;
+  }, []);
+
   return (
     <div className="navbar-N" ref={navbarRef}>
       {/* LEFT GROUP */}
       <div className="nav-left">
         <div className="offers-button">OFFERS</div>
-
-        <div
-          className="dropdown-wrapper"
-          onMouseEnter={() => setShowBrands(true)}
-          onMouseLeave={() => {
-            setShowBrands(false);
-            setSelectedBrand(null);
-          }}
-        >
-          <div className="menu-item">CATEGORY ▼</div>
-          {showBrands && (
-            <div className="dropdown">
-              {Object.keys(brands).map((brand) => (
-                <div
-                  key={brand}
-                  className="dropdown-item"
-                  onClick={() => setSelectedBrand(brand)}
-                >
-                  {brand} <span className="arrow">›</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {selectedBrand && (
-            <div
-              className="sub-dropdown"
-              onMouseEnter={() => setSelectedBrand(selectedBrand)}
-              onMouseLeave={() => setSelectedBrand(null)}
-            >
-              {brands[selectedBrand].map((sub, i) => (
-                <div key={i} className="sub-dropdown-item">
-                  {sub}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
 
       {/* RIGHT GROUP */}
@@ -115,24 +83,60 @@ export default function Searchbarr() {
         <FaSearch className="search-icon" />
       </div>
 
-      {results.length > 0 && (
+      {/* SEARCH RESULTS */}
+      {query && (
         <ul className="results-list" ref={resultsRef}>
-          {results.map((p) => (
-            <li key={p.id} className="result-item">
-              <Link 
-                to="/product"
-                state={{id: p.id}} 
-                className="result-link"
-              >
-                <img src={`${process.env.REACT_APP_API_BASE_URL}/${p.image}`} alt={p.name} className="result-img" />
-                <div className="result-info">
-                  <span className="result-name">{p.name}</span>
-                  <span className="result-type">{p.brand}</span>
-                  <span className="result-price">Rs.{p.price}</span>
-                </div>
-              </Link>
-            </li>
-          ))}
+          {isLoading ? (
+            <li className="result-item loading">Loading products...</li>
+          ) : results.length > 0 ? (
+            <>
+              {results.map((product) => (
+                <li key={product.product_id} className="result-item">
+                  <Link
+                    to={`/products/${product.product_id}`}
+                    className="result-link"
+                  >
+                    <img
+                      src={
+                        product.image_url
+                          ? `${process.env.REACT_APP_API_BASE_URL}/${product.image_url}`
+                          : "/placeholder.jpg"
+                      }
+                      alt={product.name}
+                      className="result-img"
+                    />
+                    <div className="result-info">
+                      <span className="result-name">{product.name}</span>
+                      <span className="result-type">{product.category_name}</span>
+                      <span className="result-price">
+                        Rs.{Number(product.price).toFixed(2)}
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+              {/* Render a See More button for each unique category */}
+              {uniqueCategories.map((category) => (
+                <li className="see-more-container" key={category.slug}>
+                  <button
+                    className="see-more-button"
+                    onClick={() =>
+                      navigate(`/category/${category.slug}/products`, {
+                        state: {
+                          name: category.name,
+                          cat_id: category.category_id
+                        }
+                      })
+                    }
+                  >
+                    See More Results in {category.name}
+                  </button>
+                </li>
+              ))}
+            </>
+          ) : (
+            <li className="result-item no-results">No products found</li>
+          )}
         </ul>
       )}
     </div>

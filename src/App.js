@@ -49,9 +49,11 @@ import URegForm from './Components/u_reg_form';
 import OrderConfirmation from './Components/OrderConfirmation';
 import MainCategoies from './Components/MainCategories';
 
+import { useActivityTracker } from './hooks/useActivityTracker';
+
 
 function App() {
-
+  useActivityTracker()
   useEffect(() => {
     if (!sessionStorage.getItem('session_id')) {
       sessionStorage.setItem('session_id', uuidv4());

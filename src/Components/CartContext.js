@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity) => {
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.product_id === product.product_id);
       
@@ -48,7 +48,7 @@ export const CartProvider = ({ children }) => {
       } else {
         return [...prev, { 
           ...product,
-          quantity: 1,
+          quantity: quantity,
           ...(product.selecteSize && {selectedSize: product.selecteSize}),
           ...(product.selectedColor && {selectedColor: product.selectedColor})
         }];

@@ -44,13 +44,7 @@ const ProductPageN = () => {
     fetchProducts()
   }, [])
 
-  const handleAddToCart = () => {
-    alert('Added to cart!');
-  };
-
-  const handleDetails = (productId) => {
-    navigate(`/products/${productId}`)
-  }
+  
 
   const totalPages = Math.ceil(allProducts.length / itemsPerPage);
   const currentProducts = allProducts.slice(
@@ -117,8 +111,6 @@ const ProductPageN = () => {
             <ProductCard
               key={index}
               product={product}
-              handleAddToCart={handleAddToCart}
-              handleDetails={() => handleDetails(product.product_id)}
             />
           ))}
         </div>

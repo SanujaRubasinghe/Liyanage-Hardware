@@ -11,10 +11,19 @@ const Feedback = () => {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [reviews, setReviews] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 6,
+    total: 0,
+    pages: 1
+  });
 
   useEffect(() => {
     fetchAnalytics();
-  }, []);
+    fetchReviews();
+  }, [pagination.page]);
 
   const fetchAnalytics = async () => {
     try {
@@ -32,6 +41,23 @@ const Feedback = () => {
     }
   };
 
+  const fetchReviews = async () => {
+    try {
+      setReviewsLoading(true);
+      const response = await API.get(`/feedback/reviews?page=${pagination.page}&limit=${pagination.limit}`);
+      setReviews(response.data.reviews);
+      setPagination(prev => ({
+        ...prev,
+        total: response.data.total,
+        pages: response.data.pages
+      }));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setReviewsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -44,10 +70,10 @@ const Feedback = () => {
     try {
       setLoading(true);
       const response = await API.post('/feedback/feedbacks', {
-          type: 'review',
-          title,
-          content,
-          rating,
+        type: 'review',
+        title,
+        content,
+        rating,
       });
 
       if (response.status !== 200) {
@@ -55,8 +81,9 @@ const Feedback = () => {
       }
 
       setSubmitted(true);
-      fetchAnalytics(); // Refresh analytics after submission
-      resetForm()
+      fetchAnalytics();
+      fetchReviews(); // Refresh reviews after submission
+      resetForm();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -71,6 +98,10 @@ const Feedback = () => {
     setContent('');
     setSubmitted(false);
     setError('');
+  };
+
+  const handlePageChange = (newPage) => {
+    setPagination(prev => ({ ...prev, page: newPage }));
   };
 
   if (loading && !analytics) {
@@ -195,23 +226,75 @@ const Feedback = () => {
                   ))}
                 </div>
               </div>
-              
-              <div className="analytics-card">
-                <h3>Recent Reviews</h3>
-                <ul className="recent-reviews">
-                  {analytics.recentReviews.map((review, index) => (
-                    <li key={index} className="review-item">
-                      <div className="review-header">
-                        <span className="review-rating">
-                          {Array(review.rating).fill('★').join('')}
-                        </span>
-                        <span className="review-title">{review.title}</span>
+            </div>
+            
+            <div className="reviews-section">
+              <h3>Customer Reviews</h3>
+              {reviewsLoading ? (
+                <div className="loading-spinner small"></div>
+              ) : (
+                <>
+                  <div className="reviews-grid">
+                    {reviews.map((review) => (
+                      <div key={review.id} className="review-card">
+                        <div className="review-header">
+                          <div className="review-rating">
+                            {Array(review.rating).fill('★').join('')}
+                          </div>
+                          <div className="review-date">
+                            {new Date(review.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <h4 className="review-title">{review.title}</h4>
+                        <p className="review-content">{review.content}</p>
                       </div>
-                      <p className="review-content">{review.content.substring(0, 100)}...</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    ))}
+                  </div>
+                  
+                  {pagination.pages > 1 && (
+                    <div className="pagination">
+                      <button
+                        onClick={() => handlePageChange(pagination.page - 1)}
+                        disabled={pagination.page === 1}
+                        className="pagination-button"
+                      >
+                        Previous
+                      </button>
+                      
+                      {Array.from({ length: Math.min(5, pagination.pages) }, (_, i) => {
+                        let pageNum;
+                        if (pagination.pages <= 5) {
+                          pageNum = i + 1;
+                        } else if (pagination.page <= 3) {
+                          pageNum = i + 1;
+                        } else if (pagination.page >= pagination.pages - 2) {
+                          pageNum = pagination.pages - 4 + i;
+                        } else {
+                          pageNum = pagination.page - 2 + i;
+                        }
+                        
+                        return (
+                          <button
+                            key={pageNum}
+                            onClick={() => handlePageChange(pageNum)}
+                            className={`pagination-button ${pagination.page === pageNum ? 'active' : ''}`}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+                      
+                      <button
+                        onClick={() => handlePageChange(pagination.page + 1)}
+                        disabled={pagination.page === pagination.pages}
+                        className="pagination-button"
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         )}

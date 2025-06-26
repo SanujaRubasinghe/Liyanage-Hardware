@@ -50,7 +50,7 @@ const ProductDisplay = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart(product)
+    addToCart(product, quantity)
     toast.success(`${quantity} ${product.name} added to cart!`)
   };
 

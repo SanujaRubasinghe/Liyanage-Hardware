@@ -95,7 +95,7 @@ function App() {
             {/*<Route path="/products" element={<><ProductList /><FeatureSection /><Footer /></>} />*/}
             <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/products/:id" element={<ProductDisplay />} />
-            <Route path="/about-us" element={<><AboutUs /><SearchBarN /><CustomerComplaintsForm /><Footer /></>} />
+            <Route path="/complaint" element={<><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/categories" element={<><MainCategoies/><Footer /></>} />
             <Route path="/categories/:id" element={<Subcategories />} />
             <Route path="/categories/:subcat/:id" element={<MiniCategory />} />
@@ -112,7 +112,7 @@ function App() {
             <Route path='/register' element={<><URegForm /><Footer /></>} />
 
 
-            <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
+            <Route path="/about-us" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 
             {/* ✅ Fixed Admin Routing
             <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>

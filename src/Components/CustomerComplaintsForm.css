@@ -1,191 +1,241 @@
 /* src/pages/CustomerComplaintsForm.css */
 
-/* Container & blurred background */
-.ccf-container {
-  position: relative;
+/* Base Styles */
+.complaint-form-container {
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.complaint-form-card {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.complaint-form-header {
+  padding: 2.5rem 2.5rem 1.5rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+}
+
+.complaint-form-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.complaint-form-header p {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.complaint-form {
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* File Upload Styles */
+.file-upload-area {
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 0;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-.ccf-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('/public/images/frontlook.webp') center/cover no-repeat;
-  filter: blur(8px);
-  transform: scale(1.1);
-  z-index: 0;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
 }
 
-/* Logo circle & shine */
-.ccf-logo-circle {
-  position: relative;
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  background-color: rgb(245, 245, 245);
-  margin-bottom: 1rem;
-  overflow: hidden;
+.file-upload-area:hover {
+  border-color: #4f46e5;
+  background-color: #f8f9ff;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-}
-.ccf-logo-circle::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 236, 126, 0) 0%,
-    rgb(255, 255, 255) 50%,
-    #ffed8400 100%
-  );
-  transform: rotate(30deg);
-  animation: ccf-shine 5s infinite;
-  z-index: 2;
-}
-.ccf-logo {
-  width: 190px;
-  height: 190px;
-  object-fit: contain;
-  z-index: 1;
-}
-@keyframes ccf-shine {
-  0%   { transform: rotate(30deg) translateX(-200%); }
-  100% { transform: rotate(30deg) translateX(200%); }
+  color: #4f46e5;
+  background-color: #eef2ff;
+  border-radius: 50%;
+  padding: 12px;
 }
 
-/* Card holding the form */
-.ccf-card {
-  position: relative;
-  z-index: 1;
-  width: 50rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 2rem;
+.file-requirements {
+  font-size: 0.8rem;
+  color: #6b7280;
 }
 
-/* Header & Title */
-.ccf-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-.ccf-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #b71c1c;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  margin: 0;
-}
-.ccf-title::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: #d32f2f;
-  border-radius: 2px;
-  margin: 0.5rem auto 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Form layout */
-.ccf-form {
-  display: flex;
-  flex-direction: column;
-}
-.ccf-grid {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-.ccf-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.ccf-group label {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-.ccf-group input,
-.ccf-group select,
-.ccf-group textarea {
-  padding: 0.75rem;
-  border: 1px solid #d32f2f;
-  border-radius: 4px;
-  font-size: 1rem;
-  resize: vertical;
-}
-.ccf-group textarea {
-  min-height: 5rem;
-}
-
-/* File upload button */
-.ccf-file-btn {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  display: inline-block;
-  padding: 0.75rem 1.9rem;
-  background: #d32f2f;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.ccf-file-btn:hover {
-  background: #b71c1c;
-}
-.ccf-hidden-input {
+.hidden-file-input {
   display: none;
 }
 
-/* Captcha */
-.ccf-captcha {
-  margin-bottom: 1rem;
-}
-.ccf-captcha-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.ccf-captcha-text {
-  padding: 0.75rem 1rem;
-  background: #f5f5f5;
-  border: 1px solid #d32f2f;
-  font-family: monospace;
-  letter-spacing: 2px;
-  user-select: none;
-}
-.ccf-captcha-error {
-  color: #d32f2f;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+/* Receipt Preview */
+.receipt-preview-container {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
 }
 
-/* Submit button */
-.ccf-submit-btn {
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.9rem;
-  background: #d32f2f;
-  color: #fff;
+.receipt-preview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+}
+
+.remove-receipt-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(239, 68, 68, 0.9);
+  color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
   cursor: pointer;
-  align-self: center;
-  transition: background 0.3s;
+  transition: all 0.2s;
 }
-.ccf-submit-btn:hover {
-  background: #b71c1c;
+
+.remove-receipt-btn:hover {
+  background-color: rgba(220, 38, 38, 0.9);
+}
+
+/* Submit Button */
+.submit-btn {
+  padding: 1rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background-color: #4338ca;
+}
+
+.submit-btn:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .complaint-form-container {
+    padding: 1rem;
+  }
+  
+  .complaint-form-card {
+    border-radius: 12px;
+  }
+  
+  .complaint-form-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .complaint-form {
+    padding: 1.5rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .file-upload-area {
+    padding: 1.5rem;
+  }
+  
+  .receipt-preview {
+    max-height: 200px;
+  }
+}
+
+/* Add these styles to your existing CustomerComplaintsForm.css */
+
+/* Textarea Styles */
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  resize: vertical;
+  min-height: 120px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Adjust spacing for the new field */
+.complaint-form {
+  gap: 1.25rem; /* Slightly increased gap to accommodate textarea */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  textarea {
+    min-height: 100px;
+  }
 }

@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './BannerSlider.css'
 import API from '../api';
+
+const imageCache = {}
 
 const BannerSlider = () => {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [isLoading, setIsLoading] = useState(true);
+
+  const preloadImages = (urls) => {
+    urls.forEach(url => {
+      if (!imageCache[url]) {
+        imageCache[url] = new Image();
+        imageCache[url].src = url;
+      }
+    });
+  };
 
   useEffect(() => {
     const fetchActiveBanners = async () => {
@@ -23,7 +34,13 @@ const BannerSlider = () => {
           })
         );
         
-        setBanners(bannersWithImages.filter(banner => banner.images.length > 0));
+        const validBanners = bannersWithImages.filter(banner => banner.images.length > 0);
+        setBanners(validBanners);
+
+        const allImageUrls = validBanners.flatMap(banner => 
+          banner.images.map(img => `${process.env.REACT_APP_API_BASE_URL}${img.image_url}`)
+        );
+        preloadImages(allImageUrls);
       } catch (error) {
         console.error('Error fetching banners:', error);
       } finally {
@@ -87,28 +104,6 @@ const BannerSlider = () => {
     >
       {/* Banner Image */}
       <BannerImageSlider images={currentBanner.images} />
-
-      {/* Banner Info Overlay */}
-      {/* <div className="banner-overlay">
-        <div className="banner-content-wrapper">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="banner-content"
-          >
-            <h2 className="banner-title">{currentBanner.name}</h2>
-            {currentBanner.description && (
-              <p className="banner-description">{currentBanner.description}</p>
-            )}
-            {currentBanner.images[0]?.link_url && (
-              <a href={currentBanner.images[0].link_url} className="banner-button">
-                Shop Now
-              </a>
-            )}
-          </motion.div>
-        </div>
-      </div> */}
     </motion.div>
   </AnimatePresence>
 
@@ -149,20 +144,36 @@ const BannerSlider = () => {
 const BannerImageSlider = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [loadedImages, setLoadedImages] = useState({})
+
+  const imageUrls = useMemo(() => 
+    images.map(img => `${process.env.REACT_APP_API_BASE_URL}${img.image_url}`),
+    [images]
+  );
 
   useEffect(() => {
     if (images.length > 1) {
+      const nextIndex = (currentImageIndex + 1) % images.length;
+      if (!loadedImages[imageUrls[nextIndex]]) {
+        const img = new Image();
+        img.src = imageUrls[nextIndex];
+        img.onload = () => {
+          setLoadedImages(prev => ({ ...prev, [imageUrls[nextIndex]]: true }));
+        };
+      }
+
       const interval = setInterval(() => {
         setDirection(1);
-        setCurrentImageIndex((prevIndex) => 
-          prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
-      }, 5000); // Rotate images every 5 seconds
+        setCurrentImageIndex(prev => (prev + 1) % images.length);
+      }, 5000);
       return () => clearInterval(interval);
     }
-  }, [images.length]);
+  }, [images.length, currentImageIndex, imageUrls, loadedImages]);
 
   if (images.length === 0) return null;
+
+  const currentImage = images[currentImageIndex];
+  const fullImageUrl = imageUrls[currentImageIndex];
 
   return (
     <div className="image-slider-container">
@@ -176,10 +187,17 @@ const BannerImageSlider = ({ images }) => {
             transition={{ duration: 0.5 }}
             className="image-slide"
             >
-            <img
-                src={`${process.env.REACT_APP_API_BASE_URL}${images[currentImageIndex].image_url}`}
-                alt={images[currentImageIndex].alt_text || 'Promotional banner'}
-            />
+             {loadedImages[fullImageUrl] ? (
+              <img
+                src={fullImageUrl}
+                alt={currentImage.alt_text || 'Promotional banner'}
+                className="banner-loaded-image"
+              />
+            ) : (
+              <div className="banner-image-placeholder">
+                {/* Optional: Add a loading spinner or skeleton here */}
+              </div>
+            )}
             </motion.div>
         </AnimatePresence>
 

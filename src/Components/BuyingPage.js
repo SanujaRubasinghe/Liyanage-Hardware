@@ -72,6 +72,10 @@ const BuyingPage = () => {
     }
   };
 
+  const handleCodPayment = () => {
+    handleSubmit('COD')
+  }
+
   function buildFullAddress(data) {
     return [
       data.apartment,
@@ -139,6 +143,27 @@ const BuyingPage = () => {
       }
     }
 
+    function convertToInternationalFormat(phoneNumber) {
+      const digitsOnly = phoneNumber.replace(/\D/g, '');
+    
+      if (digitsOnly.startsWith('0') && digitsOnly.length === 10) {
+        return `+94${digitsOnly.substring(1)}`;
+      }
+      return phoneNumber;
+    }
+
+    const sendCustomerSMSMessage = async (to, message) => {
+      try {
+        await API.post('/messages/send-sms-message', {
+          to: to,
+          message: message
+        })
+      } catch (error) {
+        console.log('Failed to send sms message')
+      }
+    }
+
+
   const handleSubmit = async (paymentMethod) => {  
       if (!formData.agreeTerms) {
         alert("You must agree to the terms and conditions.");
@@ -152,8 +177,10 @@ const BuyingPage = () => {
   
       try {
         const orderData = {
-          user_id: 1, // Should come from auth context
+          first_name: formData.firstName,
+          last_name: formData.lastName,
           phone: formData.phone,
+          email: formData.email,
           total_amount: total,
           status: 'pending',
           payment_method: paymentMethod,
@@ -181,11 +208,21 @@ const BuyingPage = () => {
         const res = await API.post('/products/purchase', orderData);
         trackCheckout(checkoutData)
 
-        alert('Order placed successfully!');
+        const message = `
+        Order Confirmation
+        Thank you for shopping at New Liyanage Hardware!
+
+        Order ID: NLOD-${res.data.order_id}
+        Total: LKR ${Number(total).toFixed(2)}
+        Contact: 072211324 / 0754232212
+        `
+
+        // sendCustomerSMSMessage(convertToInternationalFormat(formData.phone), message)
+
         clearCart()
         navigate('/order-confirmation', { 
           state: { 
-            orderId: `NLOD-${res.data.order_id}`,
+            orderId: `${res.data.order_id}`,
             orderTotal: total,
             shippingAddress: buildFullAddress(formData)
           } 
@@ -343,6 +380,13 @@ const BuyingPage = () => {
                 >
                   Installments
                 </button>
+                <button
+                  className={`${styles.button} ${activePaymentTab === "cod" ? styles.activeTab : ""}`}
+                  onClick={() => setActivePaymentTab("cod")}
+                >
+                  Cash on Delivery
+                </button>
+                
               </div>
               
               {activePaymentTab === "card" && (
@@ -387,6 +431,22 @@ const BuyingPage = () => {
                       disabled={isProcessing}
                     >
                       {isProcessing ? "Processing..." : "Pay with KoKo"}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {activePaymentTab === "cod" && (
+                <div className={styles.paymentContent}>
+                  <div className={styles.kokoPlaceholder}>
+                    <h3>Cash on Delivery</h3>
+                    <p>Order Now, Pay on Delivery!</p>
+                    <br/>
+                    <button 
+                      className={styles.button}
+                      onClick={handleCodPayment}
+                      disabled={isProcessing}
+                    >
+                      {isProcessing ? "Processing..." : "Cash On Delivery"}
                     </button>
                   </div>
                 </div>

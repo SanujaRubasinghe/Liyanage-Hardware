@@ -1,75 +1,79 @@
-.filterWrapper {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 4px;
+.product-filters__panel {
+  width: 250px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.filterContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  padding: 6px 8px;
-  border-radius: 6px;
-  gap: 6px;
-  flex-wrap: nowrap;
-  width: 100%;
+/* Filter group/card */
+.product-filters__group {
+  background: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
 }
 
-.filterInput,
-.filterBtn,
-.resetBtn {
-  height: 28px;
-  font-size: 0.7rem;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-}
-
-.filterInput {
-  width: 80px;
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #7e1111;
-  padding: 0 6px;
-}
-
-.filterInput:focus {
-  outline: none;
-  border-color: #c0392b;
-}
-
-.filterInput,
-.filterBtn,
-.resetBtn {
-  box-sizing: border-box;
-}
-
-.filterBtn,
-.resetBtn {
-  padding: 0 10px;
+/* Group heading */
+.product-filters__title {
+  margin-bottom: 10px;
+  font-size: 15px;
   font-weight: 600;
-  border: none;
+  color: #333;
+}
+
+/* Each filter item */
+.product-filters__option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
 }
 
-.filterBtn {
-  background: linear-gradient(135deg, #c0392b, #e74c3c);
-  color: #fff;
+.product-filters__option input[type="checkbox"],
+.product-filters__option input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #eb7404;
 }
 
-.filterBtn:hover {
-  opacity: 0.85;
+.product-filters__option:hover {
+  background-color: #f0f0f0;
+  padding-left: 5px;
+  border-radius: 5px;
+  transition: 0.2s ease;
 }
 
-.resetBtn {
-  background: transparent;
-  color: #e74c3c;
-  border: 1px solid #e74c3c;
+/* Clear button */
+.product-filters__clear-button {
+  background: none;
+  color: #eb7404;
+  border: 1px solid #eb7404;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 100%;
+  transition: 0.2s;
 }
 
-.resetBtn:hover {
-  background: rgba(231, 76, 60, 0.1);
+.product-filters__clear-button:hover {
+  background-color: #eb7404;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .product-filters__panel {
+    width: 100%;
+    position: static;
+    margin-bottom: 20px;
+  }
+  
+  .page-container {
+    flex-direction: column;
+  }
 }

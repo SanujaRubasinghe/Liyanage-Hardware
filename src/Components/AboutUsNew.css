@@ -1,4 +1,6 @@
+/* Make the container a positioning context */
 .aboutus-container {
+  position: relative;
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #f7f7f7;
   color: #222;
@@ -16,7 +18,7 @@
 }
 
 .hero-overlay {
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   width: 100%;
   height: 100%;
   display: flex;
@@ -42,7 +44,7 @@
   max-width: 1100px;
   padding: 32px 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   gap: 32px;
 }
 
@@ -80,12 +82,12 @@
 
 .about-image img {
   width: 260px;
+  height: 260px;
   border-radius: 8px;
   object-fit: cover;
-  height: 260px;
 }
 
-/* —— Reasons Section —— */
+/* Reasons Section */
 .reasons-section {
   max-width: 1100px;
   margin: 40px auto;
@@ -102,39 +104,30 @@
 
 .reasons-section h2 span {
   font-weight: 400;
-  color: #b22222; /* a strong red accent */
+  color: #b22222;
 }
 
-/* Grid of cards */
 .reasons-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;   /* ← center each wrapped row */
+  justify-content: center;
   gap: 18px;
-
 }
 
 .reasons-list > div {
-  flex: 0 1 180px;           /* fixed base width, no growing */
-  /* remove any min-width or flex: 1 rules */
+  flex: 0 1 180px;
 }
 
-/* Individual card */
 .reason-card {
   background: #fff;
   border-radius: 12px;
   padding: 24px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   cursor: default;
-  position: relative;
   overflow: hidden;
 }
 
-/* Number badge */
 .reason-number {
   background: #ffc107;
   color: #222;
@@ -148,7 +141,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* Title & text */
 .reason-card h3 {
   font-size: 1.1rem;
   font-weight: 600;
@@ -163,15 +155,14 @@
   color: #666;
 }
 
-/* Hover state */
 .reason-card:hover {
-  background-color: #fef0f0;        /* very light red */
+  background-color: #fef0f0;
   transform: translateY(-6px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .reason-card:hover .reason-number {
-  background-color: #b22222;        /* strong red */
+  background-color: #b22222;
   color: #fff;
 }
 
@@ -179,106 +170,18 @@
   color: #b22222;
 }
 
-/* Fade-in on scroll */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reason-card {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-  animation-delay: calc(var(--i) * 0.1s);
-}
-
-/* Apply custom property (--i) via inline style or JS if you like */
-
-
-.features-grid {
-  max-width: 1100px;
-  margin: 40px auto 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 0 24px;
-}
-
-.features-grid > div {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  padding: 0;
-}
-
-.features-grid > div:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.features-grid h4 {
-  background: #111;
-  color: #ffc107;
-  font-size: 1.1rem;
-  padding: 12px 0;
-  text-align: center;
-  width: 100%;
-  font-weight: bold;
-}
-
-.features-grid img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-}
-
-
-.cbc-logo {
-  background: #ffc107;
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: bold;
-  border-radius: 8px;
-  padding: 24px 0;
-  width: 100%;
-  margin: 10px 0;
-}
-
-.features-grid button {
-  background: #b30a0a;
-  border: none;
-  padding: 7px 18px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #222;
-  font-size: 1rem;
-  margin-top: 10px;
-}
-
-/* Newsletter Signup */
+/* Newsletter Signup – absolutely positioned top‑right */
 .newsletter-signup {
   position: absolute;
-  right: 40px;
-  top: 120px;
+  top: 40px;      /* adjust as needed */
+  right: 24px;    /* matches container padding */
   background: #ffc107;
   color: #222;
   padding: 22px 18px;
   border-radius: 8px;
   width: 240px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  z-index: 10;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 5;
 }
 
 .newsletter-signup h3 {
@@ -303,7 +206,6 @@
   padding: 6px 8px;
   border: none;
   border-radius: 4px;
-  margin-bottom: 2px;
 }
 
 .newsletter-signup button {
@@ -315,6 +217,16 @@
   font-weight: bold;
   cursor: pointer;
   margin-top: 6px;
+}
+
+/* Features Grid (Flip Cards) */
+.features-grid {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 0 24px;
 }
 
 .flip-card {
@@ -329,7 +241,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.6s;
+  transition: transform 0.8s;
   transform-style: preserve-3d;
 }
 
@@ -337,18 +249,19 @@
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .flip-card-front {
@@ -357,7 +270,7 @@
 
 .flip-card-front h4 {
   background: #111;
-  color: #ffffff;
+  color: #fff;
   width: 100%;
   padding: 10px 0;
   font-weight: bold;
@@ -366,15 +279,16 @@
 
 .flip-card-front img {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
 }
 
 .flip-card-back {
-  background: #ffffff;
+  background: #fff;
   color: #111;
   transform: rotateY(180deg);
   padding: 20px;
+  justify-content: center;
 }
 
 .flip-card-back h4 {
@@ -389,57 +303,51 @@
   color: #444;
 }
 
-/* Responsive support (optional if not already added) */
-@media (max-width: 900px) {
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
   .features-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
+  /* newsletter stays absolute on large tablets */
 }
 
-@media (max-width: 600px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .about-section {
     flex-direction: column;
     align-items: stretch;
   }
-  
   .about-image img {
     width: 100%;
     margin-top: 18px;
+    height: auto;
   }
-  
   .features-grid {
     grid-template-columns: 1fr 1fr;
   }
-  
+  /* move newsletter into flow on tablets */
   .newsletter-signup {
     position: static;
-    width: 100%;
     margin: 30px auto 0;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
+  .hero-overlay h1 {
+    font-size: 1.8rem;
+  }
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
   .reasons-list {
     flex-direction: column;
   }
-  
-  .about-section {
-    padding: 18px 6px;
-  }
-  
+  .about-section,
   .reasons-section {
-    padding: 0 6px;
+    padding: 18px 12px;
   }
-} 
+  .newsletter-signup {
+    position: static;
+    width: 90%;
+    margin: 20px auto 0;
+  }
+}

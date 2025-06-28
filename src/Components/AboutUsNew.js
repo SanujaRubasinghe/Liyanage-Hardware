@@ -31,9 +31,9 @@ const AboutUsNew = () => {
       <section className="about-section">
         <div className="about-text">
           <h2>ABOUT US</h2>
-           <p>
-          <b>Contractors' Warehouse</b> opened in 1983 to serve a growing need for home improvement products. Over the years, we've grown to become a California destination for building materials and supplies serving new construction, remodeling, and home improvements projects for contractors, tradesmen and DIY customers. With 14 store locations across California, we focus on providing a wide selection of in-stock products at great prices, to ensure you can start building today. We were previously known as HD Supply HIS.
-        </p>
+          <p>
+            <b>Contractors' Warehouse</b> opened in 1983 to serve a growing need for home improvement products. Over the years, we've grown to become a California destination for building materials and supplies serving new construction, remodeling, and home improvements projects for contractors, tradesmen and DIY customers. With 14 store locations across California, we focus on providing a wide selection of in-stock products at great prices, to ensure you can start building today. We were previously known as HD Supply HIS.
+          </p>
           <div className="supplier-partner">
             <span>INTERESTED IN BECOMING A SUPPLIER PARTNER?</span>
             <button>LEARN MORE</button>
@@ -46,43 +46,24 @@ const AboutUsNew = () => {
 
       {/* Top 5 Reasons */}
       <section className="reasons-section">
-  <h2>
-    TOP 5 REASONS <span>TO SHOP WITH US</span>
-  </h2>
-  <div className="reasons-list">
-    {[
-      { num: "01", title: "LOWEST PRICES", text: "We buy direct and operate efficiently with a no-frills approach, then we share the savings with you." },
-      { num: "02", title: "IN STOCK, TODAY!", text: "With our massive in-store selection of supplies and materials, you can start and complete your home improvement projects today." },
-      { num: "03", title: "WE CARE", text: "Our managers and associates want to get to know you, to understand your project needs, and earn your business." },
-      { num: "04", title: "PRODUCTS YOU WANT", text: "We listen to our customers and source the products needed for your projects to meet local codes and regulations." },
-      { num: "05", title: "WE REWARD YOU", text: "Our CBC program rewards our loyal customers with quarterly cash rebates, special discounts, and more great benefits!" },
-    ].map(({ num, title, text }) => (
-      <div className="reason-card" key={num}>
-        <div className="reason-number">{num}</div>
-        <h3>{title}</h3>
-        <p>{text}</p>
-      </div>
-    ))}
-  </div>
-</section>
-
-
-      {/* Features Grid with Flip */}
-      <section className="features-grid">
-        {cardDetails.map((item, index) => (
-          <div className="flip-card" key={index}>
-            <div className="flip-card-inner">
-              <div className="flip-card-front">
-                <h4>{item.title}</h4>
-                <img src={item.img} alt={item.title} />
-              </div>
-              <div className="flip-card-back">
-                <h4>{item.title}</h4>
-                <p>{item.description}</p>
-              </div>
+        <h2>
+          TOP 5 REASONS <span>TO SHOP WITH US</span>
+        </h2>
+        <div className="reasons-list">
+          {[
+            { num: "01", title: "LOWEST PRICES", text: "We buy direct and operate efficiently with a no-frills approach, then we share the savings with you." },
+            { num: "02", title: "IN STOCK, TODAY!", text: "With our massive in-store selection of supplies and materials, you can start and complete your home improvement projects today." },
+            { num: "03", title: "WE CARE", text: "Our managers and associates want to get to know you, to understand your project needs, and earn your business." },
+            { num: "04", title: "PRODUCTS YOU WANT", text: "We listen to our customers and source the products needed for your projects to meet local codes and regulations." },
+            { num: "05", title: "WE REWARD YOU", text: "Our CBC program rewards our loyal customers with quarterly cash rebates, special discounts, and more great benefits!" },
+          ].map(({ num, title, text }) => (
+            <div className="reason-card" key={num}>
+              <div className="reason-number">{num}</div>
+              <h3>{title}</h3>
+              <p>{text}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* Newsletter Signup */}
@@ -101,6 +82,24 @@ const AboutUsNew = () => {
           <button type="submit">SUBSCRIBE</button>
         </form>
       </aside>
+
+      {/* Features Grid with Flip */}
+      <section className="features-grid">
+        {cardDetails.map((item, index) => (
+          <div className="flip-card" key={index}>
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <h4>{item.title}</h4>
+                <img src={item.img} alt={item.title} />
+              </div>
+              <div className="flip-card-back">
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };

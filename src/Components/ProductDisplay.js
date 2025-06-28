@@ -8,8 +8,9 @@ import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
 import LoadingPage from "./LoadingPage"
 import { toast } from "react-toastify";
+import { checkConsent } from "../services/checkConsent";
 
-import useTrackPageVisit from "../hooks/useTrackPageVisit";
+import useTrackPageVisit from "../hooks/useTrackVisit";
 
 
 const ProductDisplay = () => {
@@ -49,8 +50,24 @@ const ProductDisplay = () => {
     return <LoadingPage />
   }
 
+  const trackAddToCart = async () => {
+    const hasConsent = checkConsent()
+    if (!hasConsent) return
+
+    try {
+      await API.post('/analytics/user/cart-action', {
+        product_id: product.product_id,
+        action: 'add',
+        quantity: quantity
+      })
+    } catch (error) {
+      console.log('Cart Tracking failed: ', error)
+    }
+  }
+
   const handleAddToCart = () => {
     addToCart(product, quantity)
+    trackAddToCart()
     toast.success(`${quantity} ${product.name} added to cart!`)
   };
 

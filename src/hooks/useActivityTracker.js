@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
+import {checkConsent} from '../services/checkConsent'
 import API from '../api';
 
 export const useActivityTracker = () => {
   useEffect(() => {
-    // Initial page view recording
+    
+    const hasConsent = checkConsent()
+    if (!hasConsent) return
+
     recordActivity();
     
     // Set up heartbeat (every 30 seconds)

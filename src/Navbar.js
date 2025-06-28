@@ -11,7 +11,7 @@ function Navbar() {
   const {cartCount} = useCart()
   const lastScrollY = useRef(0);
 
-  const {user, logout} = useContext(AuthContext)
+  // const {user, logout} = useContext(AuthContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,7 +78,7 @@ function Navbar() {
             <button className='login-button' onClick={getProfile}>Profile</button>
             <button className='login-button' onClick={logout}>Log out</button>  
           </>)} */}
-          <Link to="/profile" className='login-button'>Profile</Link>
+          {/* <Link to="/profile" className='login-button'>Profile</Link> */}
             
         </div>
       </div>

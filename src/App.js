@@ -54,11 +54,11 @@ import { useActivityTracker } from './hooks/useActivityTracker';
 
 function App() {
   useActivityTracker()
-  useEffect(() => {
-    if (!sessionStorage.getItem('session_id')) {
-      sessionStorage.setItem('session_id', uuidv4());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem('session_id')) {
+  //     sessionStorage.setItem('session_id', uuidv4());
+  //   }
+  // }, []);
   
   return (
     <div>

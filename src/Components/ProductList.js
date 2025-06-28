@@ -5,14 +5,14 @@ import LoadingPage from "./LoadingPage";
 import API from "../api"
 import "./ProductList.css"; 
 import PromotionalBanner from "./PromotionalBanner";
-import useTrackPageVisit from "../hooks/useTrackPageVisit";
+import { useTrackVisit } from "../hooks/useTrackVisit";
 
 let productCache = null
 
 const ProductList = () => {
 
-  useTrackPageVisit()
-
+  useTrackVisit(window.location.pathname)
+  
   const [products, setProducts] = useState([])
   const [filters, setFilters] = useState({})
   const [loading, setLoading] = useState(true)

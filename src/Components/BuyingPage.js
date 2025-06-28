@@ -4,6 +4,7 @@ import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../api";
 import styles from "./BuyingPage.module.css";
 import { useCart } from "./CartContext";
+import { checkConsent } from "../services/checkConsent";
 
 const libraries = ["places"];
 const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -127,6 +128,17 @@ const BuyingPage = () => {
       handleCalculate();
     }, [formData.streetAddress, formData.postcode]);
 
+    const trackCheckout = async (checkoutData) => {
+      const hasConsent = checkConsent()
+      if (!hasConsent) return
+
+      try {
+        await API.post('/analytics/user/checkout', checkoutData)
+      } catch (error) {
+        console.log('Checkout tracking failed: ', error)
+      }
+    }
+
   const handleSubmit = async (paymentMethod) => {  
       if (!formData.agreeTerms) {
         alert("You must agree to the terms and conditions.");
@@ -159,15 +171,21 @@ const BuyingPage = () => {
             color: item.selectedColor
           }))
         };
-  
-        console.log(orderData)
-        const res = await API.post('/products/purchase', orderData);
         
+        const checkoutData = {
+          amount: total,
+          items_count: orderItems.length,
+          status: 'pending'
+        }
+
+        const res = await API.post('/products/purchase', orderData);
+        trackCheckout(checkoutData)
+
         alert('Order placed successfully!');
         clearCart()
         navigate('/order-confirmation', { 
           state: { 
-            orderId: res.data.id,
+            orderId: `NLOD-${res.data.order_id}`,
             orderTotal: total,
             shippingAddress: buildFullAddress(formData)
           } 

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { checkConsent } from "../services/checkConsent";
 import { trackView } from "../services/categoryAnalytics";
 
 export function useCategoryViewTracker(categoryId) {
@@ -6,6 +7,10 @@ export function useCategoryViewTracker(categoryId) {
   const hasTracked = useRef(false);
 
   useEffect(() => {
+
+    const hasConsent = checkConsent()
+    if (!hasConsent) return
+
     const node = ref.current;
     if (!node || hasTracked.current) return;
 

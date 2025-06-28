@@ -6,10 +6,10 @@ import './Product.css';
 import CategoryCard from './CategoryCard';
 import { toast } from 'react-toastify';
 import API from '../api';
-import useTrackPageVisit from '../hooks/useTrackPageVisit';
+import { useTrackVisit } from '../hooks/useTrackVisit';
 
 function Home() {
-  // useTrackPageVisit()
+  useTrackVisit(window.location.pathname)
   const [mainCategories, setMainCategories] = useState([])
   const navigate = useNavigate()
 

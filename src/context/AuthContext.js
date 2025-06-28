@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import LoadingPage from "../Components/LoadingPage";
-import API from "../api"; // Replace with your API instance if different
+import API from "../api"; 
 
 export const AuthContext = createContext();
 

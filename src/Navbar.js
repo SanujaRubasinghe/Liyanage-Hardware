@@ -10,54 +10,48 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
 
-  const {user, logout} = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrollThreshold = 100;
       if (currentScrollY > lastScrollY.current) {
         setIsShrunk(true);
-      } else if (currentScrollY < lastScrollY.current) {
+      } else {
         setIsShrunk(false);
       }
       lastScrollY.current = currentScrollY;
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen(open => !open);
   };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
       <div className="logo">
-        <img src="/images/l1.png" alt="Hardware Logo" style={{ width: '120px', height: 'auto' }} />
+        <img src="/images/l1.png" alt="Hardware Logo" />
       </div>
 
-      {/* Hamburger Menu Button */}
       <button 
         className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={toggleMobileMenu}
         aria-label="Toggle menu"
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span/>
+        <span/>
+        <span/>
       </button>
 
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && <div className="mobile-overlay" onClick={closeMobileMenu}></div>}
+      {isMobileMenuOpen && (
+        <div className="mobile-overlay" onClick={closeMobileMenu}/>
+      )}
 
       <div className={`left ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-        {/* Close Button for Mobile */}
         <button className="mobile-close" onClick={closeMobileMenu} aria-label="Close menu">
           <i className="fas fa-times"></i>
         </button>

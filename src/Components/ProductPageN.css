@@ -1,9 +1,19 @@
-/* Container */
+/* ======================================================= */
+/* BASE STYLES                                             */
+/* ======================================================= */
+
+/* Main layout container */
 .page-container {
   display: flex;
+  align-items: flex-start;
 }
 
-/* Panel */
+/* Wrapper for filters to accommodate the toggle button */
+.filters-container {
+    /* On desktop, this just acts as a wrapper */
+}
+
+/* Filter Panel */
 .product-filters__panel {
   width: 250px;
   padding: 20px;
@@ -12,6 +22,7 @@
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   font-family: 'Segoe UI', sans-serif;
+  transition: width 0.3s ease;
 }
 
 /* Filter group/card */
@@ -23,7 +34,6 @@
   border: 1px solid #eee;
 }
 
-/* Group heading */
 .product-filters__title {
   margin-bottom: 10px;
   font-size: 15px;
@@ -31,7 +41,6 @@
   color: #333;
 }
 
-/* Each filter item */
 .product-filters__option {
   display: flex;
   align-items: center;
@@ -54,7 +63,6 @@
   transition: 0.2s ease;
 }
 
-/* Clear button */
 .product-filters__clear-button {
   background: none;
   color: #eb7404;
@@ -72,8 +80,7 @@
   color: white;
 }
 
-
-
+/* Main Content Area */
 .product-list {
   flex: 1;
   padding: 20px;
@@ -81,12 +88,11 @@
 
 .banner img {
   width: 100%;
-  height: 250px; /* or auto, or use object-fit */
+  height: 250px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 30px;
 }
-
 
 .products {
   display: grid;
@@ -94,19 +100,16 @@
   gap: 20px;
 }
 
-
-/* Reuse your card styles */
-
+/* Product Card */
 .product-card {
   display: flex;
   background: rgb(245, 244, 244);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  width: 100%; /* change from 500px to 100% */
+  width: 100%;
   box-sizing: border-box;
 }
-
 
 .product-image {
   width: 170px;
@@ -114,6 +117,7 @@
   object-fit: cover;
   margin-right: 80px;
   margin-left: -5px;
+  transition: width 0.3s ease, margin-right 0.3s ease;
 }
 
 .product-details {
@@ -164,6 +168,7 @@
   background-color: #cc0000;
 }
 
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -188,4 +193,114 @@
   color: white;
   font-weight: bold;
   border: none;
+}
+
+/* Mobile Filter Toggle Button */
+.filter-toggle-button {
+  display: none; /* Hidden on desktop */
+}
+
+
+/* ======================================================= */
+/* RESPONSIVE STYLES                                       */
+/* ======================================================= */
+
+/* 1024px: Large tablets and small desktops */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-image {
+    width: 150px;
+    margin-right: 40px;
+  }
+}
+
+/* 768px: Tablets */
+@media (max-width: 768px) {
+  .page-container {
+    flex-direction: column;
+  }
+
+  .filters-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-filters__panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+
+  .product-filters__panel.hidden-on-mobile {
+    display: none;
+  }
+
+  .filter-toggle-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #eb7404;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  .banner img {
+    height: 200px;
+  }
+
+  .product-image {
+    width: 120px;
+    margin-right: 20px;
+  }
+}
+
+/* 480px: Mobile phones */
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .banner img {
+    height: 150px;
+    margin-bottom: 20px;
+  }
+
+  .product-list {
+    padding: 10px;
+  }
+
+  .product-image {
+    width: 100px;
+    margin-right: 15px;
+  }
+
+  .product-title {
+    font-size: 15px;
+  }
+
+  .product-price {
+    font-size: 16px;
+  }
+
+  .product-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .buy-to-cart,
+  .add-to-cart1 {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+  }
 }

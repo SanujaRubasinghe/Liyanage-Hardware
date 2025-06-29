@@ -44,6 +44,9 @@ import ShippingPolicy from './Components/ShippingPolicy';
 import Disclaimer from './Components/Disclaimer';
 import ContactUsA from './Components/ContactUsA';
 
+import Policy from './Policy';
+
+
 function App() {
   return (
     <div>
@@ -78,6 +81,8 @@ function App() {
             <Route path="/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/about-us" element={<><AboutUs /><CustomerComplaintsForm /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
+            <Route path="/Policy" element={<><Policy /><Footer /></>} />
+
 
              <Route path="/feedback" element={<><Feedback /><Footer /></>} />
             <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} />
@@ -95,16 +100,7 @@ function App() {
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 
-            {/* ✅ Fixed Admin Routing */}
-            <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
-              <Route index element={<AdminPanel />} />
-              <Route path="home" element={<SubCategoryTable />} />
-              <Route path="category" element={<AdminPanel />} />
-              <Route path="subcategory" element={<h2>Category Page</h2>} />
-              <Route path="products" element={<h2>Products Page</h2>} />
-              <Route path="orders" element={<h2>Orders Page</h2>} />
-            </Route>
-
+            
             <Route path='/login' element={<LogInPage />}/>
             <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
             

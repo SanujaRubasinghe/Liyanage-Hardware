@@ -1,6 +1,7 @@
 // src/Components/ReturnPolicy.jsx
 import React from "react";
 import "./TermsAndConditions.css";
+import Footer from "./Footer";
 
 export default function ReturnPolicy() {
   return (
@@ -14,9 +15,9 @@ export default function ReturnPolicy() {
             className="tc-logo"
           />
         </div>
-        <p className="tc-last-updated">
+        {/* <p className="tc-last-updated">
           <strong>Effective Date:</strong> [Insert Date]
-        </p>
+        </p> */}
 
         <section className="tc-section">
           <h2>1. Order Cancellation Policy</h2>
@@ -80,13 +81,15 @@ export default function ReturnPolicy() {
           </p>
         </section>
 
-        <section className="tc-section">
+        {/* <section className="tc-section">
           <h2>6. Contact Us</h2>
           <p>Email: [Insert Email]</p>
           <p>Phone: [Insert Phone Number]</p>
           <p>Address: [Insert Business Address]</p>
-        </section>
+        </section> */}
       </div>
+      
     </div>
+    
   );
 }

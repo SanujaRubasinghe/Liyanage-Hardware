@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #423e3e;
+  background: #565151;
   color: #fff;
   padding: 12px 20px;
   z-index: 10;
@@ -136,7 +136,7 @@
   color: #333;
 }
 
-/* Search Results */
+/* Search Resultss */
 .results-list {
   list-style: none;
   margin: 0;

@@ -14,7 +14,7 @@ const ConstructionSupplies = () => {
     <div className="construction-supplies">
       
       <div className="image-container">
-        <img src="/images/n2.png" alt="Door Handle" />
+        <img src="/images/frontlook.webp" alt="Door Handle" />
       </div>
       <div className="content-container">
         <h4 className="section-title">Construction Supplies</h4>

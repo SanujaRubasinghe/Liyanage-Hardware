@@ -39,7 +39,7 @@ const ProductPageN = () => {
       <div className={styles.products}>
         {productsToShow.map((product, idx) => (
           <div className={styles.productCard} key={idx}>
-            <img src={product.image} alt={product.name} className={styles.productImage} />
+            <img src={`${process.env.REACT_APP_API_BASE_URL}${product.image}`} alt={product.name} className={styles.productImage} />
             <div className={styles.productDetails}>
               <h3 className={styles.productTitle}>{product.name}</h3>
               <p className={styles.productPart}>Part Number: {product.sku}</p>

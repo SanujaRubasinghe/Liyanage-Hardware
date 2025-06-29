@@ -1,0 +1,106 @@
+/* Slideshow.module.css */
+
+.wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.slide {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  padding: 10px;             /* internal padding around each slide */
+  box-sizing: border-box;
+  display: none;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;        /* rounded corners on images */
+  display: block;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+}
+
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevButton {
+  left: 16px;
+}
+
+.nextButton {
+  right: 16px;
+}
+
+.dots {
+  text-align: center;
+  margin-top: 14px;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dotActive,
+.dot:hover {
+  background: #555;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .prevButton,
+  .nextButton {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+  }
+}

@@ -14,7 +14,7 @@ const ProductCard = ({id, name, sku, price, images, sizes, colors, unit, prtdid}
 
   return (
     <div className="product-card">
-      <img src={images?.[0] || "/placeholder.jpg"} alt={name || "Product"} className="product-image" />
+      <img src={images?.[0] || "/images/messi.webp"} alt={name || "Product"} className="product-image" />
       <div className="product-details">
         <h3 className="product-title">{name}</h3>
         <p className="product-part">Part Number: {sku}</p>

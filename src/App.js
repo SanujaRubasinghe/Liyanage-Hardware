@@ -42,6 +42,7 @@ import TermsAndConditions from './Components/TermsAndConditions';
 import ReturnPolicy from './Components/ReturnPolicy';
 import ShippingPolicy from './Components/ShippingPolicy';
 import Disclaimer from './Components/Disclaimer';
+import ContactUsA from './Components/ContactUsA';
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
             <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
             <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
             <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
+            <Route path="/ContactUsA" element={<ContactUsA />} />
 
             <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 

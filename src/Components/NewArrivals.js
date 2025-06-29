@@ -4,7 +4,7 @@ import "./NewArrivals.css";
 
 const products = [
   {
-    image: '/images/sample.jpg',
+    image: '/images/messi.webp',
     title: "Product 1",
     partNumber: "A2H322AB(3)",
     price: "Rs.2000",

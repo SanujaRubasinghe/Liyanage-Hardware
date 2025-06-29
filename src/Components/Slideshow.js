@@ -1,65 +1,67 @@
-import React, { useState } from 'react';
-import './Slideshow.css';
+// Slideshow.jsx
+import React, { useState, useEffect } from 'react';
+import styles from './Slideshow.module.css';
 
 const slides = [
-  { src: '/images/slide2.png', caption: 'Caption Text' },
-  { src: '/images/slider1.png', caption: 'Caption Two' },
-  { src: '/images/img4.jpg', caption: 'Caption Three' },
+  { src: '/images/slide2.png' },
+  { src: '/images/slider1.png' },
+  { src: '/images/img4.jpg' },
 ];
 
-function Slideshow() {
+export default function Slideshow() {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const changeSlide = (n) => {
-    let newIndex = slideIndex + n;
-    if (newIndex >= slides.length) {
-      newIndex = 0;
-    } else if (newIndex < 0) {
-      newIndex = slides.length - 1;
-    }
-    setSlideIndex(newIndex);
+    setSlideIndex((prev) => {
+      let idx = prev + n;
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      return idx;
+    });
   };
 
-  const goToSlide = (index) => {
-    setSlideIndex(index);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => changeSlide(1), 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div>
-      <div className="slideshow-container">
-        {slides.map((slide, index) => (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        {slides.map((slide, i) => (
           <div
-            className="mySlides fade"
-            key={index}
-            style={{ display: index === slideIndex ? 'block' : 'none' }}
+            key={i}
+            className={`${styles.slide} ${i === slideIndex ? styles.active : ''}`}
           >
-            <div className="numbertext">
-              {index + 1} / {slides.length}
-            </div>
-            <img src={slide.src} alt={`Slide ${index + 1}`} style={{ width: '100%' }} />
-            
+            <img src={slide.src} alt={`Slide ${i + 1}`} />
           </div>
         ))}
-        {/* Replace anchor tags with buttons for accessibility */}
-        <button className="prev" onClick={() => changeSlide(-1)}>
-          ❮
+
+        <button
+          className={styles.prevButton}
+          aria-label="Previous slide"
+          onClick={() => changeSlide(-1)}
+        >
+          ‹
         </button>
-        <button className="next" onClick={() => changeSlide(1)}>
-          ❯
+        <button
+          className={styles.nextButton}
+          aria-label="Next slide"
+          onClick={() => changeSlide(1)}
+        >
+          ›
         </button>
       </div>
-      <br />
-      <div style={{ textAlign: 'center' }}>
-        {slides.map((_, index) => (
+
+      <div className={styles.dots}>
+        {slides.map((_, i) => (
           <span
-            key={index}
-            className={`dot ${index === slideIndex ? 'active' : ''}`}
-            onClick={() => goToSlide(index)}
-          ></span>
+            key={i}
+            className={`${styles.dot} ${i === slideIndex ? styles.dotActive : ''}`}
+            onClick={() => setSlideIndex(i)}
+          />
         ))}
       </div>
     </div>
   );
 }
-
-export default Slideshow;

@@ -1,0 +1,22 @@
+/* src/Components/FloatingSearchBar.css */
+
+.floating-search-icon {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 14px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.floating-search-icon:hover {
+  transform: scale(1.1);
+  background-color: #b00000;
+}

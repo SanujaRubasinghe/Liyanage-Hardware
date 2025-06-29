@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { hammers } from "./hammers"; // Import your hammer data
+import { hammers } from "./hammers";
 import { FaSearch, FaTag, FaList, FaTimes } from "react-icons/fa";
 import "./SearchBarN.css";
 
@@ -11,6 +11,8 @@ export default function Searchbarr() {
   const [openBrand, setOpenBrand] = useState(null);
   const resultsRef = useRef(null);
 
+  const inputRef = useRef(null); // 👈 Add ref to input
+
   const brands = {
     "Aar Kay Vox": ["Category 1", "Category 2", "Category 3"],
     Adonai: ["Category A", "Category B"],
@@ -19,6 +21,16 @@ export default function Searchbarr() {
     Amerock: ["Group A", "Group B"],
     "Assa Abloy": ["Type 1", "Type 2"],
   };
+
+  // Expose scroll/focus function globally for FloatingSearchBar
+  useEffect(() => {
+    window.focusMainSearch = () => {
+      if (inputRef.current) {
+        inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => inputRef.current.focus(), 500);
+      }
+    };
+  }, []);
 
   // Debounced search
   useEffect(() => {
@@ -52,7 +64,7 @@ export default function Searchbarr() {
 
   return (
     <>
-      {/* DESKTOP NAVBAR — NO CHANGES REQUIRED */}
+      {/* DESKTOP NAVBAR */}
       <div className="navbar-N">
         <div className="nav-left">
           <div className="offers-button">OFFERS</div>
@@ -60,6 +72,8 @@ export default function Searchbarr() {
         </div>
         <div className="search-container">
           <input
+            id="main-search-input" // 👈 For direct DOM selection
+            ref={inputRef}          // 👈 For programmatic focus
             type="text"
             placeholder="Search for a hammer"
             value={query}
@@ -70,7 +84,7 @@ export default function Searchbarr() {
         </div>
       </div>
 
-      {/* ======= BOTTOM-TAB BAR (MOBILE) ======= */}
+      {/* MOBILE NAV */}
       <div className="bottom-tab-bar">
         <button onClick={() => setShowSearch(true)} aria-label="Search">
           <FaSearch />
@@ -83,7 +97,7 @@ export default function Searchbarr() {
         </button>
       </div>
 
-      {/* ======= FULLSCREEN SEARCH ======= */}
+      {/* FULLSCREEN SEARCH */}
       {showSearch && (
         <div className="overlay">
           <div className="overlay-header">
@@ -124,7 +138,7 @@ export default function Searchbarr() {
         </div>
       )}
 
-      {/* ======= FULLSCREEN CATEGORIES ======= */}
+      {/* FULLSCREEN CATEGORIES */}
       {showCategories && (
         <div className="overlay">
           <div className="overlay-header">

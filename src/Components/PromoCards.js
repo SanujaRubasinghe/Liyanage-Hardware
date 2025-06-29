@@ -5,7 +5,7 @@ const PromoCards = () => {
   return (
     <div className="promo-container">
       <div className="promo-card red-card">
-        <h2>Our latest<br /><strong>PRICE DROPS</strong></h2>
+        <h2>New Liyanage<br /><strong>New Prices</strong></h2>
         <p>Get what you need for <span className="highlight">less</span></p>
         <button>Shop now & save!</button>
       </div>

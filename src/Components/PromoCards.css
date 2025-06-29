@@ -78,4 +78,5 @@
 .promo-card button:hover {
   background-color: #ffffff;
   color: #000000;
+  transition: 200ms ease-in-out;
 }

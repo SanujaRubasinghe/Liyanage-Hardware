@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { FaSearch, FaTag, FaList, FaTimes } from "react-icons/fa";
+import { FaSearch, FaArrowLeft } from "react-icons/fa";
 import debounce from "lodash/debounce";
 import API from "../api";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,10 +12,23 @@ export default function Searchbarr() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hasConsent, setHasConsent] = useState(false)
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const searchContainerRef = useRef(null);
+  const inputRef = useRef(null)
   const resultsRef = useRef(null);
   const navbarRef = useRef(null);
   const navigate = useNavigate();
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -111,84 +124,100 @@ export default function Searchbarr() {
     return acc;
   }, []);
 
+  const handleMobileSearchToggle = () => {
+    setIsMobileSearchOpen(!isMobileSearchOpen);
+    if (!isMobileSearchOpen) {
+      setIsDropdownOpen(true);
+    }
+  };
+
   return (
-    <div className="navbar-N" ref={navbarRef}>
-      {/* LEFT GROUP */}
-      <div className="nav-left">
-        <div className="offers-button">OFFERS</div>
-      </div>
-
-      {/* RIGHT GROUP */}
-      <div className="search-container navbar-search" ref={searchContainerRef}>
-        <input
-          type="text"
-          placeholder="Search for a product"
-          value={query}
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-          className="search-input"
-        />
-        <FaSearch className="search-icon" />
-
-        {/* SEARCH RESULTS */}
-        {isDropdownOpen && query && (
-          <ul className="results-list" ref={resultsRef}>
-            {isLoading ? (
-              <li className="result-item loading">Loading products...</li>
-            ) : results.length > 0 ? (
-              <>
-                {results.map((product) => (
-                  <li key={product.product_id} className="result-item">
-                    <Link
-                      to={`/products/${product.product_id}`}
-                      className="result-link"
-                      onClick={handleResultClick}
-                    >
-                      <img
-                        src={
-                          product.image_url
-                            ? `${process.env.REACT_APP_API_BASE_URL}/${product.image_url}`
-                            : "/placeholder.jpg"
-                        }
-                        alt={product.name}
-                        className="result-img"
-                      />
-                      <div className="result-info">
-                        <span className="result-name">{product.name}</span>
-                        <span className="result-type">{product.category_name}</span>
-                        <span className="result-price">
-                          Rs.{Number(product.price).toFixed(2)}
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-                {/* Render a See More button for each unique category */}
-                {uniqueCategories.map((category) => (
-                  <li className="see-more-container" key={category.slug}>
-                    <button
-                      className="see-more-button"
-                      onClick={() => {
-                        navigate(`/category/${category.slug}/products`, {
-                          state: {
-                            name: category.name,
-                            cat_id: category.category_id
-                          }
-                        });
-                        handleResultClick();
-                      }}
-                    >
-                      See More Results in {category.name}
-                    </button>
-                  </li>
-                ))}
-              </>
-            ) : (
-              <li className="result-item no-results">No products found</li>
-            )}
-          </ul>
+    <>
+      {/* Desktop/Normal Navbar */}
+      <div className="navbar-N" ref={navbarRef}>
+        {/* LEFT GROUP - Desktop only */}
+        {!isMobile && (
+          <div className="nav-left">
+            <div className="offers-button">OFFERS</div>
+          </div>
         )}
+
+        {/* Search Container - Hidden on mobile when not active */}
+        <div 
+          className={`search-container ${isMobile ? 'mobile-hidden' : ''}`} 
+          ref={searchContainerRef}
+        >
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search for a product"
+            value={query}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+            className="search-input"
+          />
+          <FaSearch className="search-icon" />
+
+          {/* SEARCH RESULTS DROPDOWN */}
+          {isDropdownOpen && query && (
+            <ul className="results-list" ref={resultsRef}>
+              {isLoading ? (
+                <li className="result-item loading">Loading products...</li>
+              ) : results.length > 0 ? (
+                <>
+                  {results.map((product) => (
+                    <li key={product.product_id} className="result-item">
+                      <Link
+                        to={`/products/${product.product_id}`}
+                        className="result-link"
+                        onClick={handleResultClick}
+                      >
+                        <img
+                          src={
+                            product.image_url
+                              ? `${process.env.REACT_APP_API_BASE_URL}/${product.image_url}`
+                              : "/placeholder.jpg"
+                          }
+                          alt={product.name}
+                          className="result-img"
+                        />
+                        <div className="result-info">
+                          <span className="result-name">{product.name}</span>
+                          <span className="result-type">{product.category_name}</span>
+                          <span className="result-price">
+                            Rs.{Number(product.price).toFixed(2)}
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                  {/* See More buttons for categories */}
+                  {uniqueCategories.map((category) => (
+                    <li className="see-more-container" key={category.slug}>
+                      <button
+                        className="see-more-button"
+                        onClick={() => {
+                          navigate(`/category/${category.slug}/products`, {
+                            state: {
+                              name: category.name,
+                              cat_id: category.category_id
+                            }
+                          });
+                          handleResultClick();
+                        }}
+                      >
+                        See More Results in {category.name}
+                      </button>
+                    </li>
+                  ))}
+                </>
+              ) : (
+                <li className="result-item no-results">No products found</li>
+              )}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

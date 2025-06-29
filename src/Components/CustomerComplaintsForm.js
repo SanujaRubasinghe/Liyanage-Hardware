@@ -1,205 +1,214 @@
-// src/pages/CustomerComplaintsForm.js
 import React, { useState, useRef } from "react";
 import "./CustomerComplaintsForm.css";
 import API from "../api";
 import ConfirmationModal from "./ConfirmationModal";
+import { FaTimes, FaUpload } from "react-icons/fa";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY
 
 const CustomerComplaintsForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false)
-  const fileInputRef = useRef(null);
-
+  const [captchaToken, setCaptchaToken] = useState(null)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
-    message: "" // Added message field
+    invoiceNumber: "",
+    contactNumber: "",
+    message: "",
   });
-
-  const [receipt, setReceipt] = useState(null);
-  const [receiptPreview, setReceiptPreview] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleReceiptUpload = (e) => {
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const validTypes =['image/jpg', 'image/jpeg', 'image/png', 'image/webp']
-      const maxSize = 5 * 1024 * 1024
-
-      if (!validTypes.includes(file.type)) {
-        setModalMessage("Please upload a valid image (JPEG, PNG, or WEBP")
-        setShowModal(true)
-        return
-      }
-
-      if (file.size > maxSize) {
-        setModalMessage("Image size must be less than 5MB")
-        setShowModal(true)
-        return
-      }
-
-      setReceipt(file);
-      setReceiptPreview(URL.createObjectURL(file));
+      setImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
+  const removeImage = () => {
+    setImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
-  const removeReceipt = () => {
-    setReceipt(null);
-    setReceiptPreview(null);
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const data = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        data.append(key, value);
-      });
-      if (receipt) data.append("receipt", receipt);
 
+    const res = await API.post('/verify-captcha', {
+      token: captchaToken
+    })
+
+    if (!res.data.success) {
+      alert("Captcha Failed");
+      return;
+    }
+
+    const data = new FormData();
+    Object.entries(formData).forEach(([k, v]) => data.append(k, v));
+    if (image) data.append("image", image);
+
+    try {
       const res = await API.post("/feedback/create-complaint", data);
       if (res.status === 201) {
-        setModalMessage("Your complaint has been submitted successfully! We'll get back to you soon.");
+        setModalMessage(res.data.message);
         setShowModal(true);
         // Reset form
         setFormData({
           firstName: "",
           lastName: "",
           email: "",
-          phone: "",
-          message: ""
+          invoiceNumber: "",
+          contactNumber: "",
+          message: "",
         });
-        setReceipt(null);
-        setReceiptPreview(null);
+        removeImage();
       }
     } catch (error) {
       setModalMessage("Failed to submit complaint. Please try again.");
       setShowModal(true);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="complaint-form-container">
-      <div className="complaint-form-card">
-        <div className="complaint-form-header">
-          <h1>Customer Support</h1>
-          <p>We're here to help with any issues you've encountered</p>
+    <div className="ccf-container">
+      <div className="ccf-logo-circle">
+        <img src="/images/l1.png" alt="Logo" className="ccf-logo" />
+      </div>
+
+      <div className="ccf-card">
+        <div className="ccf-header">
+          <h2 className="ccf-title">Customer Complaints</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="complaint-form">
-          <div className="form-grid">
-            <div className="form-group">
-              <label htmlFor="firstName">First Name*</label>
+        <form onSubmit={handleSubmit} className="ccf-form">
+          <div className="ccf-grid">
+            <div className="ccf-group">
+              <label>First Name*</label>
               <input
-                id="firstName"
                 type="text"
                 name="firstName"
                 value={formData.firstName}
-                onChange={handleChange}
                 required
+                onChange={handleChange}
               />
             </div>
-
-            <div className="form-group">
-              <label htmlFor="lastName">Last Name*</label>
+            <div className="ccf-group">
+              <label>Last Name*</label>
               <input
-                id="lastName"
                 type="text"
                 name="lastName"
                 value={formData.lastName}
-                onChange={handleChange}
                 required
+                onChange={handleChange}
               />
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Email*</label>
+          <div className="ccf-grid">
+            <div className="ccf-group">
+              <label>Email Address*</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className="ccf-group">
+              <label>Contact Number*</label>
+              <input
+                type="text"
+                name="contactNumber"
+                value={formData.contactNumber}
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="ccf-group">
+            <label>Invoice Number*</label>
             <input
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="text"
+              name="invoiceNumber"
+              value={formData.invoiceNumber}
               required
+              onChange={handleChange}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number*</label>
-            <input
-              id="phone"
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="message">Your Message*</label>
+          <div className="ccf-group">
+            <label>Message*</label>
             <textarea
-              id="message"
               name="message"
               value={formData.message}
-              onChange={handleChange}
-              rows={5}
-              placeholder="Please describe your issue in detail..."
               required
-            />
+              onChange={handleChange}
+            ></textarea>
           </div>
 
-          <div className="form-group">
-            <label>Receipt Upload*</label>
-            {receiptPreview ? (
-              <div className="receipt-preview-container">
-                <img src={receiptPreview} alt="Receipt preview" className="receipt-preview" />
-                <button type="button" onClick={removeReceipt} className="remove-receipt-btn">
-                  Remove
-                </button>
-              </div>
-            ) : (
-              <div className="file-upload-area" onClick={triggerFileInput}>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleReceiptUpload}
-                  className="hidden-file-input"
-                  required
-                />
-                <div className="upload-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
-                    <path d="M17 8l-5-5-5 5"></path>
-                    <path d="M12 3v12"></path>
-                  </svg>
+          <div className="ccf-group">
+            <label>Upload Image (Optional)</label>
+            <div className="ccf-image-upload-container">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current.click()}
+                className="ccf-file-btn"
+              >
+                <FaUpload /> {image ? "Change Image" : "Upload Image"}
+              </button>
+              <input
+                ref={fileInputRef}
+                id="ccf-file"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="ccf-hidden-input"
+              />
+              {imagePreview && (
+                <div className="ccf-image-preview">
+                  <img src={imagePreview} alt="Preview" />
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="ccf-remove-image"
+                    aria-label="Remove image"
+                  >
+                    <FaTimes />
+                  </button>
                 </div>
-                <p>Click to upload receipt</p>
-                <p className="file-requirements">JPG, JPEG, or PNG(Max 5MB)</p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : "Submit Complaint"}
-          </button>
+          <ReCAPTCHA sitekey={RECAPTCHA_SITE_KEY} onChange={handleCaptchaChange} />
+          <div className="ccf-group">
+            <button type="submit" className="ccf-submit-btn">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
 

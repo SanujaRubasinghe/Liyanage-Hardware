@@ -90,7 +90,7 @@ const ProductPageN = () => {
         {productsToShow.map((product, idx) => (
           <div className={styles.productCard} key={`${product.sku}-${idx}`}>
             <img 
-              src={`${process.env.REACT_APP_API_BASE_URL}${product.image}`} 
+              src={`${product.image}`} 
               alt={`${product.name} - ${product.unit} package`}
               className={styles.productImage}
               loading="lazy"

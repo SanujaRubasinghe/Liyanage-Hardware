@@ -49,19 +49,11 @@
 
 /* Category Card */
 .miniCategory-card {
-  position: relative;
-  width: 260px;
-  height: 320px;
-  background: #fff;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(204,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
-  cursor: pointer;
-  transition: transform 0.22s cubic-bezier(.4,2,.6,1), box-shadow 0.22s;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin: 0 auto;
+  background-color: #cc0000;
+  border: 1px solid #590505;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .miniCategory-card:hover {
@@ -71,15 +63,10 @@
 
 /* Category Image */
 .miniCategory-image {
-  width: 100%;
-  height: 100%;
+ width: 100%;
+  height: 80%;
+  border-radius: 8px;
   object-fit: cover;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  transition: filter 0.2s;
 }
 
 .miniCategory-card:hover .miniCategory-image {
@@ -88,23 +75,10 @@
 
 /* Category Label */
 .miniCategory-tag {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(90deg, #cc0000 80%, #ff3333 100%);
-  color: #fff;
-  padding: 18px 0 14px 0;
-  font-weight: 700;
-  font-size: 1.1rem;
   text-align: center;
-  letter-spacing: 1px;
-  z-index: 2;
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-  box-shadow: 0 2px 8px rgba(204,0,0,0.08);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  transition: background 0.2s;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #ffffff;
 }
 
 .miniCategory-card:hover .miniCategory-tag {
@@ -114,29 +88,21 @@
 /* Responsive grid for smaller screens */
 @media (max-width: 1200px) {
   .miniCategory-container {
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
-  .miniCategory-card {
-    width: 220px;
-    height: 270px;
-  }
+  
 }
 @media (max-width: 800px) {
   .miniCategory-container {
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
-  .miniCategory-card {
-    width: 160px;
-    height: 200px;
-  }
+  
 }
 @media (max-width: 500px) {
   .miniCategory-container {
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-  }
-  .miniCategory-card {
-    width: 100vw;
-    height: 180px;
-    border-radius: 0;
   }
 }

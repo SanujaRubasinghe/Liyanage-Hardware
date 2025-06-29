@@ -82,7 +82,6 @@ function App() {
                   <Header />
                   <SearchBarN />
                   <AnnouncementBar />
-                  {/* <Slideshow /> */}
                   <BannerSlider />
                   <ImageDeliver />
                   <Home />
@@ -94,7 +93,7 @@ function App() {
                   <BrandContainer />
                   <ConstructionSupplies />
                
-                  <FloatingSearchBar/>
+                  {/* <FloatingSearchBar/> */}
                   <FeatureSection />
                   <Footer />
                 </>
@@ -108,7 +107,7 @@ function App() {
             <Route path="/categories/:id" element={<Subcategories />} />
             <Route path="/categories/:subcat/:id" element={<MiniCategory />} />
             <Route path="/category/:catid/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
-            <Route path="/about-us" element={<><AboutUs /><CustomerComplaintsForm /><Footer /></>} />
+            <Route path="/about-us" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
             <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
             <Route path="/Policy" element={<><Policy /><Footer /></>} />
 

@@ -15,7 +15,7 @@
 /* Card Styles */
 .promo-card {
   flex: 1 1 280px; /* responsive base width */
-  max-width: 320px;
+  max-width: 360px;
   min-width: 260px;
   padding: 20px;
   color: white;

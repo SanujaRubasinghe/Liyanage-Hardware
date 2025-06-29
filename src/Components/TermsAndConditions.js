@@ -16,7 +16,7 @@ function TermsAndConditions() {
             className="tc-logo"
           />
         </div>
-        <p className="tc-last-updated">Last Updated: [Insert Date]</p>
+        {/* <p className="tc-last-updated">Last Updated: [Insert Date]</p> */}
 
         <section className="tc-section">
           <h2>1. Acceptance of Terms</h2>
@@ -202,13 +202,13 @@ function TermsAndConditions() {
           </p>
         </section>
 
-        <section className="tc-section">
+        {/* <section className="tc-section">
           <h2>Contact Information</h2>
           <p>Email: [Insert Email Address]</p>
           <p>WhatsApp: [Insert WhatsApp Number]</p>
           <p>Phone: [Insert Phone Number]</p>
           <p>Address: [Insert Business Address]</p>
-        </section>
+        </section> */}
       </div>
     </div>
   );

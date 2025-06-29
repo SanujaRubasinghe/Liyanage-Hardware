@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
-
-import API from "./api"
+import API from "./api";
 import './Navbar.css';
 
 function Navbar() {
@@ -79,7 +78,19 @@ function Navbar() {
           <li><Link to="/" onClick={closeMobileMenu}>Home</Link></li>
           <li><Link to="/products" onClick={closeMobileMenu}>Products</Link></li>
           <li><Link to="/about-us" onClick={closeMobileMenu}>Complaints</Link></li>
-          <li><Link to="/admin" onClick={closeMobileMenu}>Admin</Link></li>
+
+          {/* POLICY DROPDOWN */}
+          <li className="dropdown">
+            <Link to="#" className="dropdown-title" onClick={(e) => e.preventDefault()}>Policy</Link>
+
+            <ul className="dropdown-menu">
+              <li><Link to="/Disclaimer" onClick={closeMobileMenu}>Disclaimer</Link></li>
+              <li><Link to="/ShippingPolicy" onClick={closeMobileMenu}>Shipping Policy</Link></li>
+              <li><Link to="/ReturnPolicy" onClick={closeMobileMenu}>Return Policy</Link></li>
+              <li><Link to="/TermsAndConditions" onClick={closeMobileMenu}>Terms & Conditions</Link></li>
+            </ul>
+          </li>
+
           <li><Link to="/contact-us" onClick={closeMobileMenu}>Category</Link></li>
           <li><Link to="/feedback" onClick={closeMobileMenu}>Feedback</Link></li>
           <li><Link to="/services" onClick={closeMobileMenu}>AboutUsNew</Link></li>
@@ -90,12 +101,6 @@ function Navbar() {
             <i className="fas fa-shopping-cart"></i>
             <span className="cart-count">0</span>
           </Link>
-          {/* {user ? (
-            <Link to="/login" className='login-button' onClick={closeMobileMenu}>Log in</Link> 
-          ) : (<>
-            <button className='login-button' onClick={getProfile}>Profile</button>
-            <button className='login-button' onClick={logout}>Log out</button>  
-          </>)} */}
           <Link to="/profile" className='login-button' onClick={closeMobileMenu}>Profile</Link>
         </div>
       </div>

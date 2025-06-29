@@ -200,6 +200,72 @@ html, body {
   z-index: 1001;
 }
 
+/* ======= Policy Dropdown ======= */
+.nav-links .dropdown {
+  position: relative;
+}
+
+.nav-links .dropdown:hover .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-title {
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-title:hover {
+  color: #cc0000;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  min-width: 200px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.dropdown-menu li {
+  list-style: none;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ffeeee;
+  color: #cc0000;
+  transform: translateX(5px);
+}
+
+/* Optional: Arrow icon for dropdown */
+.dropdown-title::after {
+  content: \" ▼\";
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+
+
 .hamburger span {
   width: 25px;
   height: 3px;

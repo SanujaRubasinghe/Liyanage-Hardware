@@ -14,9 +14,9 @@ export default function ShippingPolicy() {
             className="tc-logo"
           />
         </div>
-        <p className="tc-last-updated">
+        {/* <p className="tc-last-updated">
           <strong>Effective Date:</strong> [Insert Date]
-        </p>
+        </p> */}
 
         <section className="tc-section">
           <h2>1. Shipping Areas and Eligibility</h2>
@@ -71,12 +71,12 @@ export default function ShippingPolicy() {
           </p>
         </section>
 
-        <section className="tc-section">
+        {/* <section className="tc-section">
           <h2>7. Contact Us</h2>
           <p>Email: [Insert Email Address]</p>
           <p>Phone: [Insert Phone Number]</p>
           <p>Address: [Insert Business Address]</p>
-        </section>
+        </section> */}
       </div>
     </div>
   );

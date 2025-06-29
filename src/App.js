@@ -46,6 +46,7 @@ import ContactUsA from './Components/ContactUsA';
 
 import Policy from './Policy';
 import FloatingSearchBar from './Components/FloatingSearchBar';
+import PromoCards from './Components/PromoCards';
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
                   <AllProductsA/>
                   {/* <ProductList /> */}
                   <BrandContainer />
+                  <PromoCards/>
                   <ConstructionSupplies />
                
                   <FloatingSearchBar/>

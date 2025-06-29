@@ -63,7 +63,12 @@ function App() {
                   <Header />
                   <SearchBarN />
                   <Slideshow />
-                  <ImageDeliver />
+                  
+                  <div style={{ marginBottom: '40px' }}>
+                    <ImageDeliver />
+                  </div>
+                  
+                  <PromoCards/>
                   <Home />
                   <NewArrivals />
                   <AllProductD/>
@@ -71,7 +76,7 @@ function App() {
                   <AllProductsA/>
                   {/* <ProductList /> */}
                   <BrandContainer />
-                  <PromoCards/>
+                  
                   <ConstructionSupplies />
                
                   <FloatingSearchBar/>

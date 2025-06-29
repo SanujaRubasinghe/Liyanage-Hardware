@@ -45,6 +45,7 @@ import Disclaimer from './Components/Disclaimer';
 import ContactUsA from './Components/ContactUsA';
 
 import Policy from './Policy';
+import FloatingSearchBar from './Components/FloatingSearchBar';
 
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
                   <BrandContainer />
                   <ConstructionSupplies />
                
-                  
+                  <FloatingSearchBar/>
                   <FeatureSection />
                   <Footer />
                 </>

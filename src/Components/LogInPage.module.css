@@ -3,26 +3,39 @@
 /* 1) Base container */
 .loginContainer {
   position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
+  padding: 60px 0;
   font-family: Arial, sans-serif;
+  
+  /* Fixed background image */
+  background-image: url('/public/images/frontlook.webp');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  /* Overlay for blur effect */
+  overflow: hidden;
 }
 
 /* 2) Blurred background layer */
 .loginContainer::before {
-  content: "";
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+   content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('/public/images/frontlook.webp');
+  background-position: center center;
   background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   filter: blur(8px);
-  transform: scale(1.1);
-  z-index: 0;
+  z-index: -1;
 }
 
 /* 3) Content above background */

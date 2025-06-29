@@ -1,77 +1,101 @@
-import React from "react";
-import "./Footer.css"; 
+// Footer.js
+import React, { useState } from "react";
+import "./Footer.css";
 
-const Footer = () => {
+const FooterSection = ({ title, children }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        {/* Trade Counter Section */}
-        <div className="footer-section">
-          <h3 className="footer-title">Trade Counter</h3>
-          <p>New Liyanage Hardware Ltd</p>
-          <p>Galwana junction,Angoda</p>
-          <p>Monday – Friday, 8am – 5pm</p>
-          <strong>Sales Enquiries</strong>
-          <p>Email: newliyanage@gmail.com</p>
-          <p>Tel: 0721 199 690</p>
-          <p>Fax: 0776 499 596</p>
-        </div>
+    <div className="footer-accordion">
+      <button
+        className="footer-accordion-header"
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+      >
+        {title}
+        <span className={`arrow ${open ? "open" : ""}`}>▶</span>
+      </button>
 
-        {/* Our Range of Products */}
-        <div className="footer-section">
-          <h3 className="footer-title">Our Range of Products</h3>
-          <ul>
-            <li>Hinges</li>
-            <li>Locks & Latches</li>
-            <li>Door Hardware</li>
-            <li>General Hardware</li>
-            <li>Window Hardware</li>
-            <li>Sliding & Folding Door Hardware</li>
-            <li>Cabinet Hardware</li>
-            <li>Thresholds & Joinery Seals</li>
-            <li>Fixings & Consumables</li>
-            <li>Exitex Roofing System</li>
-          </ul>
-        </div>
-
-        {/* Information */}
-        <div className="footer-section">
-          <h3 className="footer-title">Information</h3>
-          <ul>
-            <li>Contact us</li>
-            <li>Delivery</li>
-            <li>Returns</li>
-            <li>Disclaimer</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-            <li>Sitemap</li>
-          </ul>
-        </div>
-
-        {/* My Account */}
-        <div className="footer-section">
-          <h3 className="footer-title">My Account</h3>
-          <ul>
-            <li>Orders</li>
-            <li>Addresses</li>
-            <li>Account Details</li>
-          </ul>
-        </div>
+      <div
+        className="footer-accordion-body"
+        style={{ display: open ? "block" : "none" }}
+      >
+        {children}
       </div>
-
-      {/* Footer Bottom */}
-      <div className="footer-bottom">
-        <p>© 2025 New Liyanage Hardware Limited</p>
-        <p>Company Reg No: 01684709</p>
-        <div className="social-icons">
-          <i className="fab fa-facebook"></i>
-          <i className="fab fa-instagram"></i>
-          <i className="fab fa-twitter"></i>
-          <i className="fab fa-google"></i>
-          </div>
-      </div>
-    </footer>
+    </div>
   );
 };
+
+const Footer = () => (
+  <footer className="footer">
+    <div className="footer-container">
+      <FooterSection title="Trade Counter">
+        <p>
+          New Liyanage Hardware Ltd<br />
+          Galwana junction, Angoda<br />
+          Mon – Fri, 8 am – 5 pm
+        </p>
+        <strong>Sales Enquiries</strong>
+        <p>
+          Email: newliyanage@gmail.com<br />
+          Tel: 0721 199 690<br />
+          Fax: 0776 499 596
+        </p>
+      </FooterSection>
+
+      <FooterSection title="Our Range of Products">
+        <ul>
+          {[
+            "Hinges",
+            "Locks & Latches",
+            "Door Hardware",
+            "General Hardware",
+            "Window Hardware",
+            "Sliding & Folding Door Hardware",
+            "Cabinet Hardware",
+            "Thresholds & Joinery Seals",
+            "Fixings & Consumables",
+            "Exitex Roofing System",
+          ].map(item => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </FooterSection>
+
+      <FooterSection title="Information">
+        <ul>
+          {[
+            "Contact Us",
+            "Delivery",
+            "Returns",
+            "Disclaimer",
+            "Terms & Conditions",
+            "Privacy Policy",
+            "Sitemap",
+          ].map(item => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </FooterSection>
+
+      <FooterSection title="My Account">
+        <ul>
+          {["Orders", "Addresses", "Account Details"].map(item => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </FooterSection>
+    </div>
+
+    <div className="footer-bottom">
+      <p>© 2025 New Liyanage Hardware Limited – Reg No: 01684709</p>
+      <div className="social-icons">
+        {["facebook", "instagram", "twitter", "google"].map(net => (
+          <i key={net} className={`fab fa-${net}`} />
+        ))}
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

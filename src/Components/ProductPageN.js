@@ -90,7 +90,7 @@ const ProductPageN = () => {
       
       <main className="product-list">
         <div className="banner">
-          <img src="/images/panaromaMessi.jpg" alt="Promo Banner" />
+          <img src="/images/category/bathware/161.jpg" alt="Promo Banner" />
         </div>
 
         {filteredProducts.length === 0 && !loading && (

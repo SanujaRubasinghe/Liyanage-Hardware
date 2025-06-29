@@ -46,6 +46,14 @@ import ProductPageN from './Components/ProductPageN';
 import AllProductD from './Components/AllProductD';
 import AllProductsA from './Components/AllProductsA';
 import URegForm from './Components/u_reg_form';  
+import TermsAndConditions from './Components/TermsAndConditions';
+import ReturnPolicy from './Components/ReturnPolicy';
+import ShippingPolicy from './Components/ShippingPolicy';
+import Disclaimer from './Components/Disclaimer';
+import ContactUsA from './Components/ContactUsA';
+
+import Policy from './Policy';
+import FloatingSearchBar from './Components/FloatingSearchBar';
 import OrderConfirmation from './Components/OrderConfirmation';
 import MainCategoies from './Components/MainCategories';
 
@@ -86,7 +94,7 @@ function App() {
                   <BrandContainer />
                   <ConstructionSupplies />
                
-                  
+                  <FloatingSearchBar/>
                   <FeatureSection />
                   <Footer />
                 </>
@@ -100,6 +108,10 @@ function App() {
             <Route path="/categories/:id" element={<Subcategories />} />
             <Route path="/categories/:subcat/:id" element={<MiniCategory />} />
             <Route path="/category/:catid/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
+            <Route path="/about-us" element={<><AboutUs /><CustomerComplaintsForm /><Footer /></>} />
+            <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
+            <Route path="/Policy" element={<><Policy /><Footer /></>} />
+
 
             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
             {/* <Route path="/category" element={<PrivateRoute element={<><Feedback /><Footer /></>} />} /> */}
@@ -110,20 +122,15 @@ function App() {
             {/* <Route path="/sub-category" element={<Subcategories />} /> */}
             <Route path="/searchbarr" element={<Searchbarr />} />
             <Route path='/register' element={<><URegForm /><Footer /></>} />
-
+            <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+            <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
+            <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
+            <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
+            <Route path="/ContactUsA" element={<ContactUsA />} />
 
             <Route path="/about-us" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
 
-            {/* ✅ Fixed Admin Routing
-            <Route path="/admin" element={<PrivateRoute element={<AdminLayout />} />}>
-              <Route index element={<AdminPanel />} />
-              <Route path="home" element={<SubCategoryTable />} />
-              <Route path="category" element={<AdminPanel />} />
-              <Route path="subcategory" element={<h2>Category Page</h2>} />
-              <Route path="products" element={<h2>Products Page</h2>} />
-              <Route path="orders" element={<h2>Orders Page</h2>} />
-            </Route> */}
-
+            
             <Route path='/login' element={<LogInPage />}/>
             <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
             

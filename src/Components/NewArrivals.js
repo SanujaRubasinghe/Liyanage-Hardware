@@ -20,22 +20,25 @@ const ProductList = () => {
     fetchProducts()
   }, [])
     return (
-      <div className="new-arrivals-container">
-        <h2 className="highlight-gray">
-          <span className="blue-text">New</span>{' '}
-          <span className="red-text">Arrivals</span>
-        </h2>
-  
-        <PromotionalBanner location={'home-page-new-arrivals'} />
-  
-        <div className="new-product-grid">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+      <div className="product-list-wrapper">
+        <div className="product-list-container">
+          <h2 className="product-list-title">
+            <span className="product-list-title-blue">New</span>{' '}
+            <span className="product-list-title-red">Arrivals</span>
+          </h2>
+    
+          <div className="product-list-left-image">
+            <img src="/images/o5.png" alt="Side visual" />
+          </div>
+    
+          <div className="product-list-grid">
+            {products.map((product, index) => (
+              <ProductCard key={index} {...product} />
+            ))}
+          </div>
         </div>
       </div>
     );
   };
-  
 
 export default ProductList;

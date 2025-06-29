@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTag, FaList, FaTimes } from "react-icons/fa";
 import debounce from "lodash/debounce";
 import API from "../api";
 import { Link, useNavigate } from "react-router-dom";
@@ -79,10 +79,9 @@ export default function Searchbarr() {
   }, [query, debouncedSearch]);
 
   useEffect(() => {
-    if (resultsRef.current && navbarRef.current) {
-      const navRect = navbarRef.current.getBoundingClientRect();
-      const available = window.innerHeight - (navRect.bottom + 10);
-      resultsRef.current.style.maxHeight = `${available}px`;
+    if (resultsRef.current) {
+      const availableHeight = window.innerHeight * 0.6;
+      resultsRef.current.style.maxHeight = `${availableHeight}px`;
     }
   }, [results]);
 

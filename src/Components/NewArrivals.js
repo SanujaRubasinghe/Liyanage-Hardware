@@ -27,9 +27,10 @@ const ProductList = () => {
             <span className="product-list-title-red">Arrivals</span>
           </h2>
     
-          <div className="product-list-left-image">
+          {/* <div className="product-list-left-image">
             <img src="/images/o5.png" alt="Side visual" />
-          </div>
+          </div> */}
+          <PromotionalBanner location={'home-page-new-arrivals'} />
     
           <div className="product-list-grid">
             {products.map((product, index) => (

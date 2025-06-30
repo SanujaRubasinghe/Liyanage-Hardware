@@ -1,78 +1,65 @@
 // src/components/ContactUs.jsx
 import React from 'react';
-import './ContactUsA.css';
-import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt, FaChevronUp } from 'react-icons/fa';
+import styles from './ContactUsA.module.css';
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+
+import { Helmet } from 'react-helmet';
 
 export default function ContactUs() {
   return (
-    <div className="contact-page">
+    <>
+    <Helmet>
+      <title>Contact Us | New Liyanage Hardware</title>
+      <meta name="description" content="Reach out to New Liyanage Hardware for inquiries, quotes, or support." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/contact-us" />
+    </Helmet>
+    <div className={styles.contactPage}>
       <main>
-        <h1 className="page-title">Contact Us</h1>
+        <h1 className={styles.pageTitle}>Contact Us</h1>
 
-        <div className="contact-container">
+        <div className={styles.contactContainer}>
           {/* Info Cards */}
-          <section className="contact-info">
-            <div className="info-card">
-              <FaMapMarkerAlt className="info-icon" />
-              <h3>Visit Us</h3>
-              <p>6/3B, Rathnapura Rd., Ilimba Junction, Munagama, Horana.</p>
+          <section className={styles.contactInfo}>
+            <div className={styles.infoCard}>
+              <FaMapMarkerAlt className={styles.infoIcon} />
+              <h3 className={styles.cardTitle}>Visit Us</h3>
+              <p className={styles.cardText}>
+                  New Liyanage Hardware Ltd
+                  Galwana junction, Angoda.
+                </p>
             </div>
-            <div className="info-card">
-              <FaEnvelope className="info-icon" />
-              <h3>Email Us</h3>
-              <p>info.singhasec@gmail.com</p>
+            <div className={styles.infoCard}>
+              <FaEnvelope className={styles.infoIcon} />
+              <h3 className={styles.cardTitle}>Email Us</h3>
+              <p className={styles.cardText}>
+                newliyanage@gmail.com
+              </p>
             </div>
-            <div className="info-card">
-              <FaPhoneAlt className="info-icon" />
-              <h3>Call Us</h3>
-              <p>Always On – 24/7, 365 Days</p>
-              <p>071 982 9694 / 074 150 6033</p>
+            <div className={styles.infoCard}>
+              <FaPhoneAlt className={styles.infoIcon} />
+              <h3 className={styles.cardTitle}>Call Us</h3>
+              <p className={styles.cardText}>
+                Tele: 072211324 / 0754232212 - Mon – Fri, 8 am – 5 pm
+
+
+
+              </p>
             </div>
-          </section>
-
-          {/* Contact Form */}
-          <section className="contact-form-section">
-            <h2>Get in Touch</h2>
-            <form
-              className="contact-form"
-              action="https://api.web3forms.com/submit"
-              method="post"
-            >
-              <input type="hidden" name="access_key" value="acd0a3e8-78d8-41bf-98a2-661ff0ebb4de" />
-              <input type="hidden" name="subject" value="Web Inquiry" />
-
-              <div className="form-row">
-                <input type="text" name="First Name" placeholder="First Name" required />
-                <input type="text" name="Last Name" placeholder="Last Name" required />
-              </div>
-              <div className="form-row">
-                <input type="text" name="Company Name" placeholder="Company Name" />
-                <input type="email" name="Email" placeholder="Email" required />
-              </div>
-              <input type="tel" name="Phone Number" placeholder="Phone Number" required />
-              <textarea name="Message" placeholder="Message" rows="5" required />
-
-              <button type="submit" className="submit-btn">Send Message</button>
-            </form>
           </section>
         </div>
 
         {/* Map */}
-        <section className="map-section">
+        <section className={styles.mapSection}>
           <iframe
-            className="map-iframe"
-            src="https://www.google.com/maps?q=6.7242575984408814,80.09123018996549&z=15&output=embed"
+            className={styles.mapIframe}
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d131803.4918072042!2d79.74031033425226!3d6.935884427392453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25770dd3147db%3A0xfa648fb21f073810!2sNew%20Liyanage%20Hardware!5e1!3m2!1sen!2slk!4v1751210645818!5m2!1sen!2slk"
             allowFullScreen
             loading="lazy"
             title="Singha Security Location"
           />
         </section>
       </main>
-
-      {/* Scroll To Top */}
-      <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <FaChevronUp />
-      </button>
     </div>
+    </>
   );
 }

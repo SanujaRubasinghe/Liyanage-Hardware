@@ -71,16 +71,7 @@ const Footer = () => (
             "Disclaimer",
             "Terms & Conditions",
             "Privacy Policy",
-            "Sitemap",
           ].map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </FooterSection>
-
-      <FooterSection title="My Account">
-        <ul>
-          {["Orders", "Addresses", "Account Details"].map(item => (
             <li key={item}>{item}</li>
           ))}
         </ul>

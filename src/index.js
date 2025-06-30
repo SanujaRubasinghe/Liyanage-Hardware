@@ -6,7 +6,10 @@ import { AuthProvider } from './context/AuthContext';
 import AnalyticsWrapper from './wrappers/AnalyticsWrapper';
 import reportWebVitals from './reportWebVitals';
 
+import {hydrate, render} from 'react-dom'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <AnalyticsWrapper>
     <App />

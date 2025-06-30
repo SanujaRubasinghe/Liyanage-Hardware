@@ -4,47 +4,24 @@ import { ToastContainer } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { CartProvider } from './Components/CartContext';
 import Navbar from './Navbar';
-import Home from './Components/Home';
-import JobSeekers from './Components/JobSeekers';
-import AboutUs from './Components/AboutUs';
-import ContactUs from './Components/ContactUs';
-import ImageDeliver from './Components/ImageDeliver';
-import BrandContainer from './Components/BrandContainer';
-import Header from './Components/Header';
-import Slideshow from './Components/Slideshow';
 
-import ProductList from './Components/ProductList';
 import Footer from './Components/Footer';
-import ConstructionSupplies from './Components/ConstructionSupplies';
-import CategorySection from './Components/CategorySection';
 import Subcategories from './Components/SubCategories';
 import ProductDisplay from './Components/ProductDisplay';
 import FeatureSection from './Components/FeatureSection';
-import NewArrivals from './Components/NewArrivals';
 
 import ShoppingCart from './Components/ShoppingCart';
 import BuyingPage from './Components/BuyingPage';
 import MiniCategory from './Components/MiniCategory';
-import AdminPanel from './Components/AdminPage/AdminPanel';
-import SubCategoryTable from './Components/AdminPage/SubCategoryTable';
-import AdminLayout from './Components/AdminPage/AdminLayout';
 import CustomerComplaintsForm from './Components/CustomerComplaintsForm';
-import SearchBarN from './Components/SearchBarN';
 import Feedback from './Components/Feedback';
 import PrivateRoute from './Components/PrivateRoutes';
 import UserProfile from './Components/UserProfile';
 import LogInPage from './Components/LogInPage';
 import Searchbarr from './Components/searchbarr';
 import AboutUsNew from './Components/AboutUsNew';
-import AnnouncementBar from './Components/AnnouncementBar';
-import BannerSlider from './Components/BannerSlider';
 
-import socket from './context/socketContext'
-import { v4 as uuidv4 } from 'uuid';
-import API from './api';
 import ProductPageN from './Components/ProductPageN';
-import AllProductD from './Components/AllProductD';
-import AllProductsA from './Components/AllProductsA';
 import URegForm from './Components/u_reg_form';  
 import TermsAndConditions from './Components/TermsAndConditions';
 import ReturnPolicy from './Components/ReturnPolicy';
@@ -53,21 +30,15 @@ import Disclaimer from './Components/Disclaimer';
 import ContactUsA from './Components/ContactUsA';
 
 import Policy from './Policy';
-import FloatingSearchBar from './Components/FloatingSearchBar';
 import OrderConfirmation from './Components/OrderConfirmation';
 import MainCategoies from './Components/MainCategories';
 
 import { useActivityTracker } from './hooks/useActivityTracker';
+import HomePage from './Components/HomePage';
 
 
 function App() {
-  useActivityTracker()
-  // useEffect(() => {
-  //   if (!sessionStorage.getItem('session_id')) {
-  //     sessionStorage.setItem('session_id', uuidv4());
-  //   }
-  // }, []);
-  
+  useActivityTracker()  
   return (
     <div>
       <Router>
@@ -79,23 +50,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header />
-                  <SearchBarN />
-                  <AnnouncementBar />
-                  <BannerSlider />
-                  <ImageDeliver />
-                  <Home />
-                  <NewArrivals />
-                  <AllProductD/>
-                  <br></br>
-                  <AllProductsA/>
-                  {/* <ProductList /> */}
-                  <BrandContainer />
-                  <ConstructionSupplies />
-               
-                  {/* <FloatingSearchBar/> */}
-                  <FeatureSection />
-                  <Footer />
+                  <HomePage />
                 </>
               }
             />
@@ -108,8 +63,8 @@ function App() {
             <Route path="/categories/:subcat/:id" element={<MiniCategory />} />
             <Route path="/category/:catid/products" element={<><ProductPageN/><FeatureSection /><Footer /></>} />
             <Route path="/about-us" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
-            <Route path="/contact-us" element={<><ContactUs /><MiniCategory /><Footer /></>} />
-            <Route path="/Policy" element={<><Policy /><Footer /></>} />
+            <Route path="/contact-us" element={<><ContactUsA /><Footer /></>} />
+            <Route path="/policy" element={<><Policy /><Footer /></>} />
 
 
             <Route path="/feedback" element={<><Feedback /><Footer /></>} />
@@ -120,21 +75,18 @@ function App() {
             <Route path="/order-confirmation" element={<OrderConfirmation/> } />
             {/* <Route path="/sub-category" element={<Subcategories />} /> */}
             <Route path="/searchbarr" element={<Searchbarr />} />
-            <Route path='/register' element={<><URegForm /><Footer /></>} />
-            <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
-            <Route path="/ReturnPolicy" element={<ReturnPolicy />} />
-            <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
-            <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
-            <Route path="/ContactUsA" element={<ContactUsA />} />
-
-            <Route path="/about-us" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
+            {/* <Route path='/register' element={<><URegForm /><Footer /></>} /> */}
+            <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/return-policy" element={<ReturnPolicy />} />
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/disclaimer" element={<><Disclaimer /><Footer /></>} />
 
             
-            <Route path='/login' element={<LogInPage />}/>
-            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+            {/* <Route path='/login' element={<LogInPage />}/>
+            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} /> */}
             
-            {/* Public Route for MiniCategory */}
-            <Route path="/mini-category/:subcategory" element={<MiniCategory />} />
+            {/* Public Route for MiniCategory
+            <Route path="/mini-category/:subcategory" element={<MiniCategory />} /> */}
           </Routes>
         </CartProvider>
       </Router>

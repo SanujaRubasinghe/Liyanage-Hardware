@@ -10,6 +10,8 @@ import LoadingPage from "./LoadingPage";
 import { toast } from "react-toastify";
 import { checkConsent } from "../services/checkConsent";
 
+import { Helmet } from "react-helmet";
+
 const ProductDisplay = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -92,6 +94,11 @@ const ProductDisplay = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Product Details | New Liyanage Hardware</title>
+        <meta name="description" content="View product specifications, features, and availability." />
+        <link rel="canonical" href="https://newliyanagehardware.lk/products/:id" />
+      </Helmet>
       <div className="product-container-pd">
         {/* Mobile Gallery View */}
         {isMobileGallery ? (

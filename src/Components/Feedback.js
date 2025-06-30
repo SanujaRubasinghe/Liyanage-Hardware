@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Feedback.css';
 import API from '../api';
 
+import { Helmet } from 'react-helmet';
+
 const Feedback = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -113,6 +115,13 @@ const Feedback = () => {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>Customer Feedback | New Liyanage Hardware</title>
+      <meta name="description" content="Tell us what you think about our service and products." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/feedback" />
+    </Helmet>
+
     <div className="feedback-container">
       <div className="feedback-wrapper">
         <h1 className="feedback-title">Share Your Feedback</h1>
@@ -300,6 +309,7 @@ const Feedback = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

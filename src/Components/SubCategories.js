@@ -6,7 +6,9 @@ import "./Subcategories.css";
 import Footer from "./Footer";
 import SubcategoryCard from "./SubcategoryCard";
 import { trackClick } from "../services/categoryAnalytics";
-// import { trackPageView } from "../services/categoryAnalytics";
+
+import { Helmet } from "react-helmet";
+
 
 const Subcategories = () => {
   const navigate = useNavigate();
@@ -14,10 +16,6 @@ const Subcategories = () => {
   const { id } = useParams();
   const { primary_cat_id, slug, name } = location.state || {};
   const [subcategories, setSubCategories] = useState([]);
-
-  // useEffect(() => {
-  //   trackPageView(`subcategory_page:${primary_cat_id}`);
-  // }, [primary_cat_id]);
 
   useEffect(() => {
     const fetchSecondaryCategories = async () => {
@@ -50,7 +48,24 @@ const Subcategories = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>Product Subcategories | New Liyanage Hardware</title>
+      <meta name="description" content="View subcategories and product types within our main categories." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/categories/:id" />
+    </Helmet>
     <div>
+      <div className="subcategory-header">
+        <img
+          src="/images/category/bathware/16.jpg"
+          alt="Architectural Hardware"
+          className="subcategory-header-image"
+        />
+        <h1>{}</h1>
+        <p>
+          Bathware includes a wide range of essential and stylish products designed for modern bathrooms...
+        </p>
+      </div>
       <div className="subcategory-container">
         {subcategories.map((subcategory, index) => (
           <SubcategoryCard
@@ -70,6 +85,7 @@ const Subcategories = () => {
       </div>
       <Footer />
     </div>
+    </>
   );
 };
 

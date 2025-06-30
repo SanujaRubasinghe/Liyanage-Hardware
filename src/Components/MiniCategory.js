@@ -6,6 +6,8 @@ import "./MiniCategory.css";
 import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker"; // Import the hook
 import { trackClick } from "../services/categoryAnalytics";
 
+import { Helmet } from "react-helmet";
+
 // Create a separate card component to use the hook properly
 const MiniCategoryCard = ({ miniCategory, onClick }) => {
   const viewRef = useCategoryViewTracker(miniCategory.category_id);
@@ -67,6 +69,12 @@ const MiniCategory = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>Product Subcategories | New Liyanage Hardware</title>
+      <meta name="description" content="View subcategories and product types within our main categories." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/categories/:id" />
+    </Helmet>
     <div className="miniCategory-main">
       <div className="miniCategory-header">
         <img
@@ -88,6 +96,7 @@ const MiniCategory = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

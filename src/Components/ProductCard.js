@@ -55,11 +55,11 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="product-details">
         <h3 className="product-title">{product.name}</h3>
-        <p className="product-part">Part: {product.sku}</p>
+        <p className="product-part">Part Number: {product.sku}</p>
         <p className="product-price">Rs.{product.price} <span>inc VAT</span></p>
         <p className="product-unit">{product.unit}</p>
         <div className="product-actions">
-          <button className="buy-now-btn" onClick={handleBuyNow}>Buy now</button>
+          <button className="buy-now-btn" onClick={handleBuyNow}>Buy</button>
           <button className="details-btn" onClick={() => handleDetails(product.product_id)}>Details</button>
         </div>
       </div>

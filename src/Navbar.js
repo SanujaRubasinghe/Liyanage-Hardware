@@ -63,21 +63,21 @@ function Navbar() {
         <ul className="nav-links">
           <li><Link to="/" onClick={closeMobileMenu} className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
           <li><Link to="/products" onClick={closeMobileMenu} className={location.pathname === '/products' ? 'active' : ''}>Products</Link></li>
+          <li><Link to="/categories" onClick={closeMobileMenu} className={location.pathname === '/categories' ? 'active' : ''}>Categories</Link></li>
+          <li><Link to="/about-us" onClick={closeMobileMenu} className={location.pathname === '/about-us' ? 'active' : ''}>About Us</Link></li>
+          <li><Link to="/contact-us" onClick={closeMobileMenu} className={location.pathname === '/contact-us' ? 'active' : ''}>Contact Us</Link></li>
+          <li><Link to="/feedback" onClick={closeMobileMenu} className={location.pathname === '/feedback' ? 'active' : ''}>Feedback</Link></li>
           <li><Link to="/complaint" onClick={closeMobileMenu} className={location.pathname === '/complaint' ? 'active' : ''}>Complaints</Link></li>
-
+          
           <li className="dropdown">
             <Link to="#" className="dropdown-title" onClick={(e) => e.preventDefault()}>Policy</Link>
             <ul className="dropdown-menu">
-              <li><Link to="/Disclaimer" onClick={closeMobileMenu} className={location.pathname === '/Disclaimer' ? 'active' : ''}>Disclaimer</Link></li>
-              <li><Link to="/ShippingPolicy" onClick={closeMobileMenu} className={location.pathname === '/ShippingPolicy' ? 'active' : ''}>Shipping Policy</Link></li>
-              <li><Link to="/ReturnPolicy" onClick={closeMobileMenu} className={location.pathname === '/ReturnPolicy' ? 'active' : ''}>Return Policy</Link></li>
-              <li><Link to="/TermsAndConditions" onClick={closeMobileMenu} className={location.pathname === '/TermsAndConditions' ? 'active' : ''}>Terms & Conditions</Link></li>
+              <li><Link to="/shipping-policy" onClick={closeMobileMenu} className={location.pathname === '/ShippingPolicy' ? 'active' : ''}>Shipping Policy</Link></li>
+              <li><Link to="/return-policy" onClick={closeMobileMenu} className={location.pathname === '/ReturnPolicy' ? 'active' : ''}>Return Policy</Link></li>
+              <li><Link to="/terms" onClick={closeMobileMenu} className={location.pathname === '/TermsAndConditions' ? 'active' : ''}>Terms & Conditions</Link></li>
+              <li><Link to="/disclaimer" onClick={closeMobileMenu} className={location.pathname === '/Disclaimer' ? 'active' : ''}>Disclaimer</Link></li>
             </ul>
           </li>
-
-          <li><Link to="/categories" onClick={closeMobileMenu} className={location.pathname === '/categories' ? 'active' : ''}>Categories</Link></li>
-          <li><Link to="/feedback" onClick={closeMobileMenu} className={location.pathname === '/feedback' ? 'active' : ''}>Feedback</Link></li>
-          <li><Link to="/about-us" onClick={closeMobileMenu} className={location.pathname === '/about-us' ? 'active' : ''}>About Us</Link></li>
         </ul>
 
         <div className="auth-section">

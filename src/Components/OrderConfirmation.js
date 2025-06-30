@@ -21,8 +21,8 @@ const OrderConfirmation = () => {
       <div className={styles.confirmationCard}>
         <div className={styles.header}>
           <FaCheckCircle className={styles.successIcon} />
-          <h1>Order Confirmed!</h1>
-          <p className={styles.subtitle}>Thank you for your purchase</p>
+          <h1 className={styles.orderH1}>Order Confirmed!</h1>
+          <p className={`${styles.subtitle} ${styles.orderP}`}>Thank you for your purchase</p>
         </div>
 
         <div className={styles.orderSummary}>
@@ -31,8 +31,8 @@ const OrderConfirmation = () => {
               <FaBox className={styles.icon} />
             </div>
             <div>
-              <h3>Order Number</h3>
-              <p>{orderId}</p>
+              <h3 className={styles.orderH3}>Order Number</h3>
+              <p className={styles.orderP}>{orderId}</p>
             </div>
           </div>
 
@@ -41,8 +41,8 @@ const OrderConfirmation = () => {
               <FaCreditCard className={styles.icon} />
             </div>
             <div>
-              <h3>Total Paid</h3>
-              <p>Rs. {orderTotal.toLocaleString()}</p>
+              <h3 className={styles.orderH3}>Total Paid</h3>
+              <p className={styles.orderP}>Rs. {orderTotal.toLocaleString()}</p>
             </div>
           </div>
 
@@ -51,16 +51,16 @@ const OrderConfirmation = () => {
               <FaMapMarkerAlt className={styles.icon} />
             </div>
             <div>
-              <h3>Shipping To</h3>
-              <p>{shippingAddress}</p>
+              <h3 className={styles.orderH3}>Shipping To</h3>
+              <p className={styles.orderP}>{shippingAddress}</p>
             </div>
           </div>
         </div>
 
         <div className={styles.nextSteps}>
-          <h2>What's Next?</h2>
+          <h2 >What's Next?</h2>
           <ol className={styles.stepsList}>
-            <li>You'll receive an order confirmation email shortly</li>
+            <li>You'll receive an order confirmation SMS shortly</li>
             <li>We'll process your order within 24 hours</li>
             <li>You'll get a shipping notification when your items are dispatched</li>
           </ol>

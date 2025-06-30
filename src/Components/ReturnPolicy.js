@@ -3,8 +3,17 @@ import React from "react";
 import "./TermsAndConditions.css";
 import Footer from "./Footer";
 
+import { Helmet } from "react-helmet";
+
 export default function ReturnPolicy() {
   return (
+    <>
+    <Helmet>
+      <title>Return Policy | New Liyanage Hardware</title>
+      <meta name="description" content="Review how returns and exchanges are handled." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/return-policy" />
+    </Helmet>
+
     <div className="tc-page" style={{ backgroundImage: `url(/images/view.jpg)` }}>
       <div className="tc-container">
         <div className="tc-header">
@@ -90,6 +99,6 @@ export default function ReturnPolicy() {
       </div>
       
     </div>
-    
+    </>
   );
 }

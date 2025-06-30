@@ -7,6 +7,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
 
+import { Helmet } from 'react-helmet';
+
 const itemsPerPage = 12;
 
 const ProductPageN = () => {
@@ -82,6 +84,16 @@ const ProductPageN = () => {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>Our Products | New Liyanage Hardware</title>
+      <meta name="description" content="Browse our wide range of hardware products and tools available at New Liyanage Hardware." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/products" />
+      <meta property="og:title" content="Products" />
+      <meta property="og:description" content="Find tools, building materials, and accessories." />
+      <meta property="og:url" content="https://newliyanagehardware.lk/products" />
+    </Helmet>
+    
     <div className="page-container">
       <ProductFilter
         onFilterChange={setFilters}
@@ -128,6 +140,7 @@ const ProductPageN = () => {
         )}
       </main>
     </div>
+    </>
   );
 };
 

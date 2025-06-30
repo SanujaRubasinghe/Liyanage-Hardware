@@ -4,7 +4,9 @@ import API from "../api";
 import { toast } from "react-toastify";
 import { trackClick } from "../services/categoryAnalytics";
 import styles from "./MainCategories.module.css";
-import CategoryCard from "./CategoryCard"; // Import the new component
+import CategoryCard from "./CategoryCard"; 
+
+import { Helmet } from "react-helmet";
 
 const MainCategoies = () => {
   const [mainCategories, setMainCategories] = useState([]);
@@ -34,6 +36,12 @@ const MainCategoies = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>All Product Categories | New Liyanage Hardware</title>
+      <meta name="description" content="Explore all our product categories including tools, hardware, electricals, and more." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/categories" />
+    </Helmet>
     <div className={styles.miniCategoryMain}>
       <div className={styles.miniCategoryHeader}>
         <img
@@ -57,6 +65,7 @@ const MainCategoies = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

@@ -43,22 +43,16 @@ const PromotionalBanner = ({ location }) => {
         transition={{ duration: 0.5 }}
         className="banner-card"
         >
-        <a 
-            href={banner.current_image.link_url || '#'} 
-            className="banner-link"
-            aria-label={banner.current_image.alt_text || banner.name}
-        >
-            <img
-            src={`${process.env.REACT_APP_API_BASE_URL}${banner.current_image.image_url}`}
-            alt={banner.current_image.alt_text || banner.name}
-            className="banner-image"
-            />
-            {banner.description && (
-            <div className="banner-description-overlay">
-                <p className="banner-description-text">{banner.description}</p>
-            </div>
-            )}
-        </a>
+          <img
+          src={`${process.env.REACT_APP_API_BASE_URL}${banner.current_image.image_url}`}
+          alt={banner.current_image.alt_text || banner.name}
+          className="banner-image"
+          />
+          {banner.description && (
+          <div className="banner-description-overlay">
+              <p className="banner-description-text">{banner.description}</p>
+          </div>
+          )}
     </motion.div>
   );
 };

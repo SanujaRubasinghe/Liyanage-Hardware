@@ -336,7 +336,7 @@ const BuyingPage = () => {
                   </div>
                   <div className={styles.itemDetails}>
                     <h4>{item.name}</h4>
-                    <p>{item.selectedSize}, {item.selectedColor}</p>
+                    <p>{item.unit}</p>
                     <p>Qty: {item.quantity}</p>
                   </div>
                   <div className={styles.itemPrice}>

@@ -212,10 +212,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .product-image {
-    width: 150px;
-    margin-right: 40px;
-  }
 }
 
 /* 768px: Tablets */
@@ -258,11 +254,6 @@
     height: 200px;
   }
 
-  .product-image {
-    width: 120px;
-    margin-right: 20px;
-  }
-
   .pagination {
     flex-wrap: wrap;
     gap: 8px;
@@ -291,33 +282,7 @@
   .product-list {
     padding: 10px;
   }
-
-  .product-image {
-    width: 100px;
-    margin-right: 15px;
-  }
-
-  .product-title {
-    font-size: 15px;
-  }
-
-  .product-price {
-    font-size: 16px;
-  }
-
-  .product-actions {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .buy-to-cart,
-  .add-to-cart1 {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 5px;
-    box-sizing: border-box;
-  }
-
+  
   .pagination {
     flex-wrap: wrap;
     gap: 8px;

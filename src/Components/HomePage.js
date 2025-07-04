@@ -20,7 +20,6 @@ import { Helmet } from "react-helmet";
 const HomePage = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [firstLoad, setFirstLoad] = useState(true)
 
   useEffect(() => {
     // Simulate loading progress; replace with real data loading if needed
@@ -38,8 +37,7 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (!isLoaded && firstLoad) {
-    setFirstLoad(false)
+  if (!isLoaded) {
     return <LoadingScreen progress={loadingProgress} />;
   }
 

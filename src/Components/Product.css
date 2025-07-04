@@ -15,8 +15,8 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
   margin-top: 20px;
 }
 

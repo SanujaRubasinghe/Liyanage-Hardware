@@ -54,21 +54,21 @@ const ShoppingCart = () => {
                       <div className="item-actions">
                         <div className="item-quantity">
                           <button 
-                            onClick={() => updateQuantity(item.id, -1)} 
+                            onClick={() => updateQuantity(item.product_id, -1)} 
                             aria-label="Decrease quantity"
                           >
                             −
                           </button>
                           <span>{item.quantity}</span>
                           <button 
-                            onClick={() => updateQuantity(item.id, 1)} 
+                            onClick={() => updateQuantity(item.product_id, 1)} 
                             aria-label="Increase quantity"
                           >
                             +
                           </button>
                         </div>
                         <button 
-                          onClick={() => removeItem(item.id)} 
+                          onClick={() => removeItem(item.product_id)} 
                           className="remove-btn"
                         >
                           Remove

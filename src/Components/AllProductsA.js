@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AllProductD.module.css'; // your updated CSS module
+import API from '../api';
 
 const allProducts = [
   { image: '/images/leo1.webp', name: 'Adhesive: Chemifix General Purpose (20kg) – Fevicol', sku: 'SKU-001', price: '24,688.00', unit: '20kg' },
@@ -18,7 +19,21 @@ const itemsPerPage = 8;
 
 const AllProductsA = () => {
   const [visibleCount, setVisibleCount] = useState(itemsPerPage);
+  const [products, setProducts] = useState([])
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let response;
+      try {
+        response = await API.get(`/products?categoryId=41`);
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   const handleAddToCart = () => {
     alert('Added to cart!');
@@ -33,7 +48,7 @@ const AllProductsA = () => {
     <div className={styles.productLayout}>
       <div className={styles.productSidebar}>
         <h2>Building & Construction</h2>
-        <img src="/images/worker.png" alt="Worker" />
+        <img src="/images/b_c_2.jpg" alt="Worker" />
       </div>
 
       <div className={styles.products}>

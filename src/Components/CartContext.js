@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
       
       if (existingItem) {
         return prev.map((item) =>
-          item.id === product.id
+          item.product_id === product.product_id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -60,7 +60,7 @@ export const CartProvider = ({ children }) => {
     setCartItems((prev) =>
       prev
         .map((item) =>
-          item.id === id
+          item.product_id === id
             ? { ...item, quantity: Math.max(1, item.quantity + delta) }
             : item
         )
@@ -70,7 +70,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => item.product_id !== id));
   };
 
   // Calculate total price

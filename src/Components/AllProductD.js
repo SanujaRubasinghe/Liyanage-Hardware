@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AllProductD.module.css';
+import API from '../api';
 
 const allProducts = [
   { image: '/images/leo1.webp', name: 'Adhesive: Chemifix General Purpose (20kg) – Fevicol', sku: 'SKU-001', price: '24,688.00', unit: '20kg' },
@@ -17,7 +18,21 @@ const allProducts = [
 const ProductPageN = () => {
   const [visibleCount, setVisibleCount] = useState(8);
   const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [products, setProducts] = useState([])
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let response;
+      try {
+        response = await API.get(`/products?categoryId=41`);
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   // Adjust items per page based on screen size
   useEffect(() => {
@@ -66,7 +81,12 @@ const ProductPageN = () => {
       // On mobile, you might want to show a loading state or different behavior
       setVisibleCount(allProducts.length);
     } else {
-      navigate('/product');
+      navigate('/category/construction-materials/products', {
+        state: {
+          cat_id: 41,
+          name: 'Construction Materials'
+        }
+      });
     }
   };
 
@@ -80,17 +100,17 @@ const ProductPageN = () => {
       <div className={styles.productSidebar}>
         <h2>Building & Construction</h2>
         <img 
-          src="/images/worker.png" 
+          src="/images/b_c_image.jpg" 
           alt="Construction worker with tools and materials" 
           loading="lazy"
         />
       </div>
 
       <div className={styles.products}>
-        {productsToShow.map((product, idx) => (
+        {products.map((product, idx) => (
           <div className={styles.productCard} key={`${product.sku}-${idx}`}>
             <img 
-              src={`${product.image}`} 
+              src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} 
               alt={`${product.name} - ${product.unit} package`}
               className={styles.productImage}
               loading="lazy"

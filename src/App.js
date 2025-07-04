@@ -35,6 +35,7 @@ import MainCategoies from './Components/MainCategories';
 
 import { useActivityTracker } from './hooks/useActivityTracker';
 import HomePage from './Components/HomePage';
+import PromoCards from './Components/PromoCards';
 
 
 function App() {

@@ -179,7 +179,7 @@ const CustomerComplaintsForm = () => {
           </div>
 
           <div className="ccf-group">
-            <label>Upload Image (Optional)</label>
+            <label>Upload Receipt (JPEG,JPG,PNG,WEBP)*</label>
             <div className="ccf-image-upload-container">
               <button
                 type="button"
@@ -195,6 +195,7 @@ const CustomerComplaintsForm = () => {
                 accept="image/*"
                 onChange={handleImageUpload}
                 className="ccf-hidden-input"
+                required
               />
               {imagePreview && (
                 <div className="ccf-image-preview">

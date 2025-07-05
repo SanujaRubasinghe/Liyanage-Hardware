@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import API from '../api';
 import './ProductPageN.css';
 import ProductCard from './ProductCard';
+import SearchBarN from "./SearchBarN";
 import { useNavigate, useLocation } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
@@ -93,7 +94,7 @@ const ProductPageN = () => {
       <meta property="og:description" content="Find tools, building materials, and accessories." />
       <meta property="og:url" content="https://newliyanagehardware.lk/products" />
     </Helmet>
-    
+    <SearchBarN />
     <div className="page-container">
       <ProductFilter
         onFilterChange={setFilters}

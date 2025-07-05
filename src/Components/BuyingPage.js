@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../api";
 import styles from "./BuyingPage.module.css";
 import { useCart } from "./CartContext";
 import { checkConsent } from "../services/checkConsent";
+import { useAuthContext } from "../context/AuthContext";
+import {format} from 'date-fns'
 
 const libraries = ["places"];
 const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -14,6 +16,8 @@ const BuyingPage = () => {
   const location = useLocation();
   const { product, cartItems } = location.state || {};
   const {clearCart} = useCart()
+
+  const {user} = useAuthContext()
   
   // Order items from cart or single product
   const orderItems = product ? [product] : (cartItems || []);
@@ -26,10 +30,10 @@ const BuyingPage = () => {
   const streetAutocompleteRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    firstName: user?.first_name || "",
+    lastName: user?.last_name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
     apartment: "",
     address: "",
     postalCode: "",
@@ -163,6 +167,27 @@ const BuyingPage = () => {
       }
     }
 
+    const sendWhatsAppMessage = async (message) => {
+      try {
+        await API.post('/messages/send-wa-message', {
+          message: message
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    const sendCustomerEmail = async (toEmail, message) => {
+      try {
+        await API.post('/messages/send-email', {
+          toEmail: toEmail,
+          message: message
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
 
   const handleSubmit = async (paymentMethod) => {  
       if (!formData.agreeTerms) {
@@ -177,6 +202,7 @@ const BuyingPage = () => {
   
       try {
         const orderData = {
+          userId: user?.user_id || null,
           first_name: formData.firstName,
           last_name: formData.lastName,
           phone: formData.phone,
@@ -217,7 +243,22 @@ const BuyingPage = () => {
         Contact: 072211324 / 0754232212
         `
 
+        const emailData = {
+          name: `${formData.firstName} ${formData.lastName}`,
+          orderId: res.data.order_id,
+          items: orderItems.map(item => ({
+            name: item.name,
+            product_id: item.product_id,
+            quantity: item.quantity,
+            unit_price: item.price,
+          })),
+          total: total,
+          date: format(new Date(), "dd/MM/yyyy")
+        }
+
         // sendCustomerSMSMessage(convertToInternationalFormat(formData.phone), message)
+        // sendWhatsAppMessage(message)
+        sendCustomerEmail(formData.email, emailData)
 
         clearCart()
         navigate('/order-confirmation', { 
@@ -244,19 +285,36 @@ const BuyingPage = () => {
               <input
                 type="email"
                 className={styles.input}
-                placeholder="Email"
+                placeholder="Email *"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
                 required
               />
+
+              <input
+                className={styles.input}
+                type="tel"
+                placeholder="Phone *"
+                value={formData.phone}
+                onChange={(e) => {
+                  const newPhone = e.target.value;
+                  if (/^\d{0,10}$/.test(newPhone)) { // Limit input to 10 digits
+                    setFormData({ ...formData, phone: newPhone });
+                  }
+                }}
+                required
+              />
+              {formData.phone && !/^0\d{9}$/.test(formData.phone) && (
+                <p style={{ color: 'red' }}>Phone number must be 10 digits and start with 0</p>
+              )}
             </div>
-            
+
             <h2>Shipping Address</h2>
             <div className={styles.formRow}>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="First name"
+                placeholder="First name *"
                 value={formData.firstName}
                 onChange={(e) => setFormData({...formData, firstName: e.target.value})}
                 required
@@ -264,7 +322,7 @@ const BuyingPage = () => {
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Last name"
+                placeholder="Last name *"
                 value={formData.lastName}
                 onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                 required
@@ -306,16 +364,7 @@ const BuyingPage = () => {
                 onChange={(e) => setFormData({...formData, postalCode: e.target.value})}
               />
             </div>
-            
-            <input
-              className={styles.input}
-              type="tel"
-              placeholder="Phone"
-              value={formData.phone}
-              onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              required
-            />
-            
+      
             <textarea
               className={styles.textarea}
               placeholder="Order notes (optional)"

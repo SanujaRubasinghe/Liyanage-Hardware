@@ -26,7 +26,7 @@ const AllProductsA = () => {
     const fetchProducts = async () => {
       let response;
       try {
-        response = await API.get(`/products?categoryId=41`);
+        response = await API.get(`/products?categoryId=35`);
         setProducts(response.data);
       } catch (error) {
         console.log(error)
@@ -44,17 +44,32 @@ const AllProductsA = () => {
     ? allProducts.slice(0, visibleCount - 1)
     : allProducts.slice(0, visibleCount);
 
+  const handleSeeMore = () => {
+    // Check if on mobile for different navigation behavior
+    if (window.innerWidth <= 480) {
+      // On mobile, you might want to show a loading state or different behavior
+      setVisibleCount(allProducts.length);
+    } else {
+      navigate('/category/construction-materials/products', {
+        state: {
+          cat_id: 35,
+          name: 'Cutting Tools'
+        }
+      });
+    }
+  };
+
   return (
     <div className={styles.productLayout}>
       <div className={styles.productSidebar}>
-        <h2>Building & Construction</h2>
-        <img src="/images/b_c_2.jpg" alt="Worker" />
+        <h2>Cutting Tools</h2>
+        <img src="/images/cutting_tool_banner.jpg" alt="Worker" />
       </div>
 
       <div className={styles.products}>
-        {productsToShow.map((product, idx) => (
+        {products.map((product, idx) => (
           <div className={styles.productCard} key={idx}>
-            <img src={product.image} alt={product.name} className={styles.productImage} />
+            <img src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`}  alt={product.name} className={styles.productImage} />
             <div className={styles.productDetails}>
               <h3 className={styles.productTitle}>{product.name}</h3>
               <p className={styles.productPart}>Part Number: {product.sku}</p>
@@ -77,7 +92,16 @@ const AllProductsA = () => {
         {hasMore && (
           <div
             className={styles.seeMoreCard}
-            onClick={() => navigate('/products')}
+            onClick={handleSeeMore}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSeeMore();
+              }
+            }}
+            aria-label="See more products"
           >
             See More
           </div>

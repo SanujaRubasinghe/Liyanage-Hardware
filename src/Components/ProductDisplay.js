@@ -6,6 +6,7 @@ import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
 import Footer from "./Footer";
+import SearchBarN from "./SearchBarN";
 import LoadingPage from "./LoadingPage";
 import { toast } from "react-toastify";
 import { checkConsent } from "../services/checkConsent";
@@ -99,6 +100,7 @@ const ProductDisplay = () => {
         <meta name="description" content="View product specifications, features, and availability." />
         <link rel="canonical" href="https://newliyanagehardware.lk/products/:id" />
       </Helmet>
+      <SearchBarN />
       <div className="product-container-pd">
         {/* Mobile Gallery View */}
         {isMobileGallery ? (

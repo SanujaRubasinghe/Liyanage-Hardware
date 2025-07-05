@@ -30,7 +30,7 @@ const LoadingScreen = () => {
           </clipPath>
         </defs>
         <image
-          href="/logo.png"
+          href="/images/logo.png"
           x="0"
           y="0"
           width="200"

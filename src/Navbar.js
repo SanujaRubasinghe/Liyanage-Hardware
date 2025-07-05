@@ -13,6 +13,8 @@ function Navbar() {
   // const { user, logout } = useContext(AuthContext);
   const location = useLocation(); // Get current route
 
+  const {user} = useContext(AuthContext)
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -78,6 +80,13 @@ function Navbar() {
               <li><Link to="/disclaimer" onClick={closeMobileMenu} className={location.pathname === '/Disclaimer' ? 'active' : ''}>Disclaimer</Link></li>
             </ul>
           </li>
+
+          {user ? (
+            <li><Link to="/profile" className='login-button'>Profile</Link></li>
+          ) : (
+            <li><Link to="/login" className='login-button'>Login/Register</Link></li>
+          )}
+
         </ul>
 
         <div className="auth-section">

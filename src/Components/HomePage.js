@@ -12,6 +12,7 @@ import AllProductsA from "./AllProductsA";
 import BrandContainer from "./BrandContainer";
 import ConstructionSupplies from "./ConstructionSupplies";
 import FeatureSection from "./FeatureSection";
+import PromoCards from './PromoCards';
 import Footer from "./Footer";
 import LoadingScreen from "./LoadingPage";
 
@@ -56,8 +57,13 @@ const HomePage = () => {
       <Header />
       <SearchBarN />
       <AnnouncementBar />
-      <BannerSlider />
-      <ImageDeliver />
+      <BannerSlider
+        onLoad={() => setIsLoaded(true)}
+      />
+      <div style={{marginBottom: '40px'}}>
+        <ImageDeliver />
+      </div>
+      <PromoCards />
       <Home />
       <NewArrivals />
       <AllProductD />

@@ -1,7 +1,7 @@
 /* Feedback.css */
 :root {
-  --primary-color: #4361ee;
-  --primary-light: #4895ef;
+  --primary-color: #c62828;
+  --primary-light: #c62828;
   --secondary-color: #3f37c9;
   --dark-color: #1a1a2e;
   --light-color: #f8f9fa;
@@ -30,6 +30,10 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
   animation: fadeIn 0.5s ease;
+
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('/public/images/frontlook.webp') center/cover fixed no-repeat;
 }
 
 @keyframes fadeIn {

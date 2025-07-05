@@ -60,6 +60,15 @@ const Feedback = () => {
     }
   };
 
+  const resetForm = () => {
+    setRating(0);
+    setHover(0);
+    setTitle('');
+    setContent('');
+    setError('');
+    setSubmitted(false)
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -78,14 +87,14 @@ const Feedback = () => {
         rating,
       });
 
-      if (response.status !== 200) {
-        throw new Error(response.data.message || 'Failed to submit feedback');
-      }
-
       setSubmitted(true);
       fetchAnalytics();
       fetchReviews(); // Refresh reviews after submission
-      resetForm();
+
+      if (response.status !== 201) {
+        throw new Error(response.data.message || 'Failed to submit feedback');
+      }
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -93,14 +102,7 @@ const Feedback = () => {
     }
   };
 
-  const resetForm = () => {
-    setRating(0);
-    setHover(0);
-    setTitle('');
-    setContent('');
-    setSubmitted(false);
-    setError('');
-  };
+
 
   const handlePageChange = (newPage) => {
     setPagination(prev => ({ ...prev, page: newPage }));
@@ -200,7 +202,7 @@ const Feedback = () => {
                     {[...Array(5)].map((_, i) => (
                       <span
                         key={i}
-                        className={`star ${i < Math.round(analytics.averageRating) ? 'filled' : ''}`}
+                        className={`star ${i < Math.round(Number(analytics.averageRating)) ? 'filled' : ''}`}
                       >
                         ★
                       </span>
@@ -217,22 +219,28 @@ const Feedback = () => {
               <div className="analytics-card">
                 <h3>Rating Distribution</h3>
                 <div className="distribution-bars">
-                  {[5, 4, 3, 2, 1].map((stars) => (
-                    <div key={stars} className="distribution-row">
-                      <span className="stars-label">{stars}★</span>
-                      <div className="bar-container">
-                        <div
-                          className="bar"
-                          style={{
-                            width: `${(analytics.ratingDistribution[stars] / analytics.totalReviews) * 100}%`
-                          }}
-                        ></div>
+                  {[5, 4, 3, 2, 1].map((stars) => {
+                    const total = Number(analytics.totalReviews);
+                    const count = Number(analytics.ratingDistribution[stars] || 0);
+                    const percentage = total === 0 ? 0 : (count / total) * 100;
+
+                    return (
+                      <div key={stars} className="distribution-row">
+                        <span className="stars-label">{stars}★</span>
+                        <div className="bar-container">
+                          <div
+                            className="bar"
+                            style={{
+                              width: `${percentage}%`
+                            }}
+                          ></div>
+                        </div>
+                        <span className="percentage">
+                          {Math.round(percentage)}%
+                        </span>
                       </div>
-                      <span className="percentage">
-                        {Math.round((analytics.ratingDistribution[stars] / analytics.totalReviews) * 100)}%
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

@@ -32,10 +32,12 @@ import ContactUsA from './Components/ContactUsA';
 import Policy from './Policy';
 import OrderConfirmation from './Components/OrderConfirmation';
 import MainCategoies from './Components/MainCategories';
-
+import PromoCards from './Components/PromoCards';
 import { useActivityTracker } from './hooks/useActivityTracker';
 import HomePage from './Components/HomePage';
-import PromoCards from './Components/PromoCards';
+import PasswordResetForm from './Components/PasswordResetForm';
+import PasswordReset from './Components/PasswordReset';
+
 
 
 function App() {
@@ -83,8 +85,10 @@ function App() {
             <Route path="/disclaimer" element={<><Disclaimer /><Footer /></>} />
 
             
-            {/* <Route path='/login' element={<LogInPage />}/>
-            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} /> */}
+            <Route path='/login' element={<LogInPage />}/>
+            <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+            <Route path="/reset-password-link" element={<PasswordResetForm />} />
+            <Route path="/reset-password" element={<PasswordReset />} />
             
             {/* Public Route for MiniCategory
             <Route path="/mini-category/:subcategory" element={<MiniCategory />} /> */}

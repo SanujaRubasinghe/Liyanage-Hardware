@@ -60,7 +60,7 @@ const OrderConfirmation = () => {
         <div className={styles.nextSteps}>
           <h2 >What's Next?</h2>
           <ol className={styles.stepsList}>
-            <li>You'll receive an order confirmation SMS shortly</li>
+            <li>You'll receive an order confirmation EMAIL shortly</li>
             <li>We'll process your order within 24 hours</li>
             <li>You'll get a shipping notification when your items are dispatched</li>
           </ol>

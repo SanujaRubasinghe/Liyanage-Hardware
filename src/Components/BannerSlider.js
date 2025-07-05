@@ -5,11 +5,23 @@ import API from '../api';
 
 const imageCache = {};
 
-const BannerSlider = () => {
+const BannerSlider = ({onLoad}) => {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1); // 1: forward, -1: backward
   const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(0)
+
+  useEffect(() => {
+    if (banners.length > 0 && imagesLoaded >= banners.length) {
+      setIsLoading(false)
+      onLoad()
+    }
+  }, [banners.length, imagesLoaded, onLoad])
+
+  const handleImageLoad = () => {
+    setImagesLoaded(prev => prev + 1)
+  }
 
   // Preload images and cache them
   const preloadImages = (urls) => {
@@ -17,6 +29,7 @@ const BannerSlider = () => {
       if (!imageCache[url]) {
         const img = new Image();
         img.src = url;
+        img.onload = handleImageLoad
         imageCache[url] = img;
       }
     });
@@ -37,11 +50,16 @@ const BannerSlider = () => {
         console.error('Error loading banners:', err);
       } finally {
         setIsLoading(false);
+        onLoad()
       }
     };
 
     fetchBanners();
-  }, []);
+    return () => {
+      setIsLoading(false)
+      onLoad()
+    }
+  }, [onLoad]);
 
   useEffect(() => {
     if (banners.length > 1) {
@@ -142,6 +160,7 @@ const BannerImageSlider = ({ images }) => {
         const img = new Image();
         img.src = url;
         img.onload = () => setLoadedImages(prev => ({ ...prev, [url]: true }));
+
       }
     };
 

@@ -28,6 +28,96 @@
   color: #1a1a1a;
 }
 
+.noDeliveryNotice {
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4f;
+  color: #a8071a;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deliveryOnlyColomboNotice {
+  background-color: #fff7e6;     
+  border: 1px solid #fa8c16;     
+  color: #d46b08;                
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.codOnlyNotice {
+  background-color: #fffbe6;      
+  border: 1px solid #faad14;      
+  color: #ad6800;                 
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.freeDeliveryNotice {
+  background-color: #e6fffb;
+  border: 1px solid #36cfc9;
+  color: #08979c;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.colomboOnlyWarningBox {
+  background-color: #fff3f3;
+  border-left: 4px solid #e74c3c;
+  padding: 12px;
+  margin-top: 16px;
+  border-radius: 5px;
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.colomboOnlyWarningBox ul {
+  margin: 8px 0 0 16px;
+  padding: 0;
+}
+
+.colomboOnlyWarningBox li {
+  list-style: disc;
+}
+
+.colomboOnlyItem {
+  background-color: #fff8f0;
+  border: 2px solid #e67e22;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(230, 126, 34, 0.1);
+}
+
+.colomboOnlyTag {
+  font-size: 13px;
+  color: #d35400;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
 /* Form Styles */
 .formGroup {
   margin-bottom: 1rem;
@@ -69,8 +159,12 @@
 .orderItem {
   display: flex;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem;
+  border: 2px solid transparent;
   border-bottom: 1px solid #f0f0f0;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, border 0.3s ease;
+  align-items: flex-start;
 }
 
 .itemImage img {
@@ -156,6 +250,10 @@
   color: #0066cc;
 }
 
+.paymentTabs .button.activeTab:hover {
+  color: #f0f0f0;
+}
+
 .paymentContent {
   margin-top: 1rem;
 }
@@ -226,6 +324,7 @@
 
 .button:hover {
   background: #0052a3;
+  color: #f0f0f0;
 }
 
 .button:disabled {
@@ -248,6 +347,7 @@
   margin: 0.5rem 0;
   font-size: 0.875rem;
 }
+
 
 /* Desktop Styles */
 @media (min-width: 768px) {

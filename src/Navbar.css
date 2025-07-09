@@ -137,26 +137,7 @@ html, body {
 }
 
 /* Vivid Login Button Styling */
-.login-button {
-  color: #c91313;
-  border-radius: 15px;
-  color: #fff;
-  padding: 0.7rem 0.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 0.2rem;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
 
-.login-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
 
 /* Cart Icon Styling */
 .auth-section {
@@ -279,7 +260,25 @@ html, body {
   margin-left: 6px;
 }
 
+.login-button {
+  color: #c91313;
+  border-radius: 15px;
+  border: 1px solid #c91313;
+  padding: 0.7rem 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
 
+.login-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
 
 .hamburger span {
   width: 25px;

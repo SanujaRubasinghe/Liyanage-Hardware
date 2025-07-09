@@ -31,7 +31,7 @@ function Navbar() {
   return (
     <nav className={`navbar ${isShrunk ? 'shrunk' : ''}`}>
       <div className="logo">
-        <img src="/images/l1.png" alt="Hardware Logo" />
+        <Link to="/"><img src="/images/l1.png" alt="Hardware Logo" /></Link>
       </div>
 
       <button

@@ -103,7 +103,7 @@ return (
     <div className={styles.profileContainer}>
       <div className={styles.profileHeader}>
         <div className={styles.avatar}>
-            {user?.name?.charAt(0).toUpperCase()}
+            {user?.username?.charAt(0).toUpperCase()}
         </div>
         <h1>{user?.name}</h1>
         <p className={styles.email}>{user?.email}</p>

@@ -217,6 +217,33 @@ html, body {
   background: var(--primary-hover);
 }
 
+/* 🔶 Highlight for Colombo-only items */
+.colombo-only-highlight {
+  border: 2px solid #e74c3c;
+  background-color: #fff5f5;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* 🔔 Warning message above cart */
+.colombo-warning-message {
+  background-color: #fff4e5;
+  color: #b14b00;
+  padding: 12px;
+  border: 1px solid #ffa726;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* 📍 Label for Colombo-only products */
+.colombo-only-text {
+  font-size: 13px;
+  color: #d35400;
+  margin-top: 4px;
+}
+
+
 /* Desktop Layout */
 @media (min-width: 768px) {
   .cart-container {

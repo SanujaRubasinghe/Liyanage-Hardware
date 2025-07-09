@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext, use } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../api";
@@ -24,6 +24,12 @@ const BuyingPage = () => {
   
   const [deliveryCharge, setDeliveryCharge] = useState(0);
   const [distance, setDistance] = useState(null);
+  const [deliveryAvailable, setDeliveryAvailable] = useState(true)
+  const [isOnlyCod, setIsOnlyCod] = useState(false)
+  const [isOutOfRange, setIsOutOfRange] = useState(false)
+  const [isOnlyColombo, setIsOnlyColombo] = useState(false)
+  const [isFreeDelivery, setIsFreeDelivery] = useState(false)
+  const [colomboOnlyNames, setColomboOnlyNames] = useState([])
   const [errorMessage, setErrorMessage] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [activePaymentTab, setActivePaymentTab] = useState("card");
@@ -41,6 +47,30 @@ const BuyingPage = () => {
     agreeTerms: false,
   });
 
+  useEffect(() => {
+    if (product) {
+      setDeliveryAvailable(product.delivery_available === 1);
+      setIsOnlyCod(product.cod_only === 1);
+      setIsOnlyColombo(product.colombo_only === 1);
+      setActivePaymentTab(product.cod_only === 1 ? "cod" : "card");
+    } else if (cartItems && cartItems.length > 0) {
+
+      const deliveryAvailableForAll = cartItems.every(item => item.delivery_available === 1);
+      const allCodOnly = cartItems.some(item => item.cod_only === 1);
+      const anyColomboOnly = cartItems.some(item => item.colombo_only === 1);
+      const colomboOnlyItems = cartItems.filter(item => item.colombo_only === 1);
+      const colomboOnlyNames = colomboOnlyItems.map(item => item.name);
+
+      setDeliveryAvailable(deliveryAvailableForAll);
+      setIsOnlyCod(allCodOnly);
+      setIsOnlyColombo(anyColomboOnly);
+      setColomboOnlyNames(colomboOnlyNames)
+      setActivePaymentTab(allCodOnly ? "cod" : "card");
+    }
+  }, [product, cartItems]);
+
+
+  console.log(isOnlyCod)
   // Calculate order totals
   const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const total = subtotal + deliveryCharge;
@@ -118,23 +148,34 @@ const BuyingPage = () => {
   };
 
   useEffect(() => {
-      if (!formData.streetAddress) return;
-  
-      const handleCalculate = async () => {
-        try {
-          const userAddress = buildFullAddress(formData);
-          const response = await API.post('/location/delivery-charges', { userAddress });
-          setDeliveryCharge(Number(response.data.shippingCost));
-          setDistance(response.data.distanceInKm);
-          setErrorMessage('');
-        } catch (error) {
-          console.error(error);
-          setErrorMessage('Failed to calculate shipping. Please check the address.');
-        }
-      };
-  
-      handleCalculate();
-    }, [formData.streetAddress, formData.postcode]);
+  if (!formData.streetAddress) return;
+
+  const debounceTimeout = setTimeout(() => {
+    const handleCalculate = async () => {
+      try {
+        const userAddress = buildFullAddress(formData);
+        const response = await API.post('/location/delivery-charges', { userAddress });
+        
+        const distance = Number(response.data.distanceInKm);
+        const shippingCost = Number(response.data.shippingCost);
+        
+        setDeliveryCharge(subtotal > 6000 ? 0 : shippingCost);
+        setDistance(distance);
+        setIsOutOfRange(distance > 20);
+        setIsFreeDelivery(subtotal > 6000);
+        setErrorMessage(response.data?.message);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage('Failed to calculate shipping. Please check the address.');
+      }
+    };
+
+    handleCalculate();
+  }, 800); // ⏱️ debounce delay (800ms)
+
+  return () => clearTimeout(debounceTimeout); // 🧹 cleanup on unmount or input change
+}, [formData.streetAddress, formData.postcode, subtotal]);
+
 
     const trackCheckout = async (checkoutData) => {
       const hasConsent = checkConsent()
@@ -379,14 +420,23 @@ const BuyingPage = () => {
             
             <div className={styles.orderItems}>
               {orderItems.map((item, index) => (
-                <div key={index} className={styles.orderItem}>
+                <div
+                  key={index}
+                  className={`${styles.orderItem} ${Boolean(item.colombo_only) ? styles.colomboOnlyItem : ''}`}
+                >
                   <div className={styles.itemImage}>
-                    <img src={`${process.env.REACT_APP_API_BASE_URL}/${item.image}`} alt={item.name} />
+                    <img
+                      src={`${process.env.REACT_APP_API_BASE_URL}/${item.image}`}
+                      alt={item.name}
+                    />
                   </div>
                   <div className={styles.itemDetails}>
                     <h4>{item.name}</h4>
                     <p>{item.unit}</p>
                     <p>Qty: {item.quantity}</p>
+                    {item.colombo_only && (
+                      <p className={styles.colomboOnlyTag}>📍 Only deliverable within Colombo</p>
+                    )}
                   </div>
                   <div className={styles.itemPrice}>
                     Rs. {(item.price * item.quantity).toLocaleString()}
@@ -394,6 +444,7 @@ const BuyingPage = () => {
                 </div>
               ))}
             </div>
+
             
             <div className={styles.orderTotals}>
               <div className={styles.totalRow}>
@@ -413,22 +464,51 @@ const BuyingPage = () => {
                 <span>Rs. {total.toLocaleString()}</span>
               </div>
             </div>
-            
+
+            {/* {isOnlyColombo && (
+              <div className={styles.deliveryOnlyColomboNotice}>
+                🚫 Sorry! We currently do not deliver to addresses outside Colombo.
+              </div>
+            )} */}
+
+            {isOnlyCod && (
+              <div className={styles.codOnlyNotice}>
+                💰 Only **Cash on Delivery** is available for this product(s).
+              </div>
+            )}
+
+            {(!deliveryAvailable || (isOutOfRange && isOnlyColombo)) && (
+              <div className={styles.noDeliveryNotice}>
+                🚫 Delivery is not available to your location.
+              </div>
+            )}
+
+            {deliveryAvailable && !isOutOfRange && isFreeDelivery && (
+              <div className={styles.freeDeliveryNotice}>
+                🎉 Good news! Free delivery is available to your location.
+              </div>
+            )}
+
             {/* Payment Methods */}
-            <div className={styles.paymentMethods}>
+            {deliveryAvailable && !(isOutOfRange && isOnlyColombo) &&
+            (<div className={styles.paymentMethods}>
               <div className={styles.paymentTabs}>
+                {!isOnlyCod && (
                 <button
                   className={`${styles.button} ${activePaymentTab === "card" ? styles.activeTab : ""}`}
                   onClick={() => setActivePaymentTab("card")}
                 >
                   Credit/Debit Card
                 </button>
+                )}
+                {!isOnlyCod && (
                 <button
                   className={`${styles.button} ${activePaymentTab === "installment" ? styles.activeTab : ""}`}
                   onClick={() => setActivePaymentTab("installment")}
                 >
                   Installments
                 </button>
+                )}
                 <button
                   className={`${styles.button} ${activePaymentTab === "cod" ? styles.activeTab : ""}`}
                   onClick={() => setActivePaymentTab("cod")}
@@ -438,7 +518,7 @@ const BuyingPage = () => {
                 
               </div>
               
-              {activePaymentTab === "card" && (
+              {!isOnlyCod && activePaymentTab === "card" && (
                 <div className={styles.paymentContent}>
                   <div className={styles.payherePlaceholder}>
                     <h3>PayHere Payment Gateway</h3>
@@ -459,7 +539,7 @@ const BuyingPage = () => {
                 </div>
               )}
               
-              {activePaymentTab === "installment" && (
+              {!isOnlyCod && activePaymentTab === "installment" && (
                 <div className={styles.paymentContent}>
                   <div className={styles.kokoPlaceholder}>
                     <h3>KoKo Pay Installments</h3>
@@ -501,18 +581,22 @@ const BuyingPage = () => {
                 </div>
               )}
             </div>
+            )}
             
-            <div className={styles.termsAgreement}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.agreeTerms}
-                  onChange={(e) => setFormData({...formData, agreeTerms: e.target.checked})}
-                  required
-                />
-                I agree to the terms and conditions
-              </label>
-            </div>
+            {deliveryAvailable && !isOutOfRange && (
+              <div className={styles.termsAgreement}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={formData.agreeTerms}
+                    onChange={(e) => setFormData({...formData, agreeTerms: e.target.checked})}
+                    required
+
+                  />
+                  I agree to the terms and conditions
+                </label>
+              </div>
+            )}
           </section>
         </div>
       </LoadScript>

@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import styles from "./LogInPage.module.css";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import API from "../api";
 
 function LogInPage() {
@@ -72,6 +72,7 @@ function LogInPage() {
 
   return (
     <div className={styles.loginContainer}>
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className={styles.authCard}>
         <div className={styles.logoContainer}>
           <img src="/images/l1.png" alt="Logo" className={styles.loginLogo} />

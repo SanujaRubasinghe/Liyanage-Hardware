@@ -16,7 +16,10 @@ const ProductCard = ({ product }) => {
           sku: product.sku,
           price: product.price,
           quantity: 1,
-          image: product.primary_image
+          image: product.primary_image,
+          delivery_available: product.delivery_available,
+          cod_only: product.only_cod,
+          colombo_only: product.only_colombo
         }
       },
     });
@@ -51,6 +54,7 @@ const ProductCard = ({ product }) => {
           alt={product.name} 
           className="product-image" 
           loading="lazy"
+          onClick={() => handleDetails(product.product_id)}
         />
       </div>
       <div className="product-details">

@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import LoadingPage from "../Components/LoadingPage";
+import { toast } from "react-toastify";
 import API from "../api"; 
 
 export const AuthContext = createContext();
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
             console.log(user)
         } catch (err) {
             console.error("Login failed:", err.response?.data || err.message);
+            toast.error("Login failed:", err.response?.data || err.message);
         }
     };
 

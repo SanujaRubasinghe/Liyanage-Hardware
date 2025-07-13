@@ -105,4 +105,4 @@ export const hammers = [
     price: 49.99,
     image: "/images/messi.webp"
   }
-];
+]; 

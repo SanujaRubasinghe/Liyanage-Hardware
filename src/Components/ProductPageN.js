@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProductPageN.css';
+import styles from './ProductPageN.module.css';
 
 const filters = {
   range: ['1130B.', '3934', '9870', '996', 'Acoustic', 'AR1998'],
@@ -136,75 +136,75 @@ const ProductPageN = () => {
   );
 
   return (
-    <div className="page-container">
-        <div className="filters-container">
+    <div className={styles.pageContainer}>
+        <div className={styles.filtersContainer}>
             {/* This button will only be visible on tablet/mobile screens */}
-            <button className="filter-toggle-button" onClick={toggleFilters}>
+            <button className={styles.filterToggleButton} onClick={toggleFilters}>
                 {filtersVisible ? 'Hide Filters' : 'Show Filters'}
             </button>
             
-            <aside className={`product-filters__panel ${!filtersVisible ? 'hidden-on-mobile' : ''}`}>
-                <h3 className="product-filters__title">Filter Products</h3>
+            <aside className={`${styles.productFiltersPanel} ${!filtersVisible ? styles.hiddenOnMobile : ''}`}>
+                <h3 className={styles.productFiltersTitle}>Filter Products</h3>
 
-                <div className="product-filters__group">
-                <h4 className="product-filters__title">Range</h4>
+                <div className={styles.productFiltersGroup}>
+                <h4 className={styles.productFiltersTitle}>Range</h4>
                 {filters.range.map((item, i) => (
-                    <label key={i} className="product-filters__option">
+                    <label key={i} className={styles.productFiltersOption}>
                     <input type="checkbox" /> {item}
                     </label>
                 ))}
                 </div>
 
-                <div className="product-filters__group">
-                <h4 className="product-filters__title">Brand</h4>
+                <div className={styles.productFiltersGroup}>
+                <h4 className={styles.productFiltersTitle}>Brand</h4>
                 {filters.brand.map((item, i) => (
-                    <label key={i} className="product-filters__option">
+                    <label key={i} className={styles.productFiltersOption}>
                     <input type="checkbox" /> {item}
                     </label>
                 ))}
                 </div>
 
-                <div className="product-filters__group">
-                <h4 className="product-filters__title">Fire Rating</h4>
+                <div className={styles.productFiltersGroup}>
+                <h4 className={styles.productFiltersTitle}>Fire Rating</h4>
                 {filters.fireRating.map((item, i) => (
-                    <label key={i} className="product-filters__option">
+                    <label key={i} className={styles.productFiltersOption}>
                     <input type="radio" name="fireRating" /> {item}
                     </label>
                 ))}
                 </div>
 
-                <button className="product-filters__clear-button">Clear Filters</button>
+                <button className={styles.productFiltersClearButton}>Clear Filters</button>
             </aside>
         </div>
       
-      <main className="product-list">
-        <div className="banner">
+      <main className={styles.productList}>
+        <div className={styles.banner}>
           <img src="/images/category/bathware/161.jpg" alt="Promo Banner" />
         </div>
 
-        <div className="products">
+        <div className={styles.products}>
           {currentProducts.map((product, index) => (
-            <div className="product-card" key={index}>
-              <img src={product.image} alt={product.name} className="product-image" />
-              <div className="product-details">
-                <h3 className="product-title">{product.name}</h3>
-                <p className="product-part">Part Number: {product.sku}</p>
-                <p className="product-price">Rs.{product.price} <span>inc VAT</span></p>
-                <p className="product-unit">{product.unit}</p>
-                <div className="product-actions">
-                  <button className="buy-to-cart" onClick={handleAddToCart}>Buy now</button>
-                  <button className="add-to-cart1" onClick={handleAddToCart}>Details</button>
+            <div className={styles.productCard} key={index}>
+              <img src={product.image} alt={product.name} className={styles.productImage} />
+              <div className={styles.productDetails}>
+                <h3 className={styles.productTitle}>{product.name}</h3>
+                <p className={styles.productPart}>Part Number: {product.sku}</p>
+                <p className={styles.productPrice}>Rs.{product.price} <span>inc VAT</span></p>
+                <p className={styles.productUnit}>{product.unit}</p>
+                <div className={styles.productActions}>
+                  <button className={styles.buyToCart} onClick={handleAddToCart}>Buy now</button>
+                  <button className={styles.addToCart1} onClick={handleAddToCart}>Details</button>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="pagination">
+        <div className={styles.pagination}>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
-              className={`page-btn ${currentPage === index + 1 ? 'active' : ''}`}
+              className={`${styles.pageBtn} ${currentPage === index + 1 ? styles.active : ''}`}
               onClick={() => setCurrentPage(index + 1)}
             >
               {index + 1}

@@ -2,8 +2,8 @@
 
 .floating-search-icon {
   position: fixed;
-  bottom: 100px;
-  right: 25px;
+  bottom: 3rem;
+  right: 3rem;
   background-color: #cc0000;
   color: white;
   border: none;

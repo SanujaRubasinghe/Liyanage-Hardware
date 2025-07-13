@@ -1,0 +1,244 @@
+/* src/components/ContactUs.module.css */
+
+/* Root & Reset */
+.contactPage {
+  background: #fff;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  position: relative;
+  padding-bottom: 80px;
+  min-height: 100vh;
+}
+
+/* Page Title */
+.pageTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 2rem 0;
+  color: #b71c1c;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Container */
+.contactContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Info Cards Grid */
+.contactInfo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: stretch; /* Makes all cards the same height */
+  justify-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Individual Info Card */
+.infoCard {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 350px;
+  min-height: 280px; /* Fixed minimum height for uniformity */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.infoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(183, 28, 28, 0.15);
+  border-color: #b71c1c;
+}
+
+/* Icon Styling */
+.infoIcon {
+  font-size: 2.5rem;
+  color: #b71c1c;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.infoCard:hover .infoIcon {
+  transform: scale(1.1);
+}
+
+/* Card Title */
+.cardTitle {
+  margin-bottom: 1rem;
+  color: #b71c1c;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card Text */
+.cardText {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.7;
+
+  text-justify: inter-word;
+  margin: 0;
+  flex-grow: 1;
+  hyphens: auto;
+  word-wrap: break-word;
+  align-items: center;
+}
+
+/* Map Section */
+.mapSection {
+  margin-top: 4rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.mapIframe {
+  width: 100%;
+  max-width: 900px;
+  height: 450px;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.mapIframe:hover {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 1024px) {
+  .contactInfo {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .infoCard {
+    min-height: 300px;
+  }
+  
+  .pageTitle {
+    font-size: 2.2rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .contactInfo {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .infoCard {
+    min-height: 250px;
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .pageTitle {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+  }
+  
+  .mapIframe {
+    height: 350px;
+  }
+  
+  .cardTitle {
+    font-size: 1.2rem;
+  }
+  
+  .cardText {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .contactPage {
+    padding-bottom: 60px;
+  }
+  
+  .contactContainer {
+    padding: 0 0.75rem;
+  }
+  
+  .infoCard {
+    padding: 1.25rem;
+    min-height: 220px;
+    border-radius: 8px;
+  }
+  
+  .infoIcon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .cardTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .cardText {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
+  .pageTitle {
+    font-size: 1.75rem;
+    margin: 1rem 0;
+  }
+  
+  .mapSection {
+    margin-top: 3rem;
+  }
+  
+  .mapIframe {
+    height: 280px;
+    border-radius: 8px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 320px) {
+  .infoCard {
+    padding: 1rem;
+    min-height: 200px;
+  }
+  
+  .infoIcon {
+    font-size: 1.75rem;
+  }
+  
+  .cardTitle {
+    font-size: 1rem;
+  }
+  
+  .cardText {
+    font-size: 0.8rem;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+  
+  .mapIframe {
+    height: 250px;
+  }
+}

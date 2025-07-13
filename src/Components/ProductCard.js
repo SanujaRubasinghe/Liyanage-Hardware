@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./ProductCard.css";
+import styles from "./ProductCard.module.css";
 
 const ProductCard = ({id, name, sku, price, images, sizes, colors, unit, prtdid}) => {
   const navigate = useNavigate();
@@ -13,19 +13,22 @@ const ProductCard = ({id, name, sku, price, images, sizes, colors, unit, prtdid}
   };
 
   return (
-    <div className="product-card">
-      <img src={images?.[0] || "/images/messi.webp"} alt={name || "Product"} className="product-image" />
-      <div className="product-details">
-        <h3 className="product-title">{name}</h3>
-        <p className="product-part">Part Number: {sku}</p>
-        <p className="product-price">Rs.{price} <span>inc VAT</span></p>
-        <p className="product-unit">{unit}</p>
-        <div className="product-actions">
-      
-          <button className="buy-to-cart" onClick={handleAddToCart}>
-            Buy now
+    <div className={styles.productCard}>
+      <img 
+        src={images?.[0] || "/images/messi.webp"} 
+        alt={name || "Product"} 
+        className={styles.productImage} 
+      />
+      <div className={styles.productDetails}>
+        <h3 className={styles.productTitle}>{name}</h3>
+        <p className={styles.productPart}>Part Number: {sku}</p>
+        <p className={styles.productPrice}>Rs.{price} <span>inc VAT</span></p>
+        <p className={styles.productUnit}>{unit}</p>
+        <div className={styles.productActions}>
+          <button className={styles.buyToCart} onClick={handleAddToCart}>
+            Buy
           </button>
-          <button className="add-to-cart1" onClick={handleAddToCart}>
+          <button className={styles.addToCart} onClick={handleAddToCart}>
             Details
           </button>
         </div>

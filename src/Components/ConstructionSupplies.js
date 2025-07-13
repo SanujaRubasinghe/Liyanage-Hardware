@@ -17,7 +17,6 @@ const ConstructionSupplies = () => {
         <img src="/images/frontlook.webp" alt="Door Handle" />
       </div>
       <div className="content-container">
-        <h4 className="section-title">Construction Supplies</h4>
         <h2 className="heading">
           Experts in <span>Hardware</span> and <span>Construction Products</span>
         </h2>

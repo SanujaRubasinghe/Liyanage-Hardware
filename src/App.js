@@ -99,7 +99,14 @@ function App() {
             <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
             <Route path="/ContactUsA" element={<ContactUsA />} />
 
-            <Route path="/services" element={<><AboutUsNew /><FeatureSection /><Footer /></>} />
+            <Route path="/services" element={
+              <>
+                <AboutUsNew />
+                <FeatureSection />
+                <ContactUsA />
+                <Footer />
+              </>
+            } />
 
             
             <Route path='/login' element={<LogInPage />}/>

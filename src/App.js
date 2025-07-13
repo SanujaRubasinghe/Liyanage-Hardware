@@ -46,6 +46,7 @@ import ContactUsA from './Components/ContactUsA';
 
 import Policy from './Policy';
 import FloatingSearchBar from './Components/FloatingSearchBar';
+import PromoCards from './Components/PromoCards';
 
 
 function App() {
@@ -62,7 +63,12 @@ function App() {
                   <Header />
                   <SearchBarN />
                   <Slideshow />
-                  <ImageDeliver />
+                  
+                  <div style={{ marginBottom: '40px' }}>
+                    <ImageDeliver />
+                  </div>
+                  
+                  <PromoCards/>
                   <Home />
                   <NewArrivals />
                   <AllProductD/>
@@ -70,6 +76,7 @@ function App() {
                   <AllProductsA/>
                   {/* <ProductList /> */}
                   <BrandContainer />
+                  
                   <ConstructionSupplies />
                
                   <FloatingSearchBar/>

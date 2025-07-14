@@ -26,7 +26,7 @@ const ProductDisplay = () => {
   const [newReview, setNewReview] = useState({
     rating: 5,
     comment: "",
-    name: ""
+    name: "Anonymous"
   });
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
@@ -67,7 +67,7 @@ const ProductDisplay = () => {
       if (id) {
         setIsLoadingReviews(true);
         try {
-          const response = await API.get(`/reviews/product/${id}`);
+          const response = await API.get(`products/reviews/${id}`);
           setReviews(response.data);
         } catch(err) {
           console.error("Error fetching reviews: ", err);
@@ -124,7 +124,7 @@ const ProductDisplay = () => {
 
     setIsSubmittingReview(true);
     try {
-      const response = await API.post('/reviews', {
+      const response = await API.post('/products/reviews', {
         product_id: id,
         ...newReview
       });
@@ -282,7 +282,7 @@ const ProductDisplay = () => {
                       type="text"
                       id="name"
                       className="nlh-form-input"
-                      value={newReview.name || "Anonymous"}
+                      value={newReview.name}
                       onChange={(e) => setNewReview({...newReview, name: e.target.value})}
                       required
                     />

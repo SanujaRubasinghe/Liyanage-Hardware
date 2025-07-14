@@ -27,7 +27,7 @@
 
 /* Product Image Container */
 .product-image-container {
-  width: 100%;
+  width: 100%;    
   height: 160px;
   display: flex;
   justify-content: center;

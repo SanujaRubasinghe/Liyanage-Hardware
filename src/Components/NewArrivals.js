@@ -23,7 +23,7 @@ const ProductList = () => {
       <div className="product-list-wrapper">
         <div className="product-list-container">
           <h2 className="product-list-title">
-            <span className="product-list-title-blue">New</span>{' '}
+            <span className="product-list-title-red">New</span>{' '}
             <span className="product-list-title-red">Arrivals</span>
           </h2>
     

@@ -23,6 +23,7 @@ const BuyingPage = () => {
   const orderItems = product ? [product] : (cartItems || []);
   
   const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [coordinates, setCoordinates] = useState({})
   const [distance, setDistance] = useState(null);
   const [deliveryAvailable, setDeliveryAvailable] = useState(true)
   const [isOnlyCod, setIsOnlyCod] = useState(false)
@@ -41,7 +42,7 @@ const BuyingPage = () => {
     email: user?.email || "",
     phone: user?.phone || "",
     apartment: "",
-    address: "",
+    streetAddress: user?.address || "",
     postalCode: "",
     notes: "",
     agreeTerms: false,
@@ -69,8 +70,6 @@ const BuyingPage = () => {
     }
   }, [product, cartItems]);
 
-
-  console.log(isOnlyCod)
   // Calculate order totals
   const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const total = subtotal + deliveryCharge;
@@ -124,7 +123,7 @@ const BuyingPage = () => {
     const place = streetAutocompleteRef.current.getPlace();
     if (!place.address_components) return;
 
-    const address = { streetAddress: "", postcode: "" };
+    const address = { streetAddress: "", city: "", country: "" };
 
     place.address_components.forEach((c) => {
       const t = c.types;
@@ -132,11 +131,15 @@ const BuyingPage = () => {
         address.streetAddress = c.long_name + " " + address.streetAddress;
       }
       if (t.includes("route")) {
-        address.streetAddress += c.long_name;
+        address.streetAddress += `${c.long_name}`;
       }
-     
-      if (t.includes("postal_code")) {
-        address.postcode = c.long_name;
+
+      if (t.includes("locality")) {
+        address.streetAddress += `,${c.long_name}`;
+      }
+
+      if (t.includes("country")) {
+        address.streetAddress += `,${c.long_name}`;
       }
       
     });
@@ -158,9 +161,11 @@ const BuyingPage = () => {
         
         const distance = Number(response.data.distanceInKm);
         const shippingCost = Number(response.data.shippingCost);
+        const coordinates = response.data.location
         
         setDeliveryCharge(subtotal > 6000 ? 0 : shippingCost);
         setDistance(distance);
+        setCoordinates(coordinates)
         setIsOutOfRange(distance > 20);
         setIsFreeDelivery(subtotal > 6000);
         setErrorMessage(response.data?.message);
@@ -220,7 +225,7 @@ const BuyingPage = () => {
 
     const sendCustomerEmail = async (toEmail, message) => {
       try {
-        await API.post('/messages/send-email', {
+        await API.post('/messages/send-order-email', {
           toEmail: toEmail,
           message: message
         })
@@ -263,7 +268,9 @@ const BuyingPage = () => {
             unit_price: item.price,
             size: item.selectedSize,
             color: item.selectedColor
-          }))
+          })),
+          latitude: coordinates.lat,
+          longitude: coordinates.lng
         };
         
         const checkoutData = {
@@ -294,11 +301,12 @@ const BuyingPage = () => {
             unit_price: item.price,
           })),
           total: total,
+          shipping_fee: deliveryCharge,
           date: format(new Date(), "dd/MM/yyyy")
         }
 
         // sendCustomerSMSMessage(convertToInternationalFormat(formData.phone), message)
-        // sendWhatsAppMessage(message)
+        sendWhatsAppMessage(message)
         sendCustomerEmail(formData.email, emailData)
 
         clearCart()
@@ -434,7 +442,7 @@ const BuyingPage = () => {
                     <h4>{item.name}</h4>
                     <p>{item.unit}</p>
                     <p>Qty: {item.quantity}</p>
-                    {item.colombo_only && (
+                    {Boolean(item.colombo_only) && (
                       <p className={styles.colomboOnlyTag}>📍 Only deliverable within Colombo</p>
                     )}
                   </div>

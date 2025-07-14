@@ -37,7 +37,7 @@ import { useActivityTracker } from './hooks/useActivityTracker';
 import HomePage from './Components/HomePage';
 import PasswordResetForm from './Components/PasswordResetForm';
 import PasswordReset from './Components/PasswordReset';
-
+import BackToTopButton from './Components/BackToTopButton';
 
 
 function App() {
@@ -94,6 +94,7 @@ function App() {
             <Route path="/mini-category/:subcategory" element={<MiniCategory />} /> */}
           </Routes>
         </CartProvider>
+        <BackToTopButton />
       </Router>
     </div>
   );

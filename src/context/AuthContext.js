@@ -30,10 +30,9 @@ export const AuthProvider = ({ children }) => {
             });
 
             setUser(userProfile.data);
-            console.log(user)
+            return res
         } catch (err) {
-            console.error("Login failed:", err.response?.data || err.message);
-            toast.error("Login failed:", err.response?.data || err.message);
+            console.error("Login failed:",err);
         }
     };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import API from '../api';
 import styles from './UserProfile.module.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -9,15 +10,13 @@ const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    userId: null,
+    userName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     address: ''
-  });
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
   });
 
   const navigate = useNavigate()
@@ -32,7 +31,10 @@ const UserProfile = () => {
         const userResponse = await API.get('auth/profile', { withCredentials: true });
         setUser(userResponse.data);
         setFormData({
-          name: userResponse.data.username,
+          userId: userResponse.data.user_id,
+          userName: userResponse.data.username,
+          firstName: userResponse.data.first_name,
+          lastName: userResponse.data.last_name,
           email: userResponse.data.email,
           phone: userResponse.data.phone || '',
           address: userResponse.data.address || ''
@@ -47,37 +49,33 @@ const UserProfile = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [isEditing]);
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.put('/api/user/profile', formData, { withCredentials: true });
+      const response = await API.put('/user/edit-user-profile', formData, { withCredentials: true });
       setUser(response.data);
       setIsEditing(false);
+      toast.success(response.data.message)
+      navigate('/profile')
     } catch (error) {
+      toast.error(error.response.data.message)
       console.error('Error updating profile:', error);
     }
   };
 
-  const handlePasswordChange = async (e) => {
-    e.preventDefault();
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to permanently delete your account? This action cannot be undone.");
+    if (!confirmDelete) return;
 
     try {
-      await API.put('/api/user/password', passwordData, { withCredentials: true });
-      alert('Password changed successfully!');
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-      });
+      await API.delete(`/user/delete-account/${formData.userId}`, { withCredentials: true });
+      toast.success("Account deleted successfully.");
+      navigate('/register') 
     } catch (error) {
-      console.error('Error changing password:', error);
-      alert(error.response?.data?.message || 'Failed to change password');
+      toast.error("Failed to delete account.");
+      console.error("Account deletion failed:", error);
     }
   };
 
@@ -115,12 +113,10 @@ return (
             <a href="/loyalty" className={styles.joinLoyalty}>Become a Loyalty Customer</a>
         )}
         {/* Add Logout Button Here */}
-        <button 
-            className={styles.logoutBtn}
-            onClick={handleLogout}
-        >
-            Log Out
-        </button>
+          <div className={styles.buttonRow}>
+            <button className={styles.logoutBtn} onClick={handleLogout}>Log Out</button>
+            {/* <button className={styles.deleteBtn} onClick={handleDeleteAccount}>Delete Account</button> */}
+          </div>
         </div>
 
       <div className={styles.profileTabs}>
@@ -151,8 +147,12 @@ return (
               <>
                 <div className={styles.profileInfo}>
                   <div className={styles.infoRow}>
-                    <span className={styles.label}>Name:</span>
+                    <span className={styles.label}>User Name:</span>
                     <span className={styles.value}>{user?.username}</span>
+                  </div>
+                  <div className={styles.infoRow}>
+                    <span className={styles.label}>Name:</span>
+                    <span className={styles.value}>{`${user?.first_name} ${user?.last_name}`}</span>
                   </div>
                   <div className={styles.infoRow}>
                     <span className={styles.label}>Email:</span>
@@ -178,11 +178,29 @@ return (
             ) : (
               <form className={styles.editForm} onSubmit={handleUpdateProfile}>
                 <div className={styles.formGroup}>
-                  <label>Full Name</label>
+                  <label>User Name</label>
                   <input
                     type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    value={formData.userName}
+                    onChange={(e) => setFormData({...formData, userName: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                     required
                   />
                 </div>
@@ -346,13 +364,31 @@ return (
 
         {activeTab === 'security' && (
           <div className={styles.securitySection}>
-              <button className={styles.changePasswordBtn} onClick={() => {
-                navigate('/reset-password-link')
-              }}>
-                Change Password
-              </button>
+            <div className={styles.securityWrapper}>
+              <div className={styles.sectionCard}>
+                <h3 className={styles.sectionTitle}>Password</h3>
+                <p className={styles.sectionDescription}>
+                  For your account's security, we recommend updating your password periodically.
+                </p>
+                <button
+                  className={styles.changePasswordBtn}
+                  onClick={() => navigate('/reset-password-link')}
+                >
+                  Change Password
+                </button>
+              </div>
+
+              <div className={styles.dangerZone}>
+                <h3>Danger Zone</h3>
+                <p>Once you delete your account, there is no going back. Please be certain.</p>
+                <button className={styles.deleteBtn} onClick={handleDeleteAccount}>
+                  Delete My Account
+                </button>
+              </div>
+            </div>
           </div>
         )}
+
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ import { AuthProvider } from './context/AuthContext';
 import AnalyticsWrapper from './wrappers/AnalyticsWrapper';
 import reportWebVitals from './reportWebVitals';
 
-import {hydrate, render} from 'react-dom'
+import smoothscroll from "smoothscroll-polyfill"
+smoothscroll.polyfill()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

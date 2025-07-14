@@ -55,6 +55,17 @@ const CustomerComplaintsForm = () => {
     setCaptchaToken(token)
   };
 
+  const sendComplaintConfirmation = async (toEmail, message) => {
+    try {
+      await API.post('/messages/send-complaint-email', {
+        toEmail: toEmail,
+        message: message
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,8 +82,14 @@ const CustomerComplaintsForm = () => {
     Object.entries(formData).forEach(([k, v]) => data.append(k, v));
     if (image) data.append("image", image);
 
+    const emailData = {
+      customerName: `${formData.firstName} ${formData.lastName}`,
+      message: formData.message
+    }
+
     try {
       const res = await API.post("/feedback/create-complaint", data);
+      sendComplaintConfirmation(formData.email, emailData)
       if (res.status === 201) {
         setModalMessage(res.data.message);
         setShowModal(true);
@@ -92,6 +109,7 @@ const CustomerComplaintsForm = () => {
       setShowModal(true);
     }
   };
+
 
   return (
     <>

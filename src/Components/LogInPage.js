@@ -1,14 +1,15 @@
 // src/pages/LogInPage.jsx
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import styles from "./LogInPage.module.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import API from "../api";
 
 function LogInPage() {
   const [isRegistering, setIsRegistering] = useState(false);
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const [user, setUser] = useState({
     username: "",
@@ -20,6 +21,7 @@ function LogInPage() {
     lastname: "",
     email: "",
     phone: "",
+    address: "",
     username: "",
     password: "",
     confirmPassword: "",
@@ -62,22 +64,20 @@ function LogInPage() {
       }
     } else {
       try {
-        await login(user);
-        window.location.href = "/profile";
+        const res = await login(user);
+        if(res.data.success) navigate('/profile')
       } catch (err) {
-        toast.error(err.response?.data?.error || "Login failed");
+        toast.error("Login failed! Username or Password Incorrect.");
       }
     }
   };
 
   return (
     <div className={styles.loginContainer}>
-      <ToastContainer position="top-right" autoClose={3000} />
       <div className={styles.authCard}>
         <div className={styles.logoContainer}>
           <img src="/images/l1.png" alt="Logo" className={styles.loginLogo} />
         </div>
-
         <div className={styles.authTabs}>
           <button
             className={`${styles.tabButton} ${!isRegistering ? styles.active : ""}`}
@@ -156,6 +156,19 @@ function LogInPage() {
                 placeholder="Phone"
                 required
                 value={registerData.phone}
+                onChange={handleChange}
+                className={styles.authInput}
+              />
+            </div>
+          )}
+
+          {isRegistering && (
+            <div className={styles.inputGroup}>
+              <textarea
+                name="address"
+                placeholder="Adress"
+                required
+                value={registerData.address}
                 onChange={handleChange}
                 className={styles.authInput}
               />

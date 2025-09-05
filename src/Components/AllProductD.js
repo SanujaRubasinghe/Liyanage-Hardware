@@ -125,6 +125,7 @@ const ProductPageN = () => {
               alt={`${product.name} - ${product.unit} package`}
               className={styles.productImage}
               loading="lazy"
+              onClick={() => handleDetails(product.product_id)}
             />
             <div className={styles.productDetails}>
               <h3 className={styles.productTitle}>{product.name}</h3>

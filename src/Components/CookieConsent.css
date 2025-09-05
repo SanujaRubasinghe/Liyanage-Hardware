@@ -71,7 +71,7 @@
 }
 
 .accept-btn {
-  background-color: #3498db;
+  background-color: #cc0000;
   color: white;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .privacy-link {
-  color: #3498db;
+  color: #cc0000;
   text-decoration: none;
   font-size: 0.8rem;
   display: inline-block;

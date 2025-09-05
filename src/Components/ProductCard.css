@@ -104,6 +104,12 @@
   margin: 0 0 12px 0;
 }
 
+.product-out-of-stock {
+  color: #cc0000;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 /* Actions */
 .product-actions {
   display: flex;

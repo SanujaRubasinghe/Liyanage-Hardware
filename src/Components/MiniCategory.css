@@ -72,8 +72,8 @@
 /* Category Image */
 .miniCategory-image {
   width: 100%;
-  height: 90%;
-  aspect-ratio: 9/7; /* Image takes upper part, adjust as needed */
+  height: 80%;
+  aspect-ratio: 9/7; 
   object-fit: cover;
   border-radius: 12px 12px 0 0;
   flex-shrink: 0;
@@ -120,5 +120,14 @@
   .miniCategory-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+  }
+
+  .miniCategory-image {
+    width: 100%;
+    height: 70%;
+    aspect-ratio: 9/7; 
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    flex-shrink: 0;
   }
 }

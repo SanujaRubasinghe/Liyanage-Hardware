@@ -246,22 +246,27 @@ const ProductDisplay = () => {
             </div>
           </div>
 
-          <div className="nlh-actions">
-            <button 
-              className="nlh-add-to-cart" 
-              onClick={handleAddToCart}
-              aria-label="Add to cart"
-            >
-              Add to Cart
-            </button>
-            <button 
-              className="nlh-buy-now" 
-              onClick={handleBuyNow}
-              aria-label="Buy now"
-            >
-              Buy Now
-            </button>
-          </div>
+          {product.stock_quantity > 0 ? (
+            <div className="nlh-actions">
+              <button 
+                className="nlh-add-to-cart" 
+                onClick={handleAddToCart}
+                aria-label="Add to cart"
+              >
+                Add to Cart
+              </button>
+              <button 
+                className="nlh-buy-now" 
+                onClick={handleBuyNow}
+                aria-label="Buy now"
+              >
+                Buy Now
+              </button>
+            </div>
+          ): (
+            <div className="product-out-of-stock">Out of Stock</div>
+          )}
+
           {isMobileGallery && (
             <div className="nlh-mobile-description">
               <h3 className="nlh-section-title">Product Details</h3>

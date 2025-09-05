@@ -418,6 +418,8 @@
 .orderActions {
   display: flex;
   justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
   margin-top: 1rem;
 }
 
@@ -429,12 +431,40 @@
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .viewOrderBtn:hover {
   background-color: #cc0000;
   color: white;
+}
+
+.cancelButton {
+  background-color: #dc2626;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancelButton:hover {
+  background-color: #b91c1c;
+}
+
+.lockedMessage {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-style: italic;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  margin-top: 0.5rem;
+  max-width: 300px;
 }
 
 .securitySection {
@@ -594,6 +624,75 @@
   background-color: #c62828;
   transform: scale(1.02);
 }
+
+.noticeCard {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: #fff8f5;
+  border: 1px solid #ff8c5a;
+  border-left: 5px solid #eb7404;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.icon {
+  color: #eb7404;
+  width: 24px;
+  height: 24px;
+}
+
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 6px;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.link {
+  color: #eb7404;
+  text-decoration: underline;
+  margin-left: 4px;
+}
+
+.link:hover {
+  color: #cc0000;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .noticeCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .iconContainer {
+    margin-bottom: 8px;
+  }
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {

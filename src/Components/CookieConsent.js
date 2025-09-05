@@ -44,7 +44,7 @@ const CookieConsent = ({ onAccept, onReject }) => {
             Reject
           </button>
         </div>
-        <a href="/privacy-policy" className="privacy-link">
+        <a href="/terms" className="privacy-link">
           Privacy Policy
         </a>
       </div>

@@ -3,9 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../api";
 import "./MiniCategory.css";
-import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker"; // Import the hook
+import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker"; 
 import { trackClick } from "../services/categoryAnalytics";
-
+import ProductCard from './ProductCard';
 import { Helmet } from "react-helmet";
 
 // Create a separate card component to use the hook properly
@@ -33,6 +33,7 @@ const MiniCategory = () => {
   const navigate = useNavigate();
   const { secondary_cat_id, name, slug, description = "" } = location.state || {};
   const [miniCategories, setMiniCategories] = useState([]);
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
     const fetchTertiaryCategories = async () => {
@@ -52,9 +53,20 @@ const MiniCategory = () => {
         toast.error('Failed to fetch categories');
       }
     };
+
+    const fetchSecondaryProducts = async () => {
+      try {
+        const response = await API.get(`/products?categoryId=${secondary_cat_id}`)
+        setProducts(response.data)
+        console.log(response.data)
+      } catch (err) {
+        toast.error('Failed to fetch products');
+      }
+    }
     
     if (secondary_cat_id) {
       fetchTertiaryCategories();
+      fetchSecondaryProducts()
     }
   }, [secondary_cat_id, navigate, slug, name]);
 
@@ -92,6 +104,14 @@ const MiniCategory = () => {
             key={miniCategory.category_id}
             miniCategory={miniCategory}
             onClick={() => handleCardClick(miniCategory)}
+          />
+        ))}
+      </div>
+      <div className="miniCategory-container">
+        {products.map((product, index) => (
+          <ProductCard
+            key={index}
+            product={product}
           />
         ))}
       </div>

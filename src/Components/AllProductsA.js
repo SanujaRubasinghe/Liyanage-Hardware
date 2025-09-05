@@ -79,7 +79,12 @@ const AllProductsA = () => {
       <div className={styles.products}>
         {products.map((product, idx) => (
           <div className={styles.productCard} key={idx}>
-            <img src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`}  alt={product.name} className={styles.productImage} />
+            <img 
+              src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`}  
+              alt={product.name} 
+              className={styles.productImage} 
+              onClick={() => handleDetails(product.product_id)}
+            />
             <div className={styles.productDetails}>
               <h3 className={styles.productTitle}>{product.name}</h3>
               <p className={styles.productPart}>Part Number: {product.sku}</p>

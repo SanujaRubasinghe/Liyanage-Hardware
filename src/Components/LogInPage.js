@@ -166,7 +166,7 @@ function LogInPage() {
             <div className={styles.inputGroup}>
               <textarea
                 name="address"
-                placeholder="Adress"
+                placeholder="Address"
                 required
                 value={registerData.address}
                 onChange={handleChange}

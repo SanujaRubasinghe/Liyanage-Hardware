@@ -1,8 +1,52 @@
 import { useState, useEffect } from 'react';
 import API from '../api';
 import styles from './UserProfile.module.css';
+import { AlertTriangle } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+const CancelOrderButton = ({ order }) => {
+  const [canCancel, setCanCancel] = useState(false);
+
+  useEffect(() => {
+    const checkCancelWindow = () => {
+      const now = new Date();
+      const orderDate = new Date(order.order_date);
+      const diffHours = (now - orderDate) / (1000 * 60 * 60);
+      const statusCheck = ['pending', 'processing'].includes(order.status);
+      setCanCancel(statusCheck && diffHours <= 2);
+    };
+
+    checkCancelWindow();
+
+    const interval = setInterval(checkCancelWindow, 60000); // check every 1 min
+    return () => clearInterval(interval);
+  }, [order]);
+
+  const handleCancel = async () => {
+    try {
+      const res = await API.put(`/user/${order.order_id}/cancel`);
+      toast.success('Order cancelled successfully');
+      window.location.reload(); // or trigger state refresh
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to cancel order');
+    }
+  };
+
+  return (
+    <div className={styles.cancelWrapper}>
+      {canCancel ? (
+        <button onClick={handleCancel} className={styles.cancelButton}>
+          Cancel Order
+        </button>
+      ) : (
+        <div className={styles.lockedMessage}>
+          ❌ Order can no longer be cancelled.
+        </div>
+      )}
+    </div>
+  );
+};
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -242,6 +286,19 @@ return (
         )}
 
         {activeTab === 'orders' && (
+          <>
+            <div className={styles.noticeCard}>
+              <div className={styles.iconContainer}>
+                <AlertTriangle className={styles.icon} />
+              </div>
+              <div className={styles.textContainer}>
+                <p className={styles.title}>You have a 2-hour window to cancel your order.</p>
+                <p className={styles.description}>
+                  You can cancel your order directly from your account dashboard or by 
+                  <a href="/contact-us" className={styles.link}> contacting us</a>.
+                </p>
+              </div>
+            </div>
             <div className={styles.ordersSection}>
                 {orders.length === 0 ? (
                 <p className={styles.noOrders}>You haven't placed any orders yet.</p>
@@ -354,13 +411,16 @@ return (
                         >
                             {order.showDetails ? 'Hide Details' : 'View Order Details'}
                         </button>
+
+                        <CancelOrderButton order={order} />
                         </div>
                     </div>
                     ))}
                 </div>
                 )}
             </div>
-            )}
+            </>
+          )}
 
         {activeTab === 'security' && (
           <div className={styles.securitySection}>

@@ -1,4 +1,8 @@
+
 /* Container: grid with 5 columns, responsive wrap for smaller screens */
+.main {
+  min-height: 100vh;
+}
 .subcategory-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

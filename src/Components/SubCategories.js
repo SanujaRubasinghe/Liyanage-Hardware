@@ -54,7 +54,7 @@ const Subcategories = () => {
       <meta name="description" content="View subcategories and product types within our main categories." />
       <link rel="canonical" href="https://newliyanagehardware.lk/categories/:id" />
     </Helmet>
-    <div>
+    <div className="main">
       <div className="subcategory-header">
         <img
           src="/images/category/bathware/16.jpg"

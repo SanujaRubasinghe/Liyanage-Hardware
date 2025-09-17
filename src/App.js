@@ -47,13 +47,19 @@ import ContactUsA from './Components/ContactUsA';
 import Policy from './Policy';
 import FloatingSearchBar from './Components/FloatingSearchBar';
 import PromoCards from './Components/PromoCards';
+import NEWNAV from './NEWNAV';
 
 
 function App() {
   return (
     <div>
       <Router>
+        <Routes>
+          <Route path="/NEWNAV" element={<NEWNAV />} />
+        </Routes>
+        
         <CartProvider>
+          
           <Navbar />
           <Routes>
             <Route
@@ -78,7 +84,7 @@ function App() {
                   <BrandContainer />
                   
                   <ConstructionSupplies />
-               
+                 
                   <FloatingSearchBar/>
                   <FeatureSection />
                   <Footer />
@@ -105,6 +111,9 @@ function App() {
             <Route path="/ShippingPolicy" element={<ShippingPolicy />} />
             <Route path="/Disclaimer" element={<><Disclaimer /><Footer /></>} />
             <Route path="/ContactUsA" element={<ContactUsA />} />
+            
+            
+            {/* Admin Routes */}
 
             <Route path="/services" element={
               <>

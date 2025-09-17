@@ -1,6 +1,8 @@
 import React from "react";
 import "./AboutUsNew.css";
 
+import { Helmet } from "react-helmet";
+
 const cardDetails = [
   { title: "CUSTOMERS FIRST", img: "/images/A.jpg", description: "We always prioritize our customers' needs and satisfaction." },
   { title: "DELIVERY", img: "/images/B.jpg", description: "Fast and reliable delivery service to your job site or home." },
@@ -15,6 +17,12 @@ const cardDetails = [
 
 const AboutUsNew = () => {
   return (
+    <>
+    <Helmet>
+      <title>About Us | New Liyanage Hardware</title>
+      <meta name="description" content="Learn more about our history, values, and services." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/about-us" />
+    </Helmet>
     <div className="aboutus-container">
       {/* Hero Section */}
       <div className="hero-section">
@@ -71,14 +79,10 @@ const AboutUsNew = () => {
         <h3>Don't miss out!</h3>
         <p>Sign Up For Deals, Discounts & News!</p>
         <form>
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
+          <input type="text" name="firstName" placeholder="First Name" />
+          <input type="text" name="lastName" placeholder="Last Name" />
           <input type="email" placeholder="Email" />
-          <select>
-            <option>Please Select</option>
-            <option>Store 1</option>
-            <option>Store 2</option>
-          </select>
+          <input type="tel" placeholder="Contact Number" />
           <button type="submit">SUBSCRIBE</button>
         </form>
       </aside>
@@ -101,6 +105,7 @@ const AboutUsNew = () => {
         ))}
       </section>
     </div>
+    </>
   );
 };
 

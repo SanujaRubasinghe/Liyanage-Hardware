@@ -1,44 +1,100 @@
-/* Container uses grid layout with exactly 5 columns */
+
+/* Container: grid with 5 columns, responsive wrap for smaller screens */
+.main {
+  min-height: 100vh;
+}
 .subcategory-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 32px;
   padding: 20px;
 }
 
-/* Card: no fixed height, so it adapts to the image height.
-   Relative positioning is needed for the overlay tag */
-.subcategory-card {
-  position: relative;
-  overflow: hidden;
+@media (max-width: 1200px) {
+  .subcategory-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .subcategory-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .subcategory-container {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+.subcategory-header {
+  text-align: center;
+  padding: 24px 16px;
+  background: #cc0000;
+  color: #fff;
+  border-radius: 12px;
+  margin: 0 16px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.subcategory-header-image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Card: uniform size, modern shape, shadow, and hover lift */
+.subcategory-card {
+  background-color: #cc0000;
+  border: 5px solid #cc0000;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 9/16;
+  width: 100%; /* Responsive width */
+  max-width: 220px; /* Optional: limit max width */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Hover effect for a subtle scale and shadow update */
 .subcategory-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 8px 16px rgba(204,0,0,0.15);
 }
 
-/* Image takes full width; height is auto so the card height is determined by the image */
+/* Image: covers card, subtle effect on hover */
 .subcategory-image {
   width: 100%;
-  display: block;
+  height: 80%;
+  aspect-ratio: 9/7; /* Image takes upper part, adjust as needed */
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
 }
 
-/* Overlay tag positioned at the bottom with a semi-transparent background */
+.subcategory-card:hover .subcategory-image {
+  filter: brightness(0.92) blur(1px);
+}
+
+/* Tag: bold red gradient strip at the bottom */
 .subcategory-tag {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
   text-align: center;
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
+  margin: 1px 0 0 0;
+  padding: 0 8px;
+  color: #fff;
+  font-weight: 600;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subcategory-card:hover .subcategory-tag {
+  background: linear-gradient(90deg, #b80000 80%, #ff0000 100%);
 }

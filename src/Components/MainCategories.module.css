@@ -1,0 +1,156 @@
+.miniCategoryMain {
+  padding: 24px 0;
+  background: linear-gradient(135deg, #f8f8f8 60%, #f2f5fa 100%);
+  min-height: 100vh;
+}
+
+.miniCategoryHeader {
+  text-align: center;
+  padding: 24px 16px;
+  background: #cc0000;
+  color: #fff;
+  border-radius: 12px;
+  margin: 0 16px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.miniCategoryHeaderImage {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.miniCategoryHeader h1 {
+  margin: 8px 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.miniCategoryHeader p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #fff;
+  opacity: 0.92;
+}
+
+.miniCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+  gap: 16px;
+  padding: 0 16px;
+}
+
+/* 9:16 aspect ratio for cards */
+.miniCategoryCard {
+  background-color: #cc0000;
+  border: 5px solid #cc0000;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 9/16;
+  width: 100%; /* Responsive width */
+  max-width: 220px; /* Optional: limit max width */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.miniCategoryCard:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 8px 16px rgba(204,0,0,0.15);
+}
+
+.miniCategoryImage {
+  width: 100%;
+  height: 80%;
+  aspect-ratio: 9/7; /* Image takes upper part, adjust as needed */
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
+}
+
+.miniCategoryTag {
+  text-align: center;
+  font-size: 1rem;
+  margin: 5px 0 0 0;
+  padding: 0 8px;
+  color: #fff;
+  font-weight: 600;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .miniCategoryMain {
+    padding: 32px 0;
+  }
+
+  .miniCategoryHeader {
+    padding: 32px 16px 24px;
+    border-radius: 18px;
+    margin-bottom: 40px;
+  }
+
+  .miniCategoryHeaderImage {
+    max-height: 250px;
+    border-radius: 12px;
+  }
+
+  .miniCategoryHeader h1 {
+    font-size: 2rem;
+  }
+
+  .miniCategoryHeader p {
+    font-size: 1rem;
+  }
+
+  .miniCategoryContainer {
+    grid-template-columns: repeat(5, 1fr); /* 4 columns for desktop */
+    gap: 10px;
+    padding: 0 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .miniCategoryCard {
+    max-width: 200px;
+    border-radius: 16px;
+  }
+
+  .miniCategoryImage {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .miniCategoryTag {
+    font-size: 1.15rem;
+    margin: 1px 0 0 0;
+  }
+
+  .miniCategoryCard:hover {
+    transform: translateY(-8px) scale(1.035);
+  }
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 9/16) {
+  .miniCategoryCard {
+    height: 320px;
+    width: 180px; /* 9:16 ratio fallback */
+  }
+  .miniCategoryImage {
+    height: 140px;
+  }
+}
+
+/* Optional: Make cards clickable */
+.miniCategoryCard {
+  cursor: pointer;
+}

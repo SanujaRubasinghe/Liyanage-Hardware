@@ -3,8 +3,17 @@ import React from "react";
 import "./TermsAndConditions.css";
 import Footer from "./Footer";
 
+import { Helmet } from "react-helmet";
+
 export default function ReturnPolicy() {
   return (
+    <>
+    <Helmet>
+      <title>Return Policy | New Liyanage Hardware</title>
+      <meta name="description" content="Review how returns and exchanges are handled." />
+      <link rel="canonical" href="https://newliyanagehardware.lk/return-policy" />
+    </Helmet>
+
     <div className="tc-page" style={{ backgroundImage: `url(/images/view.jpg)` }}>
       <div className="tc-container">
         <div className="tc-header">
@@ -23,7 +32,7 @@ export default function ReturnPolicy() {
           <h2>1. Order Cancellation Policy</h2>
           <ul>
             <li>
-              <strong>Before Dispatch:</strong> Customers can cancel their orders before the item is dispatched. To request a cancellation, please contact us at [Insert Contact Information] as soon as possible.
+              <strong>Before Dispatch:</strong> Customers can cancel their orders before the item is dispatched. To request a cancellation, please contact us at [072211324 / 0754232212] as soon as possible.
             </li>
             <li>
               <strong>After Dispatch:</strong> Once an order has been dispatched, it cannot be canceled. Customers may request a <strong>return</strong> (if eligible) after receiving the item.
@@ -40,7 +49,7 @@ export default function ReturnPolicy() {
             <li>
               <strong>Returns accepted</strong> if item is damaged, defective, or incorrect.
             </li>
-            <li>Item must be unused, in original packaging, within [Insert Return Window] days.</li>
+            <li>Item must be unused, in original packaging, within [ 7 ] days.</li>
             <li>Non-returnable: Installed electronics, misused items, custom/clearance goods, missing packaging.</li>
           </ul>
           <ol>
@@ -56,7 +65,7 @@ export default function ReturnPolicy() {
               <strong>Online payments refunded</strong> to original method within [7–14 business days].
             </li>
             <li>
-              Offline/bank payments refunded via bank transfer within [Insert Timeframe].
+              Offline/bank payments refunded via bank transfer within [3 - 5 business days].
             </li>
             <li>
               Cash-on-delivery: choose <strong>store credit</strong> or bank refund.
@@ -90,6 +99,6 @@ export default function ReturnPolicy() {
       </div>
       
     </div>
-    
+    </>
   );
 }

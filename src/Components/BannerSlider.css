@@ -1,0 +1,193 @@
+.image-slider-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border: solid white 10px;
+  border-radius: 20px;
+}
+
+.image-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 0.4s ease;
+}
+
+.image-slide img:hover {
+  transform: scale(1.02);
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.slider-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.slider-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.15);
+}
+
+.slider-dot.active {
+  background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.banner-slider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f3f4f6; /* Tailwind's gray-100 */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.banner-slide {
+  position: relative;
+  height: 16rem; /* h-64 */
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .banner-slide {
+    height: 24rem; /* md:h-96 */
+  }
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+.banner-content-wrapper {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.banner-content {
+  max-width: 32rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.banner-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .banner-title {
+    font-size: 2.25rem;
+  }
+}
+
+.banner-description {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 768px) {
+  .banner-description {
+    font-size: 1.125rem;
+  }
+}
+
+.banner-button {
+  display: inline-block;
+  background-color: white;
+  color: #2563eb;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.banner-button:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #1f2937;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.banner-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.banner-arrow-left {
+  left: 1rem;
+}
+
+.banner-arrow-right {
+  right: 1rem;
+}
+
+.banner-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.banner-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.banner-dot:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.banner-dot.active {
+  background-color: white;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}

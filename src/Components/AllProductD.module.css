@@ -43,7 +43,7 @@
 }
 
 .productSidebar img {
-  width: 100%;
+  width: 300px;
   border-radius: 12px;
   height: auto;
 }
@@ -83,6 +83,9 @@
   max-height: 180px;
   object-fit: contain;
   margin-bottom: 12px;
+  border: 5px solid #cc0000;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .productDetails {

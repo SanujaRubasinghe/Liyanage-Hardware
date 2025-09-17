@@ -1,0 +1,57 @@
+.banner-card {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  width: 350px;
+  margin: auto 0;
+}
+
+.banner-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.banner-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.banner-description-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.banner-description-text {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.skeleton-loader {
+  background-color: #f3f4f6; 
+  border-radius: 0.5rem;     
+  height: 10rem;             
+  width: 100%;              
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}

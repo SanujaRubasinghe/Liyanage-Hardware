@@ -21,7 +21,6 @@ const CustomerComplaintsForm = () => {
     contactNumber: "",
     message: "",
   });
-  const [captchaVerified, setCaptchaVerified] = useState(false);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);

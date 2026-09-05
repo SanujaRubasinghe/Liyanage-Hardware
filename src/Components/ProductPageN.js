@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import API from '../api';
-import './ProductPageN.css';
+import styles from './ProductPageN.module.css';
 import ProductCard from './ProductCard';
 import SearchBarN from "./SearchBarN";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
 
@@ -13,7 +13,6 @@ import { Helmet } from 'react-helmet';
 const itemsPerPage = 12;
 
 const ProductPageN = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
 
@@ -95,7 +94,7 @@ const ProductPageN = () => {
       <meta property="og:url" content="https://newliyanagehardware.lk/products" />
     </Helmet>
     <SearchBarN />
-    <div className="page-container">
+    <div className={styles.pageContainer || "page-container"}>
       <ProductFilter
         onFilterChange={setFilters}
         initialFilters={filters}
@@ -117,7 +116,7 @@ const ProductPageN = () => {
           <>
             <h1>{state ? `Category: ${state.name}` : 'All Products'}</h1>
             
-            <div className="products">
+            <div className={styles.products || "products"}>
               {currentProducts.map((product, index) => (
                 <ProductCard
                   key={index}
@@ -126,11 +125,11 @@ const ProductPageN = () => {
               ))}
             </div>
 
-            <div className="pagination">
+            <div className={styles.pagination || "pagination"}>
               {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}
-                  className={`page-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                  className={`${styles.pageBtn || "page-btn"} ${currentPage === index + 1 ? styles.active || 'active' : ''}`}
                   onClick={() => setCurrentPage(index + 1)}
                 >
                   {index + 1}

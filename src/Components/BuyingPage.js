@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../api";
@@ -24,14 +24,11 @@ const BuyingPage = () => {
   
   const [deliveryCharge, setDeliveryCharge] = useState(0);
   const [coordinates, setCoordinates] = useState({})
-  const [distance, setDistance] = useState(null);
   const [deliveryAvailable, setDeliveryAvailable] = useState(true)
   const [isOnlyCod, setIsOnlyCod] = useState(false)
   const [isOutOfRange, setIsOutOfRange] = useState(false)
   const [isOnlyColombo, setIsOnlyColombo] = useState(false)
   const [isFreeDelivery, setIsFreeDelivery] = useState(false)
-  const [colomboOnlyNames, setColomboOnlyNames] = useState([])
-  const [errorMessage, setErrorMessage] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [activePaymentTab, setActivePaymentTab] = useState("card");
   const streetAutocompleteRef = useRef(null);
@@ -59,13 +56,10 @@ const BuyingPage = () => {
       const deliveryAvailableForAll = cartItems.every(item => item.delivery_available === 1);
       const allCodOnly = cartItems.some(item => item.cod_only === 1);
       const anyColomboOnly = cartItems.some(item => item.colombo_only === 1);
-      const colomboOnlyItems = cartItems.filter(item => item.colombo_only === 1);
-      const colomboOnlyNames = colomboOnlyItems.map(item => item.name);
 
       setDeliveryAvailable(deliveryAvailableForAll);
       setIsOnlyCod(allCodOnly);
       setIsOnlyColombo(anyColomboOnly);
-      setColomboOnlyNames(colomboOnlyNames)
       setActivePaymentTab(allCodOnly ? "cod" : "card");
     }
   }, [product, cartItems]);
@@ -83,7 +77,6 @@ const BuyingPage = () => {
       handleSubmit('payhere')
     } catch (error) {
       console.error("PayHere payment failed:", error);
-      setErrorMessage("Payment processing failed. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -99,7 +92,6 @@ const BuyingPage = () => {
       handleSubmit('kokoPay')
     } catch (error) {
       console.error("KoKo Pay payment failed:", error);
-      setErrorMessage("Payment processing failed. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -151,67 +143,43 @@ const BuyingPage = () => {
   };
 
   useEffect(() => {
-  if (!formData.streetAddress) return;
+    if (!formData.streetAddress) return;
 
-  const debounceTimeout = setTimeout(() => {
-    const handleCalculate = async () => {
-      try {
-        const userAddress = buildFullAddress(formData);
-        const response = await API.post('/location/delivery-charges', { userAddress });
-        
-        const distance = Number(response.data.distanceInKm);
-        const shippingCost = Number(response.data.shippingCost);
-        const coordinates = response.data.location
-        
-        setDeliveryCharge(subtotal > 6000 ? 0 : shippingCost);
-        setDistance(distance);
-        setCoordinates(coordinates)
-        setIsOutOfRange(distance > 20);
-        setIsFreeDelivery(subtotal > 6000);
-        setErrorMessage(response.data?.message);
-      } catch (error) {
-        console.error(error);
-        setErrorMessage('Failed to calculate shipping. Please check the address.');
-      }
-    };
+    const debounceTimeout = setTimeout(() => {
+      const handleCalculate = async () => {
+        try {
+          const userAddress = buildFullAddress(formData);
+          const response = await API.post('/location/delivery-charges', { userAddress });
+          
+          const distance = Number(response.data.distanceInKm);
+          const shippingCost = Number(response.data.shippingCost);
+          const coordinates = response.data.location;
+          
+          setDeliveryCharge(subtotal > 6000 ? 0 : shippingCost);
+          setCoordinates(coordinates);
+          setIsOutOfRange(distance > 20);
+          setIsFreeDelivery(subtotal > 6000);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-    handleCalculate();
-  }, 800); // ⏱️ debounce delay (800ms)
+      handleCalculate();
+    }, 800);
 
-  return () => clearTimeout(debounceTimeout); // 🧹 cleanup on unmount or input change
-}, [formData.streetAddress, formData.postcode, subtotal]);
+    return () => clearTimeout(debounceTimeout);
+  }, [formData, subtotal]);
 
+  const trackCheckout = async (checkoutData) => {
+    const hasConsent = checkConsent();
+    if (!hasConsent) return;
 
-    const trackCheckout = async (checkoutData) => {
-      const hasConsent = checkConsent()
-      if (!hasConsent) return
-
-      try {
-        await API.post('/analytics/user/checkout', checkoutData)
-      } catch (error) {
-        console.log('Checkout tracking failed: ', error)
-      }
+    try {
+      await API.post('/analytics/user/checkout', checkoutData);
+    } catch (error) {
+      console.log('Checkout tracking failed: ', error);
     }
-
-    function convertToInternationalFormat(phoneNumber) {
-      const digitsOnly = phoneNumber.replace(/\D/g, '');
-    
-      if (digitsOnly.startsWith('0') && digitsOnly.length === 10) {
-        return `+94${digitsOnly.substring(1)}`;
-      }
-      return phoneNumber;
-    }
-
-    const sendCustomerSMSMessage = async (to, message) => {
-      try {
-        await API.post('/messages/send-sms-message', {
-          to: to,
-          message: message
-        })
-      } catch (error) {
-        console.log('Failed to send sms message')
-      }
-    }
+  };
 
     const sendWhatsAppMessage = async (message) => {
       try {

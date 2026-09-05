@@ -23,10 +23,6 @@ const AllProductsA = () => {
     fetchProducts()
   }, [])
 
-  const handleAddToCart = () => {
-    alert('Added to cart!');
-  };
-
   const hasMore = visibleCount < products.length;
   const productsToShow = hasMore
     ? products.slice(0, visibleCount - 1)
@@ -77,7 +73,7 @@ const AllProductsA = () => {
       </div>
 
       <div className={styles.products}>
-        {products.map((product, idx) => (
+        {productsToShow.map((product, idx) => (
           <div className={styles.productCard} key={idx}>
             <img 
               src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`}  

@@ -1,8 +1,6 @@
 import React from 'react';
 import { useCart } from './CartContext';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {

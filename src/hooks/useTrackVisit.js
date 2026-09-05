@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { checkConsent } from '../services/checkConsent';
 import API from '../api';
-import { has } from 'lodash';
 
 export const useTrackVisit = (pageUrl) => {
   useEffect(() => {

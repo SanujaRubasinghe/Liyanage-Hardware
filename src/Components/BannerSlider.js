@@ -19,23 +19,18 @@ const BannerSlider = ({onLoad}) => {
     }
   }, [banners.length, imagesLoaded, onLoad])
 
-  const handleImageLoad = () => {
-    setImagesLoaded(prev => prev + 1)
-  }
-
-  // Preload images and cache them
-  const preloadImages = (urls) => {
-    urls.forEach(url => {
-      if (!imageCache[url]) {
-        const img = new Image();
-        img.src = url;
-        img.onload = handleImageLoad
-        imageCache[url] = img;
-      }
-    });
-  };
-
   useEffect(() => {
+    const preloadImages = (urls) => {
+      urls.forEach(url => {
+        if (!imageCache[url]) {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => setImagesLoaded(prev => prev + 1);
+          imageCache[url] = img;
+        }
+      });
+    };
+
     const fetchBanners = async () => {
       try {
         const response = await API.get('/content/banners/active');

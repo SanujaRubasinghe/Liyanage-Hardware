@@ -6,7 +6,6 @@ import API from '../api';
 
 const ProductPageN = () => {
   const [visibleCount, setVisibleCount] = useState(8);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
   const [products, setProducts] = useState([])
   const navigate = useNavigate();
 
@@ -29,14 +28,7 @@ const ProductPageN = () => {
       const width = window.innerWidth;
       if (width <= 480) {
         // Mobile: show fewer items initially
-        setItemsPerPage(4);
         setVisibleCount(prev => Math.min(prev, 4));
-      } else if (width <= 768) {
-        // Tablet: moderate number of items
-        setItemsPerPage(6);
-      } else {
-        // Desktop: full number of items
-        setItemsPerPage(8);
       }
     };
 
@@ -49,20 +41,6 @@ const ProductPageN = () => {
     // Cleanup
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const handleAddToCart = (productName, action) => {
-    // Enhanced feedback for different screen sizes
-    const isMobile = window.innerWidth <= 480;
-    const message = isMobile 
-      ? `${action === 'buy' ? 'Buying' : 'Added'}: ${productName.substring(0, 30)}...`
-      : `${action === 'buy' ? 'Proceeding to buy' : 'Added to cart'}: ${productName}`;
-    
-    alert(message);
-  };
-
-  const handleLoadMore = () => {
-    setVisibleCount(prev => Math.min(prev + itemsPerPage, products.length));
-  };
 
   const handleSeeMore = () => {
     // Check if on mobile for different navigation behavior
@@ -118,7 +96,7 @@ const ProductPageN = () => {
       </div>
 
       <div className={styles.products}>
-        {products.map((product, idx) => (
+        {productsToShow.map((product, idx) => (
           <div className={styles.productCard} key={`${product.sku}-${idx}`}>
             <img 
               src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} 

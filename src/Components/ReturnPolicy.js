@@ -1,7 +1,5 @@
-// src/Components/ReturnPolicy.jsx
 import React from "react";
 import "./TermsAndConditions.css";
-import Footer from "./Footer";
 
 import { Helmet } from "react-helmet";
 

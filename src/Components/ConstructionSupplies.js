@@ -36,8 +36,8 @@ const ConstructionSupplies = () => {
         </p>
         <p>
           Liyanage Hardware, we believe in building strong foundations—both in construction and in relationships. Visit us today and experience quality, affordability, and exceptional service all under one roof!
-          discover, including <a href="#">Carlisle Brass</a>, <a href="#">From the Anvil</a>,{" "}
-          <a href="#">Heritage Brass</a>, and many more.
+          discover, including <a href="#!">Carlisle Brass</a>, <a href="#!">From the Anvil</a>,{" "}
+          <a href="#!">Heritage Brass</a>, and many more.
         </p>
         <p>
           View our full range of door ironmongery and door hardware products on our website, or

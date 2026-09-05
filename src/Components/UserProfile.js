@@ -25,7 +25,7 @@ const CancelOrderButton = ({ order }) => {
 
   const handleCancel = async () => {
     try {
-      const res = await API.put(`/user/${order.order_id}/cancel`);
+      await API.put(`/user/${order.order_id}/cancel`);
       toast.success('Order cancelled successfully');
       window.location.reload(); // or trigger state refresh
     } catch (err) {

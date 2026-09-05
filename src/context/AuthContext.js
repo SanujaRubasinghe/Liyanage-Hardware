@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import LoadingPage from "../Components/LoadingPage";
-import { toast } from "react-toastify";
 import API from "../api"; 
 
 export const AuthContext = createContext();

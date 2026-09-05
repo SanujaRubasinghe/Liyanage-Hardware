@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Feedback.css';
 import API from '../api';
 
@@ -22,12 +22,7 @@ const Feedback = () => {
     pages: 1
   });
 
-  useEffect(() => {
-    fetchAnalytics();
-    fetchReviews();
-  }, [pagination.page]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     try {
       setLoading(true);
       const response = await API.get('/feedback/reviews/analytics');
@@ -41,9 +36,9 @@ const Feedback = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       setReviewsLoading(true);
       const response = await API.get(`/feedback/reviews?page=${pagination.page}&limit=${pagination.limit}`);
@@ -58,7 +53,12 @@ const Feedback = () => {
     } finally {
       setReviewsLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit]);
+
+  useEffect(() => {
+    fetchAnalytics();
+    fetchReviews();
+  }, [fetchAnalytics, fetchReviews]);
 
   const resetForm = () => {
     setRating(0);

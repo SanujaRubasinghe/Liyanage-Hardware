@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { debounce } from "lodash";
 import API from "../api";
 import "./SearchBarN.css";
@@ -7,25 +7,22 @@ export default function Searchbarr() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
-  const fetchResults = async (searchTerm) => {
-    try {
-      if (!searchTerm.trim()) {
-        setResults([])
-        return
-      }
-      const res = await API.get(`/products/search-products?q=${encodeURIComponent(searchTerm)}`)
-      setResults(res.data)
-    } catch (err) {
-      console.error('Error fetching products: ', err)
-      setResults([])
-    }
-  }
-
-   const debouncedSearch = useCallback(
-    debounce((term) => {
-      fetchResults(term);
-    }, 300),
-    [] // memoize once
+  const debouncedSearch = useMemo(
+    () =>
+      debounce(async (searchTerm) => {
+        try {
+          if (!searchTerm.trim()) {
+            setResults([]);
+            return;
+          }
+          const res = await API.get(`/products/search-products?q=${encodeURIComponent(searchTerm)}`);
+          setResults(res.data);
+        } catch (err) {
+          console.error('Error fetching products: ', err);
+          setResults([]);
+        }
+      }, 300),
+    []
   );
 
   useEffect(() => {

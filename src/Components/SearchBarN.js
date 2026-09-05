@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { FaSearch, FaArrowLeft } from "react-icons/fa";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce";
 import API from "../api";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ export default function Searchbarr() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hasConsent, setHasConsent] = useState(false)
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const searchContainerRef = useRef(null);
   const inputRef = useRef(null)
   const resultsRef = useRef(null);
@@ -58,32 +57,28 @@ export default function Searchbarr() {
     }
   }
 
-  // Debounced search function
-  const searchProducts = async (term) => {
-    if (!term.trim()) {
-      setResults([]);
-      return;
-    }
+  const debouncedSearch = useMemo(
+    () =>
+      debounce(async (term) => {
+        if (!term.trim()) {
+          setResults([]);
+          return;
+        }
 
-    try {
-      setIsLoading(true);
-      const res = await API.get(`/products/search-products?q=${encodeURIComponent(term)}&limit=5`);
-      setResults(res.data);
-      setIsLoading(false);
-      if (hasConsent) trackSearchQuery(term, res.data.length)
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      setResults([]);
-      setIsLoading(false);
-      if (hasConsent) trackSearchQuery(term, 0)
-    }
-  };
-
-  const debouncedSearch = useCallback(
-    debounce((term) => {
-      searchProducts(term);
-    }, 300),
-    []
+        try {
+          setIsLoading(true);
+          const res = await API.get(`/products/search-products?q=${encodeURIComponent(term)}&limit=5`);
+          setResults(res.data);
+          setIsLoading(false);
+          if (hasConsent) trackSearchQuery(term, res.data.length);
+        } catch (err) {
+          console.error("Error fetching products:", err);
+          setResults([]);
+          setIsLoading(false);
+          if (hasConsent) trackSearchQuery(term, 0);
+        }
+      }, 300),
+    [hasConsent]
   );
 
   useEffect(() => {
@@ -123,13 +118,6 @@ export default function Searchbarr() {
     }
     return acc;
   }, []);
-
-  const handleMobileSearchToggle = () => {
-    setIsMobileSearchOpen(!isMobileSearchOpen);
-    if (!isMobileSearchOpen) {
-      setIsDropdownOpen(true);
-    }
-  };
 
   return (
     <>

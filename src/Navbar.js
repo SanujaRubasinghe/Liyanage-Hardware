@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, useLocation } from "./router-compat";
 import { AuthContext } from "./context/AuthContext";
 import "./Navbar.css";
+import "./Components/Header.css";
 import { useCart } from "./Components/CartContext";
 
 function Navbar() {
@@ -44,31 +45,14 @@ function Navbar() {
 
   return (
     <header className={`site-header ${isShrunk ? "shrunk" : ""}`}>
-      {/* Top Info Bar on Desktop */}
-      <div className="top-header-bar">
-        <div className="top-header-container">
-          <div className="tele">
-            <i className="fas fa-phone-alt tele-icon"></i>
-            <a href="tel:072211324" className="tele-h">072211324</a>
-            <span className="tele-sep">/</span>
-            <a href="tel:0754232212" className="tele-h">0754232212</a>
-          </div>
-          <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon" aria-label="Facebook">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://wa.me/9472211324" target="_blank" rel="noopener noreferrer" className="icon" aria-label="WhatsApp">
-              <i className="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="icon" aria-label="Instagram">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="icon" aria-label="TikTok">
-              <i className="fab fa-tiktok"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Top Banner Image Header */}
+      <header className="header-container-h">
+        <img 
+          src="/images/n3.png" 
+          alt="Website Header" 
+          className="header-image" 
+        />
+      </header>
 
       {/* Main Navbar */}
       <nav className="navbar">

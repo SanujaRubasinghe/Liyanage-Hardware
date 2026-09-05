@@ -54,7 +54,6 @@ const HomePage = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <Header />
       <SearchBarN />
       <AnnouncementBar />
       <BannerSlider

@@ -9,7 +9,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: url('/public/images/view2.jpg') center/cover no-repeat;
+  background: url('/images/view2.jpg') center/cover no-repeat;
   height: 260px;
   position: relative;
   display: flex;

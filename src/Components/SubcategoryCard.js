@@ -1,9 +1,10 @@
 // SubcategoryCard.js
 import React from "react";
 import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker";
+import { getImageUrl } from "../utils/imageUrl";
 
 const SubcategoryCard = ({ subcategory, onClick }) => {
-  const viewRef = useCategoryViewTracker(subcategory.category_id);
+  const viewRef = useCategoryViewTracker(subcategory?.category_id);
 
   return (
     <div
@@ -12,11 +13,12 @@ const SubcategoryCard = ({ subcategory, onClick }) => {
       onClick={onClick}
     >
       <img
-        src={`${process.env.REACT_APP_API_BASE_URL}${subcategory.thumbnail}`}
-        alt={subcategory.name}
+        src={getImageUrl(subcategory?.thumbnail)}
+        alt={subcategory?.name || 'Subcategory'}
         className="subcategory-image"
+        onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
       />
-      <div className="subcategory-tag">{subcategory.name}</div>
+      <div className="subcategory-tag">{subcategory?.name}</div>
     </div>
   );
 };

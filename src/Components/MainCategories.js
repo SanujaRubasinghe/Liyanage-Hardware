@@ -1,5 +1,6 @@
+'use client';
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../router-compat";
 import API from "../api";
 import { toast } from "react-toastify";
 import { trackClick } from "../services/categoryAnalytics";

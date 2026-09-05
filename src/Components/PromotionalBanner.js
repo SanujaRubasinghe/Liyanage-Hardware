@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import API from '../api';
+import { getImageUrl } from '../utils/imageUrl';
 import './PromotionalBanner.css'
 
 const PromotionalBanner = ({ location }) => {
@@ -44,9 +45,10 @@ const PromotionalBanner = ({ location }) => {
         className="banner-card"
         >
           <img
-          src={`${process.env.REACT_APP_API_BASE_URL}${banner.current_image.image_url}`}
+          src={getImageUrl(banner.current_image.image_url)}
           alt={banner.current_image.alt_text || banner.name}
           className="banner-image"
+          onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
           />
           {banner.description && (
           <div className="banner-description-overlay">

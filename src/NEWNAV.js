@@ -1,7 +1,7 @@
+'use client';
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from './router-compat';
 import { AuthContext } from './context/AuthContext';
-import API from "./api";
 import './Navbar.css';
 import { useCart } from './Components/CartContext';
 

@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useContext, useState, useMemo, useEffect } from "react";
 
 const CartContext = createContext();

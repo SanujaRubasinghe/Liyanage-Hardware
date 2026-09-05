@@ -1,6 +1,8 @@
+'use client';
 import React, { useState, useEffect, useMemo } from "react";
 import { debounce } from "lodash";
 import API from "../api";
+import { getImageUrl } from "../utils/imageUrl";
 import "./SearchBarN.css";
 
 export default function Searchbarr() {
@@ -48,7 +50,12 @@ export default function Searchbarr() {
           <ul className="results-list">
             {results.map(p => (
               <li key={p.product_id} className="result-item">
-                <img src={`${process.env.REACT_APP_API_BASE_URL}/${p.image_url}`} alt={p.name} className="result-img" />
+                <img 
+                  src={getImageUrl(p.image_url)} 
+                  alt={p.name} 
+                  className="result-img" 
+                  onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
+                />
                 <div className="result-info">
                   <h4 className="result-name">{p.name}</h4>
                   <span className="result-type">{p.brand}</span>

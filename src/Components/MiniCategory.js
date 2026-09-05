@@ -1,7 +1,9 @@
+'use client';
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "../router-compat";
 import { toast } from "react-toastify";
 import API from "../api";
+import { getImageUrl } from "../utils/imageUrl";
 import "./MiniCategory.css";
 import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker"; 
 import { trackClick } from "../services/categoryAnalytics";
@@ -19,9 +21,10 @@ const MiniCategoryCard = ({ miniCategory, onClick }) => {
       onClick={onClick}
     >
       <img
-        src={`${process.env.REACT_APP_API_BASE_URL}${miniCategory.thumbnail}`}
+        src={getImageUrl(miniCategory.thumbnail)}
         alt={miniCategory.name}
         className="miniCategory-image"
+        onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
       />
       <div className="miniCategory-tag">{miniCategory.name}</div>
     </div>

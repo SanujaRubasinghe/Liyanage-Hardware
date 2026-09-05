@@ -1,8 +1,10 @@
+'use client';
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce";
 import API from "../api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "../router-compat";
+import { getImageUrl } from "../utils/imageUrl";
 import { checkConsent } from "../services/checkConsent";
 import "./SearchBarN.css";
 
@@ -161,13 +163,10 @@ export default function Searchbarr() {
                         onClick={handleResultClick}
                       >
                         <img
-                          src={
-                            product.image_url
-                              ? `${process.env.REACT_APP_API_BASE_URL}/${product.image_url}`
-                              : "/placeholder.jpg"
-                          }
+                          src={getImageUrl(product.image_url)}
                           alt={product.name}
                           className="result-img"
+                          onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                         />
                         <div className="result-info">
                           <span className="result-name">{product.name}</span>

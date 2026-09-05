@@ -18,7 +18,7 @@ body {
   /* Performance-optimized background */
   background: 
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('/public/images/frontlook.webp') center/cover fixed no-repeat;
+    url('/images/frontlook.webp') center/cover fixed no-repeat;
 }
 
 /* Overlay with reduced blur for better performance */
@@ -31,7 +31,7 @@ body {
   height: 100%;
   background: 
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('/public/images/frontlook.webp') center/cover fixed no-repeat;
+    url('/images/frontlook.webp') center/cover fixed no-repeat;
   filter: blur(4px);
   z-index: -1;
   transform: translateZ(0); /* Hardware acceleration */

@@ -2,9 +2,10 @@
 import React from 'react';
 import { useCategoryViewTracker } from '../hooks/useCategoryViewTracker';
 import styles from './MainCategories.module.css';
+import { getImageUrl } from '../utils/imageUrl';
 
 const CategoryCard = ({ cat, onClick }) => {
-  const viewRef = useCategoryViewTracker(cat.category_id);
+  const viewRef = useCategoryViewTracker(cat?.category_id);
   
   return (
     <div
@@ -13,11 +14,12 @@ const CategoryCard = ({ cat, onClick }) => {
       onClick={onClick}
     >
       <img
-        src={`${process.env.REACT_APP_API_BASE_URL}${cat.thumbnail}`}
-        alt={cat.name}
+        src={getImageUrl(cat?.thumbnail)}
+        alt={cat?.name || 'Category'}
         className={styles.miniCategoryImage}
+        onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
       />
-      <div className={styles.miniCategoryTag}>{cat.name}</div>
+      <div className={styles.miniCategoryTag}>{cat?.name}</div>
     </div>
   );
 };

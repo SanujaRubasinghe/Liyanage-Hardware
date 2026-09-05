@@ -33,7 +33,7 @@
 
   background: 
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('/public/images/frontlook.webp') center/cover fixed no-repeat;
+    url('/images/frontlook.webp') center/cover fixed no-repeat;
 }
 
 @keyframes fadeIn {

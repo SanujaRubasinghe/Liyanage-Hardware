@@ -1,5 +1,6 @@
+'use client';
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "../router-compat";
 import { toast } from "react-toastify";
 import API from "../api";
 import "./Subcategories.css";

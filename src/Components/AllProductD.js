@@ -1,7 +1,9 @@
+'use client';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../router-compat';
 import styles from './AllProductD.module.css';
 import API from '../api';
+import { getImageUrl } from '../utils/imageUrl';
 
 
 const ProductPageN = () => {
@@ -99,11 +101,12 @@ const ProductPageN = () => {
         {productsToShow.map((product, idx) => (
           <div className={styles.productCard} key={`${product.sku}-${idx}`}>
             <img 
-              src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} 
+              src={getImageUrl(product.primary_image)} 
               alt={`${product.name} - ${product.unit} package`}
               className={styles.productImage}
               loading="lazy"
               onClick={() => handleDetails(product.product_id)}
+              onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
             />
             <div className={styles.productDetails}>
               <h3 className={styles.productTitle}>{product.name}</h3>

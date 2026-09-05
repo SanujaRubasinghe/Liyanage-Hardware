@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useState, useEffect, useContext } from "react";
 import LoadingPage from "../Components/LoadingPage";
 import API from "../api"; 

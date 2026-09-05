@@ -1,6 +1,8 @@
+'use client';
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../router-compat";
 import { useProductViewTracker } from "../hooks/useProductViewTracker";
+import { getImageUrl } from "../utils/imageUrl";
 import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
@@ -50,11 +52,12 @@ const ProductCard = ({ product }) => {
     <div className="product-card" ref={viewRef}>
       <div className="product-image-container">
         <img 
-          src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`} 
+          src={getImageUrl(product.primary_image)} 
           alt={product.name} 
           className="product-image" 
           loading="lazy"
           onClick={() => handleDetails(product.product_id)}
+          onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
         />
       </div>
       <div className="product-details">

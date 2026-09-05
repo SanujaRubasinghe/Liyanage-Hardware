@@ -1,0 +1,512 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/CustomerComplaintsForm.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Container with optimized fixed background */
+.ccf-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  color: #333;
+  
+  /* Performance-optimized background */
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('/images/frontlook.webp') center/cover fixed no-repeat;
+}
+
+/* Overlay with reduced blur for better performance */
+.ccf-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('/images/frontlook.webp') center/cover fixed no-repeat;
+  filter: blur(4px);
+  z-index: -1;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* Logo circle with optimized animation */
+.ccf-logo-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(245, 245, 245, 0.9);
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Optimized shine animation */
+.ccf-logo-circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(20deg);
+  animation: ccf-shine 3.5s ease-in-out infinite;
+  will-change: transform; /* Performance optimization */
+}
+
+@keyframes ccf-shine {
+  0% { transform: rotate(20deg) translateX(-100%); }
+  100% { transform: rotate(20deg) translateX(100%); }
+}
+
+.ccf-logo {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+/* Card with improved readability */
+.ccf-card {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Header with better typography */
+.ccf-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ccf-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #c62828;
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.ccf-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #d32f2f;
+  margin: 0.75rem auto;
+  border-radius: 3px;
+}
+
+/* Form layout improvements */
+.ccf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ccf-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.ccf-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.ccf-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.ccf-group input,
+.ccf-group select,
+.ccf-group textarea {
+  padding: 0.85rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.2s ease;
+}
+
+.ccf-group input:focus,
+.ccf-group select:focus,
+.ccf-group textarea:focus {
+  outline: none;
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+.ccf-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* File upload with preview area */
+.ccf-file-btn {
+  padding: 0.85rem 1.5rem;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.ccf-file-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-1px);
+}
+
+.ccf-hidden-input {
+  display: none;
+}
+
+/* Image preview container */
+.ccf-image-preview-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ccf-image-preview {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ccf-image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ccf-remove-image {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ccf-remove-image:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Captcha with better spacing */
+.ccf-captcha {
+  margin: 1rem 0;
+}
+
+.ccf-captcha-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ccf-captcha-text {
+  padding: 0.75rem;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-family: monospace;
+  letter-spacing: 2px;
+  text-align: center;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
+.ccf-captcha-error {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Submit button */
+.ccf-submit-btn {
+  padding: 1rem;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.ccf-submit-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(183, 28, 28, 0.2);
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 480px) {
+  .ccf-container {
+    padding: 2.5rem 1rem;
+  }
+  
+  .ccf-logo-circle {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (min-width: 768px) {
+  .ccf-container {
+    padding: 3rem;
+  }
+  
+  .ccf-card {
+    padding: 2.5rem;
+  }
+  
+  .ccf-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .ccf-title {
+    font-size: 2rem;
+  }
+  
+  .ccf-captcha-wrap {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .ccf-captcha-text {
+    min-width: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ccf-container {
+    padding: 4rem;
+  }
+  
+  .ccf-card {
+    max-width: 700px;
+  }
+}
+
+/* Disable fixed background on mobile for performance */
+@media (max-width: 768px) {
+  .ccf-container,
+  .ccf-container::before {
+    background-attachment: scroll;
+  }
+}
+/*!**********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/ConfirmationModal.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal-box {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .modal-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ok-button {
+    padding: 8px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ok-button:hover {
+    background-color: #0056b3;
+  }
+  
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/Footer.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+/* Footer.css */
+
+/* Base footer styles */
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 40px 20px;
+  font-size: 14px;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+  gap: 20px;
+}
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 15px;
+}
+.footer-bottom .social-icons {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.footer-bottom .social-icons i {
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.footer-bottom .social-icons i:hover {
+  color: #ff8c00;
+}
+
+/* Accordion styles */
+.footer-accordion {
+  flex: 1 1;
+  min-width: 200px;
+  border-bottom: 1px solid #444;
+}
+.footer-accordion-header {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 1rem 0;
+  text-align: left;
+  position: relative;
+  cursor: pointer;
+}
+.footer-accordion-header .arrow {
+  position: absolute;
+  right: 0;
+  transition: transform 0.3s ease;
+}
+.footer-accordion-header .arrow.open {
+  transform: rotate(90deg);
+}
+.footer-accordion-body {
+  font-size: 14px;
+  padding-bottom: 1rem;
+}
+.footer-accordion-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-accordion-body ul li {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.footer-accordion-body ul li:hover {
+  text-decoration: underline;
+}
+
+/* Desktop / Tablet: show all sections expanded, hide accordion header arrow */
+@media (min-width: 769px) {
+  .footer-container {
+    flex-direction: row;
+  }
+  .footer-accordion-header {
+    display: block;          /* undo any “display: none” */
+    color: #ff8c00;          /* make the text orange */
+  }
+
+  .footer-accordion-header .arrow {
+    display: none;
+  }
+  .footer-accordion-body {
+    display: block !important;
+  }
+}
+
+/* Mobile: stack accordions */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: left;
+  }
+}
+

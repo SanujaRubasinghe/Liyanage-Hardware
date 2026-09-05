@@ -1,9 +1,11 @@
+'use client';
 import { useState, useEffect } from 'react';
 import API from '../api';
 import styles from './UserProfile.module.css';
 import { AlertTriangle } from 'lucide-react'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../router-compat';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/imageUrl';
 
 const CancelOrderButton = ({ order }) => {
   const [canCancel, setCanCancel] = useState(false);
@@ -326,9 +328,10 @@ return (
                             {order.items.slice(0, 2).map(item => (
                             <div key={item.order_item_id} className={styles.orderItem}>
                                 <img 
-                                src={`${process.env.REACT_APP_API_BASE_URL}/${item.image_url}`} 
-                                alt={item.product_name} 
-                                className={styles.itemImage} 
+                                  src={getImageUrl(item.image_url)} 
+                                  alt={item.product_name} 
+                                  className={styles.itemImage} 
+                                  onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                                 />
                                 <div className={styles.itemDetails}>
                                 <span className={styles.itemName}>{item.product_name}</span>
@@ -379,9 +382,10 @@ return (
                             {order.items.map(item => (
                                 <div key={item.order_item_id} className={styles.detailItem}>
                                 <img 
-                                    src={`${process.env.REACT_APP_API_BASE_URL}/${item.image_url}`} 
+                                    src={getImageUrl(item.image_url)} 
                                     alt={item.product_name} 
                                     className={styles.itemImage} 
+                                    onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                                 />
                                 <div className={styles.itemInfo}>
                                     <span className={styles.itemName}>{item.product_name}</span>

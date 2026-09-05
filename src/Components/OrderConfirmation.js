@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from '../router-compat';
 import { FaCheckCircle, FaBox, FaCreditCard, FaMapMarkerAlt } from 'react-icons/fa';
 import styles from './OrderConfirmation.module.css';
 

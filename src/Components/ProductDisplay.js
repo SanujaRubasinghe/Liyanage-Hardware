@@ -1,7 +1,9 @@
+'use client';
 import React, { useEffect, useState } from "react";
 import { useCart } from "./CartContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "../router-compat";
 import API from "../api";
+import { getImageUrl } from "../utils/imageUrl";
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
@@ -167,10 +169,11 @@ const ProductDisplay = () => {
           <div className="nlh-mobile-gallery-container">
             <div className="nlh-main-image-container">
               <img 
-                src={`${process.env.REACT_APP_API_BASE_URL}/${selectedImage}`} 
+                src={getImageUrl(selectedImage)} 
                 alt={product.name} 
                 className="nlh-main-image" 
                 loading="lazy"
+                onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
               />
             </div>
             <div className="nlh-mobile-thumbnails">
@@ -181,9 +184,10 @@ const ProductDisplay = () => {
                   onClick={() => setSelectedImage(image)}
                 >
                   <img
-                    src={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
+                    src={getImageUrl(image)}
                     alt={`${product.name} thumbnail ${index + 1}`}
                     loading="lazy"
+                    onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                   />
                 </div>
               ))}
@@ -195,20 +199,22 @@ const ProductDisplay = () => {
               {product.images.map((image, index) => (
                 <img
                   key={index}
-                  src={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
+                  src={getImageUrl(image)}
                   alt={`${product.name} - ${index + 1}`}
                   className={`nlh-gallery-thumbnail ${selectedImage === image ? 'active' : ''}`}
                   onClick={() => setSelectedImage(image)}
                   loading="lazy"
+                  onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                 />
               ))}
             </div>
             <div className="nlh-main-image-container">
               <img 
-                src={`${process.env.REACT_APP_API_BASE_URL}/${selectedImage}`} 
+                src={getImageUrl(selectedImage)} 
                 alt={product.name} 
                 className="nlh-main-image" 
                 loading="lazy"
+                onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
               />
             </div>
           </>

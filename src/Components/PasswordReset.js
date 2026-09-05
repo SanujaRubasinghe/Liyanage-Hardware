@@ -1,6 +1,7 @@
-import { useState } from 'react';
+'use client';
+import React, { useState } from 'react';
 import API from '../api';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from '../router-compat';
 import styles from './PasswordResetForm.module.css';
 
 const PasswordReset = () => {

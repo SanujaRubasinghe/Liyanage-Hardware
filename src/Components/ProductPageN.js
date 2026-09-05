@@ -1,10 +1,11 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import API from '../api';
 import styles from './ProductPageN.module.css';
 import ProductCard from './ProductCard';
 import SearchBarN from "./SearchBarN";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '../router-compat';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
 

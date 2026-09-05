@@ -1,3 +1,19 @@
+:root {
+  /* Primaries */
+  --bg-page: #ffffff;
+  --accent-1: #e53935;
+  --accent-2: #fb8c00;
+
+  /* Neutrals */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-light: #888888;
+
+  /* Surfaces */
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

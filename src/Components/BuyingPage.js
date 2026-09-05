@@ -1,7 +1,9 @@
+'use client';
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "../router-compat";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../api";
+import { getImageUrl } from "../utils/imageUrl";
 import styles from "./BuyingPage.module.css";
 import { useCart } from "./CartContext";
 import { checkConsent } from "../services/checkConsent";
@@ -402,8 +404,9 @@ const BuyingPage = () => {
                 >
                   <div className={styles.itemImage}>
                     <img
-                      src={`${process.env.REACT_APP_API_BASE_URL}/${item.image}`}
+                      src={getImageUrl(item.image)}
                       alt={item.name}
+                      onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                     />
                   </div>
                   <div className={styles.itemDetails}>

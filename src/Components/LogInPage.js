@@ -1,6 +1,7 @@
+'use client';
 // src/pages/LogInPage.jsx
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "../router-compat";
 import { AuthContext } from "../context/AuthContext";
 import styles from "./LogInPage.module.css";
 import { toast } from "react-toastify";

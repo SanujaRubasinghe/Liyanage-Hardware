@@ -1,5 +1,6 @@
+'use client';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../router-compat';
 import { trackClick } from '../services/categoryAnalytics';
 import './Home.css';
 import './Product.css';

@@ -1,6 +1,7 @@
 // Components/ScrollToTop.js
+'use client';
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "../router-compat";
 
 export default function ScrollToTop() {
   const { pathname } = useLocation();

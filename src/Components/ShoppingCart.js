@@ -1,6 +1,8 @@
+'use client';
 import React from 'react';
 import { useCart } from './CartContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from '../router-compat';
+import { getImageUrl } from '../utils/imageUrl';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {
@@ -54,9 +56,10 @@ const ShoppingCart = () => {
                 {cartItems.map(item => (
                   <div className={`cart-item ${item.only_colombo ? 'colombo-only-highlight' : ''}`} key={item.product_id}>
                     <img 
-                      src={`${process.env.REACT_APP_API_BASE_URL}/${item.images[0]}`} 
+                      src={getImageUrl(item.images?.[0])} 
                       alt={item.name} 
                       loading="lazy"
+                      onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
                     />
                     <div className="item-details">
                       <h4>{item.name}</h4>

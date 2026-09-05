@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import './Feedback.css';
 import API from '../api';

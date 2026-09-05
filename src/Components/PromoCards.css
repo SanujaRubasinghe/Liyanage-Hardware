@@ -33,18 +33,18 @@
 
 .red-card {
   background-color: #d62828;
-  background-image: url('/public/images/offer5.png'); /* Optional */
+  background-image: url('/images/offer5.png'); /* Optional */
 }
 
 .yellow-card {
   background-color: #fcbf49;
-  background-image: url('/public/images/offer6.png'); /* Optional */
+  background-image: url('/images/offer6.png'); /* Optional */
   color: #000;
 }
 
 .orange-card {
   background-color: #f77f00;
-  background-image: url('/public/images/offer2.png'); /* Optional */
+  background-image: url('/images/offer2.png'); /* Optional */
 }
 
 .promo-card h2, .promo-card h3 {

@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+'use client';
+import React, { useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "../context/AuthContext";
 
+const PrivateRoute = ({ element }) => {
+    const { user, loading } = useContext(AuthContext);
+    const router = useRouter();
 
-const PrivateRoute = ({ element, ...rest }) => {
-    const { user } = useContext(AuthContext); // Get the user from context
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
 
-    return user ? element : <Navigate to="/login" />; // If authenticated, render the component; else redirect
+    if (loading) return null;
+
+    return user ? element : null;
 };
 
 export default PrivateRoute;
-
-
-

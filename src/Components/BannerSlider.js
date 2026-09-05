@@ -1,7 +1,9 @@
+'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './BannerSlider.css';
 import API from '../api';
+import { getImageUrl } from '../utils/imageUrl';
 
 const imageCache = {};
 
@@ -38,7 +40,7 @@ const BannerSlider = ({onLoad}) => {
         setBanners(validBanners);
 
         const allImageUrls = validBanners.flatMap(banner =>
-          banner.images.map(img => `${process.env.REACT_APP_API_BASE_URL}${img.image_url}`)
+          banner.images.map(img => getImageUrl(img.image_url))
         );
         preloadImages(allImageUrls);
       } catch (err) {
@@ -145,7 +147,7 @@ const BannerImageSlider = ({ images }) => {
   const [loadedImages, setLoadedImages] = useState({});
 
   const imageUrls = useMemo(() =>
-    images.map(img => `${process.env.REACT_APP_API_BASE_URL}${img.image_url}`),
+    images.map(img => getImageUrl(img.image_url)),
     [images]
   );
 

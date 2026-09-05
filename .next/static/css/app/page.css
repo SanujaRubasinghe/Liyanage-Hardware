@@ -18,6 +18,211 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/SearchBarN.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/* SearchBarN Section Bar */
+.navbar-N {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333333;
+  color: #ffffff;
+  padding: 0.6rem 1.5rem;
+  position: relative;
+  z-index: 90;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Nav Left Section - OFFERS badge */
+.nav-left {
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.offers-button {
+  background: linear-gradient(135deg, #cc0000 0%, #aa0000 100%);
+  color: #ffffff;
+  padding: 0.45rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(204, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.offers-button:hover {
+  background: linear-gradient(135deg, #e60000 0%, #cc0000 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(204, 0, 0, 0.4);
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  flex: 1 1;
+  max-width: 550px;
+  margin: 0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.55rem 2.4rem 0.55rem 1.1rem;
+  border-radius: 24px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.92rem;
+  background: #ffffff;
+  color: #222222;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.search-input:focus {
+  border-color: #cc0000;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #cc0000;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+/* Search Results Dropdown */
+.results-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  list-style: none;
+  padding: 6px 0;
+  border: 1px solid #eaeaea;
+}
+
+.result-item {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item.loading,
+.result-item.no-results {
+  color: #666666;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.result-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.result-link:hover {
+  background-color: #fff0f0;
+}
+
+.result-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 12px;
+  border: 1px solid #eaeaea;
+  flex-shrink: 0;
+}
+
+.result-info {
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #222222;
+  margin-bottom: 2px;
+}
+
+.result-type {
+  font-size: 0.78rem;
+  color: #777777;
+  margin-bottom: 2px;
+}
+
+.result-price {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #cc0000;
+}
+
+.see-more-container {
+  padding: 0;
+}
+
+.see-more-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #f8f8f8;
+  border: none;
+  color: #cc0000;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.see-more-button:hover {
+  background: #ffeeee;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-N {
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-left {
+    margin-right: 0.75rem;
+  }
+
+  .offers-button {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .search-input {
+    font-size: 0.85rem;
+    padding: 0.45rem 2rem 0.45rem 0.9rem;
+  }
+}
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/AnnouncementBar.css ***!
   \********************************************************************************************************************************************************************************************************************************************************************************/

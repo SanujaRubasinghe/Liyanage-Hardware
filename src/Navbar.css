@@ -21,7 +21,7 @@
 .top-header-container {
   width: 100%;
   max-width: 100%;
-  padding: 0 16px 0 12px;
+  padding: 0 16px 0 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,29 +84,32 @@
 .navbar {
   width: 100%;
   background: #ffffff;
+  padding: 0 !important;
 }
 
 .navbar-container {
   width: 100%;
   max-width: 100%;
-  padding: 8px 16px 8px 10px; /* Reduced left padding to move logo far left */
+  padding: 6px 16px 6px 0px !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
 }
 
-/* Logo - Moved to far left edge */
+/* Logo - Moved to far left corner */
 .logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  margin-left: 0 !important;
+  padding-left: 5px !important;
   margin-right: 15px;
 }
 
 .logo img {
   height: auto;
-  width: 115px;
+  width: 120px;
   max-height: 60px;
   object-fit: contain;
   transition: width 0.3s ease;
@@ -428,7 +431,7 @@
   }
 
   .navbar-container {
-    padding: 6px 12px 6px 8px;
+    padding: 6px 12px 6px 0px !important;
   }
 
   .logo img {
@@ -619,7 +622,7 @@
 /* Extra Small Phones (< 480px) */
 @media (max-width: 479px) {
   .navbar-container {
-    padding: 6px 8px 6px 4px;
+    padding: 6px 8px 6px 0px !important;
   }
 
   .logo img {

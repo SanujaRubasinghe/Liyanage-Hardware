@@ -2,8 +2,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../src/index.css';
 import '../src/App.css';
 import '../src/Navbar.css';
-import '../src/ResponsiveNavbar.css';
-import '../src/NEWNAV.css';
 import ClientLayout from '../src/ClientLayout';
 
 export const metadata = {

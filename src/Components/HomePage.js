@@ -60,7 +60,7 @@ const HomePage = () => {
       <BannerSlider
         onLoad={() => setIsLoaded(true)}
       />
-      <div style={{marginBottom: '40px'}}>
+      <div style={{ marginBottom: '40px' }}>
         <ImageDeliver />
       </div>
       <PromoCards />

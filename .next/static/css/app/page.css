@@ -404,18 +404,24 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/ImageComponent.css ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************/
 .image-container {
-  width: 100%; /* Container takes full width */
+  width: 100%;
+  /* Container takes full width */
   display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center; /* Center the image vertically */
-  overflow: hidden; /* Ensure the image doesn't overflow the container */
+  justify-content: center;
+  /* Center the image horizontally */
+  align-items: center;
+  /* Center the image vertically */
+  overflow: hidden;
+  /* Ensure the image doesn't overflow the container */
 }
 
 .image-container img {
-  width: 100%; /* Stretch the image to fill the container's width */
-  height: 200px; /* Set a fixed height for the image (adjust as needed) */
-  object-fit: fit
-  ; /* Cover the area, cropping if necessary */
+  width: 100%;
+  /* Stretch the image to fill the container's width */
+  height: 200px;
+  /* Set a fixed height for the image (adjust as needed) */
+  object-fit: fit;
+  /* Cover the area, cropping if necessary */
 }
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/Components/Home.css ***!

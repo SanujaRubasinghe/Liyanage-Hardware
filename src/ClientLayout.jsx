@@ -7,6 +7,7 @@ import { RouterCompatProvider } from './router-compat';
 import Navbar from './Navbar';
 import Footer from './Components/Footer';
 import ScrollToTop from './Components/ScrollToTop';
+import WhatsAppButton from './Components/WhatsAppButton';
 
 export default function ClientLayout({ children }) {
   return (
@@ -18,6 +19,7 @@ export default function ClientLayout({ children }) {
           <ScrollToTop />
           <main style={{ minHeight: 'calc(100vh - 400px)' }}>{children}</main>
           <Footer />
+          <WhatsAppButton />
         </AuthProvider>
       </CartProvider>
     </RouterCompatProvider>

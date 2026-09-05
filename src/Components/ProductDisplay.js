@@ -7,7 +7,6 @@ import { getImageUrl } from "../utils/imageUrl";
 import "./ProductDisplay.css";
 import NewArrivals from "./NewArrivals";
 import FeatureSection from "./FeatureSection";
-import Footer from "./Footer";
 import SearchBarN from "./SearchBarN";
 import LoadingPage from "./LoadingPage";
 import { toast } from "react-toastify";
@@ -451,7 +450,6 @@ const ProductDisplay = () => {
         <NewArrivals />
       </div>
       <FeatureSection />
-      <Footer />
     </>
   );
 };

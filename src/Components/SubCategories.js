@@ -4,7 +4,6 @@ import { useNavigate, useLocation, useParams } from "../router-compat";
 import { toast } from "react-toastify";
 import API from "../api";
 import "./Subcategories.css";
-import Footer from "./Footer";
 import SubcategoryCard from "./SubcategoryCard";
 import { trackClick } from "../services/categoryAnalytics";
 
@@ -84,7 +83,6 @@ const Subcategories = () => {
           />
         ))}
       </div>
-      <Footer />
     </div>
     </>
   );

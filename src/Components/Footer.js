@@ -1,92 +1,134 @@
-// Footer.js
+'use client';
 import React, { useState } from "react";
+import { Link } from "../router-compat";
 import "./Footer.css";
 
-const FooterSection = ({ title, children }) => {
-  const [open, setOpen] = useState(false);
+const FooterAccordion = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="footer-accordion">
+    <div className="footer-col footer-accordion">
       <button
-        className="footer-accordion-header"
-        onClick={() => setOpen(o => !o)}
-        aria-expanded={open}
+        className="footer-accordion-btn"
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
       >
-        {title}
-        <span className={`arrow ${open ? "open" : ""}`}>▶</span>
+        <span>{title}</span>
+        <i className={`fas fa-chevron-down accordion-arrow ${isOpen ? "rotated" : ""}`}></i>
       </button>
-
-      <div
-        className="footer-accordion-body"
-        style={{ display: open ? "block" : "none" }}
-      >
+      <div className={`footer-col-content ${isOpen ? "open" : ""}`}>
         {children}
       </div>
     </div>
   );
 };
 
-const Footer = () => (
-  <footer className="footer">
-    <div className="footer-container">
-      <FooterSection title="Trade Counter">
-        <p>
-          New Liyanage Hardware Ltd<br />
-          Galwana junction, Angoda<br />
-          Mon – Fri, 8 am – 5 pm
-        </p>
-        <strong>Sales Enquiries</strong>
-        <p>
-          Email: newliyanage@gmail.com<br />
-          Tel: 0721 199 690<br />
-          Fax: 0776 499 596
-        </p>
-      </FooterSection>
+const Footer = () => {
+  return (
+    <footer className="site-footer">
+      <div className="footer-top-bar">
+        <div className="footer-container">
+          <div className="footer-grid">
+            {/* Column 1: Brand Info */}
+            <div className="footer-col brand-col">
+              <div className="footer-logo">
+                <Link to="/">
+                  <img src="/images/l1.png" alt="New Liyanage Hardware Logo" />
+                </Link>
+              </div>
+              <p className="brand-desc">
+                Your trusted partner for quality construction, building materials, tools, and home improvement hardware in Sri Lanka.
+              </p>
+              <ul className="contact-info-list">
+                <li>
+                  <i className="fas fa-map-marker-alt icon"></i>
+                  <span>Galwana Junction, Angoda, Sri Lanka</span>
+                </li>
+                <li>
+                  <i className="fas fa-phone-alt icon"></i>
+                  <div className="phone-links">
+                    <a href="tel:072211324">072211324</a>
+                    <span>/</span>
+                    <a href="tel:0754232212">0754232212</a>
+                  </div>
+                </li>
+                <li>
+                  <i className="fas fa-envelope icon"></i>
+                  <a href="mailto:newliyanage@gmail.com">newliyanage@gmail.com</a>
+                </li>
+              </ul>
+            </div>
 
-      <FooterSection title="Our Range of Products">
-        <ul>
-          {[
-            "Hinges",
-            "Locks & Latches",
-            "Door Hardware",
-            "General Hardware",
-            "Window Hardware",
-            "Sliding & Folding Door Hardware",
-            "Cabinet Hardware",
-            "Thresholds & Joinery Seals",
-            "Fixings & Consumables",
-            "Exitex Roofing System",
-          ].map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </FooterSection>
+            {/* Column 2: Quick Links */}
+            <FooterAccordion title="Quick Links">
+              <ul className="footer-links">
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/products">Products</Link></li>
+                <li><Link to="/categories">Categories</Link></li>
+                <li><Link to="/about-us">About Us</Link></li>
+                <li><Link to="/contact-us">Contact Us</Link></li>
+                <li><Link to="/feedback">Customer Feedback</Link></li>
+                <li><Link to="/complaint">Complaints</Link></li>
+              </ul>
+            </FooterAccordion>
 
-      <FooterSection title="Information">
-        <ul>
-          {[
-            "Contact Us",
-            "Delivery",
-            "Returns",
-            "Disclaimer",
-            "Terms & Conditions",
-            "Privacy Policy",
-          ].map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </FooterSection>
-    </div>
+            {/* Column 3: Policy & Customer Care */}
+            <FooterAccordion title="Customer Care & Policy">
+              <ul className="footer-links">
+                <li><Link to="/shipping-policy">Shipping Policy</Link></li>
+                <li><Link to="/return-policy">Return Policy</Link></li>
+                <li><Link to="/terms">Terms & Conditions</Link></li>
+                <li><Link to="/disclaimer">Disclaimer</Link></li>
+                <li><Link to="/policy">Privacy Policy</Link></li>
+              </ul>
+            </FooterAccordion>
 
-    <div className="footer-bottom">
-      <p>© 2025 New Liyanage Hardware Limited – Reg No: 01684709</p>
-      <div className="social-icons">
-        {["facebook", "instagram", "twitter", "google"].map(net => (
-          <i key={net} className={`fab fa-${net}`} />
-        ))}
+            {/* Column 4: Opening Hours & Socials */}
+            <FooterAccordion title="Opening Hours & Connect">
+              <div className="business-hours">
+                <p className="hours-title"><i className="far fa-clock"></i> Trade Counter Hours:</p>
+                <p>Mon – Sat: 8:00 AM – 6:00 PM</p>
+                <p>Sunday: 8:00 AM – 1:00 PM</p>
+              </div>
+
+              <div className="footer-socials">
+                <p className="socials-title">Follow Us:</p>
+                <div className="social-icons-footer">
+                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="https://wa.me/9472211324" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i className="fab fa-whatsapp"></i>
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <i className="fab fa-tiktok"></i>
+                  </a>
+                </div>
+              </div>
+            </FooterAccordion>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
-);
+
+      {/* Footer Bottom Bar */}
+      <div className="footer-bottom-bar">
+        <div className="footer-container bottom-container">
+          <p className="copyright-text">
+            © {new Date().getFullYear()} New Liyanage Hardware. All Rights Reserved.
+          </p>
+          <div className="payment-badges">
+            <span className="badge">Cash on Delivery</span>
+            <span className="badge">VISA</span>
+            <span className="badge">MasterCard</span>
+            <span className="badge">Koko Pay</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

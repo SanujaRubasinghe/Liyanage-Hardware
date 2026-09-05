@@ -14,7 +14,6 @@ import BrandContainer from "./BrandContainer";
 import ConstructionSupplies from "./ConstructionSupplies";
 import FeatureSection from "./FeatureSection";
 import PromoCards from './PromoCards';
-import Footer from "./Footer";
 import LoadingScreen from "./LoadingPage";
 
 import { Helmet } from "react-helmet";
@@ -73,7 +72,6 @@ const HomePage = () => {
       <BrandContainer />
       <ConstructionSupplies />
       <FeatureSection />
-      <Footer />
     </>
   );
 };

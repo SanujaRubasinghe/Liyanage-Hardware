@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Thin Modern Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;  /* Thin width */
+  height: 6px; /* For horizontal scrollbars */
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  @apply bg-transparent; /* Fully transparent track */
+}
+
+/* Thumb (draggable handle) */
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-400/50 rounded-full; /* Semi-transparent blue */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+}
+
+/* Thumb hover & active states */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-500/60; /* Slightly darker on hover */
+}
+
+::-webkit-scrollbar-thumb:active {
+  @apply bg-blue-600/70; /* More solid when clicked */
+}
+
+/* Firefox support */
+html {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: rgba(96, 165, 250, 0.5) transparent; /* blue-400/50 + transparent */
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blue-500/40; /* Lighter in dark mode */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-400/50;
+  }
+  html {
+    scrollbar-color: rgba(64, 72, 85, 0.4) transparent; /* blue-500/40 */
+  }
+}

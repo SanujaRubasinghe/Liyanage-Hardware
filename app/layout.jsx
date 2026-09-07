@@ -1,7 +1,11 @@
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-image-crop/dist/ReactCrop.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../src/index.css';
 import '../src/App.css';
 import '../src/Navbar.css';
+import '../src/AdminPanel/index.css';
+import '../src/AdminPanel/App.css';
 import ClientLayout from '../src/ClientLayout';
 
 export const metadata = {

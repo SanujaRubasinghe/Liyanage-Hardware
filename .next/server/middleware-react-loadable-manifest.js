@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app\\\\admin\\\\page.jsx -> ../../src/Components/AdminPage/AdminDashboard\":{\"id\":\"app\\\\admin\\\\page.jsx -> ../../src/Components/AdminPage/AdminDashboard\",\"files\":[\"static/css/_app-pages-browser_src_Components_AdminPage_AdminDashboard_js.css\",\"static/chunks/_app-pages-browser_src_Components_AdminPage_AdminDashboard_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"

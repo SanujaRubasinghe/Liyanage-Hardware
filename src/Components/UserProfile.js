@@ -106,7 +106,7 @@ const UserProfile = () => {
       toast.success(response.data.message)
       navigate('/profile')
     } catch (error) {
-      toast.error(error.response.data.message)
+      toast.error(error.response?.data?.message || 'Error updating profile');
       console.error('Error updating profile:', error);
     }
   };

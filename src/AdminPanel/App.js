@@ -123,8 +123,7 @@ function App() {
         ) : (
         <div className="flex flex-col md:flex-row">
           <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-          <main className={`flex-1 bg-gray-100 min-h-screen mt-16 md:mt-0 transition-all 
-            duration-300 ${collapsed ? 'ml-20' : 'ml-64'}`}>
+          <main className={`flex-1 bg-gray-100 min-h-screen mt-16 md:mt-0 transition-all duration-300 ml-0 ${collapsed ? 'md:ml-20' : 'md:ml-64'}`}>
             <Header username="Admin" setAdmin={setAdmin} />
             <Routes>
               <Route path="/" element={<Dashboard />} />

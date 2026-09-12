@@ -2,163 +2,180 @@
 .product-list-wrapper {
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 0 20px 0;
 }
 
 /* Container with specific scoping */
 .product-list-container {
-  display: grid;
-  align-items: start;
-  width: 100%;
-  margin: 0 auto;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr 3fr;
-  gap: 30px;
+  display: flex;
+  gap: 20px;
   padding: 20px;
-  font-size: 1.5rem;
-  text-align: center;
+  background: var(--bg-page, #ffffff);
+  border-radius: 20px;
+  max-width: 100%;
   box-sizing: border-box;
+  align-items: flex-start;
 }
 
-/* Title styling with specific naming */
-.product-list-title {
-  grid-column: 1 / -1;
-  margin: 0 0 20px 0;
-  font-size: 2.5rem;
-  font-weight: bold;
+/* Category Sidebar Card matching Building & Construction / Cutting Tools */
+.product-list-sidebar {
+  width: 260px;
+  min-width: 260px;
+  background-color: var(--accent-1, #e53935);
+  border-radius: 20px;
+  padding: 20px;
   text-align: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.product-list-title-blue {
-  color: #007bff;
+.product-list-sidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  width: 100%;
 }
 
-.product-list-title-red {
-  color: #dc3545;
+.product-list-sidebar .banner-card {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin: 0;
 }
 
-/* Left image section */
-.product-list-left-image {
+.product-list-sidebar .banner-image {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Scroll Wrapper with Floating Arrow Navigation */
+.product-scroll-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #cc0000;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  min-height: 400px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
 }
 
-.product-list-left-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
+.scroll-arrow:hover {
+  background: #cc0000;
+  color: #ffffff;
+  border-color: #cc0000;
+  box-shadow: 0 6px 14px rgba(204, 0, 0, 0.3);
 }
 
-.product-list-left-image img:hover {
-  transform: scale(1.05);
+.scroll-arrow-left {
+  left: -16px;
 }
 
-/* Product grid */
+.scroll-arrow-right {
+  right: -16px;
+}
+
+/* Horizontal Product Scroll Row */
 .product-list-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  align-items: stretch;
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 8px 4px 16px 4px;
+  min-width: 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
-/* Tablet styles */
-@media (max-width: 1024px) {
+.product-list-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  height: 0;
+  width: 0;
+}
+
+.product-list-grid .product-card {
+  flex: 0 0 240px;
+  min-width: 240px;
+  max-width: 240px;
+  scroll-snap-align: start;
+  min-height: 360px;
+  height: 360px;
+  margin: 0;
+}
+
+/* Tablet & Mobile styles */
+@media (max-width: 900px) {
   .product-list-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
-    gap: 25px;
+    flex-direction: column;
+    gap: 15px;
     padding: 15px;
   }
-  
-  .product-list-title {
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-  }
-  
-  .product-list-left-image {
-    order: 2;
-    min-height: 300px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .product-list-grid {
-    order: 3;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-}
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .product-list-container {
-    padding: 10px;
-    gap: 20px;
-    font-size: 1.2rem;
+  .product-list-sidebar {
+    width: 100%;
+    min-width: 100%;
+    padding: 15px;
   }
-  
-  .product-list-title {
-    font-size: 1.8rem;
+
+  .product-list-sidebar h2 {
+    font-size: 18px;
     margin-bottom: 10px;
   }
-  
-  .product-list-left-image {
-    min-height: 250px;
+
+  .scroll-arrow-left {
+    left: -8px;
   }
-  
-  .product-list-grid {
-    grid-template-columns: repeat(2,1fr);
-    gap: 15px;
+
+  .scroll-arrow-right {
+    right: -8px;
   }
 }
 
-/* Small mobile styles */
 @media (max-width: 480px) {
   .product-list-container {
-    padding: 8px;
-    gap: 15px;
-    font-size: 1rem;
-  }
-  
-  .product-list-title {
-    font-size: 1.5rem;
-  }
-  
-  .product-list-left-image {
-    min-height: 200px;
-    border-radius: 10px;
-  }
-  
-  .product-list-left-image img {
-    border-radius: 10px;
-  }
-  
-  .product-list-grid {
+    padding: 10px;
     gap: 12px;
   }
-}
 
-/* Extra small devices */
-@media (max-width: 360px) {
-  .product-list-container {
-    padding: 5px;
+  .product-list-sidebar {
+    padding: 12px;
   }
-  
-  .product-list-title {
-    font-size: 1.3rem;
-  }
-  
-  .product-list-left-image {
-    min-height: 180px;
+
+  .product-list-grid .product-card {
+    flex: 0 0 200px;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 320px;
+    height: 320px;
   }
 }

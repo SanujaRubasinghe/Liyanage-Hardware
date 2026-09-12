@@ -49,6 +49,8 @@
   },
   "scripts": {
     "dev": "next dev",
+    "backend": "cd backend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
     "build": "next build",
     "start": "next start",
     "generate:sitemap": "node generate-sitemap.js"

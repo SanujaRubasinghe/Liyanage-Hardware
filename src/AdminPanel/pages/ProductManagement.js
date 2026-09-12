@@ -157,29 +157,29 @@ const ProductManagement = () => {
                 <StatCard 
                     icon={<FiPackage className="text-blue-500" size={20} />}
                     title="Total Products"
-                    value={stats.products.total}
-                    change={`${stats.products.total_change_percent}%`}
+                    value={stats?.products?.total || 0}
+                    change={`${stats?.products?.total_change_percent || 0}%`}
                     color="bg-blue-50"
                 />
                 <StatCard 
                     icon={<FiDollarSign className="text-green-500" size={20} />}
                     title="Inventory Value"
-                    value={`${formatCurrency(stats?.inventory.value || 0)}`}
-                    change={`${stats.inventory.value_change_percent}%`}
+                    value={`${formatCurrency(stats?.inventory?.value || 0)}`}
+                    change={`${stats?.inventory?.value_change_percent || 0}%`}
                     color="bg-green-50"
                 />
                 <StatCard 
                     icon={<FiAlertTriangle className="text-yellow-500" size={20} />}
                     title="Low Stock Items"
-                    value={stats?.stock.low_stock_items}
+                    value={stats?.stock?.low_stock_items || 0}
                     change="+2"
                     color="bg-yellow-50"
                 />
                 <StatCard 
                     icon={<FiTrendingUp className="text-purple-500" size={20} />}
                     title="Monthly Revenue"
-                    value={`${formatCurrency(stats?.sales.total_revenue || 0)}`}
-                    change={`${stats.sales.revenue_times_value}x`}
+                    value={`${formatCurrency(stats?.sales?.total_revenue || 0)}`}
+                    change={`${stats?.sales?.revenue_times_value || 0}x`}
                     color="bg-purple-50"
                 />
             </div>
@@ -356,7 +356,7 @@ const ProductManagement = () => {
                 </div>
                 <div className="px-3 sm:px-4 py-2 sm:py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-2">
                     <div className="text-xs sm:text-sm text-gray-700">
-                        Showing <span className="font-medium">{(currentPage - 1) * 20 + 1}</span> to <span className="font-medium">{Math.min(currentPage * 20, stats.products.total)}</span> of <span className="font-medium">{stats.products.total}</span> products
+                        Showing <span className="font-medium">{(currentPage - 1) * 20 + 1}</span> to <span className="font-medium">{Math.min(currentPage * 20, stats?.products?.total || 0)}</span> of <span className="font-medium">{stats?.products?.total || 0}</span> products
                     </div>
                     <div className="flex space-x-2">
                         <button

@@ -50,7 +50,7 @@ const PromotionalBanner = ({ location }) => {
           className="banner-image"
           onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
           />
-          {banner.description && (
+          {banner.description && banner.description.trim() !== '' && (
           <div className="banner-description-overlay">
               <p className="banner-description-text">{banner.description}</p>
           </div>

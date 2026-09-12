@@ -27,7 +27,8 @@ const AdminLogin = ({onLogin}) => {
             }
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.message)
+            const errorMsg = error.response?.data?.message || error.message || 'Login Failed';
+            toast.error(errorMsg)
             setLoading(false)
         }
     }

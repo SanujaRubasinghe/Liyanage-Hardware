@@ -59,11 +59,11 @@ const HomePage = () => {
       <BannerSlider
         onLoad={() => setIsLoaded(true)}
       />
+      <PromoCards />
+      <Home />
       <div style={{ marginBottom: '40px' }}>
         <ImageDeliver />
       </div>
-      <PromoCards />
-      <Home />
       <NewArrivals />
       <AllProductD />
       <br />

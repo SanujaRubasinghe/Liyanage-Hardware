@@ -20,7 +20,9 @@
 }
 
 .feedback-container {
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   display: flex;

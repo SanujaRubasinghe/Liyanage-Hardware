@@ -75,11 +75,20 @@ const AllProductsA = () => {
     navigate(`/products/${productId}`);
   };
 
+  const categoryName = products[0]?.category_name || 'Tools & Hardware';
+  const categoryImage = products[0]?.category_thumbnail 
+    ? getImageUrl(products[0].category_thumbnail) 
+    : '/images/cutting_tool_banner.jpg';
+
   return (
     <div className={styles.productLayout}>
       <div className={styles.productSidebar}>
-        <h2>Cutting Tools</h2>
-        <img src="/images/cutting_tool_banner.jpg" alt="Worker" />
+        <h2>{categoryName}</h2>
+        <img 
+          src={categoryImage} 
+          alt={categoryName} 
+          onError={(e) => { e.target.src = '/images/cutting_tool_banner.jpg'; }}
+        />
       </div>
 
       <div className={styles.scrollWrapper}>

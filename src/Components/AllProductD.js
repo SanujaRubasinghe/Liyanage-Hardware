@@ -88,14 +88,20 @@ const ProductPageN = () => {
     ? products.slice(0, visibleCount - 1)
     : products.slice(0, visibleCount);
 
+  const categoryName = products[0]?.category_name || 'Building & Construction';
+  const categoryImage = products[0]?.category_thumbnail 
+    ? getImageUrl(products[0].category_thumbnail) 
+    : '/images/b_c_image.jpg';
+
   return (
     <div className={styles.productLayout}>
       <div className={styles.productSidebar}>
-        <h2>Building & Construction</h2>
+        <h2>{categoryName}</h2>
         <img 
-          src="/images/b_c_image.jpg" 
-          alt="Construction worker with tools and materials" 
+          src={categoryImage} 
+          alt={categoryName} 
           loading="lazy"
+          onError={(e) => { e.target.src = '/images/b_c_image.jpg'; }}
         />
       </div>
 

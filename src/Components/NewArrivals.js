@@ -32,9 +32,13 @@ const ProductList = () => {
 
   return (
     <div className="product-list-wrapper">
+      <h2 className="product-list-title">
+        <span className="product-list-title-red">New</span>{' '}
+        <span className="product-list-title-red">Arrivals</span>
+      </h2>
+
       <div className="product-list-container">
         <div className="product-list-sidebar">
-          <h2>New Arrivals</h2>
           <PromotionalBanner location={'home-page-new-arrivals'} />
         </div>
 

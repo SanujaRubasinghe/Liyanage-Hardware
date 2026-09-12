@@ -24,6 +24,7 @@ import OrderMap from './components/OrderMap'
 import AnnouncementManager from "./pages/AnnouncementManagement";
 import BannerManager from "./pages/BannerManagement";
 import PromotionalBannerManager from "./pages/PromotionalBannerManager";
+import NewArrivalsManager from "./pages/NewArrivalsManager";
 import Settings from "./pages/Settings";
 import FeedbackManagement from "./pages/FeedbackManagement";
 import CategoryList from "./components/CategoryList";
@@ -155,6 +156,7 @@ function App() {
                 <Route path="announcements" element={<AnnouncementManager />} />
                 <Route path="banners/slider" element={<BannerManager />} />
                 <Route path="banners/promotional" element={<PromotionalBannerManager />} />
+                <Route path="new-arrivals" element={<NewArrivalsManager />} />
               </Route>
               <Route path="/feedback" element={<FeedbackManagement />} />
               <Route path="/loyalty">

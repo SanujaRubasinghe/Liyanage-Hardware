@@ -10,19 +10,30 @@ const itemsPerPage = 8;
 const AllProductsA = () => {
   const [visibleCount, setVisibleCount] = useState(itemsPerPage);
   const [products, setProducts] = useState([]);
+  const [rowConfig, setRowConfig] = useState(null);
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRowAndProducts = async () => {
       try {
-        const response = await API.get(`/products?categoryId=2`);
-        setProducts(response.data);
+        const rowsRes = await API.get('/content/homepage-rows');
+        const rConfig = rowsRes.data?.find(r => r.location === 'home-row-3') || rowsRes.data?.[2];
+        setRowConfig(rConfig);
+
+        const categoryId = rConfig?.category_id || '2';
+        let prodRes;
+        if (categoryId === 'new_arrivals') {
+          prodRes = await API.get('/products/new-arrivals');
+        } else {
+          prodRes = await API.get(`/products?categoryId=${categoryId}`);
+        }
+        setProducts(prodRes.data || []);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchProducts();
+    fetchRowAndProducts();
   }, []);
 
   const handleScroll = (direction) => {
@@ -46,8 +57,8 @@ const AllProductsA = () => {
     } else {
       navigate('/categories/tools-hardware', {
         state: {
-          cat_id: 2,
-          name: 'Tools & Hardware'
+          cat_id: rowConfig?.category_id || 2,
+          name: rowConfig?.name || 'Tools & Hardware'
         }
       });
     }
@@ -75,10 +86,10 @@ const AllProductsA = () => {
     navigate(`/products/${productId}`);
   };
 
-  const categoryName = products[0]?.category_name || 'Tools & Hardware';
-  const categoryImage = products[0]?.category_thumbnail 
-    ? getImageUrl(products[0].category_thumbnail) 
-    : '/images/cutting_tool_banner.jpg';
+  const categoryName = rowConfig?.name || products[0]?.category_name || 'Tools & Hardware';
+  const categoryImage = rowConfig?.image_url 
+    ? getImageUrl(rowConfig.image_url) 
+    : (products[0]?.category_thumbnail ? getImageUrl(products[0].category_thumbnail) : '/images/cutting_tool_banner.jpg');
 
   return (
     <div className={styles.productLayout}>

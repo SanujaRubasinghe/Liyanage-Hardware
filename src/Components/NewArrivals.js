@@ -6,18 +6,29 @@ import API from "../api";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [rowConfig, setRowConfig] = useState(null);
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRowAndProducts = async () => {
       try {
-        const response = await API.get('/products/new-arrivals');
-        setProducts(response.data);
+        const rowsRes = await API.get('/content/homepage-rows');
+        const rConfig = rowsRes.data?.find(r => r.location === 'home-row-1' || r.location === 'home-page-new-arrivals') || rowsRes.data?.[0];
+        setRowConfig(rConfig);
+
+        const categoryId = rConfig?.category_id || 'new_arrivals';
+        let prodRes;
+        if (categoryId === 'new_arrivals') {
+          prodRes = await API.get('/products/new-arrivals');
+        } else {
+          prodRes = await API.get(`/products?categoryId=${categoryId}`);
+        }
+        setProducts(prodRes.data || []);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchProducts();
+    fetchRowAndProducts();
   }, []);
 
   const handleScroll = (direction) => {
@@ -33,13 +44,12 @@ const ProductList = () => {
   return (
     <div className="product-list-wrapper">
       <h2 className="product-list-title">
-        <span className="product-list-title-red">New</span>{' '}
-        <span className="product-list-title-red">Arrivals</span>
+        <span className="product-list-title-red">{rowConfig?.name || 'New Arrivals'}</span>
       </h2>
 
       <div className="product-list-container">
         <div className="product-list-sidebar">
-          <PromotionalBanner location={'home-page-new-arrivals'} />
+          <PromotionalBanner location={rowConfig?.location || 'home-page-new-arrivals'} />
         </div>
 
         <div className="product-scroll-wrapper">

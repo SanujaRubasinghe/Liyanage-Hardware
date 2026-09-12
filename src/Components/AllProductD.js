@@ -8,19 +8,30 @@ import { getImageUrl } from '../utils/imageUrl';
 const ProductPageN = () => {
   const [visibleCount, setVisibleCount] = useState(8);
   const [products, setProducts] = useState([]);
+  const [rowConfig, setRowConfig] = useState(null);
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRowAndProducts = async () => {
       try {
-        const response = await API.get(`/products?categoryId=1`);
-        setProducts(response.data);
+        const rowsRes = await API.get('/content/homepage-rows');
+        const rConfig = rowsRes.data?.find(r => r.location === 'home-row-2') || rowsRes.data?.[1];
+        setRowConfig(rConfig);
+
+        const categoryId = rConfig?.category_id || '1';
+        let prodRes;
+        if (categoryId === 'new_arrivals') {
+          prodRes = await API.get('/products/new-arrivals');
+        } else {
+          prodRes = await API.get(`/products?categoryId=${categoryId}`);
+        }
+        setProducts(prodRes.data || []);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchProducts();
+    fetchRowAndProducts();
   }, []);
 
   const handleScroll = (direction) => {
@@ -54,8 +65,8 @@ const ProductPageN = () => {
     } else {
       navigate('/categories/building-materials', {
         state: {
-          cat_id: 1,
-          name: 'Building & Construction'
+          cat_id: rowConfig?.category_id || 1,
+          name: rowConfig?.name || 'Building & Construction'
         }
       });
     }
@@ -88,10 +99,10 @@ const ProductPageN = () => {
     ? products.slice(0, visibleCount - 1)
     : products.slice(0, visibleCount);
 
-  const categoryName = products[0]?.category_name || 'Building & Construction';
-  const categoryImage = products[0]?.category_thumbnail 
-    ? getImageUrl(products[0].category_thumbnail) 
-    : '/images/b_c_image.jpg';
+  const categoryName = rowConfig?.name || products[0]?.category_name || 'Building & Construction';
+  const categoryImage = rowConfig?.image_url 
+    ? getImageUrl(rowConfig.image_url) 
+    : (products[0]?.category_thumbnail ? getImageUrl(products[0].category_thumbnail) : '/images/b_c_image.jpg');
 
   return (
     <div className={styles.productLayout}>

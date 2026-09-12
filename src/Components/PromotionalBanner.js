@@ -50,9 +50,14 @@ const PromotionalBanner = ({ location }) => {
           className="banner-image"
           onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
           />
-          {banner.description && banner.description.trim() !== '' && (
+          {(banner.description || (banner.name && banner.name !== 'Home Page New Arrivals Promotional Banner')) && (
           <div className="banner-description-overlay">
-              <p className="banner-description-text">{banner.description}</p>
+              {banner.name && banner.name !== 'Home Page New Arrivals Promotional Banner' && (
+                <h4 className="banner-title-overlay">{banner.name}</h4>
+              )}
+              {banner.description && banner.description.trim() !== '' && (
+                <p className="banner-description-text">{banner.description}</p>
+              )}
           </div>
           )}
     </motion.div>

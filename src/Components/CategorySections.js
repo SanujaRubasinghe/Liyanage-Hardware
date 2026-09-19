@@ -13,11 +13,13 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
   const [products, setProducts] = useState([]);
   const scrollRef = React.useRef(null);
   const theme = SECTION_THEMES[themeIndex % SECTION_THEMES.length];
+  
+  // The category ID is stored in the 'description' field of the promotional banner for these rows
+  const categoryId = rowConfig?.category_id || rowConfig?.description || 'new_arrivals';
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const categoryId = rowConfig?.category_id || 'new_arrivals';
         let prodRes;
         if (categoryId === 'new_arrivals') {
           prodRes = await API.get('/products/new-arrivals');
@@ -32,7 +34,7 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
     if (rowConfig) {
       fetchProducts();
     }
-  }, [rowConfig]);
+  }, [rowConfig, categoryId]);
 
   const handleScroll = (direction) => {
     if (scrollRef.current) {
@@ -58,7 +60,7 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
           </h2>
         </div>
         <a 
-          href={`/category/${rowConfig.category_id}/products`} 
+          href={`/category/${categoryId}/products`} 
           className="text-[#cc0000] font-bold text-sm hover:underline flex items-center gap-1 cursor-pointer shrink-0"
         >
           View all <i className="fas fa-arrow-right text-xs"></i>

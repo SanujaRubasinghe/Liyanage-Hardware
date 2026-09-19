@@ -13,7 +13,7 @@ const StarRating = ({ rating, editable = false, onRatingChange }) => {
   };
 
   return (
-    <div className="nlh-star-rating">
+    <div className="flex flex-row items-center gap-1 nlh-star-rating text-yellow-400">
       {[...Array(fullStars)].map((_, i) => (
         <span 
           key={`full-${i}`} 

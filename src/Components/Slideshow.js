@@ -5,6 +5,8 @@ import styles from './Slideshow.module.css';
 const slides = [
   { src: '/images/slide2.png' },
   { src: '/images/slider1.png' },
+  { src: '/images/slide3.jpeg' },
+  { src: '/images/slider4.jpeg' },
   { src: '/images/img4.jpg' },
 ];
 

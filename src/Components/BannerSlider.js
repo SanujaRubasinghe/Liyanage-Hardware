@@ -7,6 +7,19 @@ import { getImageUrl } from '../utils/imageUrl';
 
 const imageCache = {};
 
+const DEFAULT_FALLBACK_BANNERS = [
+  {
+    id: 'default-hero-banner',
+    name: 'Main Hero Banner',
+    images: [
+      { image_url: '/images/slider1.png' },
+      { image_url: '/images/slide2.png' },
+      { image_url: '/images/slide3.jpeg' },
+      { image_url: '/images/slider4.jpeg' }
+    ]
+  }
+];
+
 const BannerSlider = ({onLoad}) => {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,17 +50,25 @@ const BannerSlider = ({onLoad}) => {
       try {
         const response = await API.get('/content/banners/active');
         const validBanners = response.data.filter(b => b.images && b.images.length > 0);
-        setBanners(validBanners);
-
-        const allImageUrls = validBanners.flatMap(banner =>
-          banner.images.map(img => getImageUrl(img.image_url))
-        );
-        preloadImages(allImageUrls);
+        if (validBanners.length > 0) {
+          setBanners(validBanners);
+          const allImageUrls = validBanners.flatMap(banner =>
+            banner.images.map(img => getImageUrl(img.image_url))
+          );
+          preloadImages(allImageUrls);
+        } else {
+          setBanners(DEFAULT_FALLBACK_BANNERS);
+          const fallbackUrls = DEFAULT_FALLBACK_BANNERS[0].images.map(img => getImageUrl(img.image_url));
+          preloadImages(fallbackUrls);
+        }
       } catch (err) {
         console.error('Error loading banners:', err);
+        setBanners(DEFAULT_FALLBACK_BANNERS);
+        const fallbackUrls = DEFAULT_FALLBACK_BANNERS[0].images.map(img => getImageUrl(img.image_url));
+        preloadImages(fallbackUrls);
       } finally {
         setIsLoading(false);
-        onLoad()
+        onLoad();
       }
     };
 

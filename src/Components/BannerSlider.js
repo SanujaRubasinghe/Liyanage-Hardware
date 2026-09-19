@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import './BannerSlider.css';
 import API from '../api';
 import { getImageUrl } from '../utils/imageUrl';
 
@@ -23,7 +22,7 @@ const DEFAULT_FALLBACK_BANNERS = [
 const BannerSlider = ({onLoad}) => {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(1); // 1: forward, -1: backward
+  const [direction, setDirection] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState(0)
 
@@ -86,7 +85,7 @@ const BannerSlider = ({onLoad}) => {
         setCurrentIndex((prevIndex) =>
           prevIndex === banners.length - 1 ? 0 : prevIndex + 1
         );
-      }, 8000); // rotate every 8s
+      }, 8000);
 
       return () => clearInterval(interval);
     }
@@ -114,7 +113,7 @@ const BannerSlider = ({onLoad}) => {
   const currentBanner = banners[currentIndex];
 
   return (
-    <div className="banner-slider-wrapper">
+    <div className="relative w-full overflow-hidden bg-gray-100 rounded-lg shadow-md mb-4 max-w-[1400px] mx-auto mt-2 px-4 sm:px-6">
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={currentIndex}
@@ -123,7 +122,7 @@ const BannerSlider = ({onLoad}) => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
           transition={{ duration: 0.5 }}
-          className="banner-slide"
+          className="relative h-64 md:h-[450px] w-full"
         >
           <BannerImageSlider images={currentBanner.images} />
         </motion.div>
@@ -132,12 +131,20 @@ const BannerSlider = ({onLoad}) => {
       {/* Navigation arrows */}
       {banners.length > 1 && (
         <>
-          <button onClick={goToPrevSlide} className="banner-arrow banner-arrow-left" aria-label="Previous banner">
+          <button 
+            onClick={goToPrevSlide} 
+            className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/90 text-gray-800 p-2 rounded-full z-10 transition-colors shadow-sm" 
+            aria-label="Previous banner"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button onClick={goToNextSlide} className="banner-arrow banner-arrow-right" aria-label="Next banner">
+          <button 
+            onClick={goToNextSlide} 
+            className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/60 hover:bg-white/90 text-gray-800 p-2 rounded-full z-10 transition-colors shadow-sm" 
+            aria-label="Next banner"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -147,12 +154,12 @@ const BannerSlider = ({onLoad}) => {
 
       {/* Dots */}
       {banners.length > 1 && (
-        <div className="banner-dots">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`banner-dot ${index === currentIndex ? 'active' : ''}`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? 'bg-white shadow-[0_0_6px_rgba(255,255,255,0.9)] scale-110' : 'bg-white/50 hover:bg-white/90'}`}
               aria-label={`Go to banner ${index + 1}`}
             />
           ))}
@@ -199,7 +206,7 @@ const BannerImageSlider = ({ images }) => {
   const fullImageUrl = imageUrls[currentImageIndex];
 
   return (
-    <div className="image-slider-container">
+    <div className="relative h-full w-full overflow-hidden border-[8px] border-white rounded-[20px] shadow-sm">
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={currentImageIndex}
@@ -208,22 +215,22 @@ const BannerImageSlider = ({ images }) => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
           transition={{ duration: 0.5 }}
-          className="image-slide"
+          className="absolute inset-0 w-full h-full group"
         >
           {loadedImages[fullImageUrl] ? (
             <img
               src={fullImageUrl}
               alt="Banner"
-              className="banner-loaded-image"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
           ) : (
-            <div className="banner-image-placeholder" />
+            <div className="w-full h-full bg-gray-200 animate-pulse" />
           )}
         </motion.div>
       </AnimatePresence>
 
       {images.length > 1 && (
-        <div className="slider-dots">
+        <div className="absolute bottom-4 right-4 flex gap-2 z-10">
           {images.map((_, i) => (
             <button
               key={i}
@@ -231,7 +238,7 @@ const BannerImageSlider = ({ images }) => {
                 setDirection(i > currentImageIndex ? 1 : -1);
                 setCurrentImageIndex(i);
               }}
-              className={`slider-dot ${i === currentImageIndex ? 'active' : ''}`}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm ${i === currentImageIndex ? 'bg-white shadow-[0_0_6px_rgba(255,255,255,0.9)] scale-110' : 'bg-white/50 hover:bg-white/90 hover:scale-110'}`}
               aria-label={`Go to image ${i + 1}`}
             />
           ))}

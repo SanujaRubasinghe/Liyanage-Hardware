@@ -1,15 +1,11 @@
 'use client';
 import { useState, useEffect } from "react";
 
-import Header from "./Header";
 import SearchBarN from "./SearchBarN";
 import AnnouncementBar from "./AnnouncementBar";
 import BannerSlider from "./BannerSlider";
-import ImageDeliver from "./ImageDeliver"
 import Home from "./Home";
-import NewArrivals from "./NewArrivals"
-import AllProductD from "./AllProductD"
-import AllProductsA from "./AllProductsA";
+import CategorySections from "./CategorySections"
 import BrandContainer from "./BrandContainer";
 import ConstructionSupplies from "./ConstructionSupplies";
 import FeatureSection from "./FeatureSection";
@@ -43,7 +39,7 @@ const HomePage = () => {
   }
 
   return (
-    <>
+    <div className="bg-gray-50 min-h-screen">
       <Helmet>
         <title>New Liyanage Hardware | Quality Tools & Hardware in Sri Lanka</title>
         <meta name="description" content="Discover top-quality hardware tools and building materials from New Liyanage Hardware. Serving Sri Lanka with trusted products and service." />
@@ -61,17 +57,11 @@ const HomePage = () => {
       />
       <PromoCards />
       <Home />
-      <div style={{ marginBottom: '40px' }}>
-        <ImageDeliver />
-      </div>
-      <NewArrivals />
-      <AllProductD />
-      <br />
-      <AllProductsA />
+      <CategorySections />
       <BrandContainer />
       <ConstructionSupplies />
       <FeatureSection />
-    </>
+    </div>
   );
 };
 

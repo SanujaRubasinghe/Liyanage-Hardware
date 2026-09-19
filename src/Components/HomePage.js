@@ -16,23 +16,28 @@ import { Helmet } from "react-helmet";
 
 const HomePage = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(() => {
+    return sessionStorage.getItem('hasInitialLoadCompleted') === 'true';
+  });
 
   useEffect(() => {
+    if (isLoaded) return;
+
     // Simulate loading progress; replace with real data loading if needed
     let progress = 0;
     const interval = setInterval(() => {
       progress += 10;
       if (progress >= 100) {
         clearInterval(interval);
+        sessionStorage.setItem('hasInitialLoadCompleted', 'true');
         setIsLoaded(true);
       } else {
         setLoadingProgress(progress);
       }
-    }, 200);
+    }, 100); // Also slightly sped up the simulation
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoaded]);
 
   if (!isLoaded) {
     return <LoadingScreen progress={loadingProgress} />;

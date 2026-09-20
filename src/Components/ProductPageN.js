@@ -60,10 +60,40 @@ const ProductPageN = () => {
       }
       
       // Apply brand filters
-      if (filters.brands.length > 0) {
+      if (filters.brands && filters.brands.length > 0) {
         result = result.filter(product => 
           filters.brands.includes(product.brand)
         );
+      }
+
+      // Apply in-stock filter
+      if (filters.inStockOnly) {
+        result = result.filter(product => product.stock_quantity > 0);
+      }
+
+      // Apply delivery filter
+      if (filters.deliveryAvailable) {
+        result = result.filter(product => product.delivery_available === 1);
+      }
+
+      // Apply sorting
+      if (filters.sortBy) {
+        switch(filters.sortBy) {
+          case "price_asc":
+            result.sort((a, b) => a.price - b.price);
+            break;
+          case "price_desc":
+            result.sort((a, b) => b.price - a.price);
+            break;
+          case "name_asc":
+            result.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+            break;
+          case "name_desc":
+            result.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
+            break;
+          default:
+            break;
+        }
       }
       
       setFilteredProducts(result);

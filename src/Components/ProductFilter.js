@@ -6,6 +6,9 @@ import { FiFilter, FiChevronDown, FiChevronUp, FiX } from 'react-icons/fi';
 const ProductFilter = ({ onFilterChange, initialFilters }) => {
   const [selectedFilters, setSelectedFilters] = useState({
     priceRange: [],
+    inStockOnly: false,
+    deliveryAvailable: false,
+    sortBy: 'default',
     brands: [],
     ...initialFilters
   });
@@ -46,6 +49,14 @@ const ProductFilter = ({ onFilterChange, initialFilters }) => {
     });
   };
 
+  const handleToggleChange = (field, isChecked) => {
+    setSelectedFilters(prev => ({ ...prev, [field]: isChecked }));
+  };
+
+  const handleSortChange = (e) => {
+    setSelectedFilters(prev => ({ ...prev, sortBy: e.target.value }));
+  };
+
   const handleBrandChange = (brand, isChecked) => {
     setSelectedFilters(prev => {
       const newBrands = isChecked
@@ -56,7 +67,7 @@ const ProductFilter = ({ onFilterChange, initialFilters }) => {
   };
 
   const clearFilters = () => {
-    setSelectedFilters({ priceRange: [], brands: [] });
+    setSelectedFilters({ priceRange: [], brands: [], inStockOnly: false, deliveryAvailable: false, sortBy: 'default' });
   };
 
   const toggleAccordion = (section) => {
@@ -102,6 +113,48 @@ const ProductFilter = ({ onFilterChange, initialFilters }) => {
         </div>
 
         <div className="space-y-6">
+          {/* Sort By Filter */}
+          <div className="border-b border-gray-200 pb-6">
+            <h4 className="text-[15px] font-semibold text-gray-800 mb-4">Sort By</h4>
+            <select 
+              className="w-full p-2 border border-gray-300 rounded focus:ring-[#a34b4b] focus:border-[#a34b4b] outline-none text-sm text-gray-700"
+              value={selectedFilters.sortBy || "default"}
+              onChange={handleSortChange}
+            >
+              <option value="default">Default</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="name_asc">Name: A-Z</option>
+              <option value="name_desc">Name: Z-A</option>
+            </select>
+          </div>
+
+          {/* Availability Filter */}
+          <div className="border-b border-gray-200 pb-6">
+            <h4 className="text-[15px] font-semibold text-gray-800 mb-4">Availability</h4>
+            <div className="space-y-3">
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-[#a34b4b] bg-gray-100 border-gray-300 rounded focus:ring-[#a34b4b] focus:ring-2 cursor-pointer transition-colors"
+                  checked={selectedFilters.inStockOnly || false}
+                  onChange={(e) => handleToggleChange("inStockOnly", e.target.checked)}
+                />
+                <span className="text-[14px] text-gray-600 group-hover:text-gray-900 transition-colors">In Stock Only</span>
+              </label>
+              
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-[#a34b4b] bg-gray-100 border-gray-300 rounded focus:ring-[#a34b4b] focus:ring-2 cursor-pointer transition-colors"
+                  checked={selectedFilters.deliveryAvailable || false}
+                  onChange={(e) => handleToggleChange("deliveryAvailable", e.target.checked)}
+                />
+                <span className="text-[14px] text-gray-600 group-hover:text-gray-900 transition-colors">Delivery Available</span>
+              </label>
+            </div>
+          </div>
+
           {/* Price Range Filter */}
           <div className="border-b border-gray-200 pb-6">
             <button 

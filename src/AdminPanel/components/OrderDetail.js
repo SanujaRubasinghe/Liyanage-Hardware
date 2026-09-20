@@ -154,7 +154,7 @@ const OrderDetail = () => {
                   <div className="flex items-center">
                     {item.image_url && (
                       <div className="flex-shrink-0 h-10 w-10">
-                        <img className="h-10 w-10 rounded-md" src={`${process.env.REACT_APP_API_BASE_URL}/${item.image_url}`} alt={item.product_name} />
+                        <img className="h-10 w-10 rounded-md" src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/${item.image_url}`} alt={item.product_name} />
                       </div>
                     )}
                     <div className="ml-4">

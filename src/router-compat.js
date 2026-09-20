@@ -5,23 +5,60 @@ import NextLink from 'next/link';
 
 export { useSearchParams };
 
-const LocationStateContext = createContext({ state: null, setNavState: () => {} });
+const NAV_STATE_STORAGE_KEY = '__next_nav_state_by_path';
+
+const LocationStateContext = createContext({
+  statesByPath: {},
+  setLocationState: () => {},
+});
+
+function normalizePath(path) {
+  if (!path || typeof path !== 'string') return '';
+
+  try {
+    const url = new URL(path, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
+    return `${url.pathname}${url.search}`;
+  } catch (e) {
+    const [pathname, search = ''] = path.split('?');
+    return `${pathname}${search ? `?${search}` : ''}`;
+  }
+}
 
 export function RouterCompatProvider({ children }) {
-  const [navState, setNavState] = useState(null);
+  const [statesByPath, setStatesByPath] = useState({});
 
   useEffect(() => {
     try {
-      const stored = sessionStorage.getItem('__next_nav_state');
+      const stored = sessionStorage.getItem(NAV_STATE_STORAGE_KEY);
       if (stored) {
-        setNavState(JSON.parse(stored));
-        sessionStorage.removeItem('__next_nav_state');
+        setStatesByPath(JSON.parse(stored));
       }
     } catch (e) {}
   }, []);
 
+  const setLocationState = (path, state) => {
+    const key = normalizePath(path);
+    if (!key) return;
+
+    setStatesByPath((previousStates) => {
+      const nextStates = { ...previousStates };
+
+      if (state === undefined || state === null) {
+        delete nextStates[key];
+      } else {
+        nextStates[key] = state;
+      }
+
+      try {
+        sessionStorage.setItem(NAV_STATE_STORAGE_KEY, JSON.stringify(nextStates));
+      } catch (e) {}
+
+      return nextStates;
+    });
+  };
+
   return (
-    <LocationStateContext.Provider value={{ state: navState, setNavState }}>
+    <LocationStateContext.Provider value={{ statesByPath, setLocationState }}>
       {children}
     </LocationStateContext.Provider>
   );
@@ -29,22 +66,17 @@ export function RouterCompatProvider({ children }) {
 
 export function useNavigate() {
   const router = useNextRouter();
-  const { setNavState } = useContext(LocationStateContext);
+  const { setLocationState } = useContext(LocationStateContext);
 
   return (path, options = {}) => {
-    if (options.state) {
-      setNavState(options.state);
-      try {
-        sessionStorage.setItem('__next_nav_state', JSON.stringify(options.state));
-      } catch (e) {}
-    } else {
-      setNavState(null);
-    }
-
     if (typeof path === 'number') {
       if (path === -1) router.back();
       else if (path === 1) router.forward();
       return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(options, 'state')) {
+      setLocationState(path, options.state);
     }
 
     router.push(path);
@@ -54,14 +86,15 @@ export function useNavigate() {
 export function useLocation() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { state } = useContext(LocationStateContext);
+  const { statesByPath } = useContext(LocationStateContext);
 
   const search = searchParams ? searchParams.toString() : '';
+  const currentPath = `${pathname || ''}${search ? `?${search}` : ''}`;
 
   return {
     pathname: pathname || '',
     search: search ? `?${search}` : '',
-    state: state || null,
+    state: statesByPath[currentPath] || null,
   };
 }
 

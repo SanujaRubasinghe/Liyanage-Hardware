@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import PromotionalBanner from "./PromotionalBanner";
 import API from "../api";
+import Link from 'next/link';
 
 const SECTION_THEMES = [
   { kicker: 'JUST LANDED', icon: 'fas fa-box-open', tagline: 'Fresh tools.\nBetter builds.', subtitle: 'Discover our newest additions for your next big job.' },
@@ -15,7 +16,8 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
   const theme = SECTION_THEMES[themeIndex % SECTION_THEMES.length];
   
   // The category ID is stored in the 'description' field of the promotional banner for these rows
-  const categoryId = rowConfig?.category_id || rowConfig?.description || 'new_arrivals';
+  let categoryId = rowConfig?.category_id || rowConfig?.description || 'new_arrivals';
+  if (categoryId === 'undefined') categoryId = 'new_arrivals';
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -59,12 +61,12 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
             {rowConfig?.name || 'Category'}
           </h2>
         </div>
-        <a 
+        <Link
           href={`/category/${categoryId}/products`} 
           className="text-[#cc0000] font-bold text-sm hover:underline flex items-center gap-1 cursor-pointer shrink-0"
         >
           View all <i className="fas fa-arrow-right text-xs"></i>
-        </a>
+        </Link>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 items-stretch">

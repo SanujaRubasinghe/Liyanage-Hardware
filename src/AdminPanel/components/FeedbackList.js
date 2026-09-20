@@ -95,7 +95,7 @@ const FeedbackList = ({
                                     <div className="flex items-start space-x-3">
                                         {feedback.image_path && (
                                             <img
-                                                src={`${process.env.REACT_APP_API_BASE_URL}${feedback.image_path}`}
+                                                src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${feedback.image_path}`}
                                                 alt="Feedback attachment"
                                                 className="w-10 h-10 rounded-lg object-cover"
                                             />

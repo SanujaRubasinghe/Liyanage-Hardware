@@ -1,7 +1,6 @@
 import React from "react";
 import "./AboutUsNew.css";
 
-import { Helmet } from "react-helmet";
 
 const cardDetails = [
   { title: "CUSTOMERS FIRST", img: "/images/A.jpg", description: "We always prioritize our customers' needs and satisfaction." },
@@ -17,12 +16,6 @@ const cardDetails = [
 
 const AboutUsNew = () => {
   return (
-    <>
-    <Helmet>
-      <title>About Us | New Liyanage Hardware</title>
-      <meta name="description" content="Learn more about our history, values, and services." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/about-us" />
-    </Helmet>
     <div className="aboutus-container">
       {/* Hero Section */}
       <div className="hero-section">
@@ -105,7 +98,6 @@ const AboutUsNew = () => {
         ))}
       </section>
     </div>
-    </>
   );
 };
 

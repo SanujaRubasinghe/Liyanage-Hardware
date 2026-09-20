@@ -12,16 +12,17 @@ import FeatureSection from "./FeatureSection";
 import PromoCards from './PromoCards';
 import LoadingScreen from "./LoadingPage";
 
-import { Helmet } from "react-helmet";
 
 const HomePage = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(() => {
-    return sessionStorage.getItem('hasInitialLoadCompleted') === 'true';
-  });
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (isLoaded) return;
+    const alreadyLoaded = sessionStorage.getItem('hasInitialLoadCompleted') === 'true';
+    if (alreadyLoaded) {
+      setIsLoaded(true);
+      return undefined;
+    }
 
     // Simulate loading progress; replace with real data loading if needed
     let progress = 0;
@@ -45,16 +46,6 @@ const HomePage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Helmet>
-        <title>New Liyanage Hardware | Quality Tools & Hardware in Sri Lanka</title>
-        <meta name="description" content="Discover top-quality hardware tools and building materials from New Liyanage Hardware. Serving Sri Lanka with trusted products and service." />
-        <link rel="canonical" href="https://newliyanagehardwarelk/" />
-        <meta property="og:title" content="New Liyanage Hardware" />
-        <meta property="og:description" content="Discover top-quality hardware tools and materials." />
-        <meta property="og:url" content="https://newliyanagehardware.lk/" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Helmet>
-
       <SearchBarN />
       <AnnouncementBar />
       <BannerSlider

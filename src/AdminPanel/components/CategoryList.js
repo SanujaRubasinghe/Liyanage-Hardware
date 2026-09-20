@@ -69,7 +69,7 @@ const CategoryList = () => {
                 
                 {category.thumbnail ? (
                   <img 
-                    src={`${process.env.REACT_APP_API_BASE_URL}${category.thumbnail}`} 
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${category.thumbnail}`} 
                     alt={category.name} 
                     className="w-10 h-10 object-cover rounded-md mr-3"
                   />

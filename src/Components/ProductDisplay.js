@@ -10,7 +10,6 @@ import SearchBarN from "./SearchBarN";
 import LoadingPage from "./LoadingPage";
 import { toast } from "react-toastify";
 import { checkConsent } from "../services/checkConsent";
-import { Helmet } from "react-helmet";
 import StarRating from "./StarRating";
 import CategorySections from "./CategorySections";
 
@@ -145,12 +144,6 @@ const ProductDisplay = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
-      <Helmet>
-        <title>{product.name} | New Liyanage Hardware</title>
-        <meta name="description" content={product.description?.substring(0, 160)} />
-        <link rel="canonical" href={`https://newliyanagehardware.lk/products/${id}`} />
-      </Helmet>
-      
       <SearchBarN />
       
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-6 lg:mt-10">

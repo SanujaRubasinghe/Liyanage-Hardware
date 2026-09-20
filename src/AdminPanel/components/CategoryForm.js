@@ -292,7 +292,7 @@ const CategoryForm = () => {
                     <img 
                        src={thumbnailPreview.startsWith('blob:') ? 
                             thumbnailPreview : 
-                            `${process.env.REACT_APP_API_BASE_URL}${thumbnailPreview}`}
+                            `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${thumbnailPreview}`}
                       alt="Thumbnail preview" 
                       className="max-h-64 rounded-lg object-cover"
                     />

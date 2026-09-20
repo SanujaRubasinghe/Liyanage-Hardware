@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import CookieConsent from '../Components/CookieConsent';
+import { useActivityTracker } from '../hooks/useActivityTracker';
+
+const ActivityTracker = () => {
+  useActivityTracker();
+  return null;
+};
 
 const AnalyticsWrapper = ({ children }) => {
   const [, setUserId] = useState(null);
@@ -78,16 +84,19 @@ const AnalyticsWrapper = ({ children }) => {
   const handleAccept = () => {
     setCookie('cookie_consent', 'true', 365);
     initCookies();
+    window.dispatchEvent(new Event('cookie-consent-changed'));
   };
 
   const handleReject = () => {
     setCookie('cookie_consent', 'false', 30); // Remember rejection for 30 days
     initLocalStorage();
+    window.dispatchEvent(new Event('cookie-consent-changed'));
   };
 
   return (
     <>
       {children}
+      <ActivityTracker />
       <CookieConsent onAccept={handleAccept} onReject={handleReject} />
     </>
   );

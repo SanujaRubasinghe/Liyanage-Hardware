@@ -1,30 +1,27 @@
 'use client';
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "../router-compat";
-import { toast } from "react-toastify";
-import API from "../api";
-import { getImageUrl } from "../utils/imageUrl";
-import "./MiniCategory.css";
-import { useCategoryViewTracker } from "../hooks/useCategoryViewTracker"; 
-import { trackClick } from "../services/categoryAnalytics";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from '../router-compat';
+import { toast } from 'react-toastify';
+import API from '../api';
+import { getImageUrl } from '../utils/imageUrl';
+import './MiniCategory.css';
+import { useCategoryViewTracker } from '../hooks/useCategoryViewTracker';
+import { trackClick } from '../services/categoryAnalytics';
 import ProductCard from './ProductCard';
-import { Helmet } from "react-helmet";
 
-// Create a separate card component to use the hook properly
+const findCategory = (categories, identifier) => categories.find(
+  (category) => String(category.category_id) === String(identifier) || category.slug === identifier
+);
+
 const MiniCategoryCard = ({ miniCategory, onClick }) => {
   const viewRef = useCategoryViewTracker(miniCategory.category_id);
-  
   return (
-    <div
-      ref={viewRef}
-      className="miniCategory-card"
-      onClick={onClick}
-    >
+    <div ref={viewRef} className="miniCategory-card" onClick={onClick}>
       <img
         src={getImageUrl(miniCategory.thumbnail)}
         alt={miniCategory.name}
         className="miniCategory-image"
-        onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
+        onError={(event) => { event.currentTarget.src = '/images/Sample.jpg'; }}
       />
       <div className="miniCategory-tag">{miniCategory.name}</div>
     </div>
@@ -32,94 +29,65 @@ const MiniCategoryCard = ({ miniCategory, onClick }) => {
 };
 
 const MiniCategory = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { secondary_cat_id, name, slug, description = "" } = location.state || {};
+  const { id, subcat } = useParams();
+  const [category, setCategory] = useState(null);
   const [miniCategories, setMiniCategories] = useState([]);
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchTertiaryCategories = async () => {
+    const fetchCategory = async () => {
       try {
-        const response = await API.get(`/categories/tertiary?secondary_id=${secondary_cat_id}`);
-        if (response.data.categories.length === 0) {
-          navigate(`/category/${slug}/products`, {
-            state: {
-              cat_id: secondary_cat_id,
-              name: name
-            }
-          });
+        const primaryResponse = await API.get('/categories/primary');
+        const primary = findCategory(primaryResponse.data.categories || [], id);
+        if (!primary) throw new Error('Primary category not found');
+
+        const secondaryResponse = await API.get(`/categories/secondary?primary_id=${primary.category_id}`);
+        const secondary = findCategory(secondaryResponse.data.categories || [], subcat);
+        if (!secondary) throw new Error('Secondary category not found');
+
+        setCategory(secondary);
+        const [tertiaryResponse, productResponse] = await Promise.all([
+          API.get(`/categories/tertiary?secondary_id=${secondary.category_id}`),
+          API.get(`/products?categoryId=${secondary.category_id}`),
+        ]);
+        const tertiary = tertiaryResponse.data.categories || [];
+        if (tertiary.length === 0) {
+          navigate(`/category/${secondary.category_id}/products`);
           return;
         }
-        setMiniCategories(response.data.categories);
-      } catch (error) {
+        setMiniCategories(tertiary);
+        setProducts(productResponse.data || []);
+      } catch {
         toast.error('Failed to fetch categories');
       }
     };
-
-    const fetchSecondaryProducts = async () => {
-      try {
-        const response = await API.get(`/products?categoryId=${secondary_cat_id}`)
-        setProducts(response.data)
-        console.log(response.data)
-      } catch (err) {
-        toast.error('Failed to fetch products');
-      }
-    }
-    
-    if (secondary_cat_id) {
-      fetchTertiaryCategories();
-      fetchSecondaryProducts()
-    }
-  }, [secondary_cat_id, navigate, slug, name]);
-
-  const handleCardClick = (miniCategory) => {
-    trackClick(miniCategory.category_id)
-    navigate(`/category/${miniCategory.slug}/products`, {
-      state: {
-        cat_id: miniCategory.category_id,
-        name: miniCategory.name,
-      }
-    });
-  };
+    fetchCategory();
+  }, [id, subcat, navigate]);
 
   return (
-    <>
-    <Helmet>
-      <title>Product Subcategories | New Liyanage Hardware</title>
-      <meta name="description" content="View subcategories and product types within our main categories." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/categories/:id" />
-    </Helmet>
     <div className="miniCategory-main">
       <div className="miniCategory-header">
-        <img
-          src="/images/category/bathware/16.jpg"
-          alt="Architectural Hardware"
-          className="miniCategory-header-image"
-        />
-        <h1>{name}</h1>
-        <p>{description}</p>
+        <img src="/images/category/bathware/16.jpg" alt="Product category" className="miniCategory-header-image" />
+        <h1>{category?.name || 'Product Subcategories'}</h1>
+        <p>{category?.description || 'Browse products and subcategories.'}</p>
       </div>
-
       <div className="miniCategory-container">
         {miniCategories.map((miniCategory) => (
           <MiniCategoryCard
             key={miniCategory.category_id}
             miniCategory={miniCategory}
-            onClick={() => handleCardClick(miniCategory)}
+            onClick={() => {
+              trackClick(miniCategory.category_id);
+              navigate(`/category/${miniCategory.category_id}/products`);
+            }}
           />
         ))}
       </div>
       <div className="miniCategory-container">
-        {products.map((product, index) => (
-          <ProductCard
-            key={index}
-            product={product}
-          />
-        ))}
+        {products.map((product) => <ProductCard key={product.product_id} product={product} />)}
       </div>
     </div>
-    </>
   );
 };
 

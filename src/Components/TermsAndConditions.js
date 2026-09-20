@@ -1,17 +1,10 @@
 import React from "react";
 import "./TermsAndConditions.css";
 
-import { Helmet } from "react-helmet";
 
 function TermsAndConditions() {
   return (
     <>
-    <Helmet>
-      <title>Terms & Conditions | New Liyanage Hardware</title>
-      <meta name="description" content="Understand our terms of service before making a purchase." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/terms" />
-    </Helmet>
-
     <div
       className="tc-page"
       style={{ backgroundImage: `url(/images/view.jpg)` }}

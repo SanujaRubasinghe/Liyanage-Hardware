@@ -2,17 +2,10 @@
 import React from "react";
 import "./TermsAndConditions.css";
 
-import { Helmet } from "react-helmet";
 
 export default function ShippingPolicy() {
   return (
     <>
-    <Helmet>
-      <title>Shipping Policy | New Liyanage Hardware</title>
-      <meta name="description" content="Information about shipping methods, costs, and timelines." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/shipping-policy" />
-    </Helmet>
-
     <div className="tc-page" style={{ backgroundImage: `url(/images/view.jpg)` }}>
       <div className="tc-container">
         <div className="tc-header">

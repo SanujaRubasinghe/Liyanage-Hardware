@@ -429,7 +429,7 @@ const PromotionalBannerManager = () => {
                       <div className="flex flex-col md:flex-row">
                         <div className="md:w-1/3">
                           <img
-                            src={`${process.env.REACT_APP_API_BASE_URL}${image.image_url}`}
+                            src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${image.image_url}`}
                             alt={image.alt_text}
                             className="w-full h-full object-cover"
                           />

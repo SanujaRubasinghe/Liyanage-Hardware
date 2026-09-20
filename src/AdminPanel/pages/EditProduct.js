@@ -113,7 +113,7 @@ const EditProduct = () => {
                 if (product.images && product.images.length > 0) {
                     setProductImages(product.images.map(img => ({
                         ...img,
-                        url: `${process.env.REACT_APP_API_BASE_URL}/${img.image_url}`,
+                        url: `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/${img.image_url}`,
                         isDeleted: false
                     })));
                 }

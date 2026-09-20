@@ -4,27 +4,28 @@ import API from '../api';
 
 export const useActivityTracker = () => {
   useEffect(() => {
-    
-    const hasConsent = checkConsent()
-    if (!hasConsent) return
+    let interval;
 
-    recordActivity();
-    
-    // Set up heartbeat (every 30 seconds)
-    const interval = setInterval(recordActivity, 30000);
-    
-    // Record activity on visibility change
+    const startTracking = () => {
+      if (!checkConsent() || interval) return;
+      recordActivity();
+      interval = setInterval(recordActivity, 30000);
+    };
+
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && checkConsent()) {
         recordActivity();
       }
     };
-    
+
+    startTracking();
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    
+    window.addEventListener('cookie-consent-changed', startTracking);
+
     return () => {
       clearInterval(interval);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('cookie-consent-changed', startTracking);
     };
   }, []);
 };

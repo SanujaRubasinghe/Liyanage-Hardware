@@ -2,17 +2,10 @@
 import React from "react";
 import "./TermsAndConditions.css";
 
-import { Helmet } from "react-helmet";
 
 export default function Disclaimer() {
   return (
     <>
-    <Helmet>
-      <title>Website Disclaimer | New Liyanage Hardware</title>
-      <meta name="description" content="Important legal disclaimers and limitations of liability." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/disclaimer" />
-    </Helmet>
-
     <div className="tc-page" style={{ backgroundImage: `url(/images/view.jpg)` }}>
       <div className="tc-container">
         <div className="tc-header">

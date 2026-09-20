@@ -11,7 +11,7 @@ import { useAuthContext } from "../context/AuthContext";
 import {format} from 'date-fns'
 
 const libraries = ["places"];
-const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const BuyingPage = () => {
   const navigate = useNavigate();

@@ -26,10 +26,11 @@ function Home() {
 
   const handleCategoryClick = (cat) => {
     trackClick(cat.category_id);
-    navigate(`/categories/${cat.slug}`, {
+    const identifier = cat.slug || cat.category_id;
+    navigate(`/categories/${identifier}`, {
       state: {
         primary_cat_id: cat.category_id,
-        slug: cat.slug,
+        slug: identifier,
         name: cat.name
       }
     });

@@ -43,7 +43,7 @@ const OrderMap = () => {
   const [geocodingProgress, setGeocodingProgress] = useState(0);
   const [error, setError] = useState(null);
 
-  const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',

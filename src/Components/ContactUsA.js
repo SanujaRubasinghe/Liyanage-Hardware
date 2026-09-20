@@ -3,16 +3,9 @@ import React from 'react';
 import styles from './ContactUsA.module.css';
 import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
-import { Helmet } from 'react-helmet';
 
 export default function ContactUs() {
   return (
-    <>
-    <Helmet>
-      <title>Contact Us | New Liyanage Hardware</title>
-      <meta name="description" content="Reach out to New Liyanage Hardware for inquiries, quotes, or support." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/contact-us" />
-    </Helmet>
     <div className={styles.contactPage}>
       <main>
         <h1 className={styles.pageTitle}>Contact Us</h1>
@@ -60,6 +53,5 @@ export default function ContactUs() {
         </section>
       </main>
     </div>
-    </>
   );
 }

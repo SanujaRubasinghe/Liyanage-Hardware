@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const BannerCard = ({ banner, onDelete }) => {
 
-    const BASE_URL = process.env.REACT_APP_API_BASE_URL
+    const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'
     
     const handleDeleteClick = (e) => {
         e.preventDefault();

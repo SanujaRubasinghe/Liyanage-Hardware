@@ -4,16 +4,18 @@ import { toast } from 'react-toastify';
 import API from '../api';
 import ProductCard from './ProductCard';
 import SearchBarN from "./SearchBarN";
-import { useLocation } from '../router-compat';
+import { useLocation, useParams } from '../router-compat';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
-import { Helmet } from 'react-helmet';
 
 const itemsPerPage = 12;
 
 const ProductPageN = () => {
   const location = useLocation();
   const state = location.state;
+  const { catid } = useParams();
+  const categoryId = state?.cat_id || catid;
+  const categoryName = state?.name;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState([]);
@@ -28,11 +30,10 @@ const ProductPageN = () => {
     const fetchProducts = async () => {
       let response;
       try {
-        if (!state) {
-          response = await API.get('/products');
-        } else {
-          response = await API.get(`/products?categoryId=${state.cat_id}`);
-        }
+        response = categoryId
+          ? await API.get(`/products?categoryId=${categoryId}`)
+          : await API.get('/products');
+
         setAllProducts(response.data);
         setFilteredProducts(response.data);
         setLoading(false);
@@ -42,7 +43,7 @@ const ProductPageN = () => {
       }
     };
     fetchProducts();
-  }, [state]);
+  }, [categoryId]);
 
   useEffect(() => {
     const applyFilters = () => {
@@ -84,15 +85,6 @@ const ProductPageN = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Helmet>
-        <title>{state ? `${state.name} | Products` : 'All Products'} | New Liyanage Hardware</title>
-        <meta name="description" content="Browse our wide range of hardware products and tools available at New Liyanage Hardware." />
-        <link rel="canonical" href="https://newliyanagehardware.lk/products" />
-        <meta property="og:title" content="Products" />
-        <meta property="og:description" content="Find tools, building materials, and accessories." />
-        <meta property="og:url" content="https://newliyanagehardware.lk/products" />
-      </Helmet>
-      
       <SearchBarN />
       
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 flex flex-col md:flex-row gap-8 lg:gap-12">
@@ -120,7 +112,7 @@ const ProductPageN = () => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-gray-200 pb-4">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                {state ? state.name : 'All Products'}
+                {categoryName || 'All Products'}
               </h1>
               <p className="text-sm text-gray-500 mt-2">
                 Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}

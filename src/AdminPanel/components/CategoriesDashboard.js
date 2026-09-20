@@ -224,7 +224,7 @@ const CategoriesDashboard = () => {
                         {category.thumbnail ? (
                           <img 
                             className="h-10 w-10 rounded-md object-cover" 
-                            src={`${process.env.REACT_APP_API_BASE_URL}${category.thumbnail}`} 
+                            src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${category.thumbnail}`} 
                             alt={category.name} 
                           />
                         ) : (

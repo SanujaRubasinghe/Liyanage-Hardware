@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "../router-compat";
 import { useProductViewTracker } from "../hooks/useProductViewTracker";
 import { getImageUrl } from "../utils/imageUrl";
+import Image from 'next/image';
 
 const ProductCard = ({ product, isNewArrival = false }) => {
   const navigate = useNavigate();
@@ -66,13 +67,14 @@ const ProductCard = ({ product, isNewArrival = false }) => {
 
       {/* Image */}
       <div className="w-full h-44 sm:h-48 overflow-hidden mb-5 cursor-pointer flex items-center justify-center relative bg-white">
-        <img 
+        <Image
           src={getImageUrl(product.primary_image)} 
           alt={product.name} 
-          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 260px, 280px"
+          className="object-contain transition-transform duration-500 group-hover:scale-105" 
           onClick={() => handleDetails(product.product_id)}
-          onError={(e) => { e.target.src = '/images/Sample.jpg'; }}
+          onError={(event) => { event.currentTarget.src = '/images/Sample.jpg'; }}
         />
       </div>
 

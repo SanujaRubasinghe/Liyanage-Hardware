@@ -12,13 +12,13 @@ const ProductDetailsModal = ({ product, onClose, onDelete, onUpdate }) => {
     const [images, setImages] = useState(() => {
         // Initialize images array with primary image and additional images
         const primaryImage = product.primary_image ? {
-            url: `${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}`,
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/${product.primary_image}`,
             path: product.primary_image,
             isPrimary: true
         } : null;
 
         const additionalImages = (product.images || []).map(img => ({
-            url: `${process.env.REACT_APP_API_BASE_URL}/${img}`,
+            url: `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/${img}`,
             path: img,
             isPrimary: false
         }));

@@ -1,90 +1,64 @@
 'use client';
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, useParams } from "../router-compat";
-import { toast } from "react-toastify";
-import API from "../api";
-import "./Subcategories.css";
-import SubcategoryCard from "./SubcategoryCard";
-import { trackClick } from "../services/categoryAnalytics";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from '../router-compat';
+import { toast } from 'react-toastify';
+import API from '../api';
+import './Subcategories.css';
+import SubcategoryCard from './SubcategoryCard';
+import { trackClick } from '../services/categoryAnalytics';
 
-import { Helmet } from "react-helmet";
-
+const findCategory = (categories, identifier) => categories.find(
+  (category) => String(category.category_id) === String(identifier) || category.slug === identifier
+);
 
 const Subcategories = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
-  const { primary_cat_id, slug, name } = location.state || {};
+  const [category, setCategory] = useState(null);
   const [subcategories, setSubCategories] = useState([]);
 
   useEffect(() => {
     const fetchSecondaryCategories = async () => {
       try {
-        const response = await API.get(`/categories/secondary?primary_id=${primary_cat_id}`);
-        if (response.data.categories.length === 0) {
-          navigate(`/category/${slug}/products`, {
-            state: {
-              cat_id: primary_cat_id,
-              name: name
-            }
-          });
+        const primaryResponse = await API.get('/categories/primary');
+        const primary = findCategory(primaryResponse.data.categories || [], id);
+        if (!primary) throw new Error('Primary category not found');
+
+        setCategory(primary);
+        const response = await API.get(`/categories/secondary?primary_id=${primary.category_id}`);
+        const secondary = response.data.categories || [];
+        if (secondary.length === 0) {
+          navigate(`/category/${primary.category_id}/products`);
+          return;
         }
-        setSubCategories(response.data.categories);
-      } catch (error) {
+        setSubCategories(secondary);
+      } catch {
         toast.error('Failed to get categories');
       }
     };
     fetchSecondaryCategories();
-  }, [primary_cat_id, navigate, slug, name]);
-
-  const handleSubcategoryClick = (path, cat_id, cat_name, slug) => {
-    navigate(`${path}`, {
-      state: {
-        secondary_cat_id: cat_id,
-        name: cat_name,
-        slug: slug
-      }
-    });
-  };
+  }, [id, navigate]);
 
   return (
-    <>
-    <Helmet>
-      <title>Product Subcategories | New Liyanage Hardware</title>
-      <meta name="description" content="View subcategories and product types within our main categories." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/categories/:id" />
-    </Helmet>
     <div className="main">
       <div className="subcategory-header">
-        <img
-          src="/images/category/bathware/16.jpg"
-          alt="Architectural Hardware"
-          className="subcategory-header-image"
-        />
-        <h1>{}</h1>
-        <p>
-          Bathware includes a wide range of essential and stylish products designed for modern bathrooms...
-        </p>
+        <img src="/images/category/bathware/16.jpg" alt="Product category" className="subcategory-header-image" />
+        <h1>{category?.name || 'Product Subcategories'}</h1>
+        <p>{category?.description || 'Browse product types within this category.'}</p>
       </div>
       <div className="subcategory-container">
-        {subcategories.map((subcategory, index) => (
+        {subcategories.map((subcategory) => (
           <SubcategoryCard
             key={subcategory.category_id}
             subcategory={subcategory}
             onClick={() => {
-              trackClick(subcategory.category_id)
-              handleSubcategoryClick(
-                `/categories/${id}/${subcategory.slug}`,
-                subcategory.category_id,
-                subcategory.name,
-                subcategory.slug
-              )}
-            }
+              trackClick(subcategory.category_id);
+              navigate(`/categories/${id}/${subcategory.slug || subcategory.category_id}`);
+            }}
           />
         ))}
       </div>
     </div>
-    </>
   );
 };
 

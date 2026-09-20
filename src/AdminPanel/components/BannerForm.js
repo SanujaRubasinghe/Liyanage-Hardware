@@ -366,7 +366,7 @@ const BannerForm = () => {
               <label className="block text-gray-700 mb-2">Preview</label>
               <div className="border rounded-lg p-4">
                 <img 
-                  src={`${process.env.REACT_APP_API_BASE_URL}${imagePreview}` || `${process.env.REACT_APP_API_BASE_URL}${banner.image_url}`} 
+                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${imagePreview || banner.image_url}`} 
                   alt="Banner Preview" 
                   className="max-h-48 mx-auto"
                 />

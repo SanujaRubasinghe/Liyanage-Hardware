@@ -88,12 +88,15 @@ export default function SearchBarN() {
   };
 
   const uniqueCategories = results.reduce((acc, product) => {
-    if (product.slug && !acc.some(cat => cat.slug === product.slug)) {
-      acc.push({
-        slug: product.slug,
-        name: product.category_name,
-        category_id: product.category_id
-      });
+    if (product.category_id) {
+      const catSlug = product.category_slug || product.slug || product.category_id;
+      if (catSlug && !acc.some(cat => cat.slug === catSlug)) {
+        acc.push({
+          slug: catSlug,
+          name: product.category_name,
+          category_id: product.category_id
+        });
+      }
     }
     return acc;
   }, []);
@@ -155,7 +158,8 @@ export default function SearchBarN() {
                     <button
                       className="w-full p-3 bg-gray-50 border-none text-[#cc0000] text-sm font-semibold text-center cursor-pointer transition-colors hover:bg-red-50"
                       onClick={() => {
-                        navigate(`/category/${category.slug}/products`, {
+                        const identifier = category.slug || category.category_id;
+                        navigate(`/category/${identifier}/products`, {
                           state: {
                             name: category.name,
                             cat_id: category.category_id

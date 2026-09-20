@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 import Footer from './Components/Footer';
 import ScrollToTop from './Components/ScrollToTop';
 import WhatsAppButton from './Components/WhatsAppButton';
+import AnalyticsWrapper from './wrappers/AnalyticsWrapper';
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
@@ -20,16 +21,18 @@ export default function ClientLayout({ children }) {
 
   return (
     <RouterCompatProvider>
-      <CartProvider>
-        <AuthProvider>
-          <ToastContainer position="top-right" autoClose={3000} />
-          <Navbar />
-          <ScrollToTop />
-          <main style={{ minHeight: 'calc(100vh - 400px)' }}>{children}</main>
-          <Footer />
-          <WhatsAppButton />
-        </AuthProvider>
-      </CartProvider>
+      <AnalyticsWrapper>
+        <CartProvider>
+          <AuthProvider>
+            <ToastContainer position="top-right" autoClose={3000} />
+            <Navbar />
+            <ScrollToTop />
+            <main style={{ minHeight: 'calc(100vh - 400px)' }}>{children}</main>
+            <Footer />
+            <WhatsAppButton />
+          </AuthProvider>
+        </CartProvider>
+      </AnalyticsWrapper>
     </RouterCompatProvider>
   );
 }

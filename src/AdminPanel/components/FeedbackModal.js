@@ -83,7 +83,7 @@ const FeedbackModal = ({ isOpen, onClose, feedback, onStatusUpdate }) => {
                                 Attached Image
                             </label>
                             <img
-                                src={`${process.env.REACT_APP_API_BASE_URL}${feedback.image_path}`}
+                                src={`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}${feedback.image_path}`}
                                 alt="Feedback attachment"
                                 className="max-w-full h-auto rounded-lg border border-gray-300"
                             />

@@ -300,7 +300,7 @@ const ProductManagement = () => {
                                                 <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10">
                                                     <img 
                                                         className="h-8 w-8 sm:h-10 sm:w-10 rounded-md" 
-                                                        src={`${process.env.REACT_APP_API_BASE_URL}/${product.primary_image}` || 'https://via.placeholder.com/40'} 
+                                                        src={product.primary_image ? `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000'}/${product.primary_image}` : 'https://via.placeholder.com/40'} 
                                                         alt={product.name} 
                                                     />
                                                 </div>

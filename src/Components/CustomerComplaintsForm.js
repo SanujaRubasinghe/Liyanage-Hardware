@@ -6,9 +6,8 @@ import ConfirmationModal from "./ConfirmationModal";
 import { FaTimes, FaUpload } from "react-icons/fa";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import { Helmet } from "react-helmet";
 
-const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
 const CustomerComplaintsForm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -113,11 +112,6 @@ const CustomerComplaintsForm = () => {
 
   return (
     <>
-    <Helmet>
-      <title>Customer Complaint Form | New Liyanage Hardware</title>
-      <meta name="description" content="Submit complaints or feedback for faster resolution and better service." />
-      <link rel="canonical" href="https://newliyanagehardware.lk/complaint" />
-    </Helmet>
     <div className="ccf-container">
       <div className="ccf-logo-circle">
         <img src="/images/l1.png" alt="Logo" className="ccf-logo" />

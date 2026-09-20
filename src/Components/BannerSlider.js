@@ -113,7 +113,7 @@ const BannerSlider = ({onLoad}) => {
   const currentBanner = banners[currentIndex];
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-100 rounded-lg shadow-md mb-4 max-w-[1400px] mx-auto mt-2 px-4 sm:px-6">
+    <div className="relative w-full overflow-hidden bg-gray-100">
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={currentIndex}
@@ -206,7 +206,7 @@ const BannerImageSlider = ({ images }) => {
   const fullImageUrl = imageUrls[currentImageIndex];
 
   return (
-    <div className="relative h-full w-full overflow-hidden border-[8px] border-white rounded-[20px] shadow-sm">
+    <div className="relative h-full w-full overflow-hidden">
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={currentImageIndex}

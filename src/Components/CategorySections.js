@@ -12,6 +12,7 @@ const SECTION_THEMES = [
 
 const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const scrollRef = React.useRef(null);
   const theme = SECTION_THEMES[themeIndex % SECTION_THEMES.length];
   
@@ -22,15 +23,18 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoading(true);
         let prodRes;
         if (categoryId === 'new_arrivals') {
-          prodRes = await API.get('/products/new-arrivals');
+          prodRes = await API.get('/products/new-arrivals?limit=10');
         } else {
-          prodRes = await API.get(`/products?categoryId=${categoryId}`);
+          prodRes = await API.get(`/products?categoryId=${categoryId}&limit=10`);
         }
         setProducts(prodRes.data || []);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     if (rowConfig) {
@@ -49,6 +53,7 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
   };
 
   if (!rowConfig || !rowConfig.is_active) return null;
+  if (!isLoading && products.length === 0) return null;
 
   return (
     <div className="w-full mb-8 max-w-[1400px] mx-auto px-4 sm:px-6">
@@ -124,7 +129,7 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
               </div>
             ))}
             
-            {products.length === 0 && (
+            {isLoading && (
               <div className="flex items-center justify-center w-full min-h-[300px]">
                 <div className="flex flex-col items-center gap-3 text-gray-400">
                   <div className="w-10 h-10 border-4 border-gray-200 border-t-[#cc0000] rounded-full animate-spin"></div>

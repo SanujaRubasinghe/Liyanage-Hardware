@@ -55,21 +55,28 @@ const PromoCards = () => {
 
   const allCards = cards.length > 0 ? cards : DEFAULT_CARDS;
 
-  // Rotate every 3 seconds (3000ms) if cards count > 3 and not hovered
+  // Rotate every 3 seconds (3000ms) whenever there is more than 1 card
   useEffect(() => {
-    if (allCards.length <= 3 || isHovered) return;
+    if (allCards.length <= 1) return;
 
     const timer = setInterval(() => {
-      setStartIndex(prev => (prev + 1) % allCards.length);
+      setStartIndex((prev) => (prev + 1) % allCards.length);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [allCards.length, isHovered]);
+  }, [allCards.length]);
 
   // Compute 3 visible cards
   const visibleCards = React.useMemo(() => {
-    if (allCards.length <= 3) {
-      return allCards.map((c, i) => ({ ...c, slotIndex: i }));
+    if (allCards.length === 0) return [];
+    if (allCards.length === 1) {
+      return [{ ...allCards[0], slotIndex: 0 }];
+    }
+    if (allCards.length === 2) {
+      return [
+        { ...allCards[startIndex % 2], slotIndex: 0 },
+        { ...allCards[(startIndex + 1) % 2], slotIndex: 1 },
+      ];
     }
     return [0, 1, 2].map((offset) => {
       const idx = (startIndex + offset) % allCards.length;
@@ -81,22 +88,18 @@ const PromoCards = () => {
   }, [allCards, startIndex]);
 
   const handlePrev = () => {
-    setStartIndex(prev => (prev - 1 + allCards.length) % allCards.length);
+    setStartIndex((prev) => (prev - 1 + allCards.length) % allCards.length);
   };
 
   const handleNext = () => {
-    setStartIndex(prev => (prev + 1) % allCards.length);
+    setStartIndex((prev) => (prev + 1) % allCards.length);
   };
 
   return (
-    <div 
-      className="w-full relative py-4"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="w-full relative py-4">
       <div className="max-w-[1400px] mx-auto px-4 relative flex items-center">
         {/* Left Arrow Button (Black icon) */}
-        {allCards.length > 3 && (
+        {allCards.length > 1 && (
           <button
             onClick={handlePrev}
             className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-black hover:bg-gray-100 hover:scale-110 transition-all cursor-pointer"
@@ -108,28 +111,21 @@ const PromoCards = () => {
 
         <div className="w-full overflow-x-auto scrollbar-none snap-x snap-mandatory">
           <div className="flex md:flex-wrap justify-start md:justify-center gap-4 px-2 sm:px-6 min-w-max md:min-w-0">
-            <AnimatePresence mode="popLayout">
-              {visibleCards.map((card, idx) => (
-                <motion.div
-                  key={`${card.id}-${card.slotIndex}`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
-                  className="flex-shrink-0 md:flex-1 w-[82vw] sm:w-[320px] md:w-auto min-w-[260px] max-w-[360px] h-[340px] sm:h-[400px] rounded-2xl bg-cover bg-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl snap-center relative overflow-hidden group"
-                  style={{ 
-                    backgroundColor: card.bg_color || CARD_COLORS[idx % CARD_COLORS.length],
-                    backgroundImage: `url('${card.image_url}')` 
-                  }}
-                >
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {visibleCards.map((card, idx) => (
+              <div
+                key={`slot-${card.slotIndex}`}
+                className="flex-shrink-0 md:flex-1 w-[82vw] sm:w-[320px] md:w-auto min-w-[260px] max-w-[360px] h-[340px] sm:h-[400px] rounded-2xl bg-cover bg-center shadow-md transition-all duration-700 ease-in-out hover:-translate-y-2 hover:shadow-xl snap-center relative overflow-hidden group"
+                style={{ 
+                  backgroundColor: card.bg_color || CARD_COLORS[idx % CARD_COLORS.length],
+                  backgroundImage: `url('${card.image_url}')` 
+                }}
+              />
+            ))}
           </div>
         </div>
 
         {/* Right Arrow Button (Black icon) */}
-        {allCards.length > 3 && (
+        {allCards.length > 1 && (
           <button
             onClick={handleNext}
             className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-black hover:bg-gray-100 hover:scale-110 transition-all cursor-pointer"
@@ -140,8 +136,8 @@ const PromoCards = () => {
         )}
       </div>
 
-      {/* Slide Indicators if total cards > 3 */}
-      {allCards.length > 3 && (
+      {/* Slide Indicators if total cards > 1 */}
+      {allCards.length > 1 && (
         <div className="flex justify-center items-center gap-2 mt-4">
           {allCards.map((_, i) => (
             <button

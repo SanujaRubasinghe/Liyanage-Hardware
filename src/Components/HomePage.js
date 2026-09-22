@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import SearchBarN from "./SearchBarN";
 import AnnouncementBar from "./AnnouncementBar";
+import OfferItemsSection from './OfferItemsSection';
 import Home from "./Home";
 import CategorySections from "./CategorySections"
 import BrandContainer from "./BrandContainer";
@@ -48,6 +49,7 @@ const HomePage = () => {
       <SearchBarN />
       <AnnouncementBar />
       <PromoCards />
+      <OfferItemsSection />
       <Home />
       <CategorySections />
       <BrandContainer />

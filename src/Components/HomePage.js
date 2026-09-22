@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import SearchBarN from "./SearchBarN";
 import AnnouncementBar from "./AnnouncementBar";
-import BannerSlider from "./BannerSlider";
 import Home from "./Home";
 import CategorySections from "./CategorySections"
 import BrandContainer from "./BrandContainer";
@@ -35,7 +34,7 @@ const HomePage = () => {
       } else {
         setLoadingProgress(progress);
       }
-    }, 100); // Also slightly sped up the simulation
+    }, 100);
 
     return () => clearInterval(interval);
   }, [isLoaded]);
@@ -48,9 +47,6 @@ const HomePage = () => {
     <div className="bg-gray-50 min-h-screen">
       <SearchBarN />
       <AnnouncementBar />
-      <BannerSlider
-        onLoad={() => setIsLoaded(true)}
-      />
       <PromoCards />
       <Home />
       <CategorySections />
@@ -60,5 +56,6 @@ const HomePage = () => {
     </div>
   );
 };
+
 
 export default HomePage;

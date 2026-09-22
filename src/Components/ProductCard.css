@@ -146,15 +146,31 @@
 /* Mobile Styles */
 @media (max-width: 480px) {
   .product-card {
-    min-height: 320px;
-    height: 320px;
-    padding: 12px;
+    min-height: 310px;
+    height: auto;
+    padding: 10px;
   }
 
   .product-image-container {
-    height: 140px;
+    height: 130px;
+  }
+
+  .product-title {
+    font-size: 13px;
+  }
+
+  .product-actions {
+    gap: 6px;
+  }
+
+  .buy-now-btn,
+  .details-btn {
+    padding: 6px 6px;
+    font-size: 10px;
+    border-radius: 14px;
   }
 }
+
 
 /* Accessibility: Focus style for keyboard navigation */
 .product-card:focus-within {

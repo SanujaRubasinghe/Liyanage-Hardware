@@ -1,6 +1,6 @@
 /* Promo Section Outer Wrapper */
 .promo-wrapper {
-  padding: 0 20px; /* reduced padding for smaller screens */
+  padding: 0 20px;
 }
 
 /* Card Container */
@@ -8,16 +8,18 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
   padding: 20px 0;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* Card Styles */
 .promo-card {
-  flex: 1 1 280px; /* responsive base width */
+  flex: 1 1 280px;
   max-width: 360px;
   min-width: 260px;
-  padding: 20px;
+  padding: 24px;
   color: white;
   border-radius: 12px;
   display: flex;
@@ -27,24 +29,23 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  height: 500px;
+  min-height: 440px;
 }
-
 
 .red-card {
   background-color: #d62828;
-  background-image: url('/images/offer5.png'); /* Optional */
+  background-image: url('/images/offer5.png');
 }
 
 .yellow-card {
   background-color: #fcbf49;
-  background-image: url('/images/offer6.png'); /* Optional */
+  background-image: url('/images/offer6.png');
   color: #000;
 }
 
 .orange-card {
   background-color: #f77f00;
-  background-image: url('/images/offer2.png'); /* Optional */
+  background-image: url('/images/offer2.png');
 }
 
 .promo-card h2, .promo-card h3 {
@@ -80,3 +81,31 @@
   color: #000000;
   transition: 200ms ease-in-out;
 }
+
+@media (max-width: 768px) {
+  .promo-wrapper {
+    padding: 0 12px;
+  }
+
+  .promo-container {
+    gap: 16px;
+    padding: 12px 0;
+  }
+
+  .promo-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 360px;
+    padding: 18px;
+  }
+
+  .promo-card h2, .promo-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .promo-card p {
+    font-size: 0.92rem;
+  }
+}
+

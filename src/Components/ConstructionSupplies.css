@@ -85,4 +85,29 @@
   .content-container {
     padding: 20px;
   }
+
+  .construction-supplies-header h2 {
+    font-size: 1.8rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .construction-supplies-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .heading {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  .content-container p {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+}
+

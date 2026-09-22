@@ -80,30 +80,64 @@ const PromoCards = () => {
     });
   }, [allCards, startIndex]);
 
+  const handlePrev = () => {
+    setStartIndex(prev => (prev - 1 + allCards.length) % allCards.length);
+  };
+
+  const handleNext = () => {
+    setStartIndex(prev => (prev + 1) % allCards.length);
+  };
+
   return (
     <div 
-      className="w-full overflow-x-auto py-4 scrollbar-none snap-x snap-mandatory"
+      className="w-full relative py-4"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex md:flex-wrap justify-start md:justify-center gap-4 px-4 max-w-[1400px] mx-auto min-w-max md:min-w-0">
-        <AnimatePresence mode="popLayout">
-          {visibleCards.map((card, idx) => (
-            <motion.div
-              key={`${card.id}-${card.slotIndex}`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="flex-shrink-0 md:flex-1 w-[82vw] sm:w-[320px] md:w-auto min-w-[260px] max-w-[360px] h-[340px] sm:h-[400px] rounded-2xl bg-cover bg-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl snap-center relative overflow-hidden group"
-              style={{ 
-                backgroundColor: card.bg_color || CARD_COLORS[idx % CARD_COLORS.length],
-                backgroundImage: `url('${card.image_url}')` 
-              }}
-            >
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      <div className="max-w-[1400px] mx-auto px-4 relative flex items-center">
+        {/* Left Arrow Button (Black icon) */}
+        {allCards.length > 3 && (
+          <button
+            onClick={handlePrev}
+            className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-black hover:bg-gray-100 hover:scale-110 transition-all cursor-pointer"
+            aria-label="Previous cards"
+          >
+            <i className="fas fa-chevron-left text-black text-base"></i>
+          </button>
+        )}
+
+        <div className="w-full overflow-x-auto scrollbar-none snap-x snap-mandatory">
+          <div className="flex md:flex-wrap justify-start md:justify-center gap-4 px-2 sm:px-6 min-w-max md:min-w-0">
+            <AnimatePresence mode="popLayout">
+              {visibleCards.map((card, idx) => (
+                <motion.div
+                  key={`${card.id}-${card.slotIndex}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex-shrink-0 md:flex-1 w-[82vw] sm:w-[320px] md:w-auto min-w-[260px] max-w-[360px] h-[340px] sm:h-[400px] rounded-2xl bg-cover bg-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl snap-center relative overflow-hidden group"
+                  style={{ 
+                    backgroundColor: card.bg_color || CARD_COLORS[idx % CARD_COLORS.length],
+                    backgroundImage: `url('${card.image_url}')` 
+                  }}
+                >
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Right Arrow Button (Black icon) */}
+        {allCards.length > 3 && (
+          <button
+            onClick={handleNext}
+            className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-black hover:bg-gray-100 hover:scale-110 transition-all cursor-pointer"
+            aria-label="Next cards"
+          >
+            <i className="fas fa-chevron-right text-black text-base"></i>
+          </button>
+        )}
       </div>
 
       {/* Slide Indicators if total cards > 3 */}

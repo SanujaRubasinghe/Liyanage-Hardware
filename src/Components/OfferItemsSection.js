@@ -79,7 +79,7 @@ const OfferItemsSection = () => {
       {/* Main Content Layout */}
       <div className="flex flex-col lg:flex-row gap-4 items-stretch">
         {/* Left Promo Card */}
-        <div className="w-full lg:w-[280px] lg:min-w-[280px] bg-[#cc0000] rounded-2xl p-6 text-white shrink-0 flex flex-col justify-between shadow-md relative overflow-hidden group min-h-[380px]">
+        <div className="w-full lg:w-[280px] lg:min-w-[280px] bg-black rounded-2xl p-6 text-white shrink-0 flex flex-col justify-between shadow-md relative overflow-hidden group min-h-[380px]">
           {/* Subtle grid pattern background */}
           <div 
             className="absolute inset-0 opacity-[0.07] pointer-events-none" 
@@ -101,7 +101,7 @@ const OfferItemsSection = () => {
               <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight mb-3 whitespace-pre-line">
                 {`Mega Savings.\nBest Deals.`}
               </h3>
-              <p className="text-red-200 text-sm leading-relaxed">
+              <p className="text-gray-300 text-sm leading-relaxed">
                 Discover our special discount offers on high quality hardware tools & supplies.
               </p>
             </div>

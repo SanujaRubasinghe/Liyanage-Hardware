@@ -180,7 +180,7 @@ const ProductPageN = () => {
                       key={index}
                       className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-200 ${
                         currentPage === index + 1 
-                          ? 'bg-[#a34b4b] text-white shadow-md hover:bg-[#8c3c3c]' 
+                          ? 'bg-[#CC0100] text-white shadow-md hover:bg-[#b30000]' 
                           : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'
                       }`}
                       onClick={() => {

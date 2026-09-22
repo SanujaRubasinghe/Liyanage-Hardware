@@ -244,7 +244,7 @@ const ProductDisplay = () => {
                       Add to Cart
                     </button>
                     <button 
-                      className="flex-1 bg-[#a34b4b] border-2 border-[#a34b4b] text-white py-3 px-6 rounded-full font-bold text-sm hover:bg-[#8c3c3c] hover:border-[#8c3c3c] transition-all duration-300 uppercase tracking-wide shadow-sm hover:shadow" 
+                      className="flex-1 bg-[#CC0100] border-2 border-[#CC0100] text-white py-3 px-6 rounded-full font-bold text-sm hover:bg-[#b30000] hover:border-[#b30000] transition-all duration-300 uppercase tracking-wide shadow-sm hover:shadow" 
                       onClick={handleBuyNow}
                     >
                       Buy Now

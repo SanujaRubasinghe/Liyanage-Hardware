@@ -223,7 +223,7 @@ const ProductFilter = ({ onFilterChange, initialFilters }) => {
         
         {/* Mobile Apply Button */}
         <button 
-          className="w-full mt-4 bg-[#a34b4b] text-white font-medium py-3 rounded-lg hover:bg-[#8c3c3c] transition-colors duration-200 uppercase text-xs tracking-wider md:hidden"
+          className="w-full mt-4 bg-[#CC0100] text-white font-medium py-3 rounded-lg hover:bg-[#b30000] transition-colors duration-200 uppercase text-xs tracking-wider md:hidden"
           onClick={() => setIsMobileFiltersOpen(false)}
         >
           Apply Filters

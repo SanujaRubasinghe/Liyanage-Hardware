@@ -114,7 +114,7 @@ const ProductCard = ({ product, isNewArrival = false }) => {
           
           <div className="flex gap-2">
             <button 
-              className="flex-1 border border-[#a34b4b] bg-[#a34b4b] text-white py-2 text-[13px] font-medium hover:bg-[#8c3c3c] transition-colors duration-300"
+              className="flex-1 border border-[#CC0100] bg-[#CC0100] text-white py-2 text-[13px] font-medium hover:bg-[#b30000] transition-colors duration-300"
               onClick={handleBuyNow}
             >
               Buy Now

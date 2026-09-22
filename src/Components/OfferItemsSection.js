@@ -15,8 +15,8 @@ const OfferItemsSection = () => {
     const fetchOfferConfigAndProducts = async () => {
       try {
         setIsLoading(true);
-        const rowsRes = await API.get('/content/homepage-rows');
-        const offerRow = rowsRes.data?.find(r => r.location === 'home-offer-row') || {
+        const offerRes = await API.get('/content/offer-banner');
+        const offerRow = offerRes.data || {
           name: 'Offer Items',
           category_id: 'offers',
           is_active: true,
@@ -80,9 +80,20 @@ const OfferItemsSection = () => {
       <div className="flex flex-col lg:flex-row gap-4 items-stretch">
         {/* Left Promo Card */}
         <div className="w-full lg:w-[280px] lg:min-w-[280px] bg-black rounded-2xl p-6 text-white shrink-0 flex flex-col justify-between shadow-md relative overflow-hidden group min-h-[380px]">
+          {/* Background Image Banner */}
+          <div className="absolute inset-0 z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <img 
+              src={bannerImg} 
+              alt={rowConfig?.name || "Offer Items Banner"} 
+              className="w-full h-full object-cover"
+            />
+            {/* Gradient overlay for contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30 pointer-events-none" />
+          </div>
+
           {/* Subtle grid pattern background */}
           <div 
-            className="absolute inset-0 opacity-[0.07] pointer-events-none" 
+            className="absolute inset-0 opacity-[0.1] pointer-events-none z-0" 
             style={{ 
               backgroundImage: 'linear-gradient(rgb(255, 255, 255) 1px, transparent 1px), linear-gradient(90deg, rgb(255, 255, 255) 1px, transparent 1px)', 
               backgroundSize: '20px 20px' 
@@ -101,7 +112,7 @@ const OfferItemsSection = () => {
               <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight mb-3 whitespace-pre-line">
                 {`Mega Savings.\nBest Deals.`}
               </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-gray-200 text-sm leading-relaxed">
                 Discover our special discount offers on high quality hardware tools & supplies.
               </p>
             </div>
@@ -111,15 +122,6 @@ const OfferItemsSection = () => {
                 <i className="fas fa-arrow-right text-lg group-hover:translate-x-1 transition-transform"></i>
               </div>
             </div>
-          </div>
-
-          {/* Background Image Banner if customized in Admin */}
-          <div className="absolute inset-0 z-0 opacity-20 transition-opacity duration-300 group-hover:opacity-30">
-            <img 
-              src={bannerImg} 
-              alt={rowConfig?.name || "Offer Items Banner"} 
-              className="w-full h-full object-cover"
-            />
           </div>
         </div>
 

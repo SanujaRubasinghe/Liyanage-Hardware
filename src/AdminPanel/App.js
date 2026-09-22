@@ -25,6 +25,7 @@ import AnnouncementManager from "./pages/AnnouncementManagement";
 import BannerManager from "./pages/BannerManagement";
 import PromotionalBannerManager from "./pages/PromotionalBannerManager";
 import NewArrivalsManager from "./pages/NewArrivalsManager";
+import OfferSectionManager from "./pages/OfferSectionManager";
 import Settings from "./pages/Settings";
 import FeedbackManagement from "./pages/FeedbackManagement";
 import CategoryList from "./components/CategoryList";
@@ -156,6 +157,7 @@ function App() {
                 <Route path="announcements" element={<AnnouncementManager />} />
                 <Route path="banners/slider" element={<BannerManager />} />
                 <Route path="banners/promotional" element={<PromotionalBannerManager />} />
+                <Route path="offers" element={<OfferSectionManager />} />
                 <Route path="new-arrivals" element={<NewArrivalsManager />} />
               </Route>
               <Route path="/feedback" element={<FeedbackManagement />} />

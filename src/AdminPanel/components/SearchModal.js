@@ -22,6 +22,11 @@ const SEARCH_SECTIONS = {
     path: '/cms/banners/slider',
     icon: '🎯'
   },
+  offerSection: {
+    title: 'Offer Items Section',
+    path: '/cms/offers',
+    icon: '🔥'
+  },
   categories: {
     title: 'Categories',
     path: '/categories',

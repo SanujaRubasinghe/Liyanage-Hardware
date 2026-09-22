@@ -114,7 +114,8 @@ const Sidebar = ({collapsed, setCollapsed}) => {
         { name: "Announcements", path: "/cms/announcements", icon: <MegaphoneIcon size={20}/>},
         { name: "Banner Slider", path: "/cms/banners/slider", icon: <ImagesIcon size={20} />},
         { name: "Promotional Banners", path: "/cms/banners/promotional", icon: <SquarePercentIcon size={20}/>},
-        { name: "Homepage Sections & Offers", path: "/cms/new-arrivals", icon: <TagIcon size={20}/>},
+        { name: "Offer Items Section", path: "/cms/offers", icon: <TagIcon size={20}/>},
+        { name: "Homepage Sections", path: "/cms/new-arrivals", icon: <TagIcon size={20}/>},
       ]
     },
     {

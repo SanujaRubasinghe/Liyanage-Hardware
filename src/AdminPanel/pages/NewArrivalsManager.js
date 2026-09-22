@@ -27,37 +27,51 @@ const HomepageSectionsManager = () => {
     setIsLoading(true);
     try {
       // 1. Fetch categories
-      const catRes = await API.get('/categories/all');
-      setCategories(catRes.data || []);
+      let catList = [];
+      try {
+        const catRes = await API.get('/categories/primary');
+        catList = catRes.data?.categories || catRes.data || [];
+      } catch (e) {
+        console.warn(e);
+      }
+      setCategories(Array.isArray(catList) ? catList : []);
 
-      // 2. Fetch homepage rows
-      const rowsRes = await API.get('/content/homepage-rows');
+      // 2. Fetch offer banner & homepage rows
+      const [offerRes, rowsRes] = await Promise.all([
+        API.get('/content/offer-banner').catch(() => ({ data: null })),
+        API.get('/content/homepage-rows')
+      ]);
+
+      const offerData = offerRes.data;
       const rowData = rowsRes.data || [];
-      setRows(rowData);
 
-      // Populate forms
-      const initialForms = rowData.map(r => ({
-        id: r.id,
-        name: r.name || '',
-        category_id: String(r.category_id || 'new_arrivals'),
-        is_active: Boolean(r.is_active),
-        alt_text: r.alt_text || r.name,
-        selectedFile: null,
-        previewUrl: r.image_url ? getImageUrl(r.image_url) : null
-      }));
+      const initialForms = [];
 
-      // Pad up to 3 rows if fewer
-      while (initialForms.length < 3) {
+      if (offerData) {
         initialForms.push({
-          id: null,
-          name: `Section ${initialForms.length + 1}`,
-          category_id: 'new_arrivals',
-          is_active: true,
-          alt_text: 'Section',
+          id: offerData.id,
+          name: offerData.name || 'Offer Items',
+          location: 'home-offer-row',
+          category_id: String(offerData.category_id || 'offers'),
+          is_active: Boolean(offerData.is_active),
+          alt_text: offerData.alt_text || 'Offer Items',
           selectedFile: null,
-          previewUrl: null
+          previewUrl: offerData.image_url ? getImageUrl(offerData.image_url) : null
         });
       }
+
+      rowData.forEach((r) => {
+        initialForms.push({
+          id: r.id,
+          name: r.name || '',
+          location: r.location,
+          category_id: String(r.category_id || 'new_arrivals'),
+          is_active: Boolean(r.is_active),
+          alt_text: r.alt_text || r.name,
+          selectedFile: null,
+          previewUrl: r.image_url ? getImageUrl(r.image_url) : null
+        });
+      });
 
       setRowForms(initialForms);
     } catch (error) {
@@ -174,7 +188,9 @@ const HomepageSectionsManager = () => {
             }`}
           >
             <Tag className="w-4 h-4" />
-            <span>Row {idx + 1}: {row.name || `Section ${idx + 1}`}</span>
+            <span>
+              {row.location === 'home-offer-row' ? '🔥 Offer Section (Before Category)' : `Row ${idx}: ${row.name || `Section ${idx}`}`}
+            </span>
           </button>
         ))}
       </div>
@@ -194,10 +210,10 @@ const HomepageSectionsManager = () => {
             <div className="flex justify-between items-center border-b pb-4">
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <LayoutGrid className="w-5 h-5 text-blue-600" />
-                Row {activeTab + 1} Settings
+                {rowForms[activeTab]?.location === 'home-offer-row' ? 'Offer Section (Before Category) Settings' : `Row ${activeTab} Settings`}
               </h2>
               <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase">
-                {activeTab === 0 ? 'Top Row' : activeTab === 1 ? 'Middle Row' : 'Bottom Row'}
+                {rowForms[activeTab]?.location === 'home-offer-row' ? 'Before Category' : activeTab === 1 ? 'Top Category Row' : activeTab === 2 ? 'Middle Category Row' : 'Bottom Category Row'}
               </span>
             </div>
 

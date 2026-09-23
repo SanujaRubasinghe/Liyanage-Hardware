@@ -20,7 +20,8 @@ const AddProductForm = () => {
     brand: '',
     weight: '',
     dimensions: '',
-    is_active: true
+    is_active: true,
+    is_on_offer: false
   });
 
   const [images, setImages] = useState([]);
@@ -253,7 +254,8 @@ const AddProductForm = () => {
         brand: '',
         weight: '',
         dimensions: '',
-        is_active: true
+        is_active: true,
+        is_on_offer: false
       });
       setSelectedPrimary('');
       setSelectedSecondary('');
@@ -479,6 +481,20 @@ const AddProductForm = () => {
               />
               <label htmlFor="is_active" className="ml-2 block text-sm text-gray-700">
                 Product is active
+              </label>
+            </div>
+
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="is_on_offer"
+                id="is_on_offer"
+                checked={product.is_on_offer}
+                onChange={handleChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label htmlFor="is_on_offer" className="ml-2 block text-sm text-gray-700">
+                Show in "Offer Items" homepage section
               </label>
             </div>
           </div>

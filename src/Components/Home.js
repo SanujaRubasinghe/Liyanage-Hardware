@@ -8,7 +8,7 @@ import API from '../api';
 import { useTrackVisit } from '../hooks/useTrackVisit';
 
 function Home() {
-  useTrackVisit(window.location.pathname)
+  useTrackVisit()
   const [mainCategories, setMainCategories] = useState([])
   const navigate = useNavigate()
 

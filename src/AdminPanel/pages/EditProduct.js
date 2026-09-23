@@ -28,7 +28,8 @@ const EditProduct = () => {
         brand: '',
         weight: '',
         dimensions: '',
-        is_active: true
+        is_active: true,
+        is_on_offer: false
     });
     const [imageUpdates, setImageUpdates] = useState({
         primary: null,
@@ -107,7 +108,8 @@ const EditProduct = () => {
                     brand: product.brand || '',
                     weight: product.weight || '',
                     dimensions: product.dimensions || '',
-                    is_active: product.is_active
+                    is_active: product.is_active,
+                    is_on_offer: Boolean(product.is_on_offer)
                 });
 
                 if (product.images && product.images.length > 0) {
@@ -560,6 +562,20 @@ const EditProduct = () => {
                             />
                             <label className="ml-2 block text-sm text-gray-700">
                                 Active
+                            </label>
+                        </div>
+
+                        {/* Offer Section Toggle */}
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                name="is_on_offer"
+                                checked={formData.is_on_offer}
+                                onChange={handleChange}
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            />
+                            <label className="ml-2 block text-sm text-gray-700">
+                                Show in "Offer Items" homepage section
                             </label>
                         </div>
                     </div>

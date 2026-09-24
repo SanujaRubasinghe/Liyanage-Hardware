@@ -21,7 +21,8 @@ const AddProductForm = () => {
     weight: '',
     dimensions: '',
     is_active: true,
-    is_on_offer: false
+    is_on_offer: false,
+    discount_percentage: 0
   });
 
   const [images, setImages] = useState([]);
@@ -255,7 +256,8 @@ const AddProductForm = () => {
         weight: '',
         dimensions: '',
         is_active: true,
-        is_on_offer: false
+        is_on_offer: false,
+        discount_percentage: 0
       });
       setSelectedPrimary('');
       setSelectedSecondary('');
@@ -497,6 +499,25 @@ const AddProductForm = () => {
                 Show in "Offer Items" homepage section
               </label>
             </div>
+
+            {product.is_on_offer && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Discount Percentage (%)</label>
+                <input
+                  type="number"
+                  name="discount_percentage"
+                  value={product.discount_percentage}
+                  onChange={handleChange}
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Customers will see the original price struck through and this discount applied.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 

@@ -28,7 +28,7 @@ const Subcategories = () => {
         const response = await API.get(`/categories/secondary?primary_id=${primary.category_id}`);
         const secondary = response.data.categories || [];
         if (secondary.length === 0) {
-          navigate(`/category/${primary.category_id}/products`);
+          navigate(`/category/${primary.category_id}/products`, { replace: true });
           return;
         }
         setSubCategories(secondary);

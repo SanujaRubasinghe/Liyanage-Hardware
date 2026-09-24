@@ -79,7 +79,11 @@ export function useNavigate() {
       setLocationState(path, options.state);
     }
 
-    router.push(path);
+    if (options.replace) {
+      router.replace(path);
+    } else {
+      router.push(path);
+    }
   };
 }
 

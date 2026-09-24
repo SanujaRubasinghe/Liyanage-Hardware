@@ -53,7 +53,7 @@ const MiniCategory = () => {
         ]);
         const tertiary = tertiaryResponse.data.categories || [];
         if (tertiary.length === 0) {
-          navigate(`/category/${secondary.category_id}/products`);
+          navigate(`/category/${secondary.category_id}/products`, { replace: true });
           return;
         }
         setMiniCategories(tertiary);

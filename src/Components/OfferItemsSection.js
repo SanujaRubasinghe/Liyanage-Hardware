@@ -26,7 +26,7 @@ const OfferItemsSection = () => {
 
         const categoryId = offerRow.category_id || 'offers';
         const prodRes = await API.get(`/products?categoryId=${categoryId}&limit=10`);
-        setProducts(prodRes.data || []);
+        setProducts(prodRes.data?.products || []);
       } catch (error) {
         console.error('Error fetching offer section data:', error);
       } finally {
@@ -69,7 +69,11 @@ const OfferItemsSection = () => {
           </h2>
         </div>
         <Link
-          href={`/category/${rowConfig?.category_id || 'offers'}/products`}
+          href={
+            rowConfig?.category_id && !['offers', 'new_arrivals'].includes(rowConfig.category_id)
+              ? `/category/${rowConfig.category_id}`
+              : '/products'
+          }
           className="text-[#cc0000] font-bold text-sm hover:underline flex items-center gap-1 cursor-pointer shrink-0"
         >
           View all <i className="fas fa-arrow-right text-xs"></i>

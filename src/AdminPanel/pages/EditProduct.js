@@ -29,7 +29,8 @@ const EditProduct = () => {
         weight: '',
         dimensions: '',
         is_active: true,
-        is_on_offer: false
+        is_on_offer: false,
+        discount_percentage: 0
     });
     const [imageUpdates, setImageUpdates] = useState({
         primary: null,
@@ -53,43 +54,35 @@ const EditProduct = () => {
                     primary: primaryCategoriesRes.data.categories
                 }));
 
-                // Find the category hierarchy for the current product
+                // Find the category hierarchy for the current product by walking its
+                // parent chain up to the root (works at any depth, unlike the old
+                // logic which relied on a `product.category` object the API never
+                // actually returns).
                 let primaryId = '';
                 let secondaryId = '';
-                let tertiaryId = product.category_id;
 
-                if (product.category) {
-                    if (product.category.level === 'tertiary') {
-                        // Fetch the hierarchy for tertiary category
-                        const hierarchyRes = await API.get(`/categories/hierarchy/${product.category_id}`);
-                        primaryId = hierarchyRes.data.primary_id;
-                        secondaryId = hierarchyRes.data.secondary_id;
-                        
-                        // Fetch secondary categories for this primary
+                if (product.category_id) {
+                    const { data: ancestorData } = await API.get(`/categories/${product.category_id}/ancestors`);
+                    // root -> ... -> the product's own category, ordered by level ascending
+                    const chain = [...ancestorData.ancestors, ancestorData.category];
+
+                    primaryId = chain[0]?.category_id || '';
+                    secondaryId = chain[1]?.category_id || '';
+
+                    if (primaryId) {
                         const secondaryRes = await API.get(`/categories/secondary?primary_id=${primaryId}`);
                         setCategories(prev => ({
                             ...prev,
                             secondary: secondaryRes.data.categories
                         }));
-                        
-                        // Fetch tertiary categories for this secondary
+                    }
+
+                    if (secondaryId) {
                         const tertiaryRes = await API.get(`/categories/tertiary?secondary_id=${secondaryId}`);
                         setCategories(prev => ({
                             ...prev,
                             tertiary: tertiaryRes.data.categories
                         }));
-                    } else if (product.category.level === 'secondary') {
-                        primaryId = product.category.parent_id;
-                        secondaryId = product.category_id;
-                        
-                        // Fetch secondary categories for this primary
-                        const secondaryRes = await API.get(`/categories/secondary?primary_id=${primaryId}`);
-                        setCategories(prev => ({
-                            ...prev,
-                            secondary: secondaryRes.data.categories
-                        }));
-                    } else if (product.category.level === 'primary') {
-                        primaryId = product.category_id;
                     }
                 }
 
@@ -109,7 +102,8 @@ const EditProduct = () => {
                     weight: product.weight || '',
                     dimensions: product.dimensions || '',
                     is_active: product.is_active,
-                    is_on_offer: Boolean(product.is_on_offer)
+                    is_on_offer: Boolean(product.is_on_offer),
+                    discount_percentage: product.discount_percentage || 0
                 });
 
                 if (product.images && product.images.length > 0) {
@@ -418,6 +412,7 @@ const EditProduct = () => {
                                     Tertiary Category
                                 </label>
                                 <select
+                                    value={formData.category_id || ''}
                                     onChange={handleTertiaryChange}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
@@ -578,6 +573,27 @@ const EditProduct = () => {
                                 Show in "Offer Items" homepage section
                             </label>
                         </div>
+
+                        {formData.is_on_offer && (
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Discount Percentage (%)
+                                </label>
+                                <input
+                                    type="number"
+                                    name="discount_percentage"
+                                    value={formData.discount_percentage}
+                                    onChange={handleChange}
+                                    min="0"
+                                    max="100"
+                                    step="0.01"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Customers will see the original price struck through and this discount applied.
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     {/* Description */}

@@ -3,6 +3,12 @@ const apiUrl = new URL(process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost
 
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      { source: '/categories/:path*', destination: '/category/:path*', permanent: true },
+      { source: '/category/:id/products', destination: '/category/:id', permanent: true },
+    ];
+  },
   images: {
     remotePatterns: [
       {

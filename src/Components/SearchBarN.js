@@ -158,13 +158,7 @@ export default function SearchBarN() {
                     <button
                       className="w-full p-3 bg-gray-50 border-none text-[#cc0000] text-sm font-semibold text-center cursor-pointer transition-colors hover:bg-red-50"
                       onClick={() => {
-                        const identifier = category.slug || category.category_id;
-                        navigate(`/category/${identifier}/products`, {
-                          state: {
-                            name: category.name,
-                            cat_id: category.category_id
-                          }
-                        });
+                        navigate(`/category/${category.category_id}`);
                         handleResultClick();
                       }}
                     >

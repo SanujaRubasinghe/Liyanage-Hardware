@@ -24,7 +24,7 @@ const CategoryForm = () => {
     name: '',
     description: '',
     parent_id: '',
-    level: 'primary',
+    level: 1,
     is_active: true,
     is_delivery: true,
     delivery_range: 0,
@@ -44,7 +44,7 @@ const CategoryForm = () => {
             name: categoryData.category.name,
             description: categoryData.category.description,
             parent_id: categoryData.category.parent_category_id || '',
-            level: categoryData.category.level,
+            level: Number(categoryData.category.level) || 1,
             is_active: categoryData.category.is_active,
             is_delivery: categoryData.category.is_delivery,
             delivery_range: categoryData.category.is_colombo_only,
@@ -67,6 +67,11 @@ const CategoryForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    if (name === 'level') {
+      // Changing level invalidates any previously selected parent from a different tier.
+      setFormData(prev => ({ ...prev, level: Number(value), parent_id: '' }));
+      return;
+    }
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -123,12 +128,12 @@ const CategoryForm = () => {
     }
   };
 
-  const filteredParentCategories = categories.filter(cat => {
-    if (formData.level === 'primary') return false;
-    if (formData.level === 'secondary') return cat.level === 'primary';
-    if (formData.level === 'tertiary') return cat.level === 'secondary';
-    return false;
-  });
+  const LEVEL_LABELS = { 1: 'Primary', 2: 'Secondary', 3: 'Tertiary', 4: 'Quaternary' };
+
+  // A category's parent must be exactly one level up the tree.
+  const filteredParentCategories = formData.level === 1
+    ? []
+    : categories.filter(cat => Number(cat.level) === formData.level - 1);
 
   if (loading) {
     return (
@@ -188,21 +193,22 @@ const CategoryForm = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 >
-                  <option value="primary">Primary</option>
-                  <option value="secondary">Secondary</option>
-                  <option value="tertiary">Tertiary</option>
+                  <option value={1}>Primary</option>
+                  <option value={2}>Secondary</option>
+                  <option value={3}>Tertiary</option>
+                  <option value={4}>Quaternary</option>
                 </select>
               </div>
-              
-              {formData.level !== 'primary' && (
+
+              {formData.level !== 1 && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {formData.level === 'secondary' ? 'Primary Category' : 'Secondary Category'} *
+                    {LEVEL_LABELS[formData.level - 1]} Category *
                   </label>
                   <div className="relative">
                     <select
                       name="parent_id"
-                      value={formData.parent_category_id}
+                      value={formData.parent_id}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 appearance-none"
                       required

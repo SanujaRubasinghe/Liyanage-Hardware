@@ -4,19 +4,14 @@ import { toast } from 'react-toastify';
 import API from '../api';
 import ProductCard from './ProductCard';
 import SearchBarN from "./SearchBarN";
-import { useLocation, useParams } from '../router-compat';
 import LoadingPage from './LoadingPage';
 import ProductFilter from './ProductFilter';
 
 const itemsPerPage = 12;
 
+// The full, unfiltered product catalog (no category). Category-scoped
+// browsing lives at /category/[[...slug]] via CategoryBrowser.js.
 const ProductPageN = () => {
-  const location = useLocation();
-  const state = location.state;
-  const { catid } = useParams();
-  const categoryId = state?.cat_id || catid;
-  const categoryName = state?.name;
-
   const [currentPage, setCurrentPage] = useState(1);
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -28,14 +23,11 @@ const ProductPageN = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      let response;
       try {
-        response = categoryId
-          ? await API.get(`/products?categoryId=${categoryId}`)
-          : await API.get('/products');
-
-        setAllProducts(response.data);
-        setFilteredProducts(response.data);
+        const response = await API.get('/products');
+        const products = response.data?.products || [];
+        setAllProducts(products);
+        setFilteredProducts(products);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -43,7 +35,7 @@ const ProductPageN = () => {
       }
     };
     fetchProducts();
-  }, [categoryId]);
+  }, []);
 
   useEffect(() => {
     const applyFilters = () => {
@@ -142,7 +134,7 @@ const ProductPageN = () => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-gray-200 pb-4">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                {categoryName || 'All Products'}
+                All Products
               </h1>
               <p className="text-sm text-gray-500 mt-2">
                 Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}

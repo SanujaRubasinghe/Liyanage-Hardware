@@ -3,11 +3,14 @@ import React from "react";
 import { useNavigate } from "../router-compat";
 import { useProductViewTracker } from "../hooks/useProductViewTracker";
 import { getImageUrl } from "../utils/imageUrl";
+import { getDiscountPercentage, getDiscountedPrice } from "../utils/pricing";
 import Image from 'next/image';
 
 const ProductCard = ({ product, isNewArrival = false }) => {
   const navigate = useNavigate();
   const viewRef = useProductViewTracker(product?.product_id);
+  const discountPercentage = getDiscountPercentage(product);
+  const finalPrice = getDiscountedPrice(product);
 
   const handleBuyNow = () => {
     navigate("/buying", {
@@ -16,7 +19,7 @@ const ProductCard = ({ product, isNewArrival = false }) => {
           product_id: product.product_id,
           name: product.name,
           sku: product.sku,
-          price: product.price,
+          price: finalPrice,
           quantity: 1,
           image: product.primary_image,
           delivery_available: product.delivery_available,
@@ -56,8 +59,13 @@ const ProductCard = ({ product, isNewArrival = false }) => {
       className="bg-white p-4 sm:p-5 border border-gray-200 flex flex-col h-[480px] w-[260px] sm:w-[280px] transition-shadow duration-300 hover:shadow-lg group" 
       ref={viewRef}
     >
-      {/* Header (Badge) */}
-      <div className="flex justify-end items-start mb-2 h-6">
+      {/* Header (Badges) */}
+      <div className="flex justify-between items-start mb-2 h-6">
+        {discountPercentage > 0 ? (
+          <span className="bg-[#CC0100] text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">
+            -{discountPercentage}%
+          </span>
+        ) : <span />}
         {isNewArrival && (
           <span className="bg-[#b35959] text-white text-[9px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">
             New Arrival
@@ -104,10 +112,15 @@ const ProductCard = ({ product, isNewArrival = false }) => {
 
         {/* Price & Action */}
         <div className="mt-auto">
-          <div className="flex items-baseline gap-1.5 mb-4">
+          <div className="flex items-baseline gap-1.5 mb-4 flex-wrap">
             <span className="text-[11px] text-gray-500 font-medium">From</span>
-            <span className="text-[18px] text-[#333333] font-medium">
-              Rs {Number(product.price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+            {discountPercentage > 0 && (
+              <span className="text-[13px] text-gray-400 line-through">
+                Rs {Number(product.price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+              </span>
+            )}
+            <span className={`text-[18px] font-medium ${discountPercentage > 0 ? 'text-[#CC0100]' : 'text-[#333333]'}`}>
+              Rs {finalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </span>
             <span className="text-[9px] text-gray-400 uppercase font-medium tracking-wide">inc. VAT</span>
           </div>

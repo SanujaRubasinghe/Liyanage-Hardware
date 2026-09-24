@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { checkConsent } from "../services/checkConsent";
 import StarRating from "./StarRating";
 import CategorySections from "./CategorySections";
+import { getDiscountPercentage, getDiscountedPrice } from "../utils/pricing";
 
 const ProductDisplay = () => {
   const navigate = useNavigate();
@@ -83,8 +84,11 @@ const ProductDisplay = () => {
     }
   };
 
+  const finalPrice = getDiscountedPrice(product);
+  const discountPercentage = getDiscountPercentage(product);
+
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    addToCart({ ...product, price: finalPrice }, quantity);
     trackAddToCart();
     toast.success(`${quantity} ${product.name} added to cart!`);
   };
@@ -96,7 +100,7 @@ const ProductDisplay = () => {
           product_id: product.product_id,
           name: product.name,
           sku: product.sku,
-          price: product.price,
+          price: finalPrice,
           quantity,
           image: product.images[0]
         }
@@ -202,11 +206,21 @@ const ProductDisplay = () => {
               </div>
 
               <div className="mb-8">
-                <div className="flex items-end gap-2 mb-1">
-                  <span className="text-3xl font-extrabold text-[#333333]">
-                    Rs {Number(product.price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                <div className="flex items-end gap-2 mb-1 flex-wrap">
+                  {discountPercentage > 0 && (
+                    <span className="text-lg text-gray-400 line-through mb-0.5">
+                      Rs {Number(product.price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                    </span>
+                  )}
+                  <span className={`text-3xl font-extrabold ${discountPercentage > 0 ? 'text-[#CC0100]' : 'text-[#333333]'}`}>
+                    Rs {finalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </span>
                   <span className="text-sm text-gray-400 font-medium tracking-wide uppercase mb-1">inc. VAT</span>
+                  {discountPercentage > 0 && (
+                    <span className="bg-[#CC0100] text-white text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide mb-0.5">
+                      -{discountPercentage}% OFF
+                    </span>
+                  )}
                 </div>
                 {product.unit && <p className="text-sm text-gray-500">Unit: {product.unit}</p>}
               </div>

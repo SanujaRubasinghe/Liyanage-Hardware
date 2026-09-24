@@ -100,13 +100,9 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/categories"
+                  to="/category"
                   onClick={closeMobileMenu}
-                  className={
-                    location.pathname.startsWith("/categories") || location.pathname.startsWith("/category")
-                      ? "active"
-                      : ""
-                  }
+                  className={location.pathname.startsWith("/category") ? "active" : ""}
                 >
                   Categories
                 </Link>

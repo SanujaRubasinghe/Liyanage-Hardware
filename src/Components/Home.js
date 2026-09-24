@@ -26,14 +26,7 @@ function Home() {
 
   const handleCategoryClick = (cat) => {
     trackClick(cat.category_id);
-    const identifier = cat.slug || cat.category_id;
-    navigate(`/categories/${identifier}`, {
-      state: {
-        primary_cat_id: cat.category_id,
-        slug: identifier,
-        name: cat.name
-      }
-    });
+    navigate(`/category/${cat.slug || cat.category_id}`);
   };
 
   return (

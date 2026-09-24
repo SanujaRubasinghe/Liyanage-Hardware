@@ -10,6 +10,6 @@ test('browser environment variables use the Next public prefix', () => {
 });
 
 test('category pages resolve their route parameters rather than navigation state', () => {
-  assert.match(read('src/Components/SubCategories.js'), /useParams/);
-  assert.match(read('src/Components/MiniCategory.js'), /const \{ id, subcat \} = useParams\(\)/);
+  assert.match(read('app/category/[[...slug]]/page.jsx'), /params\.slug/);
+  assert.match(read('src/Components/CategoryBrowser.js'), /slugPath/);
 });

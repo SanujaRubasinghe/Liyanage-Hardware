@@ -24,13 +24,13 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
     const fetchProducts = async () => {
       try {
         setIsLoading(true);
-        let prodRes;
         if (categoryId === 'new_arrivals') {
-          prodRes = await API.get('/products/new-arrivals?limit=10');
+          const prodRes = await API.get('/products/new-arrivals?limit=10');
+          setProducts(prodRes.data || []);
         } else {
-          prodRes = await API.get(`/products?categoryId=${categoryId}&limit=10`);
+          const prodRes = await API.get(`/products?categoryId=${categoryId}&limit=10`);
+          setProducts(prodRes.data?.products || []);
         }
-        setProducts(prodRes.data || []);
       } catch (error) {
         console.error(error);
       } finally {
@@ -67,7 +67,7 @@ const CategoryRow = ({ rowConfig, themeIndex = 0 }) => {
           </h2>
         </div>
         <Link
-          href={`/category/${categoryId}/products`} 
+          href={categoryId === 'new_arrivals' ? '/products' : `/category/${categoryId}`}
           className="text-[#cc0000] font-bold text-sm hover:underline flex items-center gap-1 cursor-pointer shrink-0"
         >
           View all <i className="fas fa-arrow-right text-xs"></i>
